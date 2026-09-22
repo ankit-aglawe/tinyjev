@@ -13,7 +13,7 @@ harness; `transfer` = transfer-v4 dev (held-out sources), 656 clean questions.
 | trial-1 | 2 | yes | 1 | 0.804 | 0.6098 | 0.157 | 0.091 | 0.6250 | −1.5 pp |
 | trial-2 | 3 | yes | 1 | 0.787 | 0.6113 | 0.147 | 0.052 | 0.6235 | −1.2 pp |
 | trial-4 | 3 | yes | 3 | 0.800 | 0.6128 | 0.164 | 0.085 | 0.6235 | −1.1 pp |
-| trial-3 | 2 | yes | 3 | pending | | | | 0.6250 | |
+| trial-3 | 2 | yes | 3 | 0.804 | 0.6235 | 0.150 | 0.099 | 0.6250 | -0.2 pp |
 
 Finding: distillation from the 4B teacher hurts held-out accuracy at 0.6B on every matched pair, at
 either temperature. The targets are near-one-hot on the teacher's own training set (p(gold) 0.95–1.00
