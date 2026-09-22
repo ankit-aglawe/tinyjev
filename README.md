@@ -101,7 +101,7 @@ Serving-side parity and latency: `tools/check_parity_kev.py`, `tools/bench.py`; 
 
 ## Limits
 
-- 0.6B is the category's standard small size, not tiny. The 149M encoder is the tiny one, and it will land with its own measured number or not at all.
+- 0.6B is the category's standard small size, not tiny. The 149M encoder we trained to be the tiny one scored 0.532 and does not ship; the name is a target we did not hit at this data scale.
 - One seed per row except where stated. Kev's own runs spread several points on identical configs; treat single-run differences under 2 points as noise.
 - Held-out accuracy of 0.62–0.66 means roughly one in three new-source questions is wrong. Use the probabilities: coverage at a 5% error budget is low at this size (0.07–0.08 on transfer-v4), so gate on confidence and escalate the rest.
 - Locked test read once, ungated, same convention as the published Kev 0.6B reads.
