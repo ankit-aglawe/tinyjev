@@ -14,8 +14,16 @@ TYPE_ALIASES = {"noul": "boolean", "boolean": "boolean", "choice": "choice", "sc
 
 
 def _resolve(model_path, subfolder: Optional[str] = None) -> Path:
+    """A local directory, a Hub repo id, or `modelscope:<org>/<repo>` for mirrors of
+    this model on ModelScope, which is reachable from places the Hub is not."""
     from .registry import resolve
-    repo, sub = resolve(str(model_path))
+    name = str(model_path)
+    if name.startswith("modelscope:"):
+        from modelscope import snapshot_download as ms_download
+        root = Path(ms_download(name.split(":", 1)[1]))
+        return root / subfolder if subfolder else root
+
+    repo, sub = resolve(name)
     sub = subfolder or sub
     p = Path(repo).expanduser()
     if p.exists():

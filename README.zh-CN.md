@@ -128,6 +128,16 @@ print(agent.predict({
     "questions": {"billing": {"type": "noul", "instructions": "Is this about billing?"}}}))
 ```
 
+如果访问 Hugging Face 不方便，模型同时发布在 ModelScope 上，可以直接从那里加载：
+
+```bash
+pip install 'tinyjev[mlx]' modelscope
+```
+
+```python
+agent = tinyjev.load("modelscope:AnkitAI/tinyjev-0.6b")
+```
+
 在 Apple Silicon 上可以在加载时量化。8 位是免费的：显存减半，速度略快，在我们的留出集上分数与全精度完全一致。4 位更小，但会损失约两个点的准确率。
 
 ```python
