@@ -73,3 +73,24 @@ The claim, if it lands: "beats the same-size public anchor on its own frozen sui
 | contamination | E0 manifest audit; raw bases only | holdout list above |
 | Kev changes suites/leaderboard under us | pin dataset revisions + suite sha256 | cite the pins |
 | INT8/4-bit hurts calibration even when accuracy holds | E5 measures ECE, not just accuracy | ship fp16 if needed |
+
+## E1 outcome (2026-09-22) and precommitted E2 gates
+
+E1: LoRA 0.614 (released config, reproduced) / 0.625 (lr 5e-5); full-FT 0.483 (5e-5) / 0.581 (2e-5) on
+transfer-v4 dev. The regime lever is null at 0.6B; full fine-tuning forgets the base. Details: benchmarks/e1/.
+
+E2 = KD via Kev's anchor loss to Kev-4B pointer-head targets, anchor_w 1.0 (a 50:50 hard-label / teacher
+mix, Codex), on the LoRA-5e-5 regime; two KD seeds + one CE repeat, giving two matched CE/KD seed pairs
+with E1(b). Before training: tools/check_targets.py (coverage, entropy, p(gold) by source). Gates on the
+mean paired KD − CE transfer-v4 accuracy:
+
+| E2 result | decision |
+|---|---|
+| ≤ 0 | stop tuning the 0.6B; ship anchor parity if it meets the product need, else pivot |
+| 0 to < 1 pp | stop, unless selective prediction (cov@5%) improves materially |
+| ≥ 1 pp, both seeds positive | fund one more matched CE/KD seed pair, then locked test once |
+| ≥ 1 pp, seeds disagree | one tie-break pair, no alpha search |
+
+Continuation threshold ≈ 0.635 on transfer-v4 dev. One point is ~7 of 656 questions: a screening
+threshold, not proof. The 149M encoder is a footprint experiment, not an accuracy rescue.
+
