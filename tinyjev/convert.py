@@ -117,28 +117,39 @@ def convert_nanojev(source, dest, dtype: str = "float16") -> Path:
 
 
 # ---------------------------------------------------------------- Kev
-def convert_kev(adapter_dir, base_dir, dest, dtype: str = "float16", name: str = "kev") -> Path:
-    """Merge the rank-r LoRA adapter into the Qwen3 base, add the pointer head from head.pt."""
+def convert_kev(adapter_dir, base_dir=None, dest=None, dtype: str = "float16", name: str = "kev") -> Path:
+    """Convert a Kev run: either a LoRA run (adapter + head.pt, merged into `base_dir`) or a
+    full fine-tune run from `kev.train --lora 0` (the run dir holds the whole backbone via
+    save_pretrained, plus head.pt; `base_dir` is then ignored)."""
     from safetensors import safe_open
     try:
         import torch
     except ImportError as exc:
         raise ImportError("converting a Kev checkpoint needs torch: pip install 'tinyjev[convert]'") from exc
 
-    adapter, base, dst = (Path(adapter_dir).expanduser().resolve(strict=True),
-                          Path(base_dir).expanduser().resolve(strict=True), Path(dest).expanduser())
+    adapter = Path(adapter_dir).expanduser().resolve(strict=True)
+    dst = Path(dest).expanduser()
     dst.mkdir(parents=True, exist_ok=True)
-    acfg = json.loads((adapter / "adapter_config.json").read_text())
-    if acfg.get("trainable_token_indices"):
-        raise ValueError("adapters with trained token embeddings are not supported by this converter")
-    scale = float(acfg["lora_alpha"]) / float(acfg["r"])
-    if acfg.get("use_rslora"):
-        scale = float(acfg["lora_alpha"]) / float(acfg["r"]) ** 0.5
+    full_ft = not (adapter / "adapter_model.safetensors").exists()
+    if full_ft:
+        base = adapter                      # the run dir IS the backbone
+        scale, acfg = 0.0, {"r": 0, "lora_alpha": 0}
+    else:
+        if base_dir is None:
+            raise ValueError("a LoRA run needs base_dir (the Qwen3 base the adapter was trained on)")
+        base = Path(base_dir).expanduser().resolve(strict=True)
+        acfg = json.loads((adapter / "adapter_config.json").read_text())
+        if acfg.get("trainable_token_indices"):
+            raise ValueError("adapters with trained token embeddings are not supported by this converter")
+        scale = float(acfg["lora_alpha"]) / float(acfg["r"])
+        if acfg.get("use_rslora"):
+            scale = float(acfg["lora_alpha"]) / float(acfg["r"]) ** 0.5
     backbone_cfg = json.loads((base / "config.json").read_text())
 
-    # LoRA deltas keyed by the base tensor they modify
+    # LoRA deltas keyed by the base tensor they modify (empty for a full fine-tune)
     deltas: Dict[str, np.ndarray] = {}
-    with safe_open(str(adapter / "adapter_model.safetensors"), framework="numpy") as f:
+    adapter_file = adapter / "adapter_model.safetensors"
+    with (safe_open(str(adapter_file), framework="numpy") if not full_ft else _NoTensors()) as f:
         keys = list(f.keys())
         a_keys = [k for k in keys if k.endswith("lora_A.weight")]
         for ka in a_keys:
@@ -151,7 +162,9 @@ def convert_kev(adapter_dir, base_dir, dest, dtype: str = "float16", name: str =
             deltas[target] = (B @ A) * scale
     merged_count = 0
     weights: Dict[str, np.ndarray] = {}
-    base_files = sorted(base.glob("*.safetensors"))
+    base_files = sorted(p for p in base.glob("*.safetensors") if p.name != "adapter_model.safetensors")
+    if not base_files:
+        raise FileNotFoundError(f"no backbone safetensors found in {base}")
     for bf in base_files:
         with safe_open(str(bf), framework="pt") as f:      # base is bf16; numpy cannot read it
             for key in f.keys():
@@ -182,15 +195,26 @@ def convert_kev(adapter_dir, base_dir, dest, dtype: str = "float16", name: str =
         "dtypes": {"backbone": dtype, "head": "float32"},
         "upstream": {"repo": str(adapter_dir), "base_model": meta.get("base"),
                      "base_revision": meta.get("base_revision"), "lora_rank": int(acfg["r"]),
-                     "lora_alpha": acfg["lora_alpha"], "merged_tensors": merged_count},
+                     "lora_alpha": acfg["lora_alpha"], "merged_tensors": merged_count,
+                     "full_finetune": full_ft},
     }, indent=2))
     print(f"kev: merged {merged_count} LoRA deltas into the base, backbone -> {dtype}, head -> float32\n-> {dst}")
     return dst
+
+
+class _NoTensors:
+    """Stand-in for safe_open when a run has no adapter file."""
+    def __enter__(self):
+        return self
+    def __exit__(self, *exc):
+        return False
+    def keys(self):
+        return []
 
 
 def convert(family: str, dest, dtype: str = "float16", **kw) -> Path:
     if family == "nanojev":
         return convert_nanojev(kw["source"], dest, dtype)
     if family == "kev":
-        return convert_kev(kw["adapter"], kw["base"], dest, dtype, name=kw.get("name", "kev"))
+        return convert_kev(kw["adapter"], kw.get("base"), dest, dtype, name=kw.get("name", "kev"))
     raise ValueError(f"unknown family {family!r}")
