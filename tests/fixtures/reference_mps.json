@@ -1,0 +1,976 @@
+{
+  "device": "mps",
+  "load_seconds": 19.22,
+  "set_head": "attention",
+  "repeats": 3,
+  "timings": [
+    {
+      "name": "maze_choice_4",
+      "median_ms": 270.4,
+      "samples_ms": [
+        258.4,
+        270.4,
+        412.5
+      ]
+    },
+    {
+      "name": "shooting_choice_4",
+      "median_ms": 181.5,
+      "samples_ms": [
+        180.9,
+        181.5,
+        207.4
+      ]
+    },
+    {
+      "name": "snake_choice_4",
+      "median_ms": 259.1,
+      "samples_ms": [
+        258.2,
+        259.1,
+        259.8
+      ]
+    },
+    {
+      "name": "choice_2_minimum",
+      "median_ms": 117.4,
+      "samples_ms": [
+        115.4,
+        117.4,
+        119.0
+      ]
+    },
+    {
+      "name": "choice_8_wide",
+      "median_ms": 331.8,
+      "samples_ms": [
+        328.8,
+        331.8,
+        332.1
+      ]
+    },
+    {
+      "name": "boolean_bare",
+      "median_ms": 79.9,
+      "samples_ms": [
+        79.5,
+        79.9,
+        79.9
+      ]
+    },
+    {
+      "name": "boolean_with_criteria",
+      "median_ms": 83.6,
+      "samples_ms": [
+        83.5,
+        83.6,
+        83.7
+      ]
+    },
+    {
+      "name": "score_3_levels",
+      "median_ms": 144.9,
+      "samples_ms": [
+        144.9,
+        144.9,
+        145.0
+      ]
+    },
+    {
+      "name": "score_5_levels",
+      "median_ms": 238.6,
+      "samples_ms": [
+        238.6,
+        238.6,
+        241.6
+      ]
+    },
+    {
+      "name": "multi_question_one_state",
+      "median_ms": 394.4,
+      "samples_ms": [
+        392.7,
+        394.4,
+        399.3
+      ]
+    },
+    {
+      "name": "multi_state_batch",
+      "median_ms": 209.0,
+      "samples_ms": [
+        207.5,
+        209.0,
+        225.1
+      ]
+    },
+    {
+      "name": "structured_state_object",
+      "median_ms": 256.4,
+      "samples_ms": [
+        256.0,
+        256.4,
+        270.8
+      ]
+    }
+  ],
+  "fixtures": [
+    {
+      "name": "maze_choice_4",
+      "payload": {
+        "states": [
+          {
+            "id": "maze",
+            "state": "You are at (3,4). The goal is at (7,4). A wall blocks the cell above you.",
+            "questions": {
+              "action": {
+                "type": "choice",
+                "instructions": "Choose the next move.",
+                "criteria": {
+                  "up": "Move one cell up.",
+                  "down": "Move one cell down.",
+                  "left": "Move one cell left.",
+                  "right": "Move one cell right."
+                }
+              }
+            }
+          }
+        ]
+      },
+      "expected": {
+        "maze:action": {
+          "type": "choice",
+          "candidate_ids": [
+            "up",
+            "down",
+            "left",
+            "right"
+          ],
+          "logits": [
+            -1.2641675472259521,
+            -1.2307809591293335,
+            -0.45404571294784546,
+            -0.9219735264778137
+          ],
+          "probabilities": [
+            0.17574180662631989,
+            0.18170827627182007,
+            0.39509958028793335,
+            0.24745036661624908
+          ],
+          "answer": {
+            "type": "choice",
+            "probabilities": {
+              "up": 0.17574180662631989,
+              "down": 0.18170827627182007,
+              "left": 0.39509958028793335,
+              "right": 0.24745036661624908
+            },
+            "choice": "left",
+            "value": "left"
+          },
+          "path_token_counts": [
+            51,
+            51,
+            51,
+            51
+          ]
+        }
+      }
+    },
+    {
+      "name": "shooting_choice_4",
+      "payload": {
+        "states": [
+          {
+            "id": "shoot",
+            "state": "The target is left of the aim.",
+            "questions": {
+              "action": {
+                "type": "choice",
+                "instructions": "Choose the next action.",
+                "criteria": {
+                  "left": "Move the aim left.",
+                  "right": "Move the aim right.",
+                  "shoot": "Fire.",
+                  "noop": "Wait."
+                }
+              }
+            }
+          }
+        ]
+      },
+      "expected": {
+        "shoot:action": {
+          "type": "choice",
+          "candidate_ids": [
+            "left",
+            "right",
+            "shoot",
+            "noop"
+          ],
+          "logits": [
+            1.0260353088378906,
+            1.1596628427505493,
+            1.030151128768921,
+            -1.644899606704712
+          ],
+          "probabilities": [
+            0.31091830134391785,
+            0.3553693890571594,
+            0.3122006356716156,
+            0.021511659026145935
+          ],
+          "answer": {
+            "type": "choice",
+            "probabilities": {
+              "left": 0.31091830134391785,
+              "right": 0.3553693890571594,
+              "shoot": 0.3122006356716156,
+              "noop": 0.021511659026145935
+            },
+            "choice": "right",
+            "value": "right"
+          },
+          "path_token_counts": [
+            34,
+            34,
+            31,
+            31
+          ]
+        }
+      }
+    },
+    {
+      "name": "snake_choice_4",
+      "payload": {
+        "states": [
+          {
+            "id": "snake",
+            "state": "Snake head at (5,5) moving right. Food at (5,9). Tail occupies (4,5) and (3,5).",
+            "questions": {
+              "action": {
+                "type": "choice",
+                "instructions": "Choose the next direction.",
+                "criteria": {
+                  "up": "Turn up.",
+                  "down": "Turn down.",
+                  "left": "Turn left.",
+                  "right": "Keep going right."
+                }
+              }
+            }
+          }
+        ]
+      },
+      "expected": {
+        "snake:action": {
+          "type": "choice",
+          "candidate_ids": [
+            "up",
+            "down",
+            "left",
+            "right"
+          ],
+          "logits": [
+            -1.6075263023376465,
+            -2.140105962753296,
+            -2.3311140537261963,
+            1.0704004764556885
+          ],
+          "probabilities": [
+            0.06014319881796837,
+            0.035309381783008575,
+            0.029169995337724686,
+            0.8753775358200073
+          ],
+          "answer": {
+            "type": "choice",
+            "probabilities": {
+              "up": 0.06014319881796837,
+              "down": 0.035309381783008575,
+              "left": 0.029169995337724686,
+              "right": 0.8753775358200073
+            },
+            "choice": "right",
+            "value": "right"
+          },
+          "path_token_counts": [
+            55,
+            55,
+            55,
+            56
+          ]
+        }
+      }
+    },
+    {
+      "name": "choice_2_minimum",
+      "payload": {
+        "states": [
+          {
+            "id": "two",
+            "state": "The door on the left is open. The door on the right is locked.",
+            "questions": {
+              "door": {
+                "type": "choice",
+                "instructions": "Which door can you go through?",
+                "criteria": {
+                  "left": "The left door.",
+                  "right": "The right door."
+                }
+              }
+            }
+          }
+        ]
+      },
+      "expected": {
+        "two:door": {
+          "type": "choice",
+          "candidate_ids": [
+            "left",
+            "right"
+          ],
+          "logits": [
+            0.7490452527999878,
+            1.2486408948898315
+          ],
+          "probabilities": [
+            0.377635657787323,
+            0.622364342212677
+          ],
+          "answer": {
+            "type": "choice",
+            "probabilities": {
+              "left": 0.377635657787323,
+              "right": 0.622364342212677
+            },
+            "choice": "right",
+            "value": "right"
+          },
+          "path_token_counts": [
+            43,
+            43
+          ]
+        }
+      }
+    },
+    {
+      "name": "choice_8_wide",
+      "payload": {
+        "states": [
+          {
+            "id": "wide",
+            "state": "The compass needle points due north and the path ahead is clear.",
+            "questions": {
+              "heading": {
+                "type": "choice",
+                "instructions": "Pick the heading that matches the needle.",
+                "criteria": {
+                  "n": "North.",
+                  "ne": "North east.",
+                  "e": "East.",
+                  "se": "South east.",
+                  "s": "South.",
+                  "sw": "South west.",
+                  "w": "West.",
+                  "nw": "North west."
+                }
+              }
+            }
+          }
+        ]
+      },
+      "expected": {
+        "wide:heading": {
+          "type": "choice",
+          "candidate_ids": [
+            "n",
+            "ne",
+            "e",
+            "se",
+            "s",
+            "sw",
+            "w",
+            "nw"
+          ],
+          "logits": [
+            -0.058926522731781006,
+            -0.6370694041252136,
+            0.015724599361419678,
+            -0.3470543622970581,
+            -0.19311600923538208,
+            -0.6200419068336487,
+            -0.09149354696273804,
+            -0.38348639011383057
+          ],
+          "probabilities": [
+            0.15328224003314972,
+            0.08598200231790543,
+            0.16516287624835968,
+            0.11491044610738754,
+            0.13403372466564178,
+            0.08745859563350677,
+            0.14837071299552917,
+            0.11079936474561691
+          ],
+          "answer": {
+            "type": "choice",
+            "probabilities": {
+              "n": 0.15328224003314972,
+              "ne": 0.08598200231790543,
+              "e": 0.16516287624835968,
+              "se": 0.11491044610738754,
+              "s": 0.13403372466564178,
+              "sw": 0.08745859563350677,
+              "w": 0.14837071299552917,
+              "nw": 0.11079936474561691
+            },
+            "choice": "e",
+            "value": "e"
+          },
+          "path_token_counts": [
+            39,
+            40,
+            39,
+            40,
+            39,
+            40,
+            39,
+            40
+          ]
+        }
+      }
+    },
+    {
+      "name": "boolean_bare",
+      "payload": {
+        "states": [
+          {
+            "id": "b1",
+            "state": "The agent has 0 health remaining and is not moving.",
+            "questions": {
+              "dead": {
+                "type": "boolean",
+                "instructions": "The agent is dead."
+              }
+            }
+          }
+        ]
+      },
+      "expected": {
+        "b1:dead": {
+          "type": "boolean",
+          "candidate_ids": [
+            "false",
+            "true"
+          ],
+          "logits": [
+            0.0,
+            1.5505222082138062
+          ],
+          "probabilities": [
+            0.17501085996627808,
+            0.8249891996383667
+          ],
+          "answer": {
+            "type": "boolean",
+            "probabilities": {
+              "false": 0.17501085996627808,
+              "true": 0.8249891996383667
+            },
+            "p_true": 0.8249891996383667,
+            "value": true
+          },
+          "path_token_counts": [
+            36
+          ]
+        }
+      }
+    },
+    {
+      "name": "boolean_with_criteria",
+      "payload": {
+        "states": [
+          {
+            "id": "b2",
+            "state": "The snake head is one cell from the wall and moving toward it.",
+            "questions": {
+              "danger": {
+                "type": "boolean",
+                "instructions": "The next move will cause a collision.",
+                "criteria": {
+                  "true": "A collision happens next step.",
+                  "false": "No collision happens next step."
+                }
+              }
+            }
+          }
+        ]
+      },
+      "expected": {
+        "b2:danger": {
+          "type": "boolean",
+          "candidate_ids": [
+            "false",
+            "true"
+          ],
+          "logits": [
+            0.0,
+            2.1362838745117188
+          ],
+          "probabilities": [
+            0.10561990737915039,
+            0.8943800926208496
+          ],
+          "answer": {
+            "type": "boolean",
+            "probabilities": {
+              "false": 0.10561990737915039,
+              "true": 0.8943800926208496
+            },
+            "p_true": 0.8943800926208496,
+            "value": true
+          },
+          "path_token_counts": [
+            59
+          ]
+        }
+      }
+    },
+    {
+      "name": "score_3_levels",
+      "payload": {
+        "states": [
+          {
+            "id": "s1",
+            "state": "Enemy is directly in front at close range and the weapon is loaded.",
+            "questions": {
+              "threat": {
+                "type": "score",
+                "instructions": "How urgent is firing?",
+                "criteria": [
+                  "Not urgent.",
+                  "Somewhat urgent.",
+                  "Immediately urgent."
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "expected": {
+        "s1:threat": {
+          "type": "score",
+          "candidate_ids": [
+            "0",
+            "1",
+            "2"
+          ],
+          "logits": [
+            0.642649233341217,
+            2.03232479095459,
+            2.1592674255371094
+          ],
+          "probabilities": [
+            0.1044895276427269,
+            0.4193737208843231,
+            0.4761367738246918
+          ],
+          "answer": {
+            "type": "score",
+            "probabilities": {
+              "0": 0.1044895276427269,
+              "1": 0.4193737208843231,
+              "2": 0.4761367738246918
+            },
+            "score": 1.3716472685337067,
+            "level": 2,
+            "value": 1.3716472685337067
+          },
+          "path_token_counts": [
+            36,
+            37,
+            36
+          ]
+        }
+      }
+    },
+    {
+      "name": "score_5_levels",
+      "payload": {
+        "states": [
+          {
+            "id": "s2",
+            "state": "The maze branch ahead loops back on itself twice before reaching a dead end.",
+            "questions": {
+              "quality": {
+                "type": "score",
+                "instructions": "Rate how good this branch is.",
+                "criteria": [
+                  "Very bad.",
+                  "Bad.",
+                  "Neutral.",
+                  "Good.",
+                  "Very good."
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "expected": {
+        "s2:quality": {
+          "type": "score",
+          "candidate_ids": [
+            "0",
+            "1",
+            "2",
+            "3",
+            "4"
+          ],
+          "logits": [
+            0.6318436861038208,
+            0.7289033532142639,
+            1.2378391027450562,
+            2.2207963466644287,
+            1.9224398136138916
+          ],
+          "probabilities": [
+            0.0802016481757164,
+            0.08837629109621048,
+            0.14701572060585022,
+            0.39287710189819336,
+            0.29152923822402954
+          ],
+          "answer": {
+            "type": "score",
+            "probabilities": {
+              "0": 0.0802016481757164,
+              "1": 0.08837629109621048,
+              "2": 0.14701572060585022,
+              "3": 0.39287710189819336,
+              "4": 0.29152923822402954
+            },
+            "score": 2.727155990898609,
+            "level": 3,
+            "value": 2.727155990898609
+          },
+          "path_token_counts": [
+            39,
+            38,
+            38,
+            38,
+            39
+          ]
+        }
+      }
+    },
+    {
+      "name": "multi_question_one_state",
+      "payload": {
+        "states": [
+          {
+            "id": "multi",
+            "state": "Health 20 of 100. An enemy is visible to the right. Ammo is empty.",
+            "questions": {
+              "action": {
+                "type": "choice",
+                "instructions": "Choose the next action.",
+                "criteria": {
+                  "left": "Move the aim left.",
+                  "right": "Move the aim right.",
+                  "shoot": "Fire.",
+                  "noop": "Wait."
+                }
+              },
+              "retreat": {
+                "type": "boolean",
+                "instructions": "The agent should retreat."
+              },
+              "risk": {
+                "type": "score",
+                "instructions": "How risky is the current position?",
+                "criteria": [
+                  "Low risk.",
+                  "Medium risk.",
+                  "High risk."
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "expected": {
+        "multi:action": {
+          "type": "choice",
+          "candidate_ids": [
+            "left",
+            "right",
+            "shoot",
+            "noop"
+          ],
+          "logits": [
+            0.722882091999054,
+            1.2666417360305786,
+            1.359060525894165,
+            3.895509958267212
+          ],
+          "probabilities": [
+            0.035110075026750565,
+            0.06047608330845833,
+            0.06633161753416061,
+            0.8380821943283081
+          ],
+          "answer": {
+            "type": "choice",
+            "probabilities": {
+              "left": 0.035110075026750565,
+              "right": 0.06047608330845833,
+              "shoot": 0.06633161753416061,
+              "noop": 0.8380821943283081
+            },
+            "choice": "noop",
+            "value": "noop"
+          },
+          "path_token_counts": [
+            48,
+            48,
+            45,
+            45
+          ]
+        },
+        "multi:retreat": {
+          "type": "boolean",
+          "candidate_ids": [
+            "false",
+            "true"
+          ],
+          "logits": [
+            0.0,
+            1.565768837928772
+          ],
+          "probabilities": [
+            0.17282038927078247,
+            0.8271796107292175
+          ],
+          "answer": {
+            "type": "boolean",
+            "probabilities": {
+              "false": 0.17282038927078247,
+              "true": 0.8271796107292175
+            },
+            "p_true": 0.8271796107292175,
+            "value": true
+          },
+          "path_token_counts": [
+            46
+          ]
+        },
+        "multi:risk": {
+          "type": "score",
+          "candidate_ids": [
+            "0",
+            "1",
+            "2"
+          ],
+          "logits": [
+            0.18000173568725586,
+            0.10160154849290848,
+            -0.625599205493927
+          ],
+          "probabilities": [
+            0.4216894209384918,
+            0.3898915946483612,
+            0.18841896951198578
+          ],
+          "answer": {
+            "type": "score",
+            "probabilities": {
+              "0": 0.4216894209384918,
+              "1": 0.3898915946483612,
+              "2": 0.18841896951198578
+            },
+            "score": 0.7667295336723328,
+            "level": 0,
+            "value": 0.7667295336723328
+          },
+          "path_token_counts": [
+            46,
+            46,
+            46
+          ]
+        }
+      }
+    },
+    {
+      "name": "multi_state_batch",
+      "payload": {
+        "states": [
+          {
+            "id": "a",
+            "state": "Food is directly above the snake head.",
+            "questions": {
+              "action": {
+                "type": "choice",
+                "instructions": "Choose the next direction.",
+                "criteria": {
+                  "up": "Turn up.",
+                  "down": "Turn down.",
+                  "left": "Turn left.",
+                  "right": "Turn right."
+                }
+              }
+            }
+          },
+          {
+            "id": "b",
+            "state": "The corridor ahead is blocked by a wall.",
+            "questions": {
+              "blocked": {
+                "type": "boolean",
+                "instructions": "Forward movement is blocked."
+              }
+            }
+          }
+        ]
+      },
+      "expected": {
+        "a:action": {
+          "type": "choice",
+          "candidate_ids": [
+            "up",
+            "down",
+            "left",
+            "right"
+          ],
+          "logits": [
+            0.38858306407928467,
+            -1.5629518032073975,
+            -1.5357439517974854,
+            -0.7275831699371338
+          ],
+          "probabilities": [
+            0.6189793348312378,
+            0.0879296362400055,
+            0.09035485982894897,
+            0.20273619890213013
+          ],
+          "answer": {
+            "type": "choice",
+            "probabilities": {
+              "up": 0.6189793348312378,
+              "down": 0.0879296362400055,
+              "left": 0.09035485982894897,
+              "right": 0.20273619890213013
+            },
+            "choice": "up",
+            "value": "up"
+          },
+          "path_token_counts": [
+            32,
+            32,
+            32,
+            32
+          ]
+        },
+        "b:blocked": {
+          "type": "boolean",
+          "candidate_ids": [
+            "false",
+            "true"
+          ],
+          "logits": [
+            0.0,
+            1.7270556688308716
+          ],
+          "probabilities": [
+            0.15096455812454224,
+            0.8490354418754578
+          ],
+          "answer": {
+            "type": "boolean",
+            "probabilities": {
+              "false": 0.15096455812454224,
+              "true": 0.8490354418754578
+            },
+            "p_true": 0.8490354418754578,
+            "value": true
+          },
+          "path_token_counts": [
+            33
+          ]
+        }
+      }
+    },
+    {
+      "name": "structured_state_object",
+      "payload": {
+        "states": [
+          {
+            "id": "json",
+            "state": {
+              "health": 80,
+              "ammo": 12,
+              "enemy": {
+                "visible": true,
+                "bearing": "left"
+              }
+            },
+            "questions": {
+              "action": {
+                "type": "choice",
+                "instructions": "Choose the next action.",
+                "criteria": {
+                  "left": "Move the aim left.",
+                  "right": "Move the aim right.",
+                  "shoot": "Fire.",
+                  "noop": "Wait."
+                }
+              }
+            }
+          }
+        ]
+      },
+      "expected": {
+        "json:action": {
+          "type": "choice",
+          "candidate_ids": [
+            "left",
+            "right",
+            "shoot",
+            "noop"
+          ],
+          "logits": [
+            0.3946770429611206,
+            1.0399882793426514,
+            0.924797534942627,
+            -1.2885358333587646
+          ],
+          "probabilities": [
+            0.2087031900882721,
+            0.3979094326496124,
+            0.35461536049842834,
+            0.03877207264304161
+          ],
+          "answer": {
+            "type": "choice",
+            "probabilities": {
+              "left": 0.2087031900882721,
+              "right": 0.3979094326496124,
+              "shoot": 0.35461536049842834,
+              "noop": 0.03877207264304161
+            },
+            "choice": "right",
+            "value": "right"
+          },
+          "path_token_counts": [
+            54,
+            54,
+            51,
+            51
+          ]
+        }
+      }
+    }
+  ]
+}
