@@ -67,7 +67,7 @@ def frame_for(ticket, ans, ms, n, total, seen, auto, ms_sum, history):
     auto_ok = team["confidence"] >= GATE
     f.text((x, 252), "VERDICT", R.F_TINY, R.MUTED)
     if auto_ok:
-        f.text((x, 268), f"route to {team['choice']}", R.F_MODE, R.ACCENT)
+        f.text((x, 268), f"route to {team['choice']}", R.F_MODE, R.ACCENT_TEXT)
         f.text((x, 292), f"confidence {team['confidence']:.2f}, at or above the {GATE:.2f} gate",
                R.F_LABEL, R.MUTED)
     else:
@@ -84,7 +84,7 @@ def frame_for(ticket, ans, ms, n, total, seen, auto, ms_sum, history):
     f.text((px_, 188), "DOES THIS NEED URGENT HUMAN ATTENTION?", R.F_TINY, R.MUTED)
     p = float(esc["p_true"])
     f.text((px_, 204), "yes", R.F_VALUE if p >= 0.5 else R.F_BODY, R.INK if p >= 0.5 else R.MUTED)
-    f.bar(px_ + 92, 210, pw - 132, 8, p, R.ACCENT if p >= 0.5 else R.ACCENT_SOFT)
+    f.bar(px_ + 92, 210, pw - 132, 8, p, R.ACCENT if p >= 0.5 else R.BAR_OFF)
     f.text((px_ + pw, 204), f"{p:.2f}", R.F_VALUE, R.INK, anchor="ra")
     f.rule(px_, 236, px_ + pw)
 
@@ -98,7 +98,7 @@ def frame_for(ticket, ans, ms, n, total, seen, auto, ms_sum, history):
 
     f.rule(px_, 340, px_ + pw)
     f.text((px_, 348), "3 questions, 1 forward pass", R.F_LABEL, R.MUTED)
-    f.text((px_ + pw, 348), f"{ms:.0f} ms", R.F_VALUE, R.ACCENT, anchor="ra")
+    f.text((px_ + pw, 348), f"{ms:.0f} ms", R.F_VALUE, R.ACCENT_TEXT, anchor="ra")
 
     if history:
         f.text((x, 330), "EARLIER ON THE DESK", R.F_TINY, R.MUTED)
@@ -106,7 +106,7 @@ def frame_for(ticket, ans, ms, n, total, seen, auto, ms_sum, history):
         for label, ok in history[-4:]:
             f.text((x, hy), label, R.F_BODY, R.INK if ok else R.MUTED)
             f.text((x + w, hy), "auto" if ok else "person", R.F_LABEL,
-                   R.ACCENT if ok else R.MOSS, anchor="ra")
+                   R.ACCENT_TEXT if ok else R.MOSS, anchor="ra")
             hy += 19
 
     f.stat(32, 452, "tickets", str(seen))
