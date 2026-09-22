@@ -71,9 +71,9 @@ All on Kev's `decision-v7` training partition, all scored on `transfer-v4` dev, 
 
 The evidence going in (a 200-source verified literature pass, in [`docs/research/`](docs/research/)) already said the same thing from the outside: Kev's own ladder shows accuracy collapsing below 4B, and no sub-0.5B open model had a number on these suites at all. We pre-registered stop rules before spending and stopped when they fired ([`docs/research/RECIPE.md`](docs/research/RECIPE.md)).
 
-## tinyjev-0.15b (encoder)
+## The tiny one did not make it
 
-_pending: E3, a ModernBERT-base (149M) with a [MASK]-marker scorer on the same data, is the footprint model and the first sub-0.5B number on these suites. Row lands when it does._
+We also trained the model the name promises: ModernBERT-base, 149M, an encoder with a `[MASK]`-marker scorer, on the same data with the same batching and schedule as the 0.6B, scored the same way. It came in at **0.532** on transfer-v4 dev (0.714 in-distribution) — nine points below the 0.6B, with knowledge questions at chance. Our pre-registered bar to ship it was 0.55. It doesn't ship. The number is in [`benchmarks/e3/`](benchmarks/e3/) because it is the first sub-0.5B result on these suites and the next person should not have to spend the $1 to learn it.
 
 ## How it works
 

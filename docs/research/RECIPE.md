@@ -103,3 +103,9 @@ locked test read once and the four negative results published as such (full-FT f
 lever; KD hurts; 4-bit costs 2 pp / INT8 free). Next: E3, the 149M encoder — the footprint model and the
 first sub-0.5B number on Kev's suites. Details: benchmarks/e1, benchmarks/e2, benchmarks/e5.
 
+## E3 outcome (2026-09-22): encoder does not ship
+
+ModernBERT-base 149M, Kev-matched regime: 0.532 / 0.531 transfer-v4 dev (lr 2e-5 / 5e-5), 0.71–0.74 in-distribution;
+mmlu at chance, paws below the decoder. Gate ≥ 0.55 not met. Published as a number (first sub-0.5B on Kev's suites),
+not as a model. Ladder closed: tinyjev-0.6b at anchor parity (0.663 locked test) is what ships. Total GPU ≈ 3.5 H100-h.
+
