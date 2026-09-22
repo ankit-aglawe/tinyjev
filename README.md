@@ -52,12 +52,6 @@ TinyJev is MIT licensed.
 Eight real support tickets, one after another, on a base M1. Three questions per ticket in a
 single forward pass, about 110 ms each. Every number in that recording came from a live run.
 
-Half of them route themselves. The other half do not, and that is the interesting part. Ticket
-six says the order was late, the wrong size, and double charged, so the probability spreads
-across all three teams and confidence falls to 0.14. Below the gate it goes to a person instead
-of being guessed at. A message that turns out to be a compliment does the same thing. A model
-that only ever returned a label would have picked a team for both.
-
 ```bash
 pip install 'tinyjev[mlx,demo]'
 python demos/triage_desk.py --gif demo.gif

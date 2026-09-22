@@ -38,6 +38,27 @@ def _font(weight: str, px_: int):
         return ImageFont.load_default()
 
 
+CJK_FACES = ["/System/Library/Fonts/Hiragino Sans GB.ttc",
+             "/System/Library/Fonts/STHeiti Medium.ttc",
+             "/usr/share/fonts/opentype/noto/NotoSansCJKsc-Regular.otf",
+             "/usr/share/fonts/truetype/wqy/wqy-microhei.ttc"]
+
+
+def use_cjk(bump: int = 2):
+    """Swap the Latin faces for a CJK family. Poppins has no CJK glyphs, and CJK needs
+    a couple more pixels than Latin to stay legible at the same nominal size."""
+    global F_TITLE, F_SUB, F_TINY, F_LABEL, F_BODY, F_VALUE, F_MODE
+    face = next((f for f in CJK_FACES if Path(f).exists()), None)
+    if face is None:
+        raise SystemExit("no CJK font found; install Noto Sans CJK or run on macOS")
+
+    def cjk(px_, index=0):
+        return ImageFont.truetype(face, (px_ + bump) * S, index=index)
+
+    F_TITLE = cjk(21, 1); F_SUB = cjk(10); F_TINY = cjk(9)
+    F_LABEL = cjk(10); F_BODY = cjk(11); F_VALUE = cjk(11, 1); F_MODE = cjk(12, 1)
+
+
 F_TITLE = _font("SemiBold", 21)
 F_SUB = _font("Regular", 10)
 F_TINY = _font("Medium", 9)
@@ -59,6 +80,7 @@ def machine() -> str:
 
 
 MACHINE = machine()
+FOOTNOTE = "every frame is a real forward pass, recorded live"
 
 
 def px(v):
@@ -93,8 +115,7 @@ class Frame:
 
     def finish(self) -> Image.Image:
         self.rule(32, H - 30, W - 32)
-        self.text((32, H - 24), "every frame is a real forward pass, recorded live",
-                  F_TINY, MUTED)
+        self.text((32, H - 24), FOOTNOTE, F_TINY, MUTED)
         return self.img.resize((W, H), Image.LANCZOS)
 
 

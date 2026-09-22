@@ -39,16 +39,14 @@ TinyJev 使用 MIT 许可证。
 ## 看它做判断
 
 <div align="center">
-  <img alt="TinyJev" src="https://raw.githubusercontent.com/ankit-aglawe/tinyjev/main/assets/demo_triage.gif" width="860">
+  <img alt="TinyJev" src="https://raw.githubusercontent.com/ankit-aglawe/tinyjev/main/assets/demo_triage.zh.gif" width="860">
 </div>
 
 八条真实的客服工单，逐条处理，运行在基础款 M1 上。每条工单一次前向推理回答三个问题，约 110 毫秒。录制中的每一个数字都来自真实运行。
 
-其中一半可以自动分派。另一半不行，而这正是有意思的地方。第六条工单同时涉及延迟、尺码错误和重复扣款，于是概率分散到三个团队上，置信度降到 0.14。低于阈值，它就转交人工，而不是硬猜一个答案。一条其实是表扬的消息也是同样的处理。只会输出一个标签的模型，会给这两条都硬选一个团队。
-
 ```bash
 pip install 'tinyjev[mlx,demo]'
-python demos/triage_desk.py --gif demo.gif
+python demos/triage_desk.py --lang zh --gif demo.gif
 ```
 
 ## 能做什么
