@@ -1,0 +1,68 @@
+diff --git a/kev/checkpoint.py b/kev/checkpoint.py
+index c708304..c21efd7 100644
+--- a/kev/checkpoint.py
++++ b/kev/checkpoint.py
+@@ -123,18 +123,24 @@ class Checkpoint:
+             # trained with a bf16 backbone (--weights_dtype bf16, e.g. the 35B-A3B MoE whose fused experts need bf16): load it
+             # the same way and keep the fp32 adapter unmerged rather than folding it into bf16 weights.
+             dtype, merge = torch.bfloat16, False
+-        merge = merge and not self.adapter_config().get("trainable_token_indices")   # token-trained adapters stay unmerged
++        full_finetune = not self.file("adapter_config.json").exists()   # kev.train --lora 0: the run dir holds the whole backbone
++        merge = merge and not full_finetune and not self.adapter_config().get("trainable_token_indices")   # token-trained adapters stay unmerged
+         tok = load_tokenizer(meta.base, revision=meta.base_revision)
+         m = DecisionModel(meta.base, tok, device, lora=None, revision=meta.base_revision, head_dim=meta.head_dim,
+                           option_isolation=meta.option_isolation, dtype=torch.float32 if merge else dtype, attn=opts.attn)
+-        m.lm = PeftModel.from_pretrained(m.lm, self.path, torch_device=str(device)).to(device)   # trainable token embeddings, if any, live in the adapter
++        if full_finetune:
++            from transformers import AutoModel
++            attn = opts.attn or ("sdpa" if str(device).startswith("cuda") else "eager")
++            m.lm = AutoModel.from_pretrained(self.path, dtype=dtype, attn_implementation=attn).to(device)
++        else:
++            m.lm = PeftModel.from_pretrained(m.lm, self.path, torch_device=str(device)).to(device)   # trainable token embeddings, if any, live in the adapter
+         if opts.lora_scale != 1:
+             for module in m.lm.modules():
+                 if isinstance(getattr(module, "scaling", None), dict):
+                     for k in module.scaling: module.scaling[k] *= opts.lora_scale
+             m.lora_scale = opts.lora_scale
+         if merge: m.lm = m.lm.merge_and_unload()     # in fp32: exact
+-        if dtype != torch.float32: m.lm = m.lm.to(dtype)
++        if dtype != torch.float32 and not full_finetune: m.lm = m.lm.to(dtype)
+         m.head.load_state_dict(meta.head); m.eval()
+         m.head.temperature = meta.temperature if opts.temperature is None else opts.temperature
+         return tok, m
+diff --git a/kev/experiment.py b/kev/experiment.py
+index 00913cb..172aaa7 100644
+--- a/kev/experiment.py
++++ b/kev/experiment.py
+@@ -38,7 +38,7 @@ DEFAULTS = {"epochs": 1, "seed": 0, "lr": 0.0002, "lora": 16, "accum": 8, "batch
+             "perm_kl": 0.0, "perm_frac": 0.3, "ord_w": 0.0,
+             "p_none": 0.1, "p_none_distract": 0.12, "p_distract": 0.15, "p_none_pair": 0.0, "synthetic_repeat": 1, "public_frac": 1.0, "head_lr": 0.0, "weight_decay": 0.01, "anchor_w": 0.0,
+             "label_smoothing": 0.0, "brier_w": 0.0, "focal_gamma": 0.0}
+-RANGES = {"epochs": (1, 5), "seed": (0, 10000), "lr": (1e-6, 0.001), "lora": (1, 64), "accum": (1, 64), "batch": (1, 64),
++RANGES = {"epochs": (1, 5), "seed": (0, 10000), "lr": (1e-6, 0.001), "lora": (0, 64), "accum": (1, 64), "batch": (1, 64),
+           "perm_kl": (0, 2), "perm_frac": (0, 1), "ord_w": (0, 2),
+           "label_smoothing": (0, 0.2), "brier_w": (0, 2), "focal_gamma": (0, 4),
+           "p_none": (0, 0.4), "p_none_distract": (0, 0.4), "p_distract": (0, 0.4), "p_none_pair": (0, 1), "synthetic_repeat": (1, 6), "public_frac": (0.05, 1.0), "head_lr": (0, 0.01), "weight_decay": (0, 0.3), "anchor_w": (0, 5)}
+@@ -235,7 +235,8 @@ def score_trial(run, suite, output, expected_sources, device, provenance, transf
+     predictor = LocalPredictor(run, device, LoadOptions(temperature=1.0))
+     provenance["measured_checkpoint"] = {"requested": run, "resolved": str(predictor.run),
+                                           "head_sha256": digest(Path(predictor.run) / "head.pt"),
+-                                          "adapter_sha256": digest(Path(predictor.run) / "adapter_model.safetensors"),
++                                          "adapter_sha256": digest(Path(predictor.run) / "adapter_model.safetensors") if (Path(predictor.run) / "adapter_model.safetensors").exists()
++                                          else digest(Path(predictor.run) / "model.safetensors"),   # full fine-tune (lora=0): the backbone itself
+                                           "inference_temperature": predictor.temperature}
+     write_json(output / "provenance.json", provenance)
+     try:
+diff --git a/kev/train.py b/kev/train.py
+index 4e58ebd..efe3029 100644
+--- a/kev/train.py
++++ b/kev/train.py
+@@ -239,7 +239,7 @@ def parse_args():
+                                                    "released model's in-domain skill while adapting to a new domain")
+     ap.add_argument("--seed", type=int, default=0)
+     a = ap.parse_args()
+-    if min(a.epochs, a.accum, a.n_per_source, a.lora, a.batch, a.synthetic_repeat) < 1 or not 0 < a.public_frac <= 1:
++    if min(a.epochs, a.accum, a.n_per_source, a.batch, a.synthetic_repeat) < 1 or a.lora < 0 or not 0 < a.public_frac <= 1:
+         ap.error("epochs, accum, n_per_source, lora, batch and synthetic_repeat must be positive; 0 < public_frac <= 1")
+     if a.dtype == "bf16" and a.device != "cuda":
+         ap.error("--dtype bf16 requires --device cuda")
