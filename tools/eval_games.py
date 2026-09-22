@@ -8,9 +8,9 @@ import argparse, json, statistics, sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-import nanojev_mlx
-from nanojev_mlx import maze as mz
-from nanojev_mlx.play import play_snake
+import tinyjev
+from tinyjev import maze as mz
+from tinyjev.play import play_snake
 
 
 def maze_step_accuracy(agent, size, trials):
@@ -43,7 +43,7 @@ def main():
     ap.add_argument("--snake-seeds", type=int, default=10)
     ap.add_argument("--maze-trials", type=int, default=60)
     args = ap.parse_args()
-    agent = nanojev_mlx.load(args.model)
+    agent = tinyjev.load(args.model)
 
     snake = []
     for seed in range(1, args.snake_seeds + 1):

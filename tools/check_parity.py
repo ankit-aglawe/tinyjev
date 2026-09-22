@@ -3,7 +3,7 @@ import argparse, json, sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-import nanojev_mlx
+import tinyjev
 
 
 def answers_match(kind, a, b, score_tol):
@@ -21,7 +21,7 @@ def main():
     args = ap.parse_args()
 
     ref = json.loads(Path(args.reference).read_text())
-    agent = nanojev_mlx.load(args.model)
+    agent = tinyjev.load(args.model)
 
     rows, agree, total, worst = [], 0, 0, 0.0
     for case in ref["fixtures"]:

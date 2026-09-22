@@ -9,8 +9,8 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from PIL import Image, ImageDraw, ImageFont
-import nanojev_mlx
-from nanojev_mlx.play import play_snake
+import tinyjev
+from tinyjev.play import play_snake
 
 S = 2  # supersampling factor
 W, H = 960, 540
@@ -96,7 +96,7 @@ def render(info, best):
     d.rounded_rectangle([px(6), px(6), px(W - 6), px(H - 6)], radius=px(10), outline=LINE, width=S)
     for i, col in enumerate([RED, ORANGE, GREEN]):
         d.ellipse([px(18 + i * 14), px(16), px(26 + i * 14), px(24)], fill=col)
-    text(d, (W / 2 - 118, 13), "nanojev-mlx  /  real recorded decisions", F_XS, DIM)
+    text(d, (W / 2 - 118, 13), "tinyjev  /  real recorded decisions", F_XS, DIM)
     text(d, (24, 38), "NANOJEV  /  ON APPLE SILICON", F_M, DIM)
     text(d, (W - 190, 38), "RECORDED RUN · 1×", F_M, GREEN)
     d.line([px(24), px(62), px(W - 24), px(62)], fill=LINE, width=S)
@@ -187,7 +187,7 @@ def main():
     ap.add_argument("--preview", help="also save one mid-run frame as PNG")
     args = ap.parse_args()
 
-    agent = nanojev_mlx.load(args.model)
+    agent = tinyjev.load(args.model)
     frames, durations, stamps, best = [], [], [time.perf_counter()], [0]
 
     def on_frame(info):

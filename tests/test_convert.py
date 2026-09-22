@@ -1,4 +1,4 @@
-from nanojev_mlx.convert import normalize_tokenizer_config
+from tinyjev.convert import normalize_tokenizer_config
 
 
 def test_list_extra_special_tokens_become_mapping():

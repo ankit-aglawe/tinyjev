@@ -46,9 +46,9 @@ pip install nanojev-mlx
 Apple Silicon, macOS 14+, Python 3.9+. The first load downloads ~1.1 GB of fp16 weights from the Hub; after that it is fully local.
 
 ```python
-import nanojev_mlx
+import tinyjev
 
-agent = nanojev_mlx.load("AnkitAI/nanojev-mlx")
+agent = tinyjev.load("AnkitAI/nanojev-mlx")
 
 result = agent.predict({"states": [{
     "id": "ticket-4411",
@@ -124,7 +124,7 @@ The checkpoint's `backbone_config/config.json` was written by transformers 5.17 
 
 ## How it works
 
-Upstream's `DecisionModel`, reimplemented in ~150 lines of MLX ([`nanojev_mlx/model.py`](nanojev_mlx/model.py)):
+Upstream's `DecisionModel`, reimplemented in ~150 lines of MLX ([`tinyjev/model.py`](tinyjev/model.py)):
 
 ```
 for each candidate:  State: … \n Question type: … \n Candidate: … \n Decision: <eos>
@@ -136,7 +136,7 @@ choice questions only:
 softmax over the offered candidates
 ```
 
-Every candidate path of a state row starts with the same state tokens. The runtime computes those once and lets the K suffixes attend to a broadcast KV cache ([`pool_shared`](nanojev_mlx/model.py)). Same maths, less work: on a mid-game Snake state with the safety questions on, 599 ms becomes 374 ms. It switches on automatically above 96 shared tokens, where it starts to pay.
+Every candidate path of a state row starts with the same state tokens. The runtime computes those once and lets the K suffixes attend to a broadcast KV cache ([`pool_shared`](tinyjev/model.py)). Same maths, less work: on a mid-game Snake state with the safety questions on, 599 ms becomes 374 ms. It switches on automatically above 96 shared tokens, where it starts to pay.
 
 Backbone weights are fp16; the twelve head tensors stay fp32. The tokenizer is Hugging Face's Rust `tokenizers`, so PyTorch and Transformers are not runtime dependencies.
 

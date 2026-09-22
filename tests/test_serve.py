@@ -1,5 +1,5 @@
 import pytest
-from nanojev_mlx.serve import native_to_systemone, systemone_to_native
+from tinyjev.serve import native_to_systemone, systemone_to_native
 
 
 def test_systemone_translation_round_trip():

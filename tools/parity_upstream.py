@@ -9,7 +9,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from huggingface_hub import hf_hub_download
-import nanojev_mlx
+import tinyjev
 
 
 def main():
@@ -26,7 +26,7 @@ def main():
     if args.limit:
         inputs = inputs[:args.limit]
 
-    agent = nanojev_mlx.load(args.model)
+    agent = tinyjev.load(args.model)
     agree = total = 0
     deltas, by_family, times = [], {}, []
     started = time.perf_counter()
@@ -69,7 +69,7 @@ def main():
                           "delta_max": max(v["deltas"])} for k, v in by_family.items()},
         "latency_ms_median": round(statistics.median(times), 1),
         "upstream_reference": "C-Tianyu/NanoJev predictions_test.jsonl (authors' CUDA bf16 run)",
-        "port_dtype": agent.config.get("body_dtype"),
+        "backend": agent.backend, "dtypes": agent.manifest.get("dtypes"),
     }
     Path(args.out).write_text(json.dumps(report, indent=2))
     print(json.dumps(report, indent=2))

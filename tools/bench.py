@@ -3,7 +3,7 @@ import argparse, json, platform, statistics, subprocess, sys, time
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-import nanojev_mlx
+import tinyjev
 
 
 def chip():
@@ -25,7 +25,7 @@ def main():
 
     cases = json.loads(Path(args.cases).read_text())
     t0 = time.perf_counter()
-    agent = nanojev_mlx.load(args.model)
+    agent = tinyjev.load(args.model)
     load_s = time.perf_counter() - t0
 
     rows = []
@@ -47,7 +47,7 @@ def main():
               flush=True)
 
     report = {"machine": chip(), "python": platform.python_version(),
-              "model": str(args.model), "body_dtype": agent.config.get("body_dtype"),
+              "model": str(args.model), "backend": agent.backend, "dtypes": agent.manifest.get("dtypes"),
               "load_seconds": round(load_s, 2), "repeats": args.repeats, "rows": rows}
     print(f"\n{report['machine']} | load {load_s:.1f}s | "
           f"median across cases {statistics.median([r['p50_ms'] for r in rows]):.1f} ms")

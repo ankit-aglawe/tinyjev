@@ -1,5 +1,5 @@
 import pytest
-from nanojev_mlx.decide import answer_from_probabilities, candidates, prepare_examples, validate_request
+from tinyjev.decide import answer_from_probabilities, candidates, prepare_examples, validate_request
 
 
 def fake_encode(text):

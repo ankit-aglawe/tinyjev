@@ -4,14 +4,14 @@ from pathlib import Path
 
 import pytest
 
-MODEL = os.environ.get("NANOJEV_MLX_MODEL", str(Path.home() / ".cache/nanojev-mlx/nanojev-mlx-fp16"))
+MODEL = os.environ.get("TINYJEV_NANOJEV", str(Path.home() / ".cache/tinyjev/nanojev"))
 REF = Path(__file__).parent / "fixtures" / "reference_cpu.json"
 
 
 @pytest.mark.skipif(not (Path(MODEL).exists() and REF.exists()), reason="needs converted weights")
 def test_every_fixture_selects_the_reference_answer():
-    import nanojev_mlx
-    agent = nanojev_mlx.load(MODEL)
+    import tinyjev
+    agent = tinyjev.load(MODEL)
     ref = json.loads(REF.read_text())
     for case in ref["fixtures"]:
         got = agent.logits(case["payload"])

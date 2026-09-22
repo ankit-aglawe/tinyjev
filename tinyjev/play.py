@@ -14,6 +14,7 @@ import time
 from typing import Optional
 
 from . import maze as mz
+from . import unified
 from .vendor import snake_game as sg
 
 GLYPH = {"head": "@", "body": "o", "food": "*", "empty": "·"}
@@ -44,15 +45,24 @@ def frame(state, move: Optional[str], ms: float, moves: int, fps: float) -> str:
 
 
 def play_snake(agent, size=8, seed=17, max_steps=400, delay=0.0, safety=False,
-               render=True, on_frame=None) -> dict:
+               render=True, on_frame=None, legacy_format=False) -> dict:
+    """Play with the unified format the checkpoint was trained on (default), or the
+    older vendored `snake_game.render_request` format with `legacy_format=True`.
+    Safety questions only exist in the legacy format."""
     state = sg.make_snake(size, seed)
-    moves, timings, overrides = 0, [], 0
+    episode = unified.Episode(size)
+    safety = safety and legacy_format
+    moves, timings, overrides, resets = 0, [], 0, 0
     if render:
         sys.stdout.write(HIDE)
     try:
         while not state["done"] and moves < max_steps:
             offered = sg.valid_actions(state)
-            request = sg.render_request(state)
+            if legacy_format:
+                request = sg.render_request(state)
+            else:
+                resets += episode.reset_if_reached(state)
+                request = unified.render_request(state, episode)
             questions = request["questions"] if safety else {"action": request["questions"]["action"]}
             payload = {"states": [{"id": "snake", "state": request["state"],
                                    "questions": questions}]}
@@ -68,7 +78,10 @@ def play_snake(agent, size=8, seed=17, max_steps=400, delay=0.0, safety=False,
                     action = max(safe, key=lambda a: answers["action"]["probabilities"].get(a, 0.0))
                     overrides += 1
 
+            before = state
             state = sg.step(state, action)
+            if not legacy_format:
+                episode.record(before, action, state)
             moves += 1
             fps = 1000.0 / (sum(timings) / len(timings))
             text = frame(state, action, elapsed, moves, fps)
@@ -90,6 +103,7 @@ def play_snake(agent, size=8, seed=17, max_steps=400, delay=0.0, safety=False,
     ordered = sorted(timings)
     return {"game": "snake", "size": size, "seed": seed, "food": state["score"],
             "moves": moves, "outcome": state.get("outcome"), "safety_overrides": overrides,
+            "format": "legacy" if legacy_format else "unified", "task_resets": resets,
             "p50_ms": round(ordered[len(ordered) // 2], 1) if ordered else 0.0,
             "decisions_per_second": round(1000.0 / (sum(timings) / len(timings)), 1) if timings else 0.0}
 
@@ -154,20 +168,23 @@ def play_maze(agent, size=6, seed=17, max_steps=80, delay=0.0, render=True,
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(prog="nanojev-mlx play")
     ap.add_argument("game", choices=["snake", "maze"])
-    ap.add_argument("--model", required=True)
+    ap.add_argument("--model", default="nanojev")
+    ap.add_argument("--backend", choices=["mlx", "torch"], default=None)
     ap.add_argument("--size", type=int, default=8)
     ap.add_argument("--seed", type=int, default=17)
     ap.add_argument("--steps", type=int, default=400)
     ap.add_argument("--delay", type=float, default=0.0)
     ap.add_argument("--safety", action="store_true",
-                    help="also ask the per-move safety questions and override unsafe picks")
+                    help="legacy format only: also ask per-move safety questions and override unsafe picks")
+    ap.add_argument("--legacy-format", action="store_true",
+                    help="use the older vendored snake_game request text instead of the trained unified format")
     args = ap.parse_args(argv)
 
     from . import load
-    agent = load(args.model)
+    agent = load(args.model, backend=args.backend)
     if args.game == "snake":
         result = play_snake(agent, size=args.size, seed=args.seed, max_steps=args.steps,
-                            delay=args.delay, safety=args.safety)
+                            delay=args.delay, safety=args.safety, legacy_format=args.legacy_format)
         print(f"\n  {result['outcome'] or 'survived'}: {result['food']} food in "
               f"{result['moves']} moves  ({result['p50_ms']} ms/decision, "
               f"{result['decisions_per_second']}/s)")
