@@ -122,10 +122,10 @@ class KevFamily:
             best = max(range(K), key=probs.__getitem__)
             conf = 1.0 if K == 1 else (max(probs) - 1 / K) / (1 - 1 / K)
             return {"type": "choice", "choice": q["keys"][best], "value": q["keys"][best],
-                    "confidence": r2(conf), "probabilities": {k: r2(v) for k, v in zip(q["keys"], probs)}}
+                    "confidence": r2(conf), "probabilities": dict(zip(q["keys"], probs))}
         L = len(probs)
         mode = max(range(L), key=probs.__getitem__)
         score = sum(i * p for i, p in enumerate(probs))
         conf = 1.0 - sum(p * abs(i - mode) for i, p in enumerate(probs)) / (L - 1)
         return {"type": "score", "score": r2(score), "value": score, "level": mode, "legend": q["legend"],
-                "probabilities": {str(i): r2(v) for i, v in enumerate(probs)}, "confidence": r2(conf)}
+                "probabilities": {str(i): v for i, v in enumerate(probs)}, "confidence": r2(conf)}
