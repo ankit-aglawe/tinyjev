@@ -6,3 +6,4 @@ dist/
 *.egg-info/
 .venv/
 tests/fixtures/*.tmp
+.context/
