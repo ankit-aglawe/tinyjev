@@ -5,10 +5,10 @@
 <p>Typed decisions, on your laptop, in one forward pass.</p>
 
 <p>
-  <a href="https://pypi.org/project/tinyjev/"><img alt="Version" src="https://img.shields.io/pypi/v/tinyjev?label=version&color=C44E20"></a>
-  <a href="https://pypi.org/project/tinyjev/"><img alt="Python" src="https://img.shields.io/pypi/pyversions/tinyjev?color=C44E20"></a>
-  <a href="https://huggingface.co/AnkitAI/tinyjev-0.6b"><img alt="Weights" src="https://img.shields.io/badge/weights-tinyjev--0.6b-C44E20"></a>
-  <a href="https://github.com/ankit-aglawe/tinyjev/blob/main/LICENSE"><img alt="License" src="https://img.shields.io/pypi/l/tinyjev?color=C44E20"></a>
+  <a href="https://pypi.org/project/tinyjev/"><img alt="PyPI" src="https://img.shields.io/pypi/v/tinyjev?label=pypi&color=E46412"></a>
+  <a href="https://pypi.org/project/tinyjev/"><img alt="Python" src="https://img.shields.io/badge/python-3.9%2B-E46412"></a>
+  <a href="https://huggingface.co/AnkitAI/tinyjev-0.6b"><img alt="Weights" src="https://img.shields.io/badge/weights-tinyjev--0.6b-E46412?logo=huggingface&logoColor=FFD21E"></a>
+  <a href="https://github.com/ankit-aglawe/tinyjev/blob/main/LICENSE"><img alt="License" src="https://img.shields.io/badge/license-MIT-E46412"></a>
 </p>
 
 <p>

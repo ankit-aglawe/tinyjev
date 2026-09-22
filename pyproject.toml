@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "tinyjev"
-version = "0.1.0"
+version = "0.1.1"
 description = "Typed decisions on your laptop: one forward pass, calibrated probabilities, no text generation. MLX or PyTorch."
 readme = "README.md"
 requires-python = ">=3.9"
@@ -12,7 +12,11 @@ license = { text = "MIT" }
 authors = [{ name = "Ankit Aglawe" }]
 keywords = ["decision-model", "typed-decisions", "classification", "calibration", "system-one", "jev", "mlx", "apple-silicon", "local-inference"]
 classifiers = [
-  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
   "License :: OSI Approved :: MIT License",
   "Operating System :: MacOS",
   "Operating System :: POSIX :: Linux",
