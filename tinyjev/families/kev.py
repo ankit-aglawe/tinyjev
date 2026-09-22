@@ -40,7 +40,7 @@ class KevFamily:
 
     def __init__(self, root, manifest: dict):
         from tokenizers import Tokenizer
-        self.tok = Tokenizer.from_file(str(root / "tokenizer" / "tokenizer.json"))
+        self.tok = Tokenizer.from_file(str(root / "tokenizer.json"))
         ids = [self.tok.token_to_id(t) for t in SPECIAL]
         if any(i is None for i in ids):
             raise ValueError("tokenizer lacks the Qwen delimiter tokens Kev relies on")
@@ -51,7 +51,7 @@ class KevFamily:
         self.max_branch = int(manifest.get("max_branch", 8192))
         self.temperature = float(manifest["head"].get("temperature", 1.0))
         self.dp = int(manifest["head"].get("head_dim", 256))
-        self.w = load_head(str(root / "weights.safetensors"))
+        self.w = load_head(root)
 
     def user_tokens(self, text: str) -> List[int]:
         # caller text can never forge a delimiter: <|name|> becomes <¦name¦> before tokenizing

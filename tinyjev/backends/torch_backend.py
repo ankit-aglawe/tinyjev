@@ -10,26 +10,24 @@ class Qwen3Backbone:
     name = "torch"
 
     def __init__(self, config: dict, weights_path: str, prefix_min_tokens: int = 96, device=None):
+        """`weights_path` is <root>/model.safetensors; the root is a standard transformers model dir."""
         import torch
-        from safetensors.torch import load_file
+        from pathlib import Path
         from transformers import AutoConfig, AutoModel
 
         self.torch = torch
         self.device = torch.device(device or ("cuda" if torch.cuda.is_available() else
                                               "mps" if torch.backends.mps.is_available() else "cpu"))
-        cfg = AutoConfig.for_model(config.get("model_type", "qwen3"), **{
-            k: v for k, v in config.items()
-            if k not in ("model_type", "architectures", "transformers_version")})
-        # transformers 4.x ignores `rope_parameters`; force the declared base explicitly
+        root = str(Path(weights_path).parent)
+        cfg = AutoConfig.from_pretrained(root)
+        # transformers 4.x ignores `rope_parameters`; the converter also writes rope_theta at the top
+        # level, but force it here too in case the config came from elsewhere
         rope = config.get("rope_parameters") or {}
-        cfg.rope_theta = rope.get("rope_theta", config.get("rope_theta", cfg.rope_theta))
+        cfg.rope_theta = rope.get("rope_theta", config.get("rope_theta", getattr(cfg, "rope_theta", None)))
         cfg.use_cache = True
-        self.model = AutoModel.from_config(cfg, attn_implementation="sdpa")
-        weights = load_file(weights_path)
-        state = {k[len("backbone."):]: v for k, v in weights.items() if k.startswith("backbone.")}
-        self.model.load_state_dict(state, strict=True)
         dtype = torch.float16 if self.device.type != "cpu" else torch.float32
-        self.model.to(self.device, dtype=dtype).eval()
+        self.model = AutoModel.from_pretrained(root, config=cfg, dtype=dtype, attn_implementation="sdpa")
+        self.model.to(self.device).eval()
         self.prefix_min_tokens = prefix_min_tokens
 
     def _pad(self, rows, pad):

@@ -4,7 +4,7 @@
 
 Give it a state and typed questions — `choice` over options, `noul` (yes/no probability), `score` (ordinal) — and get probabilities back in one forward pass. No text generation, nothing to parse, no label that wasn't in your list. The category is TypeSafe's Jev; these are open weights, trained by us, scored on the public frozen suites with their author's own harness, and served on MLX (Apple Silicon) or PyTorch (CPU / CUDA / MPS).
 
-[![Weights](https://img.shields.io/badge/%F0%9F%A4%97%20weights-AnkitAI%2Ftinyjev-blue)](https://huggingface.co/AnkitAI/tinyjev)
+[![Weights](https://img.shields.io/badge/%F0%9F%A4%97%20weights-AnkitAI%2Ftinyjev--0.6b-blue)](https://huggingface.co/AnkitAI/tinyjev-0.6b)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![Suites](https://img.shields.io/badge/scored%20on-Kev%20frozen%20suites-0a0a0a)](https://github.com/jaredpalmer/kev)
 
@@ -30,7 +30,7 @@ agent.predict({
     }})
 ```
 
-`tinyjev serve tinyjev-0.6b` gives you `POST /v1/systemone` on `127.0.0.1:8077`, the request shape the TypeSafe SDK, Kev's harness, Laya and the browser/agent wrappers in the ecosystem already speak.
+`tinyjev serve tinyjev-0.6b` gives you `POST /v1/systemone` on `127.0.0.1:8077`, the request shape the TypeSafe SDK, Kev's harness, Laya and the browser/agent wrappers in the ecosystem already speak. The Hub repo is a standard transformers layout: `AutoModel.from_pretrained("AnkitAI/tinyjev-0.6b")` loads the backbone on its own; `tinyjev` adds the decision head.
 
 ## The number
 

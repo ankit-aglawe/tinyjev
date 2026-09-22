@@ -1,8 +1,10 @@
-"""Convert upstream checkpoints into the tinyjev layout.
+"""Convert upstream checkpoints into the tinyjev layout (v2, transformers-compatible).
 
-    <dest>/weights.safetensors   backbone.* (fp16 by default) + head.* (fp32)
-    <dest>/tinyjev.json          family, backbone config, head config, tokenizer ids, upstream provenance
-    <dest>/tokenizer/            tokenizer.json (+ config), repaired for current loaders
+    <dest>/config.json           standard Qwen3Model config (AutoModel.from_pretrained loads the backbone)
+    <dest>/model.safetensors     backbone with standard Qwen3Model keys (fp16 by default)
+    <dest>/head.safetensors      the decision head (fp32), keys without prefix
+    <dest>/tinyjev.json          family, head config, tokenizer ids, upstream provenance
+    <dest>/tokenizer.json ...    tokenizer files at the root, repaired for current loaders
 
 Both backends load exactly this. Conversion streams tensor by tensor so a 2.4 GB fp32
 checkpoint converts on a 16 GB machine.
@@ -20,8 +22,29 @@ NANOJEV_HEAD_PREFIXES = ("norm.", "scalar.", "set_project.", "set_attention.", "
 
 
 def _save(dest: Path, weights: Dict[str, np.ndarray]):
+    """Split into model.safetensors (backbone, standard keys) and head.safetensors (head, unprefixed keys)."""
     from safetensors.numpy import save_file
-    save_file(weights, str(dest / "weights.safetensors"))
+    backbone = {k[len("backbone."):]: v for k, v in weights.items() if k.startswith("backbone.")}
+    head = {k[len("head."):]: v for k, v in weights.items() if k.startswith("head.")}
+    save_file(backbone, str(dest / "model.safetensors"), metadata={"format": "pt"})
+    save_file(head, str(dest / "head.safetensors"), metadata={"format": "pt"})
+
+
+def _write_backbone_config(dest: Path, backbone_cfg: dict, dtype: str):
+    """A config.json transformers 4.x and 5.x both read correctly: rope base at the top level AND under
+    rope_parameters (4.x ignores the latter and would silently default to 10000 — the NanoJev bug)."""
+    cfg = dict(backbone_cfg)
+    rope = cfg.get("rope_parameters") or {}
+    theta = rope.get("rope_theta", cfg.get("rope_theta"))
+    if theta is not None:
+        cfg["rope_theta"] = theta
+        cfg["rope_parameters"] = {**rope, "rope_theta": theta, "rope_type": rope.get("rope_type", "default")}
+    cfg["architectures"] = ["Qwen3Model"]
+    cfg["model_type"] = cfg.get("model_type", "qwen3")
+    cfg["dtype"] = dtype
+    cfg["torch_dtype"] = dtype
+    cfg.pop("transformers_version", None)
+    (dest / "config.json").write_text(json.dumps(cfg, indent=2))
 
 
 def _cast(arr: np.ndarray, dtype: str) -> np.ndarray:
@@ -44,7 +67,7 @@ def normalize_tokenizer_config(cfg: dict):
 
 
 def _copy_tokenizer(src_dir: Path, dest: Path):
-    tok = dest / "tokenizer"
+    tok = dest
     tok.mkdir(parents=True, exist_ok=True)
     for name in ("tokenizer.json", "tokenizer_config.json", "special_tokens_map.json",
                  "added_tokens.json", "vocab.json", "merges.txt", "chat_template.jinja"):
@@ -99,11 +122,11 @@ def convert_nanojev(source, dest, dtype: str = "float16") -> Path:
             else:
                 raise ValueError(f"unexpected tensor {key}")
     _save(dst, weights); del weights
+    _write_backbone_config(dst, backbone_cfg, dtype)
     tok = _copy_tokenizer(src / "tokenizer", dst)
     eos, pad = _eos_pad_from_tokenizer(tok, backbone_cfg)
     (dst / "tinyjev.json").write_text(json.dumps({
-        "format": "tinyjev-v1", "family": "nanojev", "name": "nanojev",
-        "backbone_config": backbone_cfg,
+        "format": "tinyjev-v2", "family": "nanojev", "name": "nanojev",
         "head": {"set_head": run.get("set_head", "attention")},
         "tokenizer": {"eos_token_id": eos, "pad_token_id": eos},
         "max_length": run.get("max_length", 8192),
@@ -183,11 +206,11 @@ def convert_kev(adapter_dir, base_dir=None, dest=None, dtype: str = "float16", n
     for k in ("q.weight", "q.bias", "k.weight", "k.bias"):
         weights["head." + k] = head[k].to(torch.float32).numpy()
     _save(dst, weights); del weights
+    _write_backbone_config(dst, backbone_cfg, dtype)
     tok = _copy_tokenizer(adapter, dst)
     eos, pad = _eos_pad_from_tokenizer(tok, backbone_cfg)
     (dst / "tinyjev.json").write_text(json.dumps({
-        "format": "tinyjev-v1", "family": "kev", "name": name,
-        "backbone_config": backbone_cfg,
+        "format": "tinyjev-v2", "family": "kev", "name": name,
         "head": {"head_dim": int(meta.get("head_dim", 256)), "temperature": float(meta.get("temperature", 1.0)),
                  "option_isolation": bool(meta.get("option_isolation", False))},
         "tokenizer": {"eos_token_id": eos, "pad_token_id": pad},

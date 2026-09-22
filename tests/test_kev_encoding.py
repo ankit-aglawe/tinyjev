@@ -4,7 +4,7 @@ from pathlib import Path
 
 import pytest
 
-MODEL = Path.home() / ".cache/tinyjev/kev-0.6b"
+MODEL = Path.home() / ".cache/tinyjev/v2/tinyjev-kev-0.6b"
 
 
 @pytest.mark.skipif(not MODEL.exists(), reason="needs a converted kev checkpoint for its tokenizer")

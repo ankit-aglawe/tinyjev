@@ -62,13 +62,13 @@ class NanoJevFamily:
 
     def __init__(self, root, manifest: dict):
         from tokenizers import Tokenizer
-        self.tok = Tokenizer.from_file(str(root / "tokenizer" / "tokenizer.json"))
+        self.tok = Tokenizer.from_file(str(root / "tokenizer.json"))
         tk = manifest["tokenizer"]
         self.eos_token_id = int(tk["eos_token_id"])
         self.pad_token_id = int(tk.get("pad_token_id", tk["eos_token_id"]))
         self.max_length = int(manifest.get("max_length", 8192))
         self.set_head = manifest["head"].get("set_head", "attention")
-        self.w = load_head(str(root / "weights.safetensors"))
+        self.w = load_head(root)
 
     def _enc(self, text: str) -> List[int]:
         return self.tok.encode(text, add_special_tokens=False).ids

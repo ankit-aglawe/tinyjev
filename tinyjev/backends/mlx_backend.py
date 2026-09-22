@@ -27,9 +27,8 @@ class Qwen3Backbone:
     def __init__(self, config: dict, weights_path: str, prefix_min_tokens: int = 96,
                  quantize: int = 0, group_size: int = 64):
         self.model = Qwen3Model(qwen3_args(config))
-        weights = mx.load(weights_path)
-        self.model.load_weights([(k[len("backbone."):], v) for k, v in weights.items()
-                                 if k.startswith("backbone.")])
+        weights = mx.load(weights_path)          # model.safetensors: standard Qwen3Model keys
+        self.model.load_weights(list(weights.items()))
         if quantize:
             # Backbone Linear layers only (the decision head runs fp32 in numpy). Embeddings stay
             # unquantized: they are gathered, not multiplied, and small models lose most at 4-bit.

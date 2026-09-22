@@ -29,15 +29,15 @@ def make(name: str, root, manifest: dict):
     return F(root, manifest)
 
 
-def load_head(weights_path: str) -> Dict[str, Any]:
-    """Only the fp32 `head.*` tensors, as numpy, without touching the backbone."""
+def load_head(root) -> Dict[str, Any]:
+    """The fp32 decision head from head.safetensors, as numpy; the backbone is never touched."""
     import numpy as np
+    from pathlib import Path
     from safetensors import safe_open
     out = {}
-    with safe_open(weights_path, framework="numpy") as f:
+    with safe_open(str(Path(root) / "head.safetensors"), framework="numpy") as f:
         for key in f.keys():
-            if key.startswith("head."):
-                out[key[len("head."):]] = np.asarray(f.get_tensor(key), dtype=np.float32)
+            out[key] = np.asarray(f.get_tensor(key), dtype=np.float32)
     return out
 
 

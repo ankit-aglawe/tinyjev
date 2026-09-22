@@ -4,7 +4,7 @@ from pathlib import Path
 
 import pytest
 
-MODEL = os.environ.get("TINYJEV_NANOJEV", str(Path.home() / ".cache/tinyjev/nanojev"))
+MODEL = os.environ.get("TINYJEV_NANOJEV", str(Path.home() / ".cache/tinyjev/v2/tinyjev-nanojev"))
 REF = Path(__file__).parent / "fixtures" / "reference_cpu.json"
 
 

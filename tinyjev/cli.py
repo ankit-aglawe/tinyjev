@@ -43,9 +43,10 @@ def main(argv=None) -> int:
     args = parser.parse_args(argv)
 
     if args.command == "models":
-        from .registry import HUB_REPO, MODELS
+        from .registry import MODELS
         for k, v in MODELS.items():
-            print(f"{k:<10} {v['params']:<5} {v['family']:<8} {HUB_REPO}/{v['subfolder']:<12} <- {v['upstream']}")
+            where = v['repo'] + (f"/{v['subfolder']}" if v.get('subfolder') else "")
+            print(f"{k:<13} {v['params']:<5} {v['family']:<8} {where:<34} {v['what']}")
         return 0
     if args.command == "convert":
         from .convert import convert

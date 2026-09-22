@@ -79,15 +79,18 @@ class Agent:
             raise FileNotFoundError(f"{root} is not a tinyjev checkpoint (no tinyjev.json); "
                                     f"run `tinyjev convert` first")
         self.manifest = json.loads(manifest_path.read_text())
+        if self.manifest.get("format") != "tinyjev-v2":
+            raise ValueError(f"{root}: layout {self.manifest.get('format')!r} is not tinyjev-v2; re-run `tinyjev convert`")
+        self.manifest["backbone_config"] = json.loads((root / "config.json").read_text())
         self.root = root
         self.family = families.make(self.manifest["family"], root, self.manifest)
         name = backend or backends.default_backend()
         kw = {"device": device} if (device and name == "torch") else {}
         if name == "torch":
             from .backends.torch_backend import Qwen3Backbone
-            self.backbone = Qwen3Backbone(self.manifest["backbone_config"], str(root / "weights.safetensors"), **kw)
+            self.backbone = Qwen3Backbone(self.manifest["backbone_config"], str(root / "model.safetensors"), **kw)
         else:
-            self.backbone = backends.make(name, self.manifest["backbone_config"], str(root / "weights.safetensors"),
+            self.backbone = backends.make(name, self.manifest["backbone_config"], str(root / "model.safetensors"),
                                           quantize=quantize)
         self.backend = self.backbone.name
         self.quantize = int(quantize)
