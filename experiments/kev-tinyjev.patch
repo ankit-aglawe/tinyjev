@@ -31,18 +31,25 @@ index c708304..c21efd7 100644
          m.head.temperature = meta.temperature if opts.temperature is None else opts.temperature
          return tok, m
 diff --git a/kev/experiment.py b/kev/experiment.py
-index 00913cb..172aaa7 100644
+index 00913cb..a8d45a6 100644
 --- a/kev/experiment.py
 +++ b/kev/experiment.py
-@@ -38,7 +38,7 @@ DEFAULTS = {"epochs": 1, "seed": 0, "lr": 0.0002, "lora": 16, "accum": 8, "batch
+@@ -36,12 +36,12 @@ from kev.suite import ENCODING, digest, load_split, read_json, read_manifest, re
+ ROOT = Path(__file__).resolve().parents[1]
+ DEFAULTS = {"epochs": 1, "seed": 0, "lr": 0.0002, "lora": 16, "accum": 8, "batch": 1,
              "perm_kl": 0.0, "perm_frac": 0.3, "ord_w": 0.0,
-             "p_none": 0.1, "p_none_distract": 0.12, "p_distract": 0.15, "p_none_pair": 0.0, "synthetic_repeat": 1, "public_frac": 1.0, "head_lr": 0.0, "weight_decay": 0.01, "anchor_w": 0.0,
+-            "p_none": 0.1, "p_none_distract": 0.12, "p_distract": 0.15, "p_none_pair": 0.0, "synthetic_repeat": 1, "public_frac": 1.0, "head_lr": 0.0, "weight_decay": 0.01, "anchor_w": 0.0,
++            "p_none": 0.1, "p_none_distract": 0.12, "p_distract": 0.15, "p_none_pair": 0.0, "synthetic_repeat": 1, "public_frac": 1.0, "head_lr": 0.0, "weight_decay": 0.01, "anchor_w": 0.0, "anchor_temp": 1.0,
              "label_smoothing": 0.0, "brier_w": 0.0, "focal_gamma": 0.0}
 -RANGES = {"epochs": (1, 5), "seed": (0, 10000), "lr": (1e-6, 0.001), "lora": (1, 64), "accum": (1, 64), "batch": (1, 64),
 +RANGES = {"epochs": (1, 5), "seed": (0, 10000), "lr": (1e-6, 0.001), "lora": (0, 64), "accum": (1, 64), "batch": (1, 64),
            "perm_kl": (0, 2), "perm_frac": (0, 1), "ord_w": (0, 2),
            "label_smoothing": (0, 0.2), "brier_w": (0, 2), "focal_gamma": (0, 4),
-           "p_none": (0, 0.4), "p_none_distract": (0, 0.4), "p_distract": (0, 0.4), "p_none_pair": (0, 1), "synthetic_repeat": (1, 6), "public_frac": (0.05, 1.0), "head_lr": (0, 0.01), "weight_decay": (0, 0.3), "anchor_w": (0, 5)}
+-          "p_none": (0, 0.4), "p_none_distract": (0, 0.4), "p_distract": (0, 0.4), "p_none_pair": (0, 1), "synthetic_repeat": (1, 6), "public_frac": (0.05, 1.0), "head_lr": (0, 0.01), "weight_decay": (0, 0.3), "anchor_w": (0, 5)}
++          "p_none": (0, 0.4), "p_none_distract": (0, 0.4), "p_distract": (0, 0.4), "p_none_pair": (0, 1), "synthetic_repeat": (1, 6), "public_frac": (0.05, 1.0), "head_lr": (0, 0.01), "weight_decay": (0, 0.3), "anchor_w": (0, 5), "anchor_temp": (0.5, 10)}
+ CHOICES = {"dtype": ("fp32", "bf16"), "checkpointing": (0, 1), "option_isolation": (0, 1), "special_embeddings": (0, 1), "head_dim": (128, 256, 512, 1024),
+            "lora_targets": ("all", "dense", "attn", "qv"), "weights_dtype": ("fp32", "bf16")}
+ CHOICE_DEFAULTS = {"dtype": "fp32", "checkpointing": 0, "option_isolation": 0, "special_embeddings": 0, "head_dim": 256, "lora_targets": "all", "weights_dtype": "fp32"}   # kev.train's defaults for the categorical knobs
 @@ -235,7 +235,8 @@ def score_trial(run, suite, output, expected_sources, device, provenance, transf
      predictor = LocalPredictor(run, device, LoadOptions(temperature=1.0))
      provenance["measured_checkpoint"] = {"requested": run, "resolved": str(predictor.run),
@@ -54,10 +61,46 @@ index 00913cb..172aaa7 100644
      write_json(output / "provenance.json", provenance)
      try:
 diff --git a/kev/train.py b/kev/train.py
-index 4e58ebd..efe3029 100644
+index 4e58ebd..49a1b91 100644
 --- a/kev/train.py
 +++ b/kev/train.py
-@@ -239,7 +239,7 @@ def parse_args():
+@@ -57,11 +57,15 @@ def question_loss(z, q, dev, ord_w, label_smoothing=0.0, brier_w=0.0, focal_gamm
+     return loss
+ 
+ 
+-def anchor_loss(z, q, target, dev):
+-    """KL(teacher || student) for one question, teacher = frozen base zero-shot distribution keyed by option key.
+-    Skips (returns None) when the current option set is not exactly the teacher's (e.g. a none-option was inserted)."""
++def anchor_loss(z, q, target, dev, temperature=1.0):
++    """KL(teacher || student) for one question, teacher = a stored distribution keyed by option key.
++    Skips (returns None) when the current option set is not exactly the teacher's (e.g. a none-option was inserted).
++    temperature > 1 softens a near-one-hot teacher (Hinton distillation): t <- softmax(log t / T); the student's
++    logits are divided by the same T so the two sides are compared on the same scale."""
+     if target is None or set(target) != set(q["keys"]): return None
+     t = torch.tensor([target[k] for k in q["keys"]], device=dev, dtype=torch.float32).clamp_min(1e-6); t = t / t.sum()
++    if temperature != 1.0:
++        t = F.softmax(torch.log(t) / temperature, -1); z = z / temperature
+     return F.kl_div(F.log_softmax(z, -1), t, reduction="sum")
+ 
+ 
+@@ -178,7 +182,7 @@ def batch_loss(model, a, batch, dev, anchors, anchor_sources, autocast):
+                  for z, q in zip(logits, v.rec["questions"])) / len(logits)
+         terms["ce"] += ce.item(); loss = loss + ce
+         if anchors and v.request_id in anchors and (anchor_sources is None or v.source in anchor_sources):
+-            kls = [t for t in (anchor_loss(z.float(), q, anchors[v.request_id].get(q["qid"]), dev) for z, q in zip(logits, v.rec["questions"])) if t is not None]
++            kls = [t for t in (anchor_loss(z.float(), q, anchors[v.request_id].get(q["qid"]), dev, a.anchor_temp) for z, q in zip(logits, v.rec["questions"])) if t is not None]
+             if kls:
+                 kl_a = sum(kls) / len(kls); loss = loss + a.anchor_w * kl_a; terms["anchor"] += kl_a.item(); terms["anchor_n"] += 1
+     for v, logits2 in zip(permuted, logits2_b):
+@@ -229,6 +233,7 @@ def parse_args():
+     ap.add_argument("--synthetic_repeat", type=int, default=1, help="oversample synthetic policy sources (legacy_policy, compositional, contrastive) this many times per epoch")
+     ap.add_argument("--public_frac", type=float, default=1.0, help="deterministic subsample of public-source training records (mix ablations)")
+     ap.add_argument("--anchor", default="", help="JSON of frozen-base zero-shot distributions {record_id: {qid: {key: p}}} (kev.anchors); enables the anchoring loss")
++    ap.add_argument("--anchor_temp", type=float, default=1.0, help="distillation temperature applied to the anchor targets and the student logits in the anchor KL (1 = as stored)")
+     ap.add_argument("--anchor_w", type=float, default=0.0, help="weight of KL(base || model) toward the frozen base model's zero-shot distribution, per anchored question")
+     ap.add_argument("--anchor_sources", default="", help="comma-separated sources to anchor (default: every record with a target)")
+     ap.add_argument("--out", default="runs/kev")
+@@ -239,7 +244,7 @@ def parse_args():
                                                     "released model's in-domain skill while adapting to a new domain")
      ap.add_argument("--seed", type=int, default=0)
      a = ap.parse_args()

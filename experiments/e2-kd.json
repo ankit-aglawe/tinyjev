@@ -1,5 +1,74 @@
 [
- {"base": "Qwen/Qwen3-0.6B-Base", "base_revision": "da87bfb608c14b7cf20ba1ce41287e8de496c0cd", "seed": 3, "epochs": 2, "batch": 8, "accum": 1, "dtype": "bf16", "p_none_pair": 0.25, "lora": 16, "lr": 0.00005},
- {"base": "Qwen/Qwen3-0.6B-Base", "base_revision": "da87bfb608c14b7cf20ba1ce41287e8de496c0cd", "seed": 2, "epochs": 2, "batch": 8, "accum": 1, "dtype": "bf16", "p_none_pair": 0.25, "lora": 16, "lr": 0.00005, "anchor": "/runs/targets/v7-kev4b.json", "anchor_w": 1.0},
- {"base": "Qwen/Qwen3-0.6B-Base", "base_revision": "da87bfb608c14b7cf20ba1ce41287e8de496c0cd", "seed": 3, "epochs": 2, "batch": 8, "accum": 1, "dtype": "bf16", "p_none_pair": 0.25, "lora": 16, "lr": 0.00005, "anchor": "/runs/targets/v7-kev4b.json", "anchor_w": 1.0}
+ {
+  "base": "Qwen/Qwen3-0.6B-Base",
+  "base_revision": "da87bfb608c14b7cf20ba1ce41287e8de496c0cd",
+  "epochs": 2,
+  "batch": 8,
+  "accum": 1,
+  "dtype": "bf16",
+  "p_none_pair": 0.25,
+  "lora": 16,
+  "lr": 5e-05,
+  "seed": 3
+ },
+ {
+  "base": "Qwen/Qwen3-0.6B-Base",
+  "base_revision": "da87bfb608c14b7cf20ba1ce41287e8de496c0cd",
+  "epochs": 2,
+  "batch": 8,
+  "accum": 1,
+  "dtype": "bf16",
+  "p_none_pair": 0.25,
+  "lora": 16,
+  "lr": 5e-05,
+  "seed": 2,
+  "anchor": "/runs/targets/v7-kev4b.json",
+  "anchor_w": 1.0,
+  "anchor_temp": 1.0
+ },
+ {
+  "base": "Qwen/Qwen3-0.6B-Base",
+  "base_revision": "da87bfb608c14b7cf20ba1ce41287e8de496c0cd",
+  "epochs": 2,
+  "batch": 8,
+  "accum": 1,
+  "dtype": "bf16",
+  "p_none_pair": 0.25,
+  "lora": 16,
+  "lr": 5e-05,
+  "seed": 3,
+  "anchor": "/runs/targets/v7-kev4b.json",
+  "anchor_w": 1.0,
+  "anchor_temp": 1.0
+ },
+ {
+  "base": "Qwen/Qwen3-0.6B-Base",
+  "base_revision": "da87bfb608c14b7cf20ba1ce41287e8de496c0cd",
+  "epochs": 2,
+  "batch": 8,
+  "accum": 1,
+  "dtype": "bf16",
+  "p_none_pair": 0.25,
+  "lora": 16,
+  "lr": 5e-05,
+  "seed": 2,
+  "anchor": "/runs/targets/v7-kev4b.json",
+  "anchor_w": 1.0,
+  "anchor_temp": 3.0
+ },
+ {
+  "base": "Qwen/Qwen3-0.6B-Base",
+  "base_revision": "da87bfb608c14b7cf20ba1ce41287e8de496c0cd",
+  "epochs": 2,
+  "batch": 8,
+  "accum": 1,
+  "dtype": "bf16",
+  "p_none_pair": 0.25,
+  "lora": 16,
+  "lr": 5e-05,
+  "seed": 3,
+  "anchor": "/runs/targets/v7-kev4b.json",
+  "anchor_w": 1.0,
+  "anchor_temp": 3.0
+ }
 ]
