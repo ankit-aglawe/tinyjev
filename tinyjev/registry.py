@@ -3,6 +3,8 @@
 HUB_REPO = "AnkitAI/tinyjev"
 
 MODELS = {
+    "tinyjev-0.6b": {"subfolder": "tinyjev-0.6b", "family": "kev", "params": "0.6B",
+                     "upstream": "ours: Qwen3-0.6B-Base + pointer head, LoRA r16 lr 5e-5 on Kev decision-v7"},
     "nanojev":  {"subfolder": "nanojev",  "family": "nanojev", "params": "0.6B", "upstream": "C-Tianyu/NanoJev"},
     "kev-0.6b": {"subfolder": "kev-0.6b", "family": "kev",     "params": "0.6B", "upstream": "jaredpalmer/kev-0.6b"},
     "kev-4b":   {"subfolder": "kev-4b",   "family": "kev",     "params": "4B",   "upstream": "jaredpalmer/kev-4b@qwen3"},
