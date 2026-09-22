@@ -179,15 +179,9 @@ A question is `{"type": "choice" | "noul" | "score", "instructions": ..., "crite
 
 ## Current status
 
-One published model, `tinyjev-0.6b`: a Qwen3-0.6B-Base backbone with a pointer head, trained on public typed-decision data. It is a first release and it is small — on question types unlike anything it has seen, use the confidence gate rather than the raw label. Specialising it on a few hundred of your own labelled examples is the intended path and beats prompt tuning a larger model.
+`tinyjev-0.6b` is done and published. Weights on Hugging Face and ModelScope, the package on PyPI.
 
-It handles other languages better than expected, which we did not train for. Translating 25 cases of
-a held-out English benchmark into Chinese and re-running them scored 22/25 against 20/25 for the
-English originals, with the question schema left in English. That is parity on a small sample, not
-a multilingual claim, and confidence runs flatter in Chinese so fewer cases clear a fixed gate. The
-backbone is Qwen3, which is where this comes from.
-
-Not yet: vision, or label sets in the hundreds.
+Next is a smaller one, around 0.15B.
 
 ## Support this project
 
