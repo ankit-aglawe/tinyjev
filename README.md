@@ -18,6 +18,13 @@
   <a href="https://github.com/ankit-aglawe/tinyjev/tree/main/examples">Examples</a>
 </p>
 
+<p>
+  <b>English</b> ·
+  <a href="https://github.com/ankit-aglawe/tinyjev/blob/main/README.zh-CN.md">简体中文</a> ·
+  <a href="https://github.com/ankit-aglawe/tinyjev/blob/main/README.ja.md">日本語</a> ·
+  <a href="https://github.com/ankit-aglawe/tinyjev/blob/main/README.ko.md">한국어</a>
+</p>
+
 </div>
 
 TinyJev answers typed questions about text and returns probabilities, in one forward pass, on your own machine.
@@ -180,7 +187,13 @@ A question is `{"type": "choice" | "noul" | "score", "instructions": ..., "crite
 
 One published model, `tinyjev-0.6b`: a Qwen3-0.6B-Base backbone with a pointer head, trained on public typed-decision data. It is a first release and it is small — on question types unlike anything it has seen, use the confidence gate rather than the raw label. Specialising it on a few hundred of your own labelled examples is the intended path and beats prompt tuning a larger model.
 
-Not yet: multilingual, vision, or label sets in the hundreds.
+It handles other languages better than expected, which we did not train for. Translating 25 cases of
+a held-out English benchmark into Chinese and re-running them scored 22/25 against 20/25 for the
+English originals, with the question schema left in English. That is parity on a small sample, not
+a multilingual claim, and confidence runs flatter in Chinese so fewer cases clear a fixed gate. The
+backbone is Qwen3, which is where this comes from.
+
+Not yet: vision, or label sets in the hundreds.
 
 ## Support this project
 
