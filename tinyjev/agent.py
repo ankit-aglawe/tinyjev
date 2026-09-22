@@ -87,6 +87,8 @@ class Agent:
         name = backend or backends.default_backend()
         kw = {"device": device} if (device and name == "torch") else {}
         if name == "torch":
+            if quantize:
+                raise ValueError("quantize is only implemented on the mlx backend for now")
             from .backends.torch_backend import Qwen3Backbone
             self.backbone = Qwen3Backbone(self.manifest["backbone_config"], str(root / "model.safetensors"), **kw)
         else:

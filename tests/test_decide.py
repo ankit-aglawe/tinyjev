@@ -1,6 +1,6 @@
 import pytest
 from tinyjev.agent import normalize_request
-from tinyjev.families.nanojev import candidates, validate_question
+from tinyjev.families.marker import candidates, validate_question
 
 
 def q_choice(**crit):

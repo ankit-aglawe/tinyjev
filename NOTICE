@@ -1,15 +1,20 @@
-nanojev-mlx is an independent port of NanoJev and is not an official release of
-the NanoJev project.
+TinyJev is an independent project. It is not an official release of, nor endorsed
+by, TypeSafe AI or any other project named below.
 
-NanoJev — https://github.com/TianyuCodings/NanoJev
-Copyright (c) 2026 OpenJev contributors, MIT License.
+Backbone
+  Qwen3-0.6B-Base — https://huggingface.co/Qwen/Qwen3-0.6B-Base
+  Copyright Alibaba Cloud, Apache-2.0.
 
-The following are reproduced from NanoJev under that licence:
-  - nanojev_mlx/vendor/snake_game.py   (verbatim)
-  - the request schema, prompt layout and answer shaping in nanojev_mlx/decide.py
-  - the grid-navigation state and question wording in nanojev_mlx/maze.py
-  - the DecisionModel architecture reimplemented in nanojev_mlx/model.py
+Training data, evaluation suites and the pointer-head design
+  Kev — https://github.com/jaredpalmer/kev
+  Copyright (c) Jared Palmer, Apache-2.0.
 
-Model weights are those published by the NanoJev authors at
-https://huggingface.co/C-Tianyu/NanoJev, converted to MLX format without retraining.
-Qwen3-0.6B, the backbone, is Apache-2.0 (Alibaba Cloud).
+Typed-decision interface
+  Follows the System One request and response shape documented by TypeSafe AI at
+  https://docs.typesafe.ai/introduction.
+
+Bundled fonts
+  Poppins — https://fonts.google.com/specimen/Poppins
+  Copyright the Indian Type Foundry and Jonny Pinhorn, SIL Open Font License 1.1.
+  Used in assets/make_banner.py and demos/_render.py to render the banner and the
+  demo recording. The OFL is available at https://openfontlicense.org.

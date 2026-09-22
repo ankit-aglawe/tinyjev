@@ -28,13 +28,6 @@ def main(argv=None) -> int:
     s.add_argument("model"); s.add_argument("--host", default="127.0.0.1")
     s.add_argument("--port", type=int, default=8077); model_args(s)
 
-    p = sub.add_parser("play", help="watch the model play snake or maze (nanojev)")
-    p.add_argument("game", choices=["snake", "maze"]); p.add_argument("--model", default="nanojev")
-    p.add_argument("--size", type=int); p.add_argument("--seed", type=int, default=17)
-    p.add_argument("--steps", type=int, default=400); p.add_argument("--delay", type=float, default=0.0)
-    p.add_argument("--safety", action="store_true"); p.add_argument("--legacy-format", action="store_true")
-    model_args(p)
-
     a = sub.add_parser("ask", help="answer one request (System One or native shape) from a file or stdin")
     a.add_argument("model"); a.add_argument("request", nargs="?", default="-"); model_args(a)
 
@@ -61,16 +54,6 @@ def main(argv=None) -> int:
         from .serve import serve
         serve(load(args.model, backend=args.backend, device=args.device, quantize=args.quantize), host=args.host, port=args.port)
         return 0
-    if args.command == "play":
-        from .play import main as play_main
-        argv2 = [args.game, "--model", args.model, "--seed", str(args.seed), "--steps", str(args.steps),
-                 "--delay", str(args.delay)]
-        if args.size: argv2 += ["--size", str(args.size)]
-        if args.safety: argv2.append("--safety")
-        if args.legacy_format: argv2.append("--legacy-format")
-        if args.backend: argv2 += ["--backend", args.backend]
-        return play_main(argv2)
-
     payload = json.load(sys.stdin) if args.request == "-" else json.load(open(args.request))
     agent = load(args.model, backend=args.backend, device=args.device, quantize=args.quantize)
     print(json.dumps(agent.predict(payload), indent=2, ensure_ascii=False))

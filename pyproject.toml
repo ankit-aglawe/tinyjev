@@ -5,12 +5,12 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "tinyjev"
 version = "0.1.0"
-description = "Run tiny Jev-style decision models locally: NanoJev and Kev on MLX (Apple Silicon) or PyTorch (CPU/CUDA/MPS), one System One endpoint."
+description = "Typed decisions on your laptop: one forward pass, calibrated probabilities, no text generation. MLX or PyTorch."
 readme = "README.md"
 requires-python = ">=3.9"
 license = { text = "MIT" }
 authors = [{ name = "Ankit Aglawe" }]
-keywords = ["jev", "kev", "nanojev", "decision-model", "system-one", "typesafe", "mlx", "apple-silicon", "pytorch"]
+keywords = ["decision-model", "typed-decisions", "classification", "calibration", "system-one", "jev", "mlx", "apple-silicon", "local-inference"]
 classifiers = [
   "Programming Language :: Python :: 3",
   "License :: OSI Approved :: MIT License",
@@ -37,10 +37,12 @@ tinyjev = "tinyjev.cli:main"
 
 [project.urls]
 Homepage = "https://github.com/ankit-aglawe/tinyjev"
-Upstream = "https://github.com/TianyuCodings/NanoJev"
+Issues = "https://github.com/ankit-aglawe/tinyjev/issues"
+Weights = "https://huggingface.co/AnkitAI/tinyjev-0.6b"
 
 [tool.setuptools.packages.find]
 include = ["tinyjev*"]
+exclude = ["tests*", "examples*"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

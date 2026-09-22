@@ -7,3 +7,5 @@ dist/
 .venv/
 tests/fixtures/*.tmp
 .context/
+.DS_Store
+_vizdoom.ini

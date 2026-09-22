@@ -1,8 +1,8 @@
 """Known checkpoints. One entry: our model. Other projects' models are converted locally with
 `tinyjev convert` — we do not republish their weights."""
 MODELS = {
-    "tinyjev-0.6b": {"repo": "AnkitAI/tinyjev-0.6b", "family": "kev", "params": "0.6B",
-                     "what": "Qwen3-0.6B-Base + pointer head, LoRA r16 lr 5e-5 on Kev decision-v7"},
+    "tinyjev-0.6b": {"repo": "AnkitAI/tinyjev-0.6b", "family": "pointer", "params": "0.6B",
+                     "what": "Qwen3-0.6B-Base + pointer head, 596M"},
 }
 
 

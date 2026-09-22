@@ -126,7 +126,7 @@ def convert_nanojev(source, dest, dtype: str = "float16") -> Path:
     tok = _copy_tokenizer(src / "tokenizer", dst)
     eos, pad = _eos_pad_from_tokenizer(tok, backbone_cfg)
     (dst / "tinyjev.json").write_text(json.dumps({
-        "format": "tinyjev-v2", "family": "nanojev", "name": "nanojev",
+        "format": "tinyjev-v2", "family": "marker", "name": "nanojev",
         "head": {"set_head": run.get("set_head", "attention")},
         "tokenizer": {"eos_token_id": eos, "pad_token_id": eos},
         "max_length": run.get("max_length", 8192),
@@ -210,7 +210,7 @@ def convert_kev(adapter_dir, base_dir=None, dest=None, dtype: str = "float16", n
     tok = _copy_tokenizer(adapter, dst)
     eos, pad = _eos_pad_from_tokenizer(tok, backbone_cfg)
     (dst / "tinyjev.json").write_text(json.dumps({
-        "format": "tinyjev-v2", "family": "kev", "name": name,
+        "format": "tinyjev-v2", "family": "pointer", "name": name,
         "head": {"head_dim": int(meta.get("head_dim", 256)), "temperature": float(meta.get("temperature", 1.0)),
                  "option_isolation": bool(meta.get("option_isolation", False))},
         "tokenizer": {"eos_token_id": eos, "pad_token_id": pad},

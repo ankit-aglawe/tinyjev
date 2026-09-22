@@ -1,4 +1,8 @@
-"""Model families. A family owns its prompt format and its decision head.
+"""Model families: a prompt format plus the decision head that reads it.
+
+    pointer  one branch per question ending in a decide token, scored against each option's end token
+    marker   one sequence per candidate, pooled at its end token, with attention across the candidate set
+
 
     enc = family.encode(record)                 # -> Encoded(prefix, rows, questions)
     hs  = backbone.hidden_rows(enc.prefix, enc.rows, family.pad_token_id)
@@ -20,12 +24,14 @@ class Encoded:
 
 
 def make(name: str, root, manifest: dict):
-    if name == "nanojev":
-        from .nanojev import NanoJevFamily as F
-    elif name == "kev":
-        from .kev import KevFamily as F
+    aliases = {"nanojev": "marker", "kev": "pointer"}      # layouts written before the rename
+    name = aliases.get(name, name)
+    if name == "marker":
+        from .marker import MarkerFamily as F
+    elif name == "pointer":
+        from .pointer import PointerFamily as F
     else:
-        raise ValueError(f"unknown family {name!r}")
+        raise ValueError(f"unknown family {name!r}; expected 'pointer' or 'marker'")
     return F(root, manifest)
 
 

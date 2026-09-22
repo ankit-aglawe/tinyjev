@@ -1,4 +1,4 @@
-from tinyjev.families.kev import option_text, render
+from tinyjev.families.pointer import option_text, render
 
 
 def test_kev_render_flattens_objects_with_labels():
