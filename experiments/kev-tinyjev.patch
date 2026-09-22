@@ -110,10 +110,10 @@ index 4e58ebd..49a1b91 100644
      if a.dtype == "bf16" and a.device != "cuda":
          ap.error("--dtype bf16 requires --device cuda")
 diff --git a/modal_app.py b/modal_app.py
-index 0b30b36..6e3c879 100644
+index 0b30b36..e831508 100644
 --- a/modal_app.py
 +++ b/modal_app.py
-@@ -450,3 +450,28 @@ def smoke(gpu: str = GPU):
+@@ -450,3 +450,54 @@ def smoke(gpu: str = GPU):
  def evaluate(run: str, suite: str, name: str, gpu: str = GPU, transfer: str = ""):
      """Score an existing checkpoint (Hub id, or a path under the runs volume) on a suite's development partition."""
      launch(suite, None, name, gpu, [run], transfer or None)
@@ -142,3 +142,29 @@ index 0b30b36..6e3c879 100644
 +def targets(teacher: str, name: str, suite: str = "evals/v7/decision-v7", split: str = "train", gpu: str = GPU):
 +    """Generate teacher soft targets on the runs volume, e.g. --teacher jaredpalmer/kev-4b --name v7-kev4b."""
 +    print(json.dumps(run_targets.with_options(gpu=gpu).remote(teacher, suite, name, split), indent=1))
++
++# --- tinyjev E3: encoder trial (ModernBERT-style [MASK]-marker scorer) on Kev's data, scored by Kev's harness ----------
++@app.function(image=image, gpu=GPU, cpu=4, memory=(32768, 131072), retries=0, timeout=7200,
++              volumes={RUNS_MOUNT: runs_volume, HF_MOUNT: hf_cache}, secrets=secrets)
++def run_encoder_trial(name, args, suite, transfer):
++    import subprocess as sp
++    out = Path(RUNS_MOUNT) / "e3" / name
++    if out.exists():
++        raise FileExistsError(f"{out} exists on the volume")
++    cmd = [sys.executable, "scripts/encoder_train.py", "--suite", f"/root/{suite}", "--transfer", f"/root/{transfer}",
++           "--out", str(out), "--device", "cuda"] + args
++    try:
++        sp.run([str(c) for c in cmd], check=True, cwd="/root", env={**os.environ, "PYTHONPATH": "/root"})
++    finally:
++        runs_volume.commit(); hf_cache.commit()
++    from kev.suite import read_json
++    r = read_json(out / "result.json")
++    return {k: v for k, v in r.items() if k != "args"}
++
++
++@app.local_entrypoint()
++def encoder(name: str, base: str = "answerdotai/ModernBERT-base", lr: float = 5e-5, epochs: int = 2, seed: int = 2,
++            batch: int = 8, max_len: int = 1024, suite: str = "evals/v7/decision-v7", transfer: str = "evals/v4/transfer-v4",
++            gpu: str = GPU, extra: str = ""):
++    args = ["--base", base, "--lr", str(lr), "--epochs", str(epochs), "--seed", str(seed), "--batch", str(batch), "--max_len", str(max_len)] + (extra.split() if extra else [])
++    print(json.dumps(run_encoder_trial.with_options(gpu=gpu).remote(name, args, suite, transfer), indent=1))
