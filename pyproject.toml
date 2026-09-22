@@ -1,0 +1,45 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "nanojev-mlx"
+version = "0.1.0"
+description = "Run NanoJev without CUDA: MLX on Apple Silicon, PyTorch CPU everywhere else. Typed decisions in one forward pass."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+authors = [{ name = "Ankit Aglawe" }]
+keywords = ["nanojev", "jev", "decision-model", "mlx", "apple-silicon", "system-one", "typesafe"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: MacOS",
+  "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = [
+  "mlx>=0.22",
+  "mlx-lm>=0.20",
+  "tokenizers>=0.15",
+  "safetensors>=0.4",
+  "numpy>=1.24",
+  "huggingface_hub>=0.23",
+]
+
+[project.optional-dependencies]
+reference = ["torch>=2.2", "transformers>=4.45"]
+demo = ["pillow>=10"]
+dev = ["pytest>=8", "pillow>=10"]
+
+[project.scripts]
+nanojev-mlx = "nanojev_mlx.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/ankit-aglawe/nanojev-mlx"
+Upstream = "https://github.com/TianyuCodings/NanoJev"
+
+[tool.setuptools.packages.find]
+include = ["nanojev_mlx*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

@@ -1,0 +1,15 @@
+nanojev-mlx is an independent port of NanoJev and is not an official release of
+the NanoJev project.
+
+NanoJev — https://github.com/TianyuCodings/NanoJev
+Copyright (c) 2026 OpenJev contributors, MIT License.
+
+The following are reproduced from NanoJev under that licence:
+  - nanojev_mlx/vendor/snake_game.py   (verbatim)
+  - the request schema, prompt layout and answer shaping in nanojev_mlx/decide.py
+  - the grid-navigation state and question wording in nanojev_mlx/maze.py
+  - the DecisionModel architecture reimplemented in nanojev_mlx/model.py
+
+Model weights are those published by the NanoJev authors at
+https://huggingface.co/C-Tianyu/NanoJev, converted to MLX format without retraining.
+Qwen3-0.6B, the backbone, is Apache-2.0 (Alibaba Cloud).

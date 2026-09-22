@@ -103,9 +103,11 @@ def prepare_examples(payload, encode, eos_token_id: int, max_length: int) -> Lis
                 for key, label in (("false", "False"), ("true", "True")):
                     if key in q["criteria"]:
                         head += f"{label} criterion: {q['criteria'][key]}\n"
-            prefix = encode(f"State:\n{row['state']}\n") + encode(head)
-            leaves = [prefix + encode(f"Candidate:\n{t}\nDecision:") + [eos_token_id]
-                      for t in texts]
+            state_ids = encode(f"State:\n{row['state']}\n")
+            head_ids = encode(head)
+            suffixes = [head_ids + encode(f"Candidate:\n{t}\nDecision:") + [eos_token_id]
+                        for t in texts]
+            leaves = [state_ids + sfx for sfx in suffixes]
             longest = max(map(len, leaves))
             if longest > max_length:
                 raise ValueError(
@@ -113,7 +115,10 @@ def prepare_examples(payload, encode, eos_token_id: int, max_length: int) -> Lis
                     f"max_length={max_length}; input was not truncated")
             examples.append({"id": f"{row['id']}:{qid}", "state_id": row["id"], "qid": qid,
                              "type": typ, "candidate_ids": ids, "candidate_texts": texts,
-                             "leaf_tokens": leaves})
+                             "leaf_tokens": leaves,
+                             # the state segment is identical for every path of a state row,
+                             # so the runtime can compute it once and share its KV cache
+                             "state_tokens": state_ids, "suffix_tokens": suffixes})
     return examples
 
 

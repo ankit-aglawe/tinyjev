@@ -72,12 +72,19 @@ class SetAttention(nn.Module):
 
 
 class DecisionModel(nn.Module):
-    def __init__(self, backbone_config: dict, set_head: str = "attention"):
+    def __init__(self, backbone_config: dict, set_head: str = "attention",
+                 shared_prefix: bool = True):
         super().__init__()
         if set_head not in {"none", "attention"}:
             raise ValueError(f"unsupported set_head: {set_head!r}")
         hidden = backbone_config["hidden_size"]
         self.set_head = set_head
+        # Every candidate path of a state row starts with the same state tokens. With
+        # shared_prefix the backbone runs those once and the K suffixes attend to a
+        # broadcast KV cache; the maths is identical, the work is not.
+        self.shared_prefix = shared_prefix
+        # Below this many prefix tokens the second forward call costs more than it saves.
+        self.shared_prefix_min_tokens = 96
         self.backbone = Qwen3Model(qwen3_args(backbone_config))
         self.norm = nn.LayerNorm(hidden)
         self.scalar = nn.Linear(hidden, 1)
@@ -99,10 +106,51 @@ class DecisionModel(nn.Module):
         rows = mx.arange(len(paths))
         return hidden[rows, mx.array([n - 1 for n in lengths])]
 
+    def pool_shared(self, prefix: Sequence[int], suffixes: Sequence[Sequence[int]],
+                    pad_token: int) -> mx.array:
+        """EOS hidden state of prefix+suffix_i for every i, running the prefix once."""
+        from mlx_lm.models.cache import KVCache
+
+        cache = [KVCache() for _ in self.backbone.layers]
+        self.backbone(mx.array([list(prefix)]), cache=cache)
+
+        k_paths = len(suffixes)
+        shared = []
+        for layer_cache in cache:
+            keys, values = layer_cache.state
+            bc = KVCache()
+            bc.keys = mx.repeat(keys, k_paths, axis=0)
+            bc.values = mx.repeat(values, k_paths, axis=0)
+            bc.offset = keys.shape[2]
+            shared.append(bc)
+
+        lengths = [len(s) for s in suffixes]
+        width = max(lengths)
+        tokens = mx.array([list(s) + [pad_token] * (width - len(s)) for s in suffixes])
+        hidden = self.backbone(tokens, cache=shared)
+        return hidden[mx.arange(k_paths), mx.array([n - 1 for n in lengths])]
+
+    def _leaves(self, examples: List[dict], pad_token: int) -> mx.array:
+        if not self.shared_prefix or not all("state_tokens" in ex for ex in examples):
+            return self.pool([ids for ex in examples for ids in ex["leaf_tokens"]], pad_token)
+        # Group consecutive examples that share a state segment (one state row's
+        # questions arrive together) and run each group with one prefix pass.
+        chunks, i = [], 0
+        while i < len(examples):
+            j, state = i, examples[i]["state_tokens"]
+            while j < len(examples) and examples[j]["state_tokens"] == state:
+                j += 1
+            suffixes = [sfx for ex in examples[i:j] for sfx in ex["suffix_tokens"]]
+            if len(suffixes) >= 2 and len(state) >= self.shared_prefix_min_tokens:
+                chunks.append(self.pool_shared(state, suffixes, pad_token))
+            else:
+                chunks.append(self.pool([list(state) + list(sfx) for sfx in suffixes], pad_token))
+            i = j
+        return chunks[0] if len(chunks) == 1 else mx.concatenate(chunks, axis=0)
+
     def __call__(self, examples: List[dict], pad_token: int):
         """Return (logits [n_examples, kmax], valid [n_examples, kmax])."""
-        paths = [ids for ex in examples for ids in ex["leaf_tokens"]]
-        leaves = self.pool(paths, pad_token)
+        leaves = self._leaves(examples, pad_token)
 
         kmax = max(len(ex["candidate_ids"]) for ex in examples)
         rows, valid_rows, offset = [], [], 0

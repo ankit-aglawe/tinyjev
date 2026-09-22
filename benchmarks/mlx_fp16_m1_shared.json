@@ -1,0 +1,82 @@
+{
+  "machine": "Apple M1",
+  "python": "3.9.6",
+  "model": "/Users/ankit/.cache/nanojev-mlx/nanojev-mlx-fp16",
+  "body_dtype": "float16",
+  "load_seconds": 0.25,
+  "repeats": 12,
+  "rows": [
+    {
+      "name": "maze_choice_4",
+      "candidate_paths": 4,
+      "p50_ms": 104.9,
+      "p95_ms": 108.1
+    },
+    {
+      "name": "shooting_choice_4",
+      "candidate_paths": 4,
+      "p50_ms": 102.0,
+      "p95_ms": 103.8
+    },
+    {
+      "name": "snake_choice_4",
+      "candidate_paths": 4,
+      "p50_ms": 106.9,
+      "p95_ms": 109.2
+    },
+    {
+      "name": "choice_2_minimum",
+      "candidate_paths": 2,
+      "p50_ms": 74.0,
+      "p95_ms": 74.8
+    },
+    {
+      "name": "choice_8_wide",
+      "candidate_paths": 8,
+      "p50_ms": 163.2,
+      "p95_ms": 166.9
+    },
+    {
+      "name": "boolean_bare",
+      "candidate_paths": 1,
+      "p50_ms": 72.7,
+      "p95_ms": 74.5
+    },
+    {
+      "name": "boolean_with_criteria",
+      "candidate_paths": 1,
+      "p50_ms": 72.6,
+      "p95_ms": 77.0
+    },
+    {
+      "name": "score_3_levels",
+      "candidate_paths": 3,
+      "p50_ms": 72.5,
+      "p95_ms": 73.5
+    },
+    {
+      "name": "score_5_levels",
+      "candidate_paths": 5,
+      "p50_ms": 103.7,
+      "p95_ms": 108.1
+    },
+    {
+      "name": "multi_question_one_state",
+      "candidate_paths": 8,
+      "p50_ms": 134.5,
+      "p95_ms": 138.2
+    },
+    {
+      "name": "multi_state_batch",
+      "candidate_paths": 5,
+      "p50_ms": 163.7,
+      "p95_ms": 164.5
+    },
+    {
+      "name": "structured_state_object",
+      "candidate_paths": 4,
+      "p50_ms": 102.0,
+      "p95_ms": 105.6
+    }
+  ]
+}
