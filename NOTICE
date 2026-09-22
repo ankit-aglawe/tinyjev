@@ -18,3 +18,9 @@ Bundled fonts
   Copyright the Indian Type Foundry and Jonny Pinhorn, SIL Open Font License 1.1.
   Used in assets/make_banner.py and demos/_render.py to render the banner and the
   demo recording. The OFL is available at https://openfontlicense.org.
+
+Doom demo inspiration
+  The tactical-router and deterministic-actuator structure in demos/doom_corridor.py
+  was inspired by OpenDecision's disclosed ViZDoom demo:
+  https://github.com/deepanwadhwa/OpenDecision/tree/main/demos/doom
+  Copyright (c) Deepan Wadhwa, Apache-2.0.

@@ -34,6 +34,7 @@ mlx = ["mlx>=0.22", "mlx-lm>=0.20"]
 torch = ["torch>=2.2", "transformers>=4.45"]
 convert = ["torch>=2.2", "safetensors>=0.4"]
 demo = ["pillow>=10"]
+doom = ["pillow>=10", "vizdoom>=1.3"]
 modelscope = ["modelscope>=1.9"]
 dev = ["pytest>=8", "pillow>=10", "torch>=2.2", "transformers>=4.45"]
 

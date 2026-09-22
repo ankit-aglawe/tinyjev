@@ -57,6 +57,22 @@ pip install 'tinyjev[mlx,demo]'
 python demos/triage_desk.py --gif demo.gif
 ```
 
+### Watch it play Doom
+
+<div align="center">
+  <img alt="TinyJev choosing actions in VizDoom" src="assets/tinyjev_doom.gif" width="860">
+</div>
+
+TinyJev is text-only, so it never sees the game pixels. VizDoom supplies health, ammo, enemy
+positions, recent damage and the location of the goal. A small rules-based router picks the tactical
+mode; TinyJev chooses a tactic and returns its probabilities; ordinary code handles aiming and key
+presses. In this fixed-seed run it kills all six enemies and reaches the goal.
+
+```bash
+pip install 'tinyjev[mlx,doom]'
+python demos/doom_corridor.py --gif tinyjev_doom.gif
+```
+
 ## What can it do?
 
 ### Triage a support ticket
