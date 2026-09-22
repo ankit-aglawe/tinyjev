@@ -4,7 +4,7 @@ Upstream NanoJev refuses to run without CUDA. This package runs the same checkpo
 locally through MLX.
 
     import nanojev_mlx
-    agent = nanojev_mlx.load("ankit/nanojev-mlx")
+    agent = nanojev_mlx.load("AnkitAI/nanojev-mlx")
     agent.predict({"states": [...]})
 """
 from __future__ import annotations

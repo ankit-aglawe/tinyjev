@@ -156,19 +156,18 @@ def render(info, best):
         y += 26
 
     # stats
-    y = max(y + 8, 392)
+    y = max(y + 6, 388)
     d.line([px(rx), px(y), px(W - 24), px(y)], fill=LINE, width=S)
-    y += 10
+    y += 8
     rows = [("INFERENCE", f"{info['elapsed_ms']:.1f} ms", FG),
             ("DECISIONS", f"{info['fps']:.1f} /s", FG),
             ("OUTPUT TOKENS", "0", FG),
             ("NETWORK", "OFFLINE", GREEN),
-            ("ENGINE", "MLX · FP16 · shared prefix", DIM),
-            ("BACKBONE", "Qwen3-0.6B + decision head", DIM)]
+            ("ENGINE", "MLX · FP16 · shared prefix · Qwen3-0.6B", DIM)]
     for label, val, col in rows:
         text(d, (rx, y), label, F_XS, DIM)
         text(d, (rx + 130, y), val, F_XS, col)
-        y += 17
+        y += 16
 
     d.line([px(24), px(H - 40), px(W - 24), px(H - 40)], fill=LINE, width=S)
     text(d, (24, H - 30), "every move is one forward pass · no text generated · upstream refuses to run without CUDA",
