@@ -45,8 +45,10 @@ def main(argv=None) -> int:
     if args.command == "models":
         from .registry import MODELS
         for k, v in MODELS.items():
-            where = v['repo'] + (f"/{v['subfolder']}" if v.get('subfolder') else "")
-            print(f"{k:<13} {v['params']:<5} {v['family']:<8} {where:<34} {v['what']}")
+            print(f"{k:<13} {v['params']:<5} {v['family']:<8} {v['repo']:<22} {v['what']}")
+        print("\nOther projects' models: convert them locally, e.g.\n"
+              "  tinyjev convert nanojev <dest> --source <C-Tianyu/NanoJev checkout>\n"
+              "  tinyjev convert kev <dest> --adapter <kev run or hub dir> --base <Qwen3 base dir>")
         return 0
     if args.command == "convert":
         from .convert import convert

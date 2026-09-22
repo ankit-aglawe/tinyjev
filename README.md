@@ -84,13 +84,18 @@ We also trained the model the name is for: ModernBERT-base, 149M, an encoder wit
 
 Qwen3-0.6B-Base with a pointer head, Kev's design: the state, then per question `<q> instructions <opt> option </opt> … <decide>`; the hidden state at `<decide>` is dot-producted against each `</opt>` hidden state, softmax over the options. One causal row per question; the state's KV cache is computed once and shared across questions. Trained with plain cross-entropy, option order shuffled during training, one temperature fitted on the calibration partition afterwards. The decision head runs in fp32 numpy on every backend; the backbones differ (MLX vs torch), so answers match on our fixtures but probabilities differ at the third decimal.
 
-The runtime also converts and serves two other open models in the same layout, as baselines: [NanoJev](https://github.com/TianyuCodings/NanoJev), whose inference entry point refuses to run without CUDA (MLX fp16 selected-answer agreement with its authors' published CUDA predictions: 2492/2496, max probability difference 0.014), and [Kev-0.6B](https://github.com/jaredpalmer/kev) (selected answers match `kev.model` on 14/14 fixtures; max probability difference 0.005 on MLX, 0.003 on torch).
+The same runtime converts and serves other projects' decision models locally — we don't republish their weights, `tinyjev convert` does it from their own releases. Two we use as comparison rows: [NanoJev](https://github.com/TianyuCodings/NanoJev), whose own inference entry point refuses to run without CUDA (our MLX fp16 build agrees with the authors' published CUDA predictions on 2492/2496 test questions, max probability difference 0.014), and [Kev-0.6B](https://github.com/jaredpalmer/kev) (selected answers match `kev.model` on 14/14 fixtures; max probability difference 0.005 on MLX, 0.003 on torch).
+
+```bash
+tinyjev convert kev ~/.cache/tinyjev/kev-0.6b --adapter jaredpalmer/kev-0.6b --base <Qwen3-0.6B-Base dir>
+tinyjev convert nanojev ~/.cache/tinyjev/nanojev --source <C-Tianyu/NanoJev checkout>
+```
 
 ```
 tinyjev models                       # what's on the Hub
 tinyjev serve tinyjev-0.6b           # /v1/systemone on :8077, --quantize 8 for INT8
 tinyjev ask tinyjev-0.6b req.json    # one request
-tinyjev play snake --model nanojev   # NanoJev playing its own game, one forward pass per move
+tinyjev play snake --model <converted nanojev dir>   # NanoJev playing its own game, one pass per move
 ```
 
 ## Reproduce
