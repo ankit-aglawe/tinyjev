@@ -4,6 +4,7 @@ from __future__ import annotations
 from typing import List, Sequence
 
 import mlx.core as mx
+import mlx.nn as nn
 import numpy as np
 from mlx_lm.models.qwen3 import ModelArgs, Qwen3Model
 
@@ -23,11 +24,18 @@ def qwen3_args(cfg: dict) -> ModelArgs:
 class Qwen3Backbone:
     name = "mlx"
 
-    def __init__(self, config: dict, weights_path: str, prefix_min_tokens: int = 96):
+    def __init__(self, config: dict, weights_path: str, prefix_min_tokens: int = 96,
+                 quantize: int = 0, group_size: int = 64):
         self.model = Qwen3Model(qwen3_args(config))
         weights = mx.load(weights_path)
         self.model.load_weights([(k[len("backbone."):], v) for k, v in weights.items()
                                  if k.startswith("backbone.")])
+        if quantize:
+            # Backbone Linear layers only (the decision head runs fp32 in numpy). Embeddings stay
+            # unquantized: they are gathered, not multiplied, and small models lose most at 4-bit.
+            nn.quantize(self.model, group_size=group_size, bits=int(quantize),
+                        class_predicate=lambda _p, m: isinstance(m, nn.Linear))
+        self.quantize = int(quantize)
         self.model.eval()
         mx.eval(self.model.parameters())
         self.prefix_min_tokens = prefix_min_tokens

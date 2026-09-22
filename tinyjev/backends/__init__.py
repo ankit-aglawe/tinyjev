@@ -34,11 +34,13 @@ def default_backend() -> str:
     raise RuntimeError("install either mlx (Apple Silicon) or torch")
 
 
-def make(name: str, config: dict, weights_path: str, prefix_min_tokens: int = 96):
+def make(name: str, config: dict, weights_path: str, prefix_min_tokens: int = 96, quantize: int = 0):
     if name == "mlx":
         from .mlx_backend import Qwen3Backbone
-    elif name == "torch":
+        return Qwen3Backbone(config, weights_path, prefix_min_tokens=prefix_min_tokens, quantize=quantize)
+    if name == "torch":
+        if quantize:
+            raise ValueError("quantize is only implemented on the mlx backend for now")
         from .torch_backend import Qwen3Backbone
-    else:
-        raise ValueError(f"unknown backend {name!r}; choose mlx or torch")
-    return Qwen3Backbone(config, weights_path, prefix_min_tokens=prefix_min_tokens)
+        return Qwen3Backbone(config, weights_path, prefix_min_tokens=prefix_min_tokens)
+    raise ValueError(f"unknown backend {name!r}; choose mlx or torch")

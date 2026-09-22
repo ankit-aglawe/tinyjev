@@ -72,7 +72,7 @@ def normalize_request(payload: Dict[str, Any]) -> List[dict]:
 
 class Agent:
     def __init__(self, model_path, backend: Optional[str] = None, device: Optional[str] = None,
-                 subfolder: Optional[str] = None):
+                 subfolder: Optional[str] = None, quantize: int = 0):
         root = _resolve(model_path, subfolder)
         manifest_path = root / "tinyjev.json"
         if not manifest_path.exists():
@@ -87,8 +87,10 @@ class Agent:
             from .backends.torch_backend import Qwen3Backbone
             self.backbone = Qwen3Backbone(self.manifest["backbone_config"], str(root / "weights.safetensors"), **kw)
         else:
-            self.backbone = backends.make(name, self.manifest["backbone_config"], str(root / "weights.safetensors"))
+            self.backbone = backends.make(name, self.manifest["backbone_config"], str(root / "weights.safetensors"),
+                                          quantize=quantize)
         self.backend = self.backbone.name
+        self.quantize = int(quantize)
 
     @property
     def name(self) -> str:
@@ -132,6 +134,7 @@ class Agent:
         return {
             "schema_version": SCHEMA_VERSION,
             "model": {"name": self.name, "family": self.manifest["family"], "backend": self.backend,
+                      "quantize_bits": self.quantize or None,
                       "directory": str(self.root), "upstream": self.manifest.get("upstream", {})},
             "temperature": {"value": float(temperature)},
             "execution": {"states": len(records), "questions": len(results), "candidate_paths": paths,
@@ -158,6 +161,7 @@ class Agent:
 
 
 def load(model_path, backend: Optional[str] = None, device: Optional[str] = None,
-         subfolder: Optional[str] = None) -> Agent:
-    """`load("kev-0.6b")` (alias), `load("/path/to/dir")`, or `load("org/repo", subfolder="name")`."""
-    return Agent(model_path, backend=backend, device=device, subfolder=subfolder)
+         subfolder: Optional[str] = None, quantize: int = 0) -> Agent:
+    """`load("kev-0.6b")` (alias), `load("/path/to/dir")`, or `load("org/repo", subfolder="name")`.
+    quantize=8 or 4 quantizes the backbone's Linear layers at load time (mlx backend)."""
+    return Agent(model_path, backend=backend, device=device, subfolder=subfolder, quantize=quantize)

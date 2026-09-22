@@ -22,6 +22,7 @@ def main(argv=None) -> int:
     def model_args(p):
         p.add_argument("--backend", choices=["mlx", "torch"], default=None)
         p.add_argument("--device", default=None, help="torch backend: cpu, mps or cuda")
+        p.add_argument("--quantize", type=int, default=0, choices=[0, 4, 8], help="mlx: quantize backbone Linear layers to 4 or 8 bits at load")
 
     s = sub.add_parser("serve", help="serve a checkpoint over HTTP (/predict, /v1/systemone)")
     s.add_argument("model"); s.add_argument("--host", default="127.0.0.1")
@@ -55,7 +56,7 @@ def main(argv=None) -> int:
     from . import load
     if args.command == "serve":
         from .serve import serve
-        serve(load(args.model, backend=args.backend, device=args.device), host=args.host, port=args.port)
+        serve(load(args.model, backend=args.backend, device=args.device, quantize=args.quantize), host=args.host, port=args.port)
         return 0
     if args.command == "play":
         from .play import main as play_main
@@ -68,7 +69,7 @@ def main(argv=None) -> int:
         return play_main(argv2)
 
     payload = json.load(sys.stdin) if args.request == "-" else json.load(open(args.request))
-    agent = load(args.model, backend=args.backend, device=args.device)
+    agent = load(args.model, backend=args.backend, device=args.device, quantize=args.quantize)
     print(json.dumps(agent.predict(payload), indent=2, ensure_ascii=False))
     return 0
 
