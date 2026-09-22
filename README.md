@@ -1,179 +1,111 @@
-<p align="center">
-  <img src="https://raw.githubusercontent.com/ankit-aglawe/nanojev-mlx/main/assets/snake.gif" alt="NanoJev playing Snake on a base M1 through MLX, every move one forward pass, real recorded decisions" width="100%" />
-</p>
+# tinyjev
 
-# nanojev-mlx
+**Tiny typed-decision models you can run on the laptop you already own.**
 
-**NanoJev without CUDA.** Runs the [NanoJev](https://github.com/TianyuCodings/NanoJev) decision model on a Mac: MLX on Apple Silicon, PyTorch CPU anywhere else.
+Give it a state and typed questions — `choice` over options, `noul` (yes/no probability), `score` (ordinal) — and get calibrated probabilities back in one forward pass. No text generation, nothing to parse, no label that wasn't in your list. The category is TypeSafe's Jev; these are open weights, trained by us, scored on the public frozen suites everyone else in the category uses, and served on MLX (Apple Silicon) or PyTorch (CPU / CUDA / MPS).
 
-Upstream cannot run here at all. Its inference entry point asserts a CUDA device and exits:
-
-```
-ValueError: 此原型推理入口需要可用CUDA设备；本命令未启用CPU或远程回退
-            (this prototype inference entry requires CUDA; no CPU or remote fallback)
-```
-
-This repo is that fallback. Same weights, same prompt bytes, same answers, on the laptop you already own.
-
-[![PyPI](https://img.shields.io/pypi/v/nanojev-mlx.svg)](https://pypi.org/project/nanojev-mlx/)
-[![Weights](https://img.shields.io/badge/%F0%9F%A4%97%20weights-AnkitAI%2Fnanojev--mlx-blue)](https://huggingface.co/AnkitAI/nanojev-mlx)
-[![Upstream](https://img.shields.io/badge/upstream-NanoJev-0a0a0a)](https://github.com/TianyuCodings/NanoJev)
+[![Weights](https://img.shields.io/badge/%F0%9F%A4%97%20weights-AnkitAI%2Ftinyjev-blue)](https://huggingface.co/AnkitAI/tinyjev)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
-
-## Numbers, base M1 with 16 GB
-
-Not an M3 Max. Not a Pro. The 8-core M1 with 16 GB that most Macs in the wild are. Measured on this machine, same requests, same weights, PyTorch built from upstream's own `DecisionModel`.
-
-| request | candidate paths | PyTorch CPU | PyTorch MPS | **MLX fp16** | vs CPU | vs MPS |
-|---|---:|---:|---:|---:|---:|---:|
-| yes/no question | 1 | 194 ms | 82 ms | **36 ms** | 5.3x | 2.2x |
-| 2-way choice | 2 | 247 ms | 116 ms | **64 ms** | 3.9x | 1.8x |
-| 4-way choice | 4 | 394 ms | 246 ms | **119 ms** | 3.3x | 2.1x |
-| 8-way choice | 8 | 513 ms | 328 ms | **140 ms** | 3.7x | 2.4x |
-| choice + yes/no + score, one state | 8 | 567 ms | 386 ms | **169 ms** | 3.4x | 2.3x |
-| model load | | 14.8 s | 15.8 s | **0.3 s** | | |
-
-Median across all twelve fixtures: **3.5x faster than PyTorch CPU, 2.2x faster than PyTorch MPS**, and the model loads 50x faster. Reproduce with `tools/bench.py`; every timing sample is in [`benchmarks/`](benchmarks/).
-
-**Parity:** the port selects the same answer as the PyTorch original on **15/15** fixture questions in both fp16 and fp32, checked against CPU and MPS references. Worst per-option probability delta is 1.2e-3 in fp16 and 8.6e-7 in fp32. Fixtures and reference outputs are committed under [`tests/fixtures/`](tests/fixtures/).
-
-## Install
+[![Suites](https://img.shields.io/badge/scored%20on-Kev%20frozen%20suites-0a0a0a)](https://github.com/jaredpalmer/kev)
 
 ```bash
-pip install nanojev-mlx
+pip install 'tinyjev[mlx]'     # Apple Silicon
+pip install 'tinyjev[torch]'   # everything else
 ```
-
-Apple Silicon, macOS 14+, Python 3.9+. The first load downloads ~1.1 GB of fp16 weights from the Hub; after that it is fully local.
 
 ```python
 import tinyjev
 
-agent = tinyjev.load("AnkitAI/nanojev-mlx")
-
-result = agent.predict({"states": [{
-    "id": "ticket-4411",
-    "state": "Hi, we were billed twice for March. Refund the duplicate today or we cancel.",
+agent = tinyjev.load("tinyjev-0.6b")          # ~1.2 GB fp16, downloads once
+agent.predict({
+    "state": "Shoes arrived two weeks late and in the wrong size. Also I see two charges on my card.",
     "questions": {
-        "team":    {"type": "choice",  "instructions": "Which team should handle this?",
-                    "criteria": {"billing": "invoices, refunds, payments",
-                                 "support": "bugs and outages",
-                                 "sales":   "pricing and contracts"}},
-        "churn":   {"type": "boolean", "instructions": "The customer threatens to leave."},
-        "urgency": {"type": "score",   "instructions": "How urgent is this?",
-                    "criteria": ["can wait", "this week", "today"]},
-    }}]})
-
-answers = result["states"][0]["answers"]
-answers["team"]["choice"]        # -> a label, with probabilities over all three
-answers["churn"]["p_true"]       # -> a probability
-answers["urgency"]["score"]      # -> expected level, 0..2
-result["execution"]["model_ms"]  # -> the forward pass, measured
+        "team":     {"type": "choice", "instructions": "Which team should handle this?",
+                     "criteria": {"returns": "Exchanges, refunds, wrong or damaged items",
+                                  "shipping": "Delivery status, delays, lost packages",
+                                  "billing": "Charges, invoices, payment problems"}},
+        "escalate": {"type": "noul",   "instructions": "Does this need urgent human attention?"},
+        "anger":    {"type": "score",  "instructions": "How angry is the customer?",
+                     "criteria": ["calm", "frustrated", "very angry"]},
+    }})
 ```
 
-One forward pass answers every question. No tokens are generated, so there is nothing to parse and no label can be hallucinated: the model can only point at options you supplied.
+`tinyjev serve tinyjev-0.6b` gives you `POST /v1/systemone`, the same request shape TypeSafe, Kev and Laya clients already speak, on `127.0.0.1:8077`.
 
-## Watch it play
+## The number
 
-The GIF at the top is a real run, rendered at the speed the decisions were made. Reproduce it in your terminal:
+Every model in this category reports on its own chosen tasks. We report on **Kev's frozen suites**, scored with **Kev's own harness**, so the row can be compared with the published numbers directly.
 
-```bash
-nanojev-mlx play snake --model AnkitAI/nanojev-mlx --safety
-```
+| model | params | transfer-v4 **dev** (held-out sources) | transfer-v4 **test** (read once) | ECE (test) |
+|---|---|---|---|---|
+| **tinyjev-0.6b** | 596M | **0.625** | **0.663** | 0.082 |
+| Kev-0.6B, published (Qwen3 generation) | 596M | 0.620 | 0.642 | — |
+| Kev-0.6B, released config reproduced by us | 596M | 0.614 | 0.657 | 0.108 |
+| Kev-4B | 4B | 0.797 | 0.837 | — |
+| Jev (hosted, TypeSafe) | ? | 0.857 | — | — |
 
-`--safety` also asks the model, in the same forward pass, whether each move avoids a collision, and overrides its own pick when it says no. In the recorded run (seed 7) it survives 80 moves and eats 11 food with zero overrides needed.
+Read that honestly: at 0.6B we are at the public anchor's level, a couple of points ahead on the locked test with better calibration. We are not at 4B accuracy, and nothing we tried gets there at this size. The section after next says what we tried.
 
-## Serve it
+**Runs on a base M1 with 16 GB** (not a Pro, not a Max), scored on the same suite through the same harness:
 
-```bash
-nanojev-mlx serve AnkitAI/nanojev-mlx --port 8077
-```
+| build | transfer-v4 dev | ECE | p50 latency | weights |
+|---|---|---|---|---|
+| MLX fp16 | 0.620 | 0.140 | 65 ms | 1.2 GB |
+| MLX INT8 | 0.620 | 0.136 | 58 ms | ~0.6 GB |
+| MLX 4-bit | 0.599 | 0.097 | 59 ms | ~0.35 GB |
 
-Two routes. `POST /predict` takes NanoJev's native `{"states": [...]}` payload. `POST /v1/systemone` takes a TypeSafe System One request (`state` + `questions`, with `noul`/`choice`/`score`), so any client written for Jev, Kev or Laya works unchanged:
+INT8 is free. 4-bit costs two points. Quantization changes memory, not speed, on an M1.
 
-```bash
-curl -s localhost:8077/v1/systemone -H 'content-type: application/json' -d '{
-  "state": "Shoes arrived two weeks late and in the wrong size.",
-  "questions": {
-    "team":   {"type": "choice", "instructions": "Which team?",
-               "criteria": {"returns": "wrong or damaged items", "shipping": "delays"}},
-    "urgent": {"type": "noul",   "instructions": "Needs a human today?"}}}'
-```
+## What we tried at 0.6B, and what happened
 
-Loopback only, no authentication. Keep it local.
+All on Kev's `decision-v7` training partition, all scored on `transfer-v4` dev, all in [`benchmarks/`](benchmarks/) with Kev's raw `result.json` files. One seed per row unless stated; seeds agree to 0.15 pp where we repeated.
 
-## What this model is, honestly
+| lever | result | verdict |
+|---|---|---|
+| reproduce Kev's released config (LoRA r16, lr 1e-4) | 0.614 | reproduces the published 0.620 within run noise |
+| LoRA at half the LR (5e-5) | **0.625** | ships as tinyjev-0.6b |
+| full fine-tune, lr 5e-5 | 0.483 | forgets the base: mmlu 0.34, emotion 0.40 |
+| full fine-tune, lr 2e-5 | 0.581 | better, still −4 pp; learns rule composition, loses knowledge |
+| distillation from Kev-4B (Hinton KD, T=1 and T=3, two seeds each) | −1.5, −1.2, −1.1, −0.15 pp vs matched CE | **hurts**; the 4B teacher is near-one-hot on its own training set |
+| 4-bit MLX | −2.1 pp | ship INT8 |
 
-The published NanoJev checkpoint is a **games model**: a Qwen3-0.6B backbone fine-tuned on Maze, Snake, ViZDoom Basic and Predict Position decisions. It answers arbitrary typed questions through the same interface, but that is not what it was trained on. Numbers measured here, on this port, same seeds every time:
+The evidence going in (a 200-source verified literature pass, in [`docs/research/`](docs/research/)) already said the same thing from the outside: Kev's own ladder shows accuracy collapsing below 4B, and no sub-0.5B open model had a number on these suites at all. We pre-registered stop rules before spending and stopped when they fired ([`docs/research/RECIPE.md`](docs/research/RECIPE.md)).
 
-| task | result on this machine |
-|---|---|
-| Snake 8x8, model alone, 10 seeds | median 8 food, best 16; always dies within 200 moves |
-| Snake 8x8, model + its own safety answers | 11 food in 80 moves, survived (recorded run) |
-| Maze, per-step agreement with a BFS oracle | 56% on 4x4, 49% on 6x6 |
-| Maze, solved end to end | rare; a per-step rate near chance compounds |
+## tinyjev-0.15b (encoder)
 
-Upstream's model card reports Maze 4/10 and Snake 8/8 on its matched test set, and a 30-food Snake showcase that it notes used "common code planners". The safety-question mode above is the all-model analogue of that showcase: no external planner, just more questions in the same pass.
-
-For a general-purpose typed decision model, look at [Kev](https://github.com/jaredpalmer/kev) or [Laya](https://github.com/NandhaKishorM/laya). This port exists because NanoJev is the most-starred open replica and could not previously run on a Mac.
-
-## A bug you will hit if you run upstream on transformers 4.x
-
-The checkpoint's `backbone_config/config.json` was written by transformers 5.17 and stores the RoPE base as `rope_parameters.rope_theta = 1000000`. transformers 4.x does not read that key and **silently falls back to `rope_theta = 10000`**. Every hidden state changes, no error is raised, and the model quietly gets worse: on our fixtures the selected answer flipped on 4 of 15 questions.
-
-`tools/reference_pytorch.py` detects the mismatch and forces the declared value, with a printed warning. If you build your own reference, do the same. The MLX port reads the declared value directly.
+_pending: E3, a ModernBERT-base (149M) with a [MASK]-marker scorer on the same data, is the footprint model and the first sub-0.5B number on these suites. Row lands when it does._
 
 ## How it works
 
-Upstream's `DecisionModel`, reimplemented in ~150 lines of MLX ([`tinyjev/model.py`](tinyjev/model.py)):
+Qwen3-0.6B-Base with a pointer head, Kev's design: the state, then per question `<q> instructions <opt> option </opt> … <decide>`; the hidden state at `<decide>` is dot-producted against each `</opt>` hidden state, softmax over the options. One causal row per question; the state's KV cache is computed once and shared across questions. Trained with plain cross-entropy (label smoothing destroys selective-prediction coverage; we checked the literature and Kev's own screen), one temperature fitted post hoc, option order shuffled during training. The decision head runs in fp32 numpy on every backend so MLX and torch give identical answers.
+
+The runtime also converts and serves two other open models in the same layout, useful as baselines: [NanoJev](https://github.com/TianyuCodings/NanoJev) (its inference code refuses to run without CUDA; ours matches its authors' CUDA predictions on 2492/2496 test questions) and [Kev-0.6B](https://github.com/jaredpalmer/kev) (14/14 parity with `kev.model`).
 
 ```
-for each candidate:  State: … \n Question type: … \n Candidate: … \n Decision: <eos>
-                     └── Qwen3-0.6B ── hidden state at <eos>
-                                        └── LayerNorm ── Linear(1024→1) ── base logit
-choice questions only:
-    candidates attend to each other through a 4-head set-attention block,
-    conditioned on log(K), and add a residual correction to each logit
-softmax over the offered candidates
+tinyjev models                       # what's on the Hub
+tinyjev serve tinyjev-0.6b           # /v1/systemone on :8077, --quantize 8 for INT8
+tinyjev ask tinyjev-0.6b req.json    # one request
+tinyjev play snake --model nanojev   # NanoJev playing its own game, one forward pass per move
 ```
 
-Every candidate path of a state row starts with the same state tokens. The runtime computes those once and lets the K suffixes attend to a broadcast KV cache ([`pool_shared`](tinyjev/model.py)). Same maths, less work: on a mid-game Snake state with the safety questions on, 599 ms becomes 374 ms. It switches on automatically above 96 shared tokens, where it starts to pay.
+## Reproduce
 
-Backbone weights are fp16; the twelve head tensors stay fp32. The tokenizer is Hugging Face's Rust `tokenizers`, so PyTorch and Transformers are not runtime dependencies.
-
-## Reproduce everything
+Training runs through Kev's own study runner on Modal with a 100-line patch ([`experiments/kev-tinyjev.patch`](experiments/kev-tinyjev.patch): full fine-tune support, a distillation temperature, teacher-target and encoder entry points). Plans are in [`experiments/`](experiments/). Total GPU for everything in this README: about 4 H100-hours.
 
 ```bash
-git clone https://github.com/ankit-aglawe/nanojev-mlx && cd nanojev-mlx
-pip install -e '.[dev,reference]'
-
-# 1. convert the upstream checkpoint yourself (2.4 GB fp32 -> 1.1 GB fp16)
-nanojev-mlx convert /path/to/C-Tianyu--NanoJev ~/.cache/nanojev-mlx/fp16
-
-# 2. regenerate PyTorch references on CPU and MPS (needs an upstream checkout for its DecisionModel)
-python tools/reference_pytorch.py --checkpoint /path/to/C-Tianyu--NanoJev \
-    --source-scripts /path/to/NanoJev/scripts --cases tests/fixtures/cases.json \
-    --out tests/fixtures/reference_cpu.json --device cpu
-
-# 3. parity, latency, game capability
-python tools/check_parity.py --model ~/.cache/nanojev-mlx/fp16 --reference tests/fixtures/reference_cpu.json
-python tools/bench.py --model ~/.cache/nanojev-mlx/fp16 --cases tests/fixtures/cases.json
-python tools/eval_games.py --model ~/.cache/nanojev-mlx/fp16
-
-# 4. the GIF
-python tools/render_gif.py --model ~/.cache/nanojev-mlx/fp16 --out assets/snake.gif --safety
-
-pytest   # unit tests; the parity test runs when converted weights are present
+git clone https://github.com/jaredpalmer/kev && cd kev && git apply ../tinyjev/experiments/kev-tinyjev.patch
+uv run modal run modal_app.py::study --suite evals/v7/decision-v7 --plan ../tinyjev/experiments/e1-lora.json --name e1 --gpu H100
 ```
+
+Serving-side parity and latency: `tools/check_parity_kev.py`, `tools/bench.py`; the M1 numbers above came from `kev.benchmark --remote http://127.0.0.1:8077`.
 
 ## Limits
 
-- Apple Silicon only for the MLX path. The PyTorch reference runner in `tools/` covers CPU and MPS.
-- One request at a time in the server; no cross-caller batching.
-- No training or fine-tuning; that lives upstream.
-- The weights are upstream's, unchanged. Anything the model gets wrong, it also gets wrong on CUDA.
+- 0.6B is the category's standard small size, not tiny. The 149M encoder is the tiny one, and it will land with its own measured number or not at all.
+- One seed per row except where stated. Kev's own runs spread several points on identical configs; treat single-run differences under 2 points as noise.
+- Held-out accuracy of 0.62–0.66 means roughly one in three new-source questions is wrong. Use the probabilities: coverage at a 5% error budget is low at this size (0.07–0.08 on transfer-v4), so gate on confidence and escalate the rest.
+- Locked test read once, ungated, same convention as the published Kev 0.6B reads.
 
 ## Credits
 
-Independent port, not an official NanoJev release. NanoJev is MIT, © 2026 OpenJev contributors; its request schema, prompt layout, Snake environment and model architecture are reproduced here under that licence (see [NOTICE](NOTICE)). Weights: [C-Tianyu/NanoJev](https://huggingface.co/C-Tianyu/NanoJev). Backbone: Qwen3-0.6B, Apache-2.0. Inspired by the interface of TypeSafe's Jev.
-
-MIT.
+Data, suites, harness, training code and the pointer-head design are [Kev](https://github.com/jaredpalmer/kev) by Jared Palmer (Apache-2.0), used as published; our changes are in the patch file. Qwen3-0.6B-Base is Apache-2.0 (Alibaba). NanoJev is MIT (OpenJev contributors). The category's interface is TypeSafe's Jev. tinyjev is MIT.
