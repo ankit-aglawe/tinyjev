@@ -1,0 +1,31 @@
+{
+  "questions": 2496,
+  "selected_answer_matches": 2492,
+  "match_rate": 0.9984,
+  "prob_delta_median": 0.00020343810319900513,
+  "prob_delta_p99": 0.003991246223449707,
+  "prob_delta_max": 0.013802826404571533,
+  "by_family": {
+    "unified_maze": {
+      "agree": 211,
+      "total": 211,
+      "delta_median": 0.0010599493980407715,
+      "delta_max": 0.004923820495605469
+    },
+    "unified_snake": {
+      "agree": 115,
+      "total": 116,
+      "delta_median": 0.0009519755840301514,
+      "delta_max": 0.004003286361694336
+    },
+    "unified_shooting": {
+      "agree": 2166,
+      "total": 2169,
+      "delta_median": 0.00012177228927612305,
+      "delta_max": 0.013802826404571533
+    }
+  },
+  "latency_ms_median": 396.8,
+  "upstream_reference": "C-Tianyu/NanoJev predictions_test.jsonl (authors' CUDA bf16 run)",
+  "port_dtype": "float16"
+}
