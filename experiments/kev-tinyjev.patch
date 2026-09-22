@@ -66,3 +66,36 @@ index 4e58ebd..efe3029 100644
          ap.error("epochs, accum, n_per_source, lora, batch and synthetic_repeat must be positive; 0 < public_frac <= 1")
      if a.dtype == "bf16" and a.device != "cuda":
          ap.error("--dtype bf16 requires --device cuda")
+diff --git a/modal_app.py b/modal_app.py
+index 0b30b36..6e3c879 100644
+--- a/modal_app.py
++++ b/modal_app.py
+@@ -450,3 +450,28 @@ def smoke(gpu: str = GPU):
+ def evaluate(run: str, suite: str, name: str, gpu: str = GPU, transfer: str = ""):
+     """Score an existing checkpoint (Hub id, or a path under the runs volume) on a suite's development partition."""
+     launch(suite, None, name, gpu, [run], transfer or None)
++
++# --- tinyjev: soft targets from a trained Kev checkpoint (teacher) for `kev.train --anchor` ---------------------------
++@app.function(image=image, gpu=GPU, cpu=2, memory=(32768, 131072), retries=0, timeout=7200,
++              volumes={RUNS_MOUNT: runs_volume, HF_MOUNT: hf_cache}, secrets=secrets)
++def run_targets(teacher, suite, name, split="train"):
++    """Write /runs/targets/<name>.json = the teacher's pointer-head distribution over every training question
++    (scripts/kev_teacher_targets.py), in kev.anchors' shape so a student trial can use anchor=/runs/targets/<name>.json."""
++    import subprocess as sp
++    out = Path(RUNS_MOUNT) / "targets" / f"{name}.json"
++    if out.exists():
++        raise FileExistsError(f"{out} exists on the volume")
++    out.parent.mkdir(parents=True, exist_ok=True)
++    try:
++        sp.run([sys.executable, "scripts/kev_teacher_targets.py", "--run", teacher, "--suite", f"/root/{suite}",
++                "--out", str(out), "--split", split, "--device", "cuda"], check=True, cwd="/root", env={**os.environ, "PYTHONPATH": "/root"})
++    finally:
++        runs_volume.commit(); hf_cache.commit()
++    from kev.suite import read_json
++    return read_json(out)["_meta"]
++
++
++@app.local_entrypoint()
++def targets(teacher: str, name: str, suite: str = "evals/v7/decision-v7", split: str = "train", gpu: str = GPU):
++    """Generate teacher soft targets on the runs volume, e.g. --teacher jaredpalmer/kev-4b --name v7-kev4b."""
++    print(json.dumps(run_targets.with_options(gpu=gpu).remote(teacher, suite, name, split), indent=1))
