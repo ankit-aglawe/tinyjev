@@ -94,3 +94,12 @@ mean paired KD − CE transfer-v4 accuracy:
 Continuation threshold ≈ 0.635 on transfer-v4 dev. One point is ~7 of 656 questions: a screening
 threshold, not proof. The 149M encoder is a footprint experiment, not an accuracy rescue.
 
+## E2 outcome (2026-09-22): stopped
+
+KD from Kev-4B is negative on every matched CE/KD seed pair (−1.5, −1.2, −1.1 pp on transfer-v4 dev; T=1 and
+T=3). Gate hit: mean paired gain ≤ 0. The 0.6B accuracy ceiling with this data is ~0.62–0.63; CE seeds agree
+to 0.15 pp. Decision: tinyjev-0.6b ships as the E1(b) checkpoint at anchor parity (0.625 dev), with the
+locked test read once and the four negative results published as such (full-FT forgets; low LR is not a
+lever; KD hurts; 4-bit costs 2 pp / INT8 free). Next: E3, the 149M encoder — the footprint model and the
+first sub-0.5B number on Kev's suites. Details: benchmarks/e1, benchmarks/e2, benchmarks/e5.
+
