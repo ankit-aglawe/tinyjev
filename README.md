@@ -1,9 +1,6 @@
 <div align="center">
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/ankit-aglawe/tinyjev/main/assets/tinyjev_header_dark.png">
-  <img alt="TinyJev" src="https://raw.githubusercontent.com/ankit-aglawe/tinyjev/main/assets/tinyjev_header.png" width="620">
-</picture>
+<img alt="TinyJev" src="https://raw.githubusercontent.com/ankit-aglawe/tinyjev/main/assets/tinyjev_header.png" width="620">
 
 <p>Typed decisions, on your laptop, in one forward pass.</p>
 

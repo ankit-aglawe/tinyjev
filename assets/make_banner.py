@@ -1,23 +1,24 @@
-"""Build the tinyjev header banners, matching the Parable/Sensible lockup.
+"""Build the tinyjev header banner, matching the Parable/Sensible lockup.
 
-    python assets/make_banner.py --mascot assets/ant.png
+    python assets/make_banner.py
 
-Transparent PNG, 1673x460, origami mascot left, Poppins Bold wordmark right.
-Two variants: light (charcoal text, for light backgrounds) and dark (rust text).
-Run with no --mascot to render the wordmark only, as a placeholder.
+1673x460, ink panel, origami mascot left, Poppins Bold wordmark right in the orange
+sampled from the mascot itself. A solid panel reads on light and dark pages alike, so
+there is one banner rather than a light/dark pair.
 """
 import argparse
 from pathlib import Path
+
 from PIL import Image, ImageDraw, ImageFont
 
 W, H = 1673, 460
-CHARCOAL = (45, 45, 45, 255)
-RUST = (196, 78, 32, 255)
+INK = (26, 26, 26, 255)
+ANT_ORANGE = (228, 100, 18, 255)     # sampled from assets/ant.png
 FONT = Path(__file__).with_name("Poppins-Bold.ttf")
 
 
-def build(mascot_path, out, colour, size=196, word="TinyJev", flip=True):
-    img = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+def build(mascot_path, out, bg=INK, colour=ANT_ORANGE, size=196, word="TinyJev", flip=True):
+    img = Image.new("RGBA", (W, H), bg)
     x = 40
     if mascot_path and Path(mascot_path).exists():
         m = Image.open(mascot_path).convert("RGBA")
@@ -35,7 +36,7 @@ def build(mascot_path, out, colour, size=196, word="TinyJev", flip=True):
     # optical centring on the cap height, not the full em box
     box = d.textbbox((0, 0), word, font=font)
     d.text((x - box[0], (H - (box[3] - box[1])) // 2 - box[1]), word, font=font, fill=colour)
-    img.save(out)
+    img.convert("RGB").save(out)
     return img.size
 
 
@@ -46,6 +47,5 @@ if __name__ == "__main__":
     ap.add_argument("--word", default="TinyJev")
     ap.add_argument("--no-flip", action="store_true", help="keep the mascot facing as drawn")
     a = ap.parse_args()
-    here = Path(__file__).parent
-    print("light:", build(a.mascot, here / "tinyjev_header.png", CHARCOAL, a.size, a.word, not a.no_flip))
-    print("dark: ", build(a.mascot, here / "tinyjev_header_dark.png", RUST, a.size, a.word, not a.no_flip))
+    out = Path(__file__).with_name("tinyjev_header.png")
+    print("banner:", build(a.mascot, out, size=a.size, word=a.word, flip=not a.no_flip), out)
