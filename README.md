@@ -2,7 +2,7 @@
 
 **Tiny typed-decision models you can run on the laptop you already own.**
 
-Give it a state and typed questions — `choice` over options, `noul` (yes/no probability), `score` (ordinal) — and get calibrated probabilities back in one forward pass. No text generation, nothing to parse, no label that wasn't in your list. The category is TypeSafe's Jev; these are open weights, trained by us, scored on the public frozen suites everyone else in the category uses, and served on MLX (Apple Silicon) or PyTorch (CPU / CUDA / MPS).
+Give it a state and typed questions — `choice` over options, `noul` (yes/no probability), `score` (ordinal) — and get probabilities back in one forward pass. No text generation, nothing to parse, no label that wasn't in your list. The category is TypeSafe's Jev; these are open weights, trained by us, scored on the public frozen suites with their author's own harness, and served on MLX (Apple Silicon) or PyTorch (CPU / CUDA / MPS).
 
 [![Weights](https://img.shields.io/badge/%F0%9F%A4%97%20weights-AnkitAI%2Ftinyjev-blue)](https://huggingface.co/AnkitAI/tinyjev)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
@@ -30,56 +30,61 @@ agent.predict({
     }})
 ```
 
-`tinyjev serve tinyjev-0.6b` gives you `POST /v1/systemone`, the same request shape TypeSafe, Kev and Laya clients already speak, on `127.0.0.1:8077`.
+`tinyjev serve tinyjev-0.6b` gives you `POST /v1/systemone` on `127.0.0.1:8077`, the request shape the TypeSafe SDK, Kev's harness, Laya and the browser/agent wrappers in the ecosystem already speak.
 
 ## The number
 
-Every model in this category reports on its own chosen tasks. We report on **Kev's frozen suites**, scored with **Kev's own harness**, so the row can be compared with the published numbers directly.
+Scored on Kev's frozen `transfer-v4` suite (held out from fine-tuning) with Kev's own `kev.benchmark`, so the rows compare directly with the published Kev numbers.
 
-| model | params | transfer-v4 **dev** (held-out sources) | transfer-v4 **test** (read once) | ECE (test) |
+| model | params | transfer-v4 **dev** | transfer-v4 **test** | ECE (test) | coverage@5% (test) |
+|---|---|---|---|---|---|
+| **tinyjev-0.6b** | 596M | **0.625** | **0.663** | 0.082 | 0.069 |
+| Kev-0.6B, released config, reproduced by us | 596M | 0.614 | 0.657 | 0.108 | 0.078 |
+| Kev-0.6B, published (Qwen3 generation) | 596M | 0.620 | 0.642 | — | — |
+| Kev-4B, published | 4B | 0.797 | 0.837 | — | — |
+| Jev (hosted), published by Kev | ? | 0.857 | — | — | — |
+
+What that table does and does not say:
+
+- Dev was used repeatedly for selection. Test results are exploratory, ungated reads, once per candidate; neither candidate passed Kev's promotion gates (nor do Kev's own published 0.6B reads). The planned three-seed confirmation was not run.
+- Against our reproduced baseline, the test gain is 0.6 points, four net questions of 656. ECE improved (0.082 vs 0.108); coverage at a 5% error budget fell (0.069 vs 0.078). Against the published number the gain is 2.1 points, but that comparison crosses runs on different hardware.
+- 0.6B is the category's standard small size. This is the anchor's level with the anchor's recipe, tuned slightly. It is not 4B-class, and the next section is the list of things that did not get it there.
+
+**On a base M1 with 16 GB**, same suite, same harness, served through `tinyjev serve`:
+
+| build | transfer-v4 dev | ECE | p50 latency | notes |
 |---|---|---|---|---|
-| **tinyjev-0.6b** | 596M | **0.625** | **0.663** | 0.082 |
-| Kev-0.6B, published (Qwen3 generation) | 596M | 0.620 | 0.642 | — |
-| Kev-0.6B, released config reproduced by us | 596M | 0.614 | 0.657 | 0.108 |
-| Kev-4B | 4B | 0.797 | 0.837 | — |
-| Jev (hosted, TypeSafe) | ? | 0.857 | — | — |
+| H100, fp32 (the training run's own score) | 0.625 | 0.136 raw / 0.074 at T=1.46 | — | reference |
+| MLX fp16 | 0.620 | 0.140 | 65 ms | three net questions below the H100 score; cause not isolated |
+| MLX INT8 (Linear layers) | 0.620 | 0.136 | 58 ms | aggregate accuracy preserved in this run |
+| MLX 4-bit (Linear layers) | 0.599 | 0.097 | 59 ms | −2.1 points |
 
-Read that honestly: at 0.6B we are at the public anchor's level, a couple of points ahead on the locked test with better calibration. We are not at 4B accuracy, and nothing we tried gets there at this size. The section after next says what we tried.
-
-**Runs on a base M1 with 16 GB** (not a Pro, not a Max), scored on the same suite through the same harness:
-
-| build | transfer-v4 dev | ECE | p50 latency | weights |
-|---|---|---|---|---|
-| MLX fp16 | 0.620 | 0.140 | 65 ms | 1.2 GB |
-| MLX INT8 | 0.620 | 0.136 | 58 ms | ~0.6 GB |
-| MLX 4-bit | 0.599 | 0.097 | 59 ms | ~0.35 GB |
-
-INT8 is free. 4-bit costs two points. Quantization changes memory, not speed, on an M1.
+Latencies are single-run medians over the 764 dev requests; repeated timing trials were not recorded. Embeddings and the fp32 decision head are never quantized, so on-disk size is not a bit-width multiple; measured resident sizes are on the to-do list. The shipped checkpoint applies the fitted temperature (1.46) to its outputs.
 
 ## What we tried at 0.6B, and what happened
 
-All on Kev's `decision-v7` training partition, all scored on `transfer-v4` dev, all in [`benchmarks/`](benchmarks/) with Kev's raw `result.json` files. One seed per row unless stated; seeds agree to 0.15 pp where we repeated.
+All on Kev's `decision-v7` training partition, all scored on `transfer-v4` dev with the raw `result.json` files in [`benchmarks/`](benchmarks/). One seed per row unless stated. The two CE seeds we ran scored 0.6250 and 0.6235; that is two runs, not an uncertainty estimate.
 
-| lever | result | verdict |
+| lever | transfer-v4 dev | what we saw |
 |---|---|---|
-| reproduce Kev's released config (LoRA r16, lr 1e-4) | 0.614 | reproduces the published 0.620 within run noise |
+| reproduce Kev's released config (LoRA r16, lr 1e-4) | 0.614 | within run noise of the published 0.620 |
 | LoRA at half the LR (5e-5) | **0.625** | ships as tinyjev-0.6b |
-| full fine-tune, lr 5e-5 | 0.483 | forgets the base: mmlu 0.34, emotion 0.40 |
-| full fine-tune, lr 2e-5 | 0.581 | better, still −4 pp; learns rule composition, loses knowledge |
-| distillation from Kev-4B (Hinton KD, T=1 and T=3, two seeds each) | −1.5, −1.2, −1.1, −0.15 pp vs matched CE | **hurts**; the 4B teacher is near-one-hot on its own training set |
-| 4-bit MLX | −2.1 pp | ship INT8 |
+| full fine-tune, lr 5e-5 | 0.483 | mmlu 0.21, emotion 0.49; well below LoRA |
+| full fine-tune, lr 2e-5 | 0.581 | mmlu 0.34, emotion 0.40; rule-composition blocks improved, knowledge sources fell |
+| distillation from Kev-4B (KL to its pointer-head targets, T=1 and T=3, two seeds each) | −1.5, −1.2, −1.1, −0.15 vs matched CE | this recipe did not help in four matched comparisons; the teacher's targets are near one-hot on its own training set, which is a plausible reason, not a demonstrated one |
+| 4-bit MLX | −2.1 | ship INT8 |
 
-The evidence going in (a 200-source verified literature pass, in [`docs/research/`](docs/research/)) already said the same thing from the outside: Kev's own ladder shows accuracy collapsing below 4B, and no sub-0.5B open model had a number on these suites at all. We pre-registered stop rules before spending and stopped when they fired ([`docs/research/RECIPE.md`](docs/research/RECIPE.md)).
+The stopping rules, including the 0.55 bar for the encoder below, were written into [`docs/research/RECIPE.md`](docs/research/RECIPE.md) before the first GPU run (commit `836e6b1`) and applied as written; the deviations (no three-seed confirmation, no paired CIs) are recorded there. The research behind the recipe, 161 verified sources across four streams, is in [`docs/research/`](docs/research/).
 
 ## The tiny one did not make it
 
-We also trained the model the name promises: ModernBERT-base, 149M, an encoder with a `[MASK]`-marker scorer, on the same data with the same batching and schedule as the 0.6B, scored the same way. It came in at **0.532** on transfer-v4 dev (0.714 in-distribution) — nine points below the 0.6B, with knowledge questions at chance. Our pre-registered bar to ship it was 0.55. It doesn't ship. The number is in [`benchmarks/e3/`](benchmarks/e3/) because it is the first sub-0.5B result on these suites and the next person should not have to spend the $1 to learn it.
+We also trained the model the name is for: ModernBERT-base, 149M, an encoder with a `[MASK]`-marker scorer, on the same data with the same batching and schedule as the 0.6B, scored the same way, two learning rates, one seed each. It scored **0.532 / 0.531** on transfer-v4 dev (0.71 / 0.74 in-distribution), nine points below the 0.6B, with MMLU near chance. The bar to ship it was 0.55. It does not ship. The runs are in [`benchmarks/e3/`](benchmarks/e3/) for reuse.
 
 ## How it works
 
-Qwen3-0.6B-Base with a pointer head, Kev's design: the state, then per question `<q> instructions <opt> option </opt> … <decide>`; the hidden state at `<decide>` is dot-producted against each `</opt>` hidden state, softmax over the options. One causal row per question; the state's KV cache is computed once and shared across questions. Trained with plain cross-entropy (label smoothing destroys selective-prediction coverage; we checked the literature and Kev's own screen), one temperature fitted post hoc, option order shuffled during training. The decision head runs in fp32 numpy on every backend so MLX and torch give identical answers.
+Qwen3-0.6B-Base with a pointer head, Kev's design: the state, then per question `<q> instructions <opt> option </opt> … <decide>`; the hidden state at `<decide>` is dot-producted against each `</opt>` hidden state, softmax over the options. One causal row per question; the state's KV cache is computed once and shared across questions. Trained with plain cross-entropy, option order shuffled during training, one temperature fitted on the calibration partition afterwards. The decision head runs in fp32 numpy on every backend; the backbones differ (MLX vs torch), so answers match on our fixtures but probabilities differ at the third decimal.
 
-The runtime also converts and serves two other open models in the same layout, useful as baselines: [NanoJev](https://github.com/TianyuCodings/NanoJev) (its inference code refuses to run without CUDA; ours matches its authors' CUDA predictions on 2492/2496 test questions) and [Kev-0.6B](https://github.com/jaredpalmer/kev) (14/14 parity with `kev.model`).
+The runtime also converts and serves two other open models in the same layout, as baselines: [NanoJev](https://github.com/TianyuCodings/NanoJev), whose inference entry point refuses to run without CUDA (MLX fp16 selected-answer agreement with its authors' published CUDA predictions: 2492/2496, max probability difference 0.014), and [Kev-0.6B](https://github.com/jaredpalmer/kev) (selected answers match `kev.model` on 14/14 fixtures; max probability difference 0.005 on MLX, 0.003 on torch).
 
 ```
 tinyjev models                       # what's on the Hub
@@ -90,21 +95,22 @@ tinyjev play snake --model nanojev   # NanoJev playing its own game, one forward
 
 ## Reproduce
 
-Training runs through Kev's own study runner on Modal with a 100-line patch ([`experiments/kev-tinyjev.patch`](experiments/kev-tinyjev.patch): full fine-tune support, a distillation temperature, teacher-target and encoder entry points). Plans are in [`experiments/`](experiments/). Total GPU for everything in this README: about 4 H100-hours.
+Training runs through Kev's own study runner on Modal with a small patch ([`experiments/kev-tinyjev.patch`](experiments/kev-tinyjev.patch), 79 added lines: full fine-tune support, a distillation temperature, teacher-target and encoder entry points; `tools/kev_teacher_targets.py` and `tools/encoder_train.py` are copied into Kev's `scripts/`). Plans are in [`experiments/`](experiments/). Recorded trial time for everything in this README is 2.2 H100-hours; with teacher inference, locked reads and container overhead, call it about 3.
 
 ```bash
 git clone https://github.com/jaredpalmer/kev && cd kev && git apply ../tinyjev/experiments/kev-tinyjev.patch
+cp ../tinyjev/tools/kev_teacher_targets.py ../tinyjev/tools/encoder_train.py scripts/
 uv run modal run modal_app.py::study --suite evals/v7/decision-v7 --plan ../tinyjev/experiments/e1-lora.json --name e1 --gpu H100
 ```
 
-Serving-side parity and latency: `tools/check_parity_kev.py`, `tools/bench.py`; the M1 numbers above came from `kev.benchmark --remote http://127.0.0.1:8077`.
+Serving-side parity and latency: `tools/check_parity_kev.py`, `tools/bench.py`; the M1 rows above came from `kev.benchmark --remote` against a local `tinyjev serve`.
 
 ## Limits
 
-- 0.6B is the category's standard small size, not tiny. The 149M encoder we trained to be the tiny one scored 0.532 and does not ship; the name is a target we did not hit at this data scale.
-- One seed per row except where stated. Kev's own runs spread several points on identical configs; treat single-run differences under 2 points as noise.
-- Held-out accuracy of 0.62–0.66 means roughly one in three new-source questions is wrong. Use the probabilities: coverage at a 5% error budget is low at this size (0.07–0.08 on transfer-v4), so gate on confidence and escalate the rest.
-- Locked test read once, ungated, same convention as the published Kev 0.6B reads.
+- One seed per row except where stated. Kev's own runs spread several points on identical configs.
+- Held-out accuracy of 0.62–0.66 means roughly one in three new-source questions is wrong. The coverage@5% figures are in-sample maxima over confidence thresholds on the suite, not a deployed error guarantee; validate a threshold on your own data before automating on it.
+- The 149M encoder scored 0.532 and does not ship; the name is a target we did not hit at this data scale.
+- Locked test read once, ungated, the same convention as the published Kev 0.6B reads.
 
 ## Credits
 
