@@ -13,14 +13,18 @@ SCHEMA_VERSION = "tinyjev-v1"
 TYPE_ALIASES = {"noul": "boolean", "boolean": "boolean", "choice": "choice", "score": "score"}
 
 
-def _resolve(model_path) -> Path:
+def _resolve(model_path, subfolder: Optional[str] = None) -> Path:
     from .registry import resolve
-    model_path = resolve(str(model_path))
-    p = Path(str(model_path)).expanduser()
+    repo, sub = resolve(str(model_path))
+    sub = subfolder or sub
+    p = Path(repo).expanduser()
     if p.exists():
-        return p.resolve()
-    from huggingface_hub import snapshot_download
-    return Path(snapshot_download(str(model_path)))
+        root = p.resolve()
+    else:
+        from huggingface_hub import snapshot_download
+        patterns = [f"{sub}/*"] if sub else ["*"]
+        root = Path(snapshot_download(repo, allow_patterns=patterns))
+    return root / sub if sub else root
 
 
 def normalize_request(payload: Dict[str, Any]) -> List[dict]:
@@ -67,8 +71,9 @@ def normalize_request(payload: Dict[str, Any]) -> List[dict]:
 
 
 class Agent:
-    def __init__(self, model_path, backend: Optional[str] = None, device: Optional[str] = None):
-        root = _resolve(model_path)
+    def __init__(self, model_path, backend: Optional[str] = None, device: Optional[str] = None,
+                 subfolder: Optional[str] = None):
+        root = _resolve(model_path, subfolder)
         manifest_path = root / "tinyjev.json"
         if not manifest_path.exists():
             raise FileNotFoundError(f"{root} is not a tinyjev checkpoint (no tinyjev.json); "
@@ -152,5 +157,7 @@ class Agent:
                 "latency_ms": res["execution"]["model_ms"]}
 
 
-def load(model_path, backend: Optional[str] = None, device: Optional[str] = None) -> Agent:
-    return Agent(model_path, backend=backend, device=device)
+def load(model_path, backend: Optional[str] = None, device: Optional[str] = None,
+         subfolder: Optional[str] = None) -> Agent:
+    """`load("kev-0.6b")` (alias), `load("/path/to/dir")`, or `load("org/repo", subfolder="name")`."""
+    return Agent(model_path, backend=backend, device=device, subfolder=subfolder)

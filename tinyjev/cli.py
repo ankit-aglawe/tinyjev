@@ -42,9 +42,9 @@ def main(argv=None) -> int:
     args = parser.parse_args(argv)
 
     if args.command == "models":
-        from .registry import MODELS
+        from .registry import HUB_REPO, MODELS
         for k, v in MODELS.items():
-            print(f"{k:<10} {v['params']:<5} {v['family']:<8} {v['repo']:<28} <- {v['upstream']}")
+            print(f"{k:<10} {v['params']:<5} {v['family']:<8} {HUB_REPO}/{v['subfolder']:<12} <- {v['upstream']}")
         return 0
     if args.command == "convert":
         from .convert import convert

@@ -120,7 +120,10 @@ def convert_nanojev(source, dest, dtype: str = "float16") -> Path:
 def convert_kev(adapter_dir, base_dir, dest, dtype: str = "float16", name: str = "kev") -> Path:
     """Merge the rank-r LoRA adapter into the Qwen3 base, add the pointer head from head.pt."""
     from safetensors import safe_open
-    import torch
+    try:
+        import torch
+    except ImportError as exc:
+        raise ImportError("converting a Kev checkpoint needs torch: pip install 'tinyjev[convert]'") from exc
 
     adapter, base, dst = (Path(adapter_dir).expanduser().resolve(strict=True),
                           Path(base_dir).expanduser().resolve(strict=True), Path(dest).expanduser())

@@ -1,13 +1,16 @@
-"""Known checkpoints. `tinyjev.load(alias)` resolves an alias to its Hub repo."""
+"""Known checkpoints. All live in one Hub repo, one subfolder per model, so
+`tinyjev.load("kev-0.6b")` downloads only that folder."""
+HUB_REPO = "AnkitAI/tinyjev"
+
 MODELS = {
-    "nanojev":  {"repo": "AnkitAI/tinyjev-nanojev",  "family": "nanojev", "params": "0.6B",
-                 "upstream": "C-Tianyu/NanoJev"},
-    "kev-0.6b": {"repo": "AnkitAI/tinyjev-kev-0.6b", "family": "kev", "params": "0.6B",
-                 "upstream": "jaredpalmer/kev-0.6b"},
-    "kev-4b":   {"repo": "AnkitAI/tinyjev-kev-4b",   "family": "kev", "params": "4B",
-                 "upstream": "jaredpalmer/kev-4b@qwen3"},
+    "nanojev":  {"subfolder": "nanojev",  "family": "nanojev", "params": "0.6B", "upstream": "C-Tianyu/NanoJev"},
+    "kev-0.6b": {"subfolder": "kev-0.6b", "family": "kev",     "params": "0.6B", "upstream": "jaredpalmer/kev-0.6b"},
+    "kev-4b":   {"subfolder": "kev-4b",   "family": "kev",     "params": "4B",   "upstream": "jaredpalmer/kev-4b@qwen3"},
 }
 
 
-def resolve(name: str) -> str:
-    return MODELS[name]["repo"] if name in MODELS else name
+def resolve(name: str):
+    """alias -> (repo, subfolder); anything else -> (name, None) and the caller treats it as a path or repo."""
+    if name in MODELS:
+        return HUB_REPO, MODELS[name]["subfolder"]
+    return name, None
