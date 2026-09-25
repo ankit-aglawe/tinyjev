@@ -12,8 +12,10 @@
 </p>
 
 <p>
-  <a href="#what-can-it-do">What it does</a> ·
+  <a href="#watch-it-decide">Watch it decide</a> ·
   <a href="#get-started">Get started</a> ·
+  <a href="#models">Models</a> ·
+  <a href="#what-can-it-do">What it does</a> ·
   <a href="https://huggingface.co/AnkitAI/tinyjev-0.6b">Weights</a> ·
   <a href="https://github.com/ankit-aglawe/tinyjev/tree/main/examples">Examples</a>
 </p>
@@ -39,11 +41,29 @@ TinyJev provides:
 - Calibrated confidence, so a threshold means something and you can decide what to automate.
 - A Python API, a local HTTP server, and a System One compatible endpoint.
 
-The model is 596M parameters, about 1.2 GB. It runs on MLX on Apple Silicon and on PyTorch everywhere else, entirely offline. Every example below is a single forward pass; measured timings are in the table under Get started.
+Two sizes: TinyJev 0.6B (596M parameters, 1.2 GB, published) and TinyJev 4B (8 GB, trained and measured, release pending). Both run on MLX on Apple Silicon and on PyTorch everywhere else, entirely offline. Every example below is a single forward pass; the numbers are in the Models table and under Get started.
 
 TinyJev is MIT licensed.
 
 ## Watch it decide
+
+<div align="center">
+  <img alt="TinyJev and GPT-6 Sol answering the same six never-seen questions from a shared start; TinyJev finishes each in under 130 ms, GPT-6 Sol writes JSON for about two seconds" src="https://raw.githubusercontent.com/ankit-aglawe/tinyjev/main/assets/demo_race.gif" width="860">
+</div>
+
+Six decisions from six domains it never trained on, the same question to both models at the same
+instant. TinyJev answers in one forward pass: 6 of 6 right, 86 ms a question on a base M1. GPT-6 Sol
+writes the answer as JSON, token by token: 6 of 6 right, 2,042 ms a question. Both lanes are real
+runs replayed at real speed; the API lane is a recording with wall-clock timestamps. The questions,
+the answers and both timings are in [`assets/recordings`](assets/recordings).
+
+```bash
+pip install 'tinyjev[mlx,demo]'
+python demos/race.py --recording assets/recordings/gpt-6-sol.jsonl --llm-name "GPT-6 Sol" --gif demo.gif
+```
+
+<details>
+<summary><b>Twelve decisions about one ticket, in one pass</b> — click to expand</summary>
 
 <div align="center">
   <img alt="TinyJev answering 12 typed decisions about one support ticket in one forward pass, next to GPT-6 Sol writing the same answers as JSON token by token" src="https://raw.githubusercontent.com/ankit-aglawe/tinyjev/main/assets/demo_batch.gif" width="860">
@@ -51,25 +71,13 @@ TinyJev is MIT licensed.
 
 One support ticket, twelve typed decisions: which team, what priority, what the customer wants.
 TinyJev scores every option of every question in a single forward pass and returns all twelve
-together, 596 ms on a base M1, 10 of 12 right. GPT-6 Sol writes the same twelve as JSON, token by
-token: 2,198 ms, 12 of 12 right. Both lanes are real runs replayed at real speed; the API lane is a
-recording with wall-clock timestamps. The ticket, the questions, the expected answers and both
-measurements are in [`demos/cases`](demos/cases) and [`assets/recordings`](assets/recordings).
+together, 596 ms, 10 of 12 right. GPT-6 Sol writes the same twelve as JSON: 2,198 ms, 12 of 12 right.
+The ticket, the questions, the expected answers and both measurements are in
+[`demos/cases`](demos/cases) and [`assets/recordings`](assets/recordings).
 
 ```bash
-pip install 'tinyjev[mlx,demo]'
 python demos/batch_race.py --data assets/recordings/batch-support-ticket-gpt-6-sol.json --gif demo.gif
 ```
-
-<details>
-<summary><b>Six single questions against GPT-6 Sol</b> — click to expand</summary>
-
-<div align="center">
-  <img alt="TinyJev and GPT-6 Sol answering the same six never-seen questions from a shared start" src="https://raw.githubusercontent.com/ankit-aglawe/tinyjev/main/assets/demo_race.gif" width="860">
-</div>
-
-Six decisions from six domains it never trained on, the same question to both at the same instant.
-TinyJev 6 of 6 at 86 ms a question; GPT-6 Sol 6 of 6 at 2,042 ms. Recorded once, replayed from disk.
 
 </details>
 
@@ -88,15 +96,6 @@ python demos/triage_desk.py --gif demo.gif
 ```
 
 </details>
-
-<!-- MEASURED-BLOCK:start -->
-**Measured.** On OpenDecision's Original Choice 500, a suite of 25 domains that was not in the training data:
-330/375 on dev and 110/125 on holdout (0.880 overall, 95% CI 0.850–0.906).
-At confidence ≥ 0.85 it handled 296 of 500 cases (59.2%) at 98.0% accuracy and sent the rest to a person.
-The same Qwen3-0.6B weights read through next-token letter logits, with no head, score 354/500.
-Kev-0.6B, the checkpoint this reproduces, scores 441/500 and covers more of the queue at the same gate; the gap is the served temperature, see the benchmark page.
-85 ms a case on a base M1 via MLX. Every case, every probability, and the same-input baselines it loses to are in [`benchmarks/opendecision`](benchmarks/opendecision).
-<!-- MEASURED-BLOCK:end -->
 
 <details>
 <summary><b>And, for fun, Doom</b> — click to expand</summary>
@@ -120,6 +119,90 @@ python demos/doom_corridor.py --gif tinyjev_doom.gif
 ```
 
 </details>
+
+## Get started
+
+```bash
+pip install 'tinyjev[mlx]'     # Apple Silicon
+pip install 'tinyjev[torch]'   # everything else
+```
+
+Latency on a base M1 (16 GB) via MLX, all single forward passes:
+
+| Request | Time |
+|---|---:|
+| One short question | 65 ms (58 ms at INT8) |
+| A three-question support ticket | ~110 ms |
+| Mean per case, OpenDecision 500 | 85 ms |
+
+```python
+import tinyjev
+
+agent = tinyjev.load("tinyjev-0.6b")     # ~1.2 GB, downloads once, then offline
+print(agent.predict({
+    "state": "I was charged twice. Please fix this ASAP.",
+    "questions": {"billing": {"type": "noul", "instructions": "Is this about billing?"}}}))
+```
+
+On Apple Silicon you can quantize the backbone as it loads. Measured on the transfer-v4 dev set, base M1, MLX:
+
+| Backbone | Accuracy | One short question |
+|---|---:|---:|
+| fp16 | 0.6204 | 65 ms |
+| INT8 | 0.6204 | 58 ms |
+| 4-bit | 0.599 | — |
+
+Eight bits is free. Four bits costs about two points. These are MLX INT8 figures; ONNX INT8 is not measured.
+
+```python
+agent = tinyjev.load("tinyjev-0.6b", quantize=8)
+```
+
+Run the examples:
+
+```bash
+python examples/triage.py
+python examples/guardrail.py
+python examples/router.py
+```
+
+Serve it:
+
+```bash
+tinyjev serve tinyjev-0.6b                # POST /v1/systemone on 127.0.0.1:8077
+tinyjev serve tinyjev-0.6b --quantize 8   # half the memory
+```
+
+```bash
+curl -s localhost:8077/v1/systemone -H 'content-type: application/json' -d '{
+  "state": "I was charged twice. Please fix this ASAP.",
+  "questions": {"billing": {"type": "noul", "instructions": "Is this about billing?"}}}'
+```
+
+The server speaks the System One request shape, so clients written for that API work against it unchanged. It binds loopback and has no authentication; keep it local.
+
+A question is `{"type": "choice" | "noul" | "score", "instructions": ..., "criteria": ...}`. Choice takes 2–255 named options with optional descriptions, noul takes none, score takes ordered levels from low to high. State can be a string, a dict or a list; objects are flattened with their field names kept.
+
+## Models
+
+Two models so far, same head, same training data, scored on the same 500 never-seen cases from 25
+domains ([`benchmarks/opendecision`](benchmarks/opendecision), every case and probability logged).
+Latency is a base M1 (16 GB) via MLX, one forward pass per case.
+
+| Model | Params | OD-500 | ECE | Gate 0.85 | Cov. @ 2% err | transfer-v4 | ms / case | Size | Weights |
+|---|---:|---:|---:|---|---:|---:|---:|---:|---|
+| <img src="https://raw.githubusercontent.com/ankit-aglawe/tinyjev/main/assets/logos/tinyjev.png" width="18"> **TinyJev&nbsp;0.6B** | 596M | 440 (88.0%) | 0.071 | 59% @ 98.0% | 63% | 0.625 | 85 | 1.2 GB | 🤗 [AnkitAI/tinyjev-0.6b](https://huggingface.co/AnkitAI/tinyjev-0.6b) |
+| <img src="https://raw.githubusercontent.com/ankit-aglawe/tinyjev/main/assets/logos/tinyjev.png" width="18"> **TinyJev&nbsp;4B** | 4.0B | 474 (94.8%) | 0.022 | 87% @ 99.1% | 92% | 0.762 | 628 | 8.0 GB | 🤗 release pending |
+
+OD-500 is correct answers out of 500. Gate 0.85 is the share of decisions answered on its own at
+confidence ≥ 0.85, and how often those were right. Load either with `tinyjev.load("tinyjev-0.6b")`
+or `tinyjev.load("tinyjev-4b")` once released.
+
+Both rows are fp16. Loading with `quantize=8` keeps the same weights in half the memory and changes
+almost nothing: the 0.6B scores 440 at 90 ms, the 4B 473 at 845 ms, one answer in 500 different from
+fp16. The gate is the number that matters in production; the rest of the queue goes to a person or a
+bigger model. On the same 500: Kev-0.8B 463, Claude Opus 5.5 496, the same Qwen3-0.6B weights read
+through letter logits with no head 354.
 
 ## What can it do?
 
@@ -192,76 +275,16 @@ else:
 
 Choose the threshold on your own data. The right cutoff depends on what a wrong answer costs you.
 
-## Get started
-
-```bash
-pip install 'tinyjev[mlx]'     # Apple Silicon
-pip install 'tinyjev[torch]'   # everything else
-```
-
-Latency on a base M1 (16 GB) via MLX, all single forward passes:
-
-| Request | Time |
-|---|---:|
-| One short question | 65 ms (58 ms at INT8) |
-| A three-question support ticket | ~110 ms |
-| Mean per case, OpenDecision 500 | 85 ms |
-
-```python
-import tinyjev
-
-agent = tinyjev.load("tinyjev-0.6b")     # ~1.2 GB, downloads once, then offline
-print(agent.predict({
-    "state": "I was charged twice. Please fix this ASAP.",
-    "questions": {"billing": {"type": "noul", "instructions": "Is this about billing?"}}}))
-```
-
-On Apple Silicon you can quantize the backbone as it loads. Measured on the transfer-v4 dev set, base M1, MLX:
-
-| Backbone | Accuracy | One short question |
-|---|---:|---:|
-| fp16 | 0.6204 | 65 ms |
-| INT8 | 0.6204 | 58 ms |
-| 4-bit | 0.599 | — |
-
-Eight bits is free. Four bits costs about two points. These are MLX INT8 figures; ONNX INT8 is not measured.
-
-```python
-agent = tinyjev.load("tinyjev-0.6b", quantize=8)
-```
-
-Run the examples:
-
-```bash
-python examples/triage.py
-python examples/guardrail.py
-python examples/router.py
-```
-
-Serve it:
-
-```bash
-tinyjev serve tinyjev-0.6b                # POST /v1/systemone on 127.0.0.1:8077
-tinyjev serve tinyjev-0.6b --quantize 8   # half the memory
-```
-
-```bash
-curl -s localhost:8077/v1/systemone -H 'content-type: application/json' -d '{
-  "state": "I was charged twice. Please fix this ASAP.",
-  "questions": {"billing": {"type": "noul", "instructions": "Is this about billing?"}}}'
-```
-
-The server speaks the System One request shape, so clients written for that API work against it unchanged. It binds loopback and has no authentication; keep it local.
-
-A question is `{"type": "choice" | "noul" | "score", "instructions": ..., "criteria": ...}`. Choice takes 2–255 named options with optional descriptions, noul takes none, score takes ordered levels from low to high. State can be a string, a dict or a list; objects are flattened with their field names kept.
-
 ## Current status
 
-`tinyjev-0.6b` is done and published. Weights on Hugging Face and ModelScope, the package on PyPI.
+`tinyjev-0.6b` is published: weights on Hugging Face and ModelScope, the package on PyPI.
+`tinyjev-4b` is trained and scored (the Models table) and waits for its release; a 149M encoder
+variant scored 0.532 on transfer-v4 dev, under the 0.55 gate, so there is no smaller model yet.
 
-A 149M encoder variant was trained and scored 0.532 on transfer-v4 dev, under the 0.55 gate, so
-there is no smaller release. Next is more measurement, not more model: the benchmarks folder is
-where new numbers land, every case logged.
+Known weakness, measured: the 0.6B answers yes to almost any statement-form yes/no check (it was
+trained on questions, not statements). The 4B halves that gap. A fix with statement-form training
+data is the next experiment; the harness is [`benchmarks/noul_checks`](benchmarks/noul_checks). Every
+new number lands in the benchmarks folder, every case logged.
 
 ## Support this project
 
@@ -271,4 +294,4 @@ If TinyJev is useful to you, consider supporting independent work:
 
 ## Credits
 
-Built on [Qwen3-0.6B-Base](https://huggingface.co/Qwen/Qwen3-0.6B-Base) (Apache-2.0). The training data, evaluation suites and the pointer-head design come from [Kev](https://github.com/jaredpalmer/kev) by Jared Palmer (Apache-2.0). The typed-decision interface follows [TypeSafe's Jev](https://docs.typesafe.ai/introduction).
+Built on [Qwen3-0.6B-Base](https://huggingface.co/Qwen/Qwen3-0.6B-Base) and [Qwen3-4B-Base](https://huggingface.co/Qwen/Qwen3-4B-Base) (Apache-2.0). The training data, evaluation suites and the pointer-head design come from [Kev](https://github.com/jaredpalmer/kev) by Jared Palmer (Apache-2.0). The typed-decision interface follows [TypeSafe's Jev](https://docs.typesafe.ai/introduction).
