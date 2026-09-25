@@ -54,7 +54,7 @@ single forward pass, about 110 ms each. Every number in that recording came from
 
 <!-- MEASURED-BLOCK:start -->
 **Measured.** On OpenDecision's Original Choice 500, a suite of 25 domains that was not in the training data:
-330/375 on dev and 110/125 on holdout (0.880 overall, 95% CI 0.850–0.908).
+330/375 on dev and 110/125 on holdout (0.880 overall, 95% CI 0.850–0.906).
 At confidence ≥ 0.85 it handled 296 of 500 cases (59.2%) at 98.0% accuracy and sent the rest to a person.
 The same Qwen3-0.6B weights read through next-token letter logits, with no head, score 354/500.
 Kev-0.6B, the checkpoint this reproduces, scores 441/500 and covers more of the queue at the same gate; the gap is the served temperature, see the benchmark page.

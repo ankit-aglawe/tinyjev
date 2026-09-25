@@ -1,4 +1,62 @@
 {
+ "agent-jev-0.6b": {
+  "n": 500,
+  "correct": 415,
+  "accuracy": 0.83,
+  "ci95": [
+   0.796,
+   0.86
+  ],
+  "dev": "306/375",
+  "holdout": "109/125",
+  "ece": 0.3581,
+  "brier": 0.4338,
+  "mean_ms": 384.3,
+  "gate_0.85": {
+   "n": 10,
+   "coverage": 0.02,
+   "accuracy": 0.6
+  },
+  "coverage_at_err": {
+   "2%": 0.002,
+   "5%": 0.002,
+   "10%": 0.508
+  },
+  "per_domain": {
+   "appliance_issue": "11/20",
+   "citation_relation": "12/20",
+   "contract_clause": "19/20",
+   "database_intent": "16/20",
+   "date_semantics": "15/20",
+   "document_type": "17/20",
+   "email_intent": "15/20",
+   "entity_matching": "8/20",
+   "function_routing": "17/20",
+   "job_family": "19/20",
+   "logistics_exception": "20/20",
+   "manufacturing_defect": "17/20",
+   "meeting_intent": "18/20",
+   "ml_task": "18/20",
+   "policy_decision": "9/20",
+   "product_taxonomy": "20/20",
+   "research_method": "19/20",
+   "return_reason": "19/20",
+   "science_phenomenon": "19/20",
+   "security_event": "17/20",
+   "semantic_extraction": "16/20",
+   "software_bug": "18/20",
+   "support_routing": "18/20",
+   "transaction_type": "18/20",
+   "word_sense": "20/20"
+  },
+  "meta": {
+   "runtime": "systemone-http",
+   "url": "http://127.0.0.1:8011/v1/systemone",
+   "note": "aimeigaoshou/agent-jev fp32 via the author's DecisionEngine behind a 47-line /v1/systemone shim, MPS; ran alongside other jobs so ms is noisy",
+   "model": "agent-jev-0.6b",
+   "suite_sha256": "cd7372e594fce7a5464c3eb3edc73db45c309c8a67e7eef7daf78ec97288edeb"
+  }
+ },
  "claude-opus-5-5": {
   "n": 500,
   "correct": 496,
@@ -62,8 +120,8 @@
   "correct": 441,
   "accuracy": 0.882,
   "ci95": [
-   0.852,
-   0.908
+   0.854,
+   0.91
   ],
   "dev": "330/375",
   "holdout": "111/125",
@@ -115,6 +173,64 @@
    "quantize": null,
    "temperature": 1.0,
    "checkpoint": "/Users/ankit/.cache/tinyjev/v2/tinyjev-kev-0.6b"
+  }
+ },
+ "kev-0.8b": {
+  "n": 500,
+  "correct": 463,
+  "accuracy": 0.926,
+  "ci95": [
+   0.902,
+   0.948
+  ],
+  "dev": "349/375",
+  "holdout": "114/125",
+  "ece": 0.1887,
+  "brier": 0.1757,
+  "mean_ms": 172.8,
+  "gate_0.85": {
+   "n": 186,
+   "coverage": 0.372,
+   "accuracy": 1.0
+  },
+  "coverage_at_err": {
+   "2%": 0.728,
+   "5%": 0.908,
+   "10%": 1.0
+  },
+  "per_domain": {
+   "appliance_issue": "17/20",
+   "citation_relation": "15/20",
+   "contract_clause": "20/20",
+   "database_intent": "20/20",
+   "date_semantics": "19/20",
+   "document_type": "19/20",
+   "email_intent": "19/20",
+   "entity_matching": "12/20",
+   "function_routing": "19/20",
+   "job_family": "20/20",
+   "logistics_exception": "18/20",
+   "manufacturing_defect": "19/20",
+   "meeting_intent": "19/20",
+   "ml_task": "18/20",
+   "policy_decision": "16/20",
+   "product_taxonomy": "20/20",
+   "research_method": "20/20",
+   "return_reason": "19/20",
+   "science_phenomenon": "20/20",
+   "security_event": "20/20",
+   "semantic_extraction": "19/20",
+   "software_bug": "16/20",
+   "support_routing": "19/20",
+   "transaction_type": "20/20",
+   "word_sense": "20/20"
+  },
+  "meta": {
+   "runtime": "systemone-http",
+   "url": "http://127.0.0.1:8009/v1/systemone",
+   "note": "jaredpalmer/kev-0.8b (Qwen3.5-0.8B, DeltaNet) via Kev's own kev.serve, bf16, torch on Apple Silicon; ran alongside other jobs so ms is noisy",
+   "model": "kev-0.8b",
+   "suite_sha256": "cd7372e594fce7a5464c3eb3edc73db45c309c8a67e7eef7daf78ec97288edeb"
   }
  },
  "laya-english": {
@@ -175,35 +291,113 @@
    "note": "English ModernBERT-large checkpoint, default device"
   }
  },
- "lostargon-tiny-jev": {
-  "n": 89,
-  "correct": 78,
-  "accuracy": 0.8764,
+ "laya-typed-decisions": {
+  "n": 500,
+  "correct": 395,
+  "accuracy": 0.79,
   "ci95": [
-   0.809,
-   0.9438
+   0.754,
+   0.826
   ],
-  "dev": "60/67",
-  "holdout": "18/22",
-  "ece": 0.0779,
-  "brier": 0.2002,
-  "mean_ms": 2039.1,
+  "dev": "296/375",
+  "holdout": "99/125",
+  "ece": 0.305,
+  "brier": 0.4304,
+  "mean_ms": 124.9,
   "gate_0.85": {
-   "n": 63,
-   "coverage": 0.7079,
-   "accuracy": 0.9524
+   "n": 19,
+   "coverage": 0.038,
+   "accuracy": 1.0
   },
   "coverage_at_err": {
-   "2%": 0.618,
-   "5%": 0.7191,
-   "10%": 0.9101
+   "2%": 0.336,
+   "5%": 0.43,
+   "10%": 0.574
+  },
+  "per_domain": {
+   "appliance_issue": "15/20",
+   "citation_relation": "16/20",
+   "contract_clause": "18/20",
+   "database_intent": "18/20",
+   "date_semantics": "16/20",
+   "document_type": "18/20",
+   "email_intent": "15/20",
+   "entity_matching": "11/20",
+   "function_routing": "18/20",
+   "job_family": "11/20",
+   "logistics_exception": "14/20",
+   "manufacturing_defect": "16/20",
+   "meeting_intent": "14/20",
+   "ml_task": "19/20",
+   "policy_decision": "13/20",
+   "product_taxonomy": "20/20",
+   "research_method": "16/20",
+   "return_reason": "16/20",
+   "science_phenomenon": "14/20",
+   "security_event": "19/20",
+   "semantic_extraction": "9/20",
+   "software_bug": "16/20",
+   "support_routing": "17/20",
+   "transaction_type": "17/20",
+   "word_sense": "19/20"
+  },
+  "meta": {
+   "runtime": "laya 0.3.20",
+   "checkpoint": "convaiinnovations/laya/typed-decisions",
+   "note": "English ModernBERT-large checkpoint, default device",
+   "model": "laya-typed-decisions",
+   "suite_sha256": "cd7372e594fce7a5464c3eb3edc73db45c309c8a67e7eef7daf78ec97288edeb"
+  }
+ },
+ "lostargon-tiny-jev": {
+  "n": 500,
+  "correct": 445,
+  "accuracy": 0.89,
+  "ci95": [
+   0.862,
+   0.916
+  ],
+  "dev": "338/375",
+  "holdout": "107/125",
+  "ece": 0.0412,
+  "brier": 0.1729,
+  "mean_ms": 1979.4,
+  "gate_0.85": {
+   "n": 408,
+   "coverage": 0.816,
+   "accuracy": 0.951
+  },
+  "coverage_at_err": {
+   "2%": 0.622,
+   "5%": 0.818,
+   "10%": 0.968
   },
   "per_domain": {
    "appliance_issue": "19/20",
    "citation_relation": "12/20",
    "contract_clause": "20/20",
    "database_intent": "20/20",
-   "date_semantics": "7/9"
+   "date_semantics": "16/20",
+   "document_type": "20/20",
+   "email_intent": "17/20",
+   "entity_matching": "13/20",
+   "function_routing": "18/20",
+   "job_family": "19/20",
+   "logistics_exception": "17/20",
+   "manufacturing_defect": "18/20",
+   "meeting_intent": "17/20",
+   "ml_task": "19/20",
+   "policy_decision": "13/20",
+   "product_taxonomy": "20/20",
+   "research_method": "19/20",
+   "return_reason": "19/20",
+   "science_phenomenon": "19/20",
+   "security_event": "19/20",
+   "semantic_extraction": "16/20",
+   "software_bug": "20/20",
+   "support_routing": "17/20",
+   "transaction_type": "18/20",
+   "word_sense": "20/20"
   },
   "meta": {
    "model": "lostargon-tiny-jev",
@@ -218,8 +412,8 @@
   "correct": 114,
   "accuracy": 0.228,
   "ci95": [
-   0.194,
-   0.266
+   0.192,
+   0.264
   ],
   "dev": "83/375",
   "holdout": "31/125",
@@ -279,7 +473,7 @@
   "accuracy": 0.856,
   "ci95": [
    0.824,
-   0.884
+   0.886
   ],
   "dev": "319/375",
   "holdout": "109/125",
@@ -393,8 +587,8 @@
   "correct": 440,
   "accuracy": 0.88,
   "ci95": [
-   0.85,
-   0.906
+   0.852,
+   0.908
   ],
   "dev": "330/375",
   "holdout": "110/125",
@@ -454,7 +648,7 @@
   "accuracy": 0.88,
   "ci95": [
    0.85,
-   0.908
+   0.906
   ],
   "dev": "330/375",
   "holdout": "110/125",

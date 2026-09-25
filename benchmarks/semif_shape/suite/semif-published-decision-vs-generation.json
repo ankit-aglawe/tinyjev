@@ -1,0 +1,2438 @@
+{
+  "version": "decision-vs-compact-generation-v2",
+  "model": {
+    "source": "Qwen/Qwen3.5-4B",
+    "revision": "851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a",
+    "dtype": "bfloat16",
+    "torch_version": "2.10.0+cu128",
+    "transformers_version": "5.17.0"
+  },
+  "hardware": "NVIDIA GeForce RTX 3090",
+  "input": {
+    "path": "benchmarks/data/shape777.jsonl",
+    "sha256": "8dcf414b12fc2684e3c4ca5f3ebfd3f525f5346fec4a9bc67eb65138101f55f1",
+    "states": 1,
+    "criteria": 21
+  },
+  "scope": "Same frozen model, exact state, criteria, hardware and process. Direct path returns two-option distributions; generation emits only an ordered yes/no JSON array.",
+  "direct_parallel": {
+    "runs": [
+      {
+        "total_seconds": 1.036716750008054,
+        "encode_seconds": 0.17813290696358308,
+        "prefix_tokens": 1812,
+        "prefill_seconds": 0.4047665940015577,
+        "replicate_seconds": 0.00319038302404806,
+        "suffix_forward_seconds": 0.44548340898472816,
+        "batch_size": 21,
+        "true_suffix_tokens": 1620,
+        "padded_suffix_tokens": 1701,
+        "peak_cuda_bytes": 11609654272
+      },
+      {
+        "total_seconds": 1.019257096981164,
+        "encode_seconds": 0.16095220297574997,
+        "prefix_tokens": 1812,
+        "prefill_seconds": 0.40474614495178685,
+        "replicate_seconds": 0.0031871829996816814,
+        "suffix_forward_seconds": 0.4454084390308708,
+        "batch_size": 21,
+        "true_suffix_tokens": 1620,
+        "padded_suffix_tokens": 1701,
+        "peak_cuda_bytes": 11609654272
+      },
+      {
+        "total_seconds": 1.023019488027785,
+        "encode_seconds": 0.16369703301461414,
+        "prefix_tokens": 1812,
+        "prefill_seconds": 0.40527644101530313,
+        "replicate_seconds": 0.0031821730080991983,
+        "suffix_forward_seconds": 0.44563451304566115,
+        "batch_size": 21,
+        "true_suffix_tokens": 1620,
+        "padded_suffix_tokens": 1701,
+        "peak_cuda_bytes": 11609654272
+      }
+    ],
+    "median_total_seconds": 1.023019488027785,
+    "outputs": [
+      {
+        "id": "015c14ff8f2bce2886b3",
+        "option_ids": [
+          "yes",
+          "no"
+        ],
+        "probabilities": [
+          0.4073334000459302,
+          0.5926665999540697
+        ],
+        "option_logits": [
+          24.875,
+          25.25
+        ],
+        "input_tokens": 1891,
+        "prompt_sha256": "58094802fc62a694cbeef881b43bde2a662338f2cd0158e3a007d4f0c73c0b37",
+        "prompt_version": "direct-options-v1",
+        "model": {
+          "source": "Qwen/Qwen3.5-4B",
+          "revision": "851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a",
+          "dtype": "bfloat16",
+          "torch_version": "2.10.0+cu128",
+          "transformers_version": "5.17.0",
+          "serving_config": "native-state-prefix-parallel-v1"
+        },
+        "readout": "native selected suffix-position logits",
+        "probability_status": "conditional option score; uncalibrated as decision confidence"
+      },
+      {
+        "id": "815ec74d63795e229fba",
+        "option_ids": [
+          "yes",
+          "no"
+        ],
+        "probabilities": [
+          0.6224593312018546,
+          0.37754066879814546
+        ],
+        "option_logits": [
+          25.5,
+          25.0
+        ],
+        "input_tokens": 1890,
+        "prompt_sha256": "5d78c634775505bc67b04c77b6ac904f6503051699caeb45c542191ff9d3dd0c",
+        "prompt_version": "direct-options-v1",
+        "model": {
+          "source": "Qwen/Qwen3.5-4B",
+          "revision": "851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a",
+          "dtype": "bfloat16",
+          "torch_version": "2.10.0+cu128",
+          "transformers_version": "5.17.0",
+          "serving_config": "native-state-prefix-parallel-v1"
+        },
+        "readout": "native selected suffix-position logits",
+        "probability_status": "conditional option score; uncalibrated as decision confidence"
+      },
+      {
+        "id": "25fd3b3c4282f626ed46",
+        "option_ids": [
+          "yes",
+          "no"
+        ],
+        "probabilities": [
+          0.005220125693558397,
+          0.9947798743064417
+        ],
+        "option_logits": [
+          23.25,
+          28.5
+        ],
+        "input_tokens": 1892,
+        "prompt_sha256": "505c879a5e3cffb43a97e2b934e75234b3af0e70e8f148fcc053fe65be8b0792",
+        "prompt_version": "direct-options-v1",
+        "model": {
+          "source": "Qwen/Qwen3.5-4B",
+          "revision": "851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a",
+          "dtype": "bfloat16",
+          "torch_version": "2.10.0+cu128",
+          "transformers_version": "5.17.0",
+          "serving_config": "native-state-prefix-parallel-v1"
+        },
+        "readout": "native selected suffix-position logits",
+        "probability_status": "conditional option score; uncalibrated as decision confidence"
+      },
+      {
+        "id": "d935968eeb58c19921b0",
+        "option_ids": [
+          "yes",
+          "no"
+        ],
+        "probabilities": [
+          0.01098694263059318,
+          0.9890130573694068
+        ],
+        "option_logits": [
+          23.5,
+          28.0
+        ],
+        "input_tokens": 1892,
+        "prompt_sha256": "d5c4d89b9df56596cc5b404a732333f210c2972330a7097dcf14e6ae364a3a21",
+        "prompt_version": "direct-options-v1",
+        "model": {
+          "source": "Qwen/Qwen3.5-4B",
+          "revision": "851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a",
+          "dtype": "bfloat16",
+          "torch_version": "2.10.0+cu128",
+          "transformers_version": "5.17.0",
+          "serving_config": "native-state-prefix-parallel-v1"
+        },
+        "readout": "native selected suffix-position logits",
+        "probability_status": "conditional option score; uncalibrated as decision confidence"
+      },
+      {
+        "id": "d13f1a2e8c40252990ad",
+        "option_ids": [
+          "yes",
+          "no"
+        ],
+        "probabilities": [
+          0.5312093733737563,
+          0.46879062662624377
+        ],
+        "option_logits": [
+          25.0,
+          24.875
+        ],
+        "input_tokens": 1888,
+        "prompt_sha256": "2b918ae5364f09b6975661229f9aa53e5c9d02ef9bb007a4da5b5ece54d062e7",
+        "prompt_version": "direct-options-v1",
+        "model": {
+          "source": "Qwen/Qwen3.5-4B",
+          "revision": "851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a",
+          "dtype": "bfloat16",
+          "torch_version": "2.10.0+cu128",
+          "transformers_version": "5.17.0",
+          "serving_config": "native-state-prefix-parallel-v1"
+        },
+        "readout": "native selected suffix-position logits",
+        "probability_status": "conditional option score; uncalibrated as decision confidence"
+      },
+      {
+        "id": "8019cc363d844813dbd8",
+        "option_ids": [
+          "yes",
+          "no"
+        ],
+        "probabilities": [
+          0.5926665999540697,
+          0.4073334000459302
+        ],
+        "option_logits": [
+          25.5,
+          25.125
+        ],
+        "input_tokens": 1888,
+        "prompt_sha256": "d990e309dbd80c80822474332f890cd6d4c3856faf9e5d1ae413ed22e5c51134",
+        "prompt_version": "direct-options-v1",
+        "model": {
+          "source": "Qwen/Qwen3.5-4B",
+          "revision": "851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a",
+          "dtype": "bfloat16",
+          "torch_version": "2.10.0+cu128",
+          "transformers_version": "5.17.0",
+          "serving_config": "native-state-prefix-parallel-v1"
+        },
+        "readout": "native selected suffix-position logits",
+        "probability_status": "conditional option score; uncalibrated as decision confidence"
+      },
+      {
+        "id": "e271fff191315cb4c95f",
+        "option_ids": [
+          "yes",
+          "no"
+        ],
+        "probabilities": [
+          0.053403329799824234,
+          0.9465966702001757
+        ],
+        "option_logits": [
+          23.875,
+          26.75
+        ],
+        "input_tokens": 1886,
+        "prompt_sha256": "196c22335919380f975ae9144714f95f9f98759c99acee182150f97915b91d1e",
+        "prompt_version": "direct-options-v1",
+        "model": {
+          "source": "Qwen/Qwen3.5-4B",
+          "revision": "851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a",
+          "dtype": "bfloat16",
+          "torch_version": "2.10.0+cu128",
+          "transformers_version": "5.17.0",
+          "serving_config": "native-state-prefix-parallel-v1"
+        },
+        "readout": "native selected suffix-position logits",
+        "probability_status": "conditional option score; uncalibrated as decision confidence"
+      },
+      {
+        "id": "a87ef520af09c18399da",
+        "option_ids": [
+          "yes",
+          "no"
+        ],
+        "probabilities": [
+          0.1480471980316895,
+          0.8519528019683106
+        ],
+        "option_logits": [
+          24.375,
+          26.125
+        ],
+        "input_tokens": 1887,
+        "prompt_sha256": "3c0ad27d8e00353d1318d9208447a01f542249c7efc5ba42796b22a8886c42f6",
+        "prompt_version": "direct-options-v1",
+        "model": {
+          "source": "Qwen/Qwen3.5-4B",
+          "revision": "851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a",
+          "dtype": "bfloat16",
+          "torch_version": "2.10.0+cu128",
+          "transformers_version": "5.17.0",
+          "serving_config": "native-state-prefix-parallel-v1"
+        },
+        "readout": "native selected suffix-position logits",
+        "probability_status": "conditional option score; uncalibrated as decision confidence"
+      },
+      {
+        "id": "1a6ff632056454ec590e",
+        "option_ids": [
+          "yes",
+          "no"
+        ],
+        "probabilities": [
+          0.7981867777396212,
+          0.20181322226037882
+        ],
+        "option_logits": [
+          26.125,
+          24.75
+        ],
+        "input_tokens": 1887,
+        "prompt_sha256": "b707f37627ab3ad6c6f8fac4ed5ef1b3390f6688efb84ee07606930db71c95be",
+        "prompt_version": "direct-options-v1",
+        "model": {
+          "source": "Qwen/Qwen3.5-4B",
+          "revision": "851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a",
+          "dtype": "bfloat16",
+          "torch_version": "2.10.0+cu128",
+          "transformers_version": "5.17.0",
+          "serving_config": "native-state-prefix-parallel-v1"
+        },
+        "readout": "native selected suffix-position logits",
+        "probability_status": "conditional option score; uncalibrated as decision confidence"
+      },
+      {
+        "id": "48228bad5fddd8b37b78",
+        "option_ids": [
+          "yes",
+          "no"
+        ],
+        "probabilities": [
+          0.033085978388704126,
+          0.9669140216112958
+        ],
+        "option_logits": [
+          23.75,
+          27.125
+        ],
+        "input_tokens": 1890,
+        "prompt_sha256": "692e885b2e2ce5febdd714fbee28d32bf5becbb0a1582f490d7d5e00adc1971f",
+        "prompt_version": "direct-options-v1",
+        "model": {
+          "source": "Qwen/Qwen3.5-4B",
+          "revision": "851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a",
+          "dtype": "bfloat16",
+          "torch_version": "2.10.0+cu128",
+          "transformers_version": "5.17.0",
+          "serving_config": "native-state-prefix-parallel-v1"
+        },
+        "readout": "native selected suffix-position logits",
+        "probability_status": "conditional option score; uncalibrated as decision confidence"
+      },
+      {
+        "id": "4297376234661d401e23",
+        "option_ids": [
+          "yes",
+          "no"
+        ],
+        "probabilities": [
+          0.012431650853185818,
+          0.9875683491468141
+        ],
+        "option_logits": [
+          23.5,
+          27.875
+        ],
+        "input_tokens": 1890,
+        "prompt_sha256": "67949655f1c8c863493dc11dc99f1ba0cacac1e18d421583085145d6d3ab68dc",
+        "prompt_version": "direct-options-v1",
+        "model": {
+          "source": "Qwen/Qwen3.5-4B",
+          "revision": "851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a",
+          "dtype": "bfloat16",
+          "torch_version": "2.10.0+cu128",
+          "transformers_version": "5.17.0",
+          "serving_config": "native-state-prefix-parallel-v1"
+        },
+        "readout": "native selected suffix-position logits",
+        "probability_status": "conditional option score; uncalibrated as decision confidence"
+      },
+      {
+        "id": "1d68e7b5ce26c6964c5b",
+        "option_ids": [
+          "yes",
+          "no"
+        ],
+        "probabilities": [
+          0.04742587317756679,
+          0.9525741268224334
+        ],
+        "option_logits": [
+          24.0,
+          27.0
+        ],
+        "input_tokens": 1889,
+        "prompt_sha256": "5094be2048840406309fc5813a7270e11a4567d5d04242b8ab56bb69f7b52d83",
+        "prompt_version": "direct-options-v1",
+        "model": {
+          "source": "Qwen/Qwen3.5-4B",
+          "revision": "851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a",
+          "dtype": "bfloat16",
+          "torch_version": "2.10.0+cu128",
+          "transformers_version": "5.17.0",
+          "serving_config": "native-state-prefix-parallel-v1"
+        },
+        "readout": "native selected suffix-position logits",
+        "probability_status": "conditional option score; uncalibrated as decision confidence"
+      },
+      {
+        "id": "c2413f7d90123acb24ad",
+        "option_ids": [
+          "yes",
+          "no"
+        ],
+        "probabilities": [
+          0.7549149868676283,
+          0.24508501313237172
+        ],
+        "option_logits": [
+          25.75,
+          24.625
+        ],
+        "input_tokens": 1889,
+        "prompt_sha256": "c50a4e19b9ec885d383953c2eadad9b5c770a686e9e9b49e292c039918d2eee0",
+        "prompt_version": "direct-options-v1",
+        "model": {
+          "source": "Qwen/Qwen3.5-4B",
+          "revision": "851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a",
+          "dtype": "bfloat16",
+          "torch_version": "2.10.0+cu128",
+          "transformers_version": "5.17.0",
+          "serving_config": "native-state-prefix-parallel-v1"
+        },
+        "readout": "native selected suffix-position logits",
+        "probability_status": "conditional option score; uncalibrated as decision confidence"
+      },
+      {
+        "id": "e6e94a24bf5956b9c269",
+        "option_ids": [
+          "yes",
+          "no"
+        ],
+        "probabilities": [
+          0.11920292202211755,
+          0.8807970779778823
+        ],
+        "option_logits": [
+          24.625,
+          26.625
+        ],
+        "input_tokens": 1889,
+        "prompt_sha256": "38549544de44438e7293a7c697035bac4afb433588c8c9f760b66e72367599aa",
+        "prompt_version": "direct-options-v1",
+        "model": {
+          "source": "Qwen/Qwen3.5-4B",
+          "revision": "851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a",
+          "dtype": "bfloat16",
+          "torch_version": "2.10.0+cu128",
+          "transformers_version": "5.17.0",
+          "serving_config": "native-state-prefix-parallel-v1"
+        },
+        "readout": "native selected suffix-position logits",
+        "probability_status": "conditional option score; uncalibrated as decision confidence"
+      },
+      {
+        "id": "7ab1bf4a314eb9f5c626",
+        "option_ids": [
+          "yes",
+          "no"
+        ],
+        "probabilities": [
+          0.7310585786300049,
+          0.2689414213699951
+        ],
+        "option_logits": [
+          25.75,
+          24.75
+        ],
+        "input_tokens": 1888,
+        "prompt_sha256": "9030af697f40100569c8ca0ca9c3305b58313031cab894b5043f8314ce4f3ffe",
+        "prompt_version": "direct-options-v1",
+        "model": {
+          "source": "Qwen/Qwen3.5-4B",
+          "revision": "851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a",
+          "dtype": "bfloat16",
+          "torch_version": "2.10.0+cu128",
+          "transformers_version": "5.17.0",
+          "serving_config": "native-state-prefix-parallel-v1"
+        },
+        "readout": "native selected suffix-position logits",
+        "probability_status": "conditional option score; uncalibrated as decision confidence"
+      },
+      {
+        "id": "47c0245bb50e6bc4a3c7",
+        "option_ids": [
+          "yes",
+          "no"
+        ],
+        "probabilities": [
+          0.13296424019782924,
+          0.8670357598021706
+        ],
+        "option_logits": [
+          24.625,
+          26.5
+        ],
+        "input_tokens": 1887,
+        "prompt_sha256": "e08ab1c92ec2f06a82c343cb449125f7473176882b0d7fc35933fe1b0592525b",
+        "prompt_version": "direct-options-v1",
+        "model": {
+          "source": "Qwen/Qwen3.5-4B",
+          "revision": "851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a",
+          "dtype": "bfloat16",
+          "torch_version": "2.10.0+cu128",
+          "transformers_version": "5.17.0",
+          "serving_config": "native-state-prefix-parallel-v1"
+        },
+        "readout": "native selected suffix-position logits",
+        "probability_status": "conditional option score; uncalibrated as decision confidence"
+      },
+      {
+        "id": "b68c10e7de694171b6f1",
+        "option_ids": [
+          "yes",
+          "no"
+        ],
+        "probabilities": [
+          0.029312230751356316,
+          0.9706877692486436
+        ],
+        "option_logits": [
+          23.5,
+          27.0
+        ],
+        "input_tokens": 1893,
+        "prompt_sha256": "75a230cb4b59337c9bf66b91021f617de4be3483b23634725e16f04a7f17b1db",
+        "prompt_version": "direct-options-v1",
+        "model": {
+          "source": "Qwen/Qwen3.5-4B",
+          "revision": "851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a",
+          "dtype": "bfloat16",
+          "torch_version": "2.10.0+cu128",
+          "transformers_version": "5.17.0",
+          "serving_config": "native-state-prefix-parallel-v1"
+        },
+        "readout": "native selected suffix-position logits",
+        "probability_status": "conditional option score; uncalibrated as decision confidence"
+      },
+      {
+        "id": "5bf29f505c7a2f9e9c05",
+        "option_ids": [
+          "yes",
+          "no"
+        ],
+        "probabilities": [
+          0.02595735719779685,
+          0.9740426428022031
+        ],
+        "option_logits": [
+          23.375,
+          27.0
+        ],
+        "input_tokens": 1890,
+        "prompt_sha256": "da3ac3ab1c9a2b4c78a0e051069831471a418e844c2e6577cc8ec1e3b94b861d",
+        "prompt_version": "direct-options-v1",
+        "model": {
+          "source": "Qwen/Qwen3.5-4B",
+          "revision": "851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a",
+          "dtype": "bfloat16",
+          "torch_version": "2.10.0+cu128",
+          "transformers_version": "5.17.0",
+          "serving_config": "native-state-prefix-parallel-v1"
+        },
+        "readout": "native selected suffix-position logits",
+        "probability_status": "conditional option score; uncalibrated as decision confidence"
+      },
+      {
+        "id": "8e8b3acbcf810123cc28",
+        "option_ids": [
+          "yes",
+          "no"
+        ],
+        "probabilities": [
+          0.017986209962091555,
+          0.9820137900379085
+        ],
+        "option_logits": [
+          23.875,
+          27.875
+        ],
+        "input_tokens": 1889,
+        "prompt_sha256": "30f8b0d216bf4e9d66756bebcd04a0f43db6638dd34fce00730e385aefb7a27f",
+        "prompt_version": "direct-options-v1",
+        "model": {
+          "source": "Qwen/Qwen3.5-4B",
+          "revision": "851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a",
+          "dtype": "bfloat16",
+          "torch_version": "2.10.0+cu128",
+          "transformers_version": "5.17.0",
+          "serving_config": "native-state-prefix-parallel-v1"
+        },
+        "readout": "native selected suffix-position logits",
+        "probability_status": "conditional option score; uncalibrated as decision confidence"
+      },
+      {
+        "id": "2ddee44782d3d706ab53",
+        "option_ids": [
+          "yes",
+          "no"
+        ],
+        "probabilities": [
+          0.0675466911396291,
+          0.9324533088603709
+        ],
+        "option_logits": [
+          23.875,
+          26.5
+        ],
+        "input_tokens": 1887,
+        "prompt_sha256": "fc6fd7795a6d89032871291d3d4e389a4cca06c5b8764fdbd0e54ebdf9156f23",
+        "prompt_version": "direct-options-v1",
+        "model": {
+          "source": "Qwen/Qwen3.5-4B",
+          "revision": "851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a",
+          "dtype": "bfloat16",
+          "torch_version": "2.10.0+cu128",
+          "transformers_version": "5.17.0",
+          "serving_config": "native-state-prefix-parallel-v1"
+        },
+        "readout": "native selected suffix-position logits",
+        "probability_status": "conditional option score; uncalibrated as decision confidence"
+      },
+      {
+        "id": "6b35e4fc4f43379e6ac5",
+        "option_ids": [
+          "yes",
+          "no"
+        ],
+        "probabilities": [
+          0.1480471980316895,
+          0.8519528019683106
+        ],
+        "option_logits": [
+          24.375,
+          26.125
+        ],
+        "input_tokens": 1890,
+        "prompt_sha256": "ad08ff4cc3a2103c2a6ea1283b9b34d45998d92501f6fe0b35c0e9a9e5e3242c",
+        "prompt_version": "direct-options-v1",
+        "model": {
+          "source": "Qwen/Qwen3.5-4B",
+          "revision": "851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a",
+          "dtype": "bfloat16",
+          "torch_version": "2.10.0+cu128",
+          "transformers_version": "5.17.0",
+          "serving_config": "native-state-prefix-parallel-v1"
+        },
+        "readout": "native selected suffix-position logits",
+        "probability_status": "conditional option score; uncalibrated as decision confidence"
+      }
+    ]
+  },
+  "compact_generation": {
+    "prompt_messages": [
+      {
+        "role": "system",
+        "content": "Apply each criterion independently to the state. Return exactly one JSON array containing one lowercase yes or no string per criterion, in the supplied order. Emit no keys, confidence values, markdown, or explanation."
+      },
+      {
+        "role": "user",
+        "content": "{\"state\": \"PRIMARY RECORD:\\nThe optician ordered replacement lenses. The workshop confirms they have not yet been fitted to the customer's glasses.\\n\\nUNRELATED BACKGROUND RECORDS:\\n\\nBACKGROUND 1:\\nThe optician ordered replacement lenses. The workshop confirms they have not yet been fitted to the customer's glasses.\\n\\nBACKGROUND 2:\\nThe intern attached instructions for weighing the parcel and explicitly says no weighing has been performed.\\n\\nBACKGROUND 3:\\nThe designer explicitly approves mass production of the badge.\\n\\nBACKGROUND 4:\\nCandidate A: The florist gives an address. Candidate B: The wreath contains lilies.\\n\\nBACKGROUND 5:\\nCandidate A: The sponsor confirms receipt of a grant application but explicitly says no award decision has been made. Candidate B: The sponsor confirms that the grant was awarded.\\n\\nBACKGROUND 6:\\nThe director gave Lina authority to approve exhibit labels and explicitly forbade further delegation. Lina then told Mo to approve them. The rule states an attempted forbidden delegation grants no authority; Mo has no other grant.\\n\\nBACKGROUND 7:\\nThe opened tin has a manufacturing defect and the inspection confirms no solvent was added.\\n\\nBACKGROUND 8:\\nThe signed checklist controls conflicts, but Candidate A and Candidate B provide only project names without checklist or chat status.\\n\\nBACKGROUND 9:\\nThe town hall and school both confirm they are available and suitable for the meeting.\\n\\nBACKGROUND 10:\\nThe technician says terminal Cedar is online. Terminal Maple is explicitly offline.\\n\\nBACKGROUND 11:\\nThe architect expressly permits selling copies of the plan.\\n\\nBACKGROUND 12:\\nThe owner requested an account update, but the fields to be changed are omitted.\\n\\nBACKGROUND 13:\\nCandidate A: The editor quotes a proposal for a paywall only to argue against it. Candidate B: The editor endorses introducing a paywall.\\n\\nBACKGROUND 14:\\nThe homeowner first allowed a surveyor to enter the attic. Before the visit she explicitly withdrew that permission. No later decision exists.\\n\\nBACKGROUND 15:\\nThe rule permits direct delegation by the director but forbids further delegation. Candidate A: My only claimed authority came from B. Candidate B: The director directly granted me prop approval authority.\\n\\nBACKGROUND 16:\\nThe protocol gives the inventory priority, but the current inventory and desk-log entries for the crate are omitted.\\n\\nBACKGROUND 17:\\nA complete incident package requires both a timeline and a remedy report. Candidate A: Both documents are attached. Candidate B: Only the timeline is attached; the remedy report is absent.\\n\\nBACKGROUND 18:\\nThe optician ordered replacement lenses. The workshop confirms they have not yet been fitted to the customer's glasses.\\n\\nBACKGROUND 19:\\nThe intern performed the weighing and recorded the parcel's measured weight.\\n\\nBACKGROUND 20:\\nThe designer issued a decision but its production scope is unavailable.\\n\\nBACKGROUND 21:\\nCandidate A: The customer asks how an engraving would look but explicitly declines having it engraved yet. Candidate B: The customer instructs the shop to engrave the ring.\\n\\nBACKGROUND 22:\\nCandidate A: The sponsor confirms receipt of a grant application but explicitly says no award decision has been made. Candidate B: The sponsor confirms that the grant was awarded.\\n\\nBACKGROUND 23:\\nThe director gives Mo direct authority to approve exhibit labels; the record confirms this grant is valid.\\n\\nBACKGROUND 24:\\nThe opened tin is defective, but whether solvent was added is not known.\\n\\nBACKGROUND 25:\\nThe agreed handover requires both the source files and the user guide. The delivery record confirms the source files arrived and explicitly says the guide was not delivered.\\n\\nBACKGROUND 26:\\nThe town hall and school both confirm they are available and suitable for the meeting.\\n\\nBACKGROUND 27:\\nThe technician confirms terminal Maple is online and terminal Cedar is offline.\\n\\nBACKGROUND 28:\\nAn architect's permission letter exists, but the uses it allows are omitted.\\n\\nBACKGROUND 29:\\nThe applicant lives in the valley but works outside it.\\n\\nBACKGROUND 30:\\nCandidate A: The editor quotes a proposal for a paywall only to argue against it. Candidate B: The editor endorses introducing a paywall.\\n\\nBACKGROUND 31:\\nThe homeowner first refused attic entry, then explicitly granted it before the visit. No later decision exists.\\n\\nBACKGROUND 32:\\nThe director's delegation rule is supplied, but Candidate A and Candidate B provide only their names and no authority histories.\\n\\nBACKGROUND 33:\\nThe desk clerk reports the equipment deposit as paid. The signed ledger reports it as unpaid. Both reports are current.\\n\\nBACKGROUND 34:\\nA complete incident package requires both a timeline and a remedy report. Candidate A: Both documents are attached. Candidate B: Only the timeline is attached; the remedy report is absent.\\n\\nBACKGROUND 35:\\nThe workshop confirms it fitted the replacement lenses to the customer's glasses.\\n\\nBACKGROUND 36:\\nThe intern supplies a parcel identifier but no procedure or measurement information.\\n\\nBACKGROUND 37:\\nThe visitor's wristband covers the sculpture garden and expressly excludes the rooftop terrace.\\n\\nBACKGROUND 38:\\nCandidate A: The customer asks how an engraving would look but explicitly declines having it engraved yet. Candidate B: The customer instructs the shop to engrave the ring.\\n\\nBACKGROUND 39:\\nCandidate A: The grant was awarded. Candidate B: The application was received; the award remains undecided.\\n\\nBACKGROUND 40:\\nMo is named in correspondence about labels, but no authority grants or delegation terms are supplied.\\n\\nBACKGROUND 41:\\nAccept late submissions for documented outages, except that missing signatures always disqualify. Candidate A: My submission was late because of a documented outage and includes the required signature. Candidate B: Mine was late because of a documented outage but lacks the signature.\\n\\nBACKGROUND 42:\\nThe agreed handover requires both the source files and the user guide. The delivery record confirms the source files arrived and explicitly says the guide was not delivered.\\n\\nBACKGROUND 43:\\nThe town hall is confirmed unavailable, while the school is available and suitable.\\n\\nBACKGROUND 44:\\nThe technician lists both terminals but omits their connection status.\\n\\nBACKGROUND 45:\\nThe guide completed first-aid training but not mountain-navigation training.\\n\\nBACKGROUND 46:\\nThe applicant lives in the valley but works outside it.\\n\\nBACKGROUND 47:\\nCandidate A: I endorse introducing a paywall. Candidate B: I reject introducing a paywall.\\n\\nBACKGROUND 48:\\nThe homeowner gave an early permission decision, but neither its content nor any later decisions are available.\\n\\nBACKGROUND 49:\\nThe return policy accepts faulty lamps despite opened packaging, but explicitly excludes water damage even when the lamp is faulty. This opened lamp is faulty because water entered it. No other cause is present.\\n\\nBACKGROUND 50:\\nThe desk clerk reports the equipment deposit as paid. The signed ledger reports it as unpaid. Both reports are current.\\n\\nBACKGROUND 51:\\nA complete package requires both documents. Candidate A: The timeline is attached but the remedy report is absent. Candidate B: Both the timeline and remedy report are attached.\\n\\nBACKGROUND 52:\\nThe optician records a glasses prescription but no order or fitting status.\\n\\nBACKGROUND 53:\\nDuring a puppet show, a character announces the discovery of a dragon egg. The production note states this is fictional and no real egg was discovered.\\n\\nBACKGROUND 54:\\nThe visitor's wristband covers the sculpture garden and expressly excludes the rooftop terrace.\\n\\nBACKGROUND 55:\\nCandidate A: Please engrave the ring. Candidate B: Show me how it would look, but do not engrave it yet.\\n\\nBACKGROUND 56:\\nCandidate A: The sponsor gives its name. Candidate B: The application has a reference number.\\n\\nBACKGROUND 57:\\nThe producer authorizes the stage manager to approve props. The stage manager passes the task to an assistant, who has no other approval authority.\\n\\nBACKGROUND 58:\\nAccept late submissions for documented outages, except that missing signatures always disqualify. Candidate A: My submission was late because of a documented outage and includes the required signature. Candidate B: Mine was late because of a documented outage but lacks the signature.\", \"criteria_in_output_order\": [\"Does the primary record explicitly identify a person, organization, or system actor?\", \"Does the primary record explicitly describe an action that occurred or was requested?\", \"Does the primary record contain a specific date, time, or bounded time window?\", \"Does the primary record contain a numerical quantity, price, count, or threshold?\", \"Does the primary record explicitly negate or deny a material claim?\", \"Does the primary record express uncertainty rather than a settled fact?\", \"Does the primary record establish authorization for an action?\", \"Does the primary record establish that an action completed successfully?\", \"Does the primary record establish that an attempted action failed?\", \"Does the primary record contain an explicit request from a user or customer?\", \"Does the primary record state a policy, rule, or contractual requirement?\", \"Does the primary record state an exception to a policy or rule?\", \"Does the primary record provide direct evidence rather than an unsupported assertion?\", \"Does the primary record contain two claims that materially contradict each other?\", \"Is material information missing for deciding what action should be taken?\", \"Does the primary record contain personal or account-specific information?\", \"Does the primary record concern a payment, refund, invoice, or other financial transaction?\", \"Does the primary record concern software, infrastructure, or another technical system?\", \"Does the primary record compare two or more candidate explanations or actions?\", \"Does the primary record explicitly require human review or approval?\", \"Does the primary record alone provide enough evidence for an irreversible automatic action?\"], \"allowed_values\": [\"yes\", \"no\"]}"
+      }
+    ],
+    "runs": [
+      {
+        "prompt_sha256": "4310f4e635768b2cdbefe601ee7d9ca8678d2059c5c56f86396c94ba887d7b9a",
+        "input_tokens": 2147,
+        "output_tokens": 111,
+        "time_to_first_token_seconds": 0.48786429001484066,
+        "total_seconds": 5.286041187006049,
+        "output_text": "[\n  \"yes\",\n  \"yes\",\n  \"no\",\n  \"no\",\n  \"no\",\n  \"no\",\n  \"no\",\n  \"no\",\n  \"yes\",\n  \"no\",\n  \"no\",\n  \"no\",\n  \"yes\",\n  \"no\",\n  \"yes\",\n  \"no\",\n  \"no\",\n  \"no\",\n  \"no\",\n  \"no\",\n  \"no\"\n]\n",
+        "valid_complete_array": true,
+        "choices": [
+          "yes",
+          "yes",
+          "no",
+          "no",
+          "no",
+          "no",
+          "no",
+          "no",
+          "yes",
+          "no",
+          "no",
+          "no",
+          "yes",
+          "no",
+          "yes",
+          "no",
+          "no",
+          "no",
+          "no",
+          "no",
+          "no"
+        ],
+        "timeline": [
+          {
+            "seconds": 0.48786429001484066,
+            "token_id": 58,
+            "text": "["
+          },
+          {
+            "seconds": 0.5333174389670603,
+            "token_id": 198,
+            "text": "\n"
+          },
+          {
+            "seconds": 0.5767300919978879,
+            "token_id": 220,
+            "text": " "
+          },
+          {
+            "seconds": 0.617381926975213,
+            "token_id": 328,
+            "text": " \""
+          },
+          {
+            "seconds": 0.6567878620116971,
+            "token_id": 9405,
+            "text": "yes"
+          },
+          {
+            "seconds": 0.69756529701408,
+            "token_id": 487,
+            "text": "\","
+          },
+          {
+            "seconds": 0.7373786749667488,
+            "token_id": 198,
+            "text": "\n"
+          },
+          {
+            "seconds": 0.7762848769780248,
+            "token_id": 220,
+            "text": " "
+          },
+          {
+            "seconds": 0.8163718960131519,
+            "token_id": 328,
+            "text": " \""
+          },
+          {
+            "seconds": 0.8558090219739825,
+            "token_id": 9405,
+            "text": "yes"
+          },
+          {
+            "seconds": 0.8996914500021376,
+            "token_id": 487,
+            "text": "\","
+          },
+          {
+            "seconds": 0.9447551859775558,
+            "token_id": 198,
+            "text": "\n"
+          },
+          {
+            "seconds": 0.9897794419666752,
+            "token_id": 220,
+            "text": " "
+          },
+          {
+            "seconds": 1.0352845209999941,
+            "token_id": 328,
+            "text": " \""
+          },
+          {
+            "seconds": 1.0798242629971355,
+            "token_id": 2083,
+            "text": "no"
+          },
+          {
+            "seconds": 1.1238494209828787,
+            "token_id": 487,
+            "text": "\","
+          },
+          {
+            "seconds": 1.1666991320089437,
+            "token_id": 198,
+            "text": "\n"
+          },
+          {
+            "seconds": 1.2076619479921646,
+            "token_id": 220,
+            "text": " "
+          },
+          {
+            "seconds": 1.2493850300088525,
+            "token_id": 328,
+            "text": " \""
+          },
+          {
+            "seconds": 1.2887335650157183,
+            "token_id": 2083,
+            "text": "no"
+          },
+          {
+            "seconds": 1.3279625389841385,
+            "token_id": 487,
+            "text": "\","
+          },
+          {
+            "seconds": 1.367461244983133,
+            "token_id": 198,
+            "text": "\n"
+          },
+          {
+            "seconds": 1.4064573670038953,
+            "token_id": 220,
+            "text": " "
+          },
+          {
+            "seconds": 1.445717150985729,
+            "token_id": 328,
+            "text": " \""
+          },
+          {
+            "seconds": 1.4894198480178602,
+            "token_id": 2083,
+            "text": "no"
+          },
+          {
+            "seconds": 1.5333085549646057,
+            "token_id": 487,
+            "text": "\","
+          },
+          {
+            "seconds": 1.5784157320158556,
+            "token_id": 198,
+            "text": "\n"
+          },
+          {
+            "seconds": 1.6228806739673018,
+            "token_id": 220,
+            "text": " "
+          },
+          {
+            "seconds": 1.667741308978293,
+            "token_id": 328,
+            "text": " \""
+          },
+          {
+            "seconds": 1.7120677499915473,
+            "token_id": 2083,
+            "text": "no"
+          },
+          {
+            "seconds": 1.7570251349825412,
+            "token_id": 487,
+            "text": "\","
+          },
+          {
+            "seconds": 1.8023583829635754,
+            "token_id": 198,
+            "text": "\n"
+          },
+          {
+            "seconds": 1.8440901059657335,
+            "token_id": 220,
+            "text": " "
+          },
+          {
+            "seconds": 1.8895462249638513,
+            "token_id": 328,
+            "text": " \""
+          },
+          {
+            "seconds": 1.9342584579717368,
+            "token_id": 2083,
+            "text": "no"
+          },
+          {
+            "seconds": 1.9788922909647226,
+            "token_id": 487,
+            "text": "\","
+          },
+          {
+            "seconds": 2.0235457649687305,
+            "token_id": 198,
+            "text": "\n"
+          },
+          {
+            "seconds": 2.0679981259745546,
+            "token_id": 220,
+            "text": " "
+          },
+          {
+            "seconds": 2.1117162330192514,
+            "token_id": 328,
+            "text": " \""
+          },
+          {
+            "seconds": 2.151625522004906,
+            "token_id": 2083,
+            "text": "no"
+          },
+          {
+            "seconds": 2.1953523390111513,
+            "token_id": 487,
+            "text": "\","
+          },
+          {
+            "seconds": 2.2385995719814673,
+            "token_id": 198,
+            "text": "\n"
+          },
+          {
+            "seconds": 2.27890060399659,
+            "token_id": 220,
+            "text": " "
+          },
+          {
+            "seconds": 2.319807769963518,
+            "token_id": 328,
+            "text": " \""
+          },
+          {
+            "seconds": 2.3607998070074245,
+            "token_id": 9405,
+            "text": "yes"
+          },
+          {
+            "seconds": 2.403829748975113,
+            "token_id": 487,
+            "text": "\","
+          },
+          {
+            "seconds": 2.4446123340167105,
+            "token_id": 198,
+            "text": "\n"
+          },
+          {
+            "seconds": 2.488993485982064,
+            "token_id": 220,
+            "text": " "
+          },
+          {
+            "seconds": 2.53380296000978,
+            "token_id": 328,
+            "text": " \""
+          },
+          {
+            "seconds": 2.578492513974197,
+            "token_id": 2083,
+            "text": "no"
+          },
+          {
+            "seconds": 2.6227524540154263,
+            "token_id": 487,
+            "text": "\","
+          },
+          {
+            "seconds": 2.667275817017071,
+            "token_id": 198,
+            "text": "\n"
+          },
+          {
+            "seconds": 2.712178491987288,
+            "token_id": 220,
+            "text": " "
+          },
+          {
+            "seconds": 2.757321138982661,
+            "token_id": 328,
+            "text": " \""
+          },
+          {
+            "seconds": 2.802357585984282,
+            "token_id": 2083,
+            "text": "no"
+          },
+          {
+            "seconds": 2.847501061973162,
+            "token_id": 487,
+            "text": "\","
+          },
+          {
+            "seconds": 2.8896249170065857,
+            "token_id": 198,
+            "text": "\n"
+          },
+          {
+            "seconds": 2.932423716993071,
+            "token_id": 220,
+            "text": " "
+          },
+          {
+            "seconds": 2.9712521589826792,
+            "token_id": 328,
+            "text": " \""
+          },
+          {
+            "seconds": 3.014239299984183,
+            "token_id": 2083,
+            "text": "no"
+          },
+          {
+            "seconds": 3.056123073969502,
+            "token_id": 487,
+            "text": "\","
+          },
+          {
+            "seconds": 3.095587329007685,
+            "token_id": 198,
+            "text": "\n"
+          },
+          {
+            "seconds": 3.1402594529790804,
+            "token_id": 220,
+            "text": " "
+          },
+          {
+            "seconds": 3.184631504002027,
+            "token_id": 328,
+            "text": " \""
+          },
+          {
+            "seconds": 3.2269419810036197,
+            "token_id": 9405,
+            "text": "yes"
+          },
+          {
+            "seconds": 3.267287492984906,
+            "token_id": 487,
+            "text": "\","
+          },
+          {
+            "seconds": 3.3073791539645754,
+            "token_id": 198,
+            "text": "\n"
+          },
+          {
+            "seconds": 3.3469700209680013,
+            "token_id": 220,
+            "text": " "
+          },
+          {
+            "seconds": 3.3877757859881967,
+            "token_id": 328,
+            "text": " \""
+          },
+          {
+            "seconds": 3.4331879559904337,
+            "token_id": 2083,
+            "text": "no"
+          },
+          {
+            "seconds": 3.4782567319925874,
+            "token_id": 487,
+            "text": "\","
+          },
+          {
+            "seconds": 3.5231663080048747,
+            "token_id": 198,
+            "text": "\n"
+          },
+          {
+            "seconds": 3.56800133199431,
+            "token_id": 220,
+            "text": " "
+          },
+          {
+            "seconds": 3.612981727987062,
+            "token_id": 328,
+            "text": " \""
+          },
+          {
+            "seconds": 3.6579212640062906,
+            "token_id": 9405,
+            "text": "yes"
+          },
+          {
+            "seconds": 3.702684368006885,
+            "token_id": 487,
+            "text": "\","
+          },
+          {
+            "seconds": 3.7476895750151016,
+            "token_id": 198,
+            "text": "\n"
+          },
+          {
+            "seconds": 3.794093920965679,
+            "token_id": 220,
+            "text": " "
+          },
+          {
+            "seconds": 3.839196657994762,
+            "token_id": 328,
+            "text": " \""
+          },
+          {
+            "seconds": 3.8838943009614013,
+            "token_id": 2083,
+            "text": "no"
+          },
+          {
+            "seconds": 3.928756567009259,
+            "token_id": 487,
+            "text": "\","
+          },
+          {
+            "seconds": 3.9745897090178914,
+            "token_id": 198,
+            "text": "\n"
+          },
+          {
+            "seconds": 4.0196211650036275,
+            "token_id": 220,
+            "text": " "
+          },
+          {
+            "seconds": 4.064730371988844,
+            "token_id": 328,
+            "text": " \""
+          },
+          {
+            "seconds": 4.109757717989851,
+            "token_id": 2083,
+            "text": "no"
+          },
+          {
+            "seconds": 4.154856325010769,
+            "token_id": 487,
+            "text": "\","
+          },
+          {
+            "seconds": 4.199718040996231,
+            "token_id": 198,
+            "text": "\n"
+          },
+          {
+            "seconds": 4.245228949992452,
+            "token_id": 220,
+            "text": " "
+          },
+          {
+            "seconds": 4.290987532003783,
+            "token_id": 328,
+            "text": " \""
+          },
+          {
+            "seconds": 4.3367258529760875,
+            "token_id": 2083,
+            "text": "no"
+          },
+          {
+            "seconds": 4.382053121982608,
+            "token_id": 487,
+            "text": "\","
+          },
+          {
+            "seconds": 4.427044789015781,
+            "token_id": 198,
+            "text": "\n"
+          },
+          {
+            "seconds": 4.472640658961609,
+            "token_id": 220,
+            "text": " "
+          },
+          {
+            "seconds": 4.517838426982053,
+            "token_id": 328,
+            "text": " \""
+          },
+          {
+            "seconds": 4.562805132998619,
+            "token_id": 2083,
+            "text": "no"
+          },
+          {
+            "seconds": 4.608198561996687,
+            "token_id": 487,
+            "text": "\","
+          },
+          {
+            "seconds": 4.6530181569978595,
+            "token_id": 198,
+            "text": "\n"
+          },
+          {
+            "seconds": 4.69766546000028,
+            "token_id": 220,
+            "text": " "
+          },
+          {
+            "seconds": 4.742240563966334,
+            "token_id": 328,
+            "text": " \""
+          },
+          {
+            "seconds": 4.786930157977622,
+            "token_id": 2083,
+            "text": "no"
+          },
+          {
+            "seconds": 4.832077644998208,
+            "token_id": 487,
+            "text": "\","
+          },
+          {
+            "seconds": 4.876956160995178,
+            "token_id": 198,
+            "text": "\n"
+          },
+          {
+            "seconds": 4.921596293977927,
+            "token_id": 220,
+            "text": " "
+          },
+          {
+            "seconds": 4.966534850012977,
+            "token_id": 328,
+            "text": " \""
+          },
+          {
+            "seconds": 5.0113710350124165,
+            "token_id": 2083,
+            "text": "no"
+          },
+          {
+            "seconds": 5.056158630002756,
+            "token_id": 1,
+            "text": "\""
+          },
+          {
+            "seconds": 5.102303633990232,
+            "token_id": 198,
+            "text": "\n"
+          },
+          {
+            "seconds": 5.15020790201379,
+            "token_id": 60,
+            "text": "]"
+          },
+          {
+            "seconds": 5.195877472986467,
+            "token_id": 248046,
+            "text": "<|im_end|>"
+          },
+          {
+            "seconds": 5.241597423970234,
+            "token_id": 198,
+            "text": "\n"
+          },
+          {
+            "seconds": 5.285785045009106,
+            "token_id": 248044,
+            "text": "<|endoftext|>"
+          }
+        ],
+        "peak_cuda_bytes": 9073111552
+      },
+      {
+        "prompt_sha256": "4310f4e635768b2cdbefe601ee7d9ca8678d2059c5c56f86396c94ba887d7b9a",
+        "input_tokens": 2147,
+        "output_tokens": 111,
+        "time_to_first_token_seconds": 0.4888657660339959,
+        "total_seconds": 5.331690029008314,
+        "output_text": "[\n  \"yes\",\n  \"yes\",\n  \"no\",\n  \"no\",\n  \"no\",\n  \"no\",\n  \"no\",\n  \"no\",\n  \"yes\",\n  \"no\",\n  \"no\",\n  \"no\",\n  \"yes\",\n  \"no\",\n  \"yes\",\n  \"no\",\n  \"no\",\n  \"no\",\n  \"no\",\n  \"no\",\n  \"no\"\n]\n",
+        "valid_complete_array": true,
+        "choices": [
+          "yes",
+          "yes",
+          "no",
+          "no",
+          "no",
+          "no",
+          "no",
+          "no",
+          "yes",
+          "no",
+          "no",
+          "no",
+          "yes",
+          "no",
+          "yes",
+          "no",
+          "no",
+          "no",
+          "no",
+          "no",
+          "no"
+        ],
+        "timeline": [
+          {
+            "seconds": 0.4888657660339959,
+            "token_id": 58,
+            "text": "["
+          },
+          {
+            "seconds": 0.5344559969962575,
+            "token_id": 198,
+            "text": "\n"
+          },
+          {
+            "seconds": 0.579482673027087,
+            "token_id": 220,
+            "text": " "
+          },
+          {
+            "seconds": 0.6225895769894123,
+            "token_id": 328,
+            "text": " \""
+          },
+          {
+            "seconds": 0.6663228730321862,
+            "token_id": 9405,
+            "text": "yes"
+          },
+          {
+            "seconds": 0.7103889930294827,
+            "token_id": 487,
+            "text": "\","
+          },
+          {
+            "seconds": 0.7541266109910794,
+            "token_id": 198,
+            "text": "\n"
+          },
+          {
+            "seconds": 0.7961525749997236,
+            "token_id": 220,
+            "text": " "
+          },
+          {
+            "seconds": 0.8408912399900146,
+            "token_id": 328,
+            "text": " \""
+          },
+          {
+            "seconds": 0.8863621200434864,
+            "token_id": 9405,
+            "text": "yes"
+          },
+          {
+            "seconds": 0.9323380030109547,
+            "token_id": 487,
+            "text": "\","
+          },
+          {
+            "seconds": 0.9778756840387359,
+            "token_id": 198,
+            "text": "\n"
+          },
+          {
+            "seconds": 1.023557404987514,
+            "token_id": 220,
+            "text": " "
+          },
+          {
+            "seconds": 1.0701798840309493,
+            "token_id": 328,
+            "text": " \""
+          },
+          {
+            "seconds": 1.1147294969996437,
+            "token_id": 2083,
+            "text": "no"
+          },
+          {
+            "seconds": 1.1589270870317705,
+            "token_id": 487,
+            "text": "\","
+          },
+          {
+            "seconds": 1.2035166310379282,
+            "token_id": 198,
+            "text": "\n"
+          },
+          {
+            "seconds": 1.2473508290131576,
+            "token_id": 220,
+            "text": " "
+          },
+          {
+            "seconds": 1.2890764820040204,
+            "token_id": 328,
+            "text": " \""
+          },
+          {
+            "seconds": 1.332581338007003,
+            "token_id": 2083,
+            "text": "no"
+          },
+          {
+            "seconds": 1.3764319560141303,
+            "token_id": 487,
+            "text": "\","
+          },
+          {
+            "seconds": 1.4189911150024273,
+            "token_id": 198,
+            "text": "\n"
+          },
+          {
+            "seconds": 1.4622481990372762,
+            "token_id": 220,
+            "text": " "
+          },
+          {
+            "seconds": 1.5047797180013731,
+            "token_id": 328,
+            "text": " \""
+          },
+          {
+            "seconds": 1.5481528720119968,
+            "token_id": 2083,
+            "text": "no"
+          },
+          {
+            "seconds": 1.5913567660027184,
+            "token_id": 487,
+            "text": "\","
+          },
+          {
+            "seconds": 1.6350573530071415,
+            "token_id": 198,
+            "text": "\n"
+          },
+          {
+            "seconds": 1.6794247450307012,
+            "token_id": 220,
+            "text": " "
+          },
+          {
+            "seconds": 1.724321271001827,
+            "token_id": 328,
+            "text": " \""
+          },
+          {
+            "seconds": 1.7687848440255038,
+            "token_id": 2083,
+            "text": "no"
+          },
+          {
+            "seconds": 1.812929334002547,
+            "token_id": 487,
+            "text": "\","
+          },
+          {
+            "seconds": 1.857339367037639,
+            "token_id": 198,
+            "text": "\n"
+          },
+          {
+            "seconds": 1.901567286986392,
+            "token_id": 220,
+            "text": " "
+          },
+          {
+            "seconds": 1.9459484390099533,
+            "token_id": 328,
+            "text": " \""
+          },
+          {
+            "seconds": 1.9900156590156257,
+            "token_id": 2083,
+            "text": "no"
+          },
+          {
+            "seconds": 2.0344552420428954,
+            "token_id": 487,
+            "text": "\","
+          },
+          {
+            "seconds": 2.078895165002905,
+            "token_id": 198,
+            "text": "\n"
+          },
+          {
+            "seconds": 2.1239671820076182,
+            "token_id": 220,
+            "text": " "
+          },
+          {
+            "seconds": 2.169112209987361,
+            "token_id": 328,
+            "text": " \""
+          },
+          {
+            "seconds": 2.214114007016178,
+            "token_id": 2083,
+            "text": "no"
+          },
+          {
+            "seconds": 2.2594652760308236,
+            "token_id": 487,
+            "text": "\","
+          },
+          {
+            "seconds": 2.3042746710125357,
+            "token_id": 198,
+            "text": "\n"
+          },
+          {
+            "seconds": 2.349487569008488,
+            "token_id": 220,
+            "text": " "
+          },
+          {
+            "seconds": 2.394625437038485,
+            "token_id": 328,
+            "text": " \""
+          },
+          {
+            "seconds": 2.4395632640225813,
+            "token_id": 9405,
+            "text": "yes"
+          },
+          {
+            "seconds": 2.4864929650211707,
+            "token_id": 487,
+            "text": "\","
+          },
+          {
+            "seconds": 2.5311649889918044,
+            "token_id": 198,
+            "text": "\n"
+          },
+          {
+            "seconds": 2.5758203730219975,
+            "token_id": 220,
+            "text": " "
+          },
+          {
+            "seconds": 2.6206900590332225,
+            "token_id": 328,
+            "text": " \""
+          },
+          {
+            "seconds": 2.6656559749972075,
+            "token_id": 2083,
+            "text": "no"
+          },
+          {
+            "seconds": 2.7107795730116777,
+            "token_id": 487,
+            "text": "\","
+          },
+          {
+            "seconds": 2.7554466869914904,
+            "token_id": 198,
+            "text": "\n"
+          },
+          {
+            "seconds": 2.7997658789972775,
+            "token_id": 220,
+            "text": " "
+          },
+          {
+            "seconds": 2.84378973901039,
+            "token_id": 328,
+            "text": " \""
+          },
+          {
+            "seconds": 2.887899699038826,
+            "token_id": 2083,
+            "text": "no"
+          },
+          {
+            "seconds": 2.932404283026699,
+            "token_id": 487,
+            "text": "\","
+          },
+          {
+            "seconds": 2.9771275970269926,
+            "token_id": 198,
+            "text": "\n"
+          },
+          {
+            "seconds": 3.0217030009953305,
+            "token_id": 220,
+            "text": " "
+          },
+          {
+            "seconds": 3.0661904650041834,
+            "token_id": 328,
+            "text": " \""
+          },
+          {
+            "seconds": 3.1105100970016792,
+            "token_id": 2083,
+            "text": "no"
+          },
+          {
+            "seconds": 3.1547530780080706,
+            "token_id": 487,
+            "text": "\","
+          },
+          {
+            "seconds": 3.1989492890425026,
+            "token_id": 198,
+            "text": "\n"
+          },
+          {
+            "seconds": 3.243408031994477,
+            "token_id": 220,
+            "text": " "
+          },
+          {
+            "seconds": 3.2886922110337764,
+            "token_id": 328,
+            "text": " \""
+          },
+          {
+            "seconds": 3.3327409410267137,
+            "token_id": 9405,
+            "text": "yes"
+          },
+          {
+            "seconds": 3.376916612032801,
+            "token_id": 487,
+            "text": "\","
+          },
+          {
+            "seconds": 3.4208637510309927,
+            "token_id": 198,
+            "text": "\n"
+          },
+          {
+            "seconds": 3.468204325006809,
+            "token_id": 220,
+            "text": " "
+          },
+          {
+            "seconds": 3.5122621949994937,
+            "token_id": 328,
+            "text": " \""
+          },
+          {
+            "seconds": 3.556282764999196,
+            "token_id": 2083,
+            "text": "no"
+          },
+          {
+            "seconds": 3.6006389670073986,
+            "token_id": 487,
+            "text": "\","
+          },
+          {
+            "seconds": 3.6447082370286807,
+            "token_id": 198,
+            "text": "\n"
+          },
+          {
+            "seconds": 3.68893087800825,
+            "token_id": 220,
+            "text": " "
+          },
+          {
+            "seconds": 3.7333807310205884,
+            "token_id": 328,
+            "text": " \""
+          },
+          {
+            "seconds": 3.7769261370413005,
+            "token_id": 9405,
+            "text": "yes"
+          },
+          {
+            "seconds": 3.8156364090391435,
+            "token_id": 487,
+            "text": "\","
+          },
+          {
+            "seconds": 3.8544806510326453,
+            "token_id": 198,
+            "text": "\n"
+          },
+          {
+            "seconds": 3.8951951970229857,
+            "token_id": 220,
+            "text": " "
+          },
+          {
+            "seconds": 3.9347963650361635,
+            "token_id": 328,
+            "text": " \""
+          },
+          {
+            "seconds": 3.977474284998607,
+            "token_id": 2083,
+            "text": "no"
+          },
+          {
+            "seconds": 4.016179675993044,
+            "token_id": 487,
+            "text": "\","
+          },
+          {
+            "seconds": 4.0557167530059814,
+            "token_id": 198,
+            "text": "\n"
+          },
+          {
+            "seconds": 4.095781715004705,
+            "token_id": 220,
+            "text": " "
+          },
+          {
+            "seconds": 4.134904289036058,
+            "token_id": 328,
+            "text": " \""
+          },
+          {
+            "seconds": 4.175222442019731,
+            "token_id": 2083,
+            "text": "no"
+          },
+          {
+            "seconds": 4.2156103160232306,
+            "token_id": 487,
+            "text": "\","
+          },
+          {
+            "seconds": 4.260924775036983,
+            "token_id": 198,
+            "text": "\n"
+          },
+          {
+            "seconds": 4.306251753994729,
+            "token_id": 220,
+            "text": " "
+          },
+          {
+            "seconds": 4.351549044018611,
+            "token_id": 328,
+            "text": " \""
+          },
+          {
+            "seconds": 4.395908895996399,
+            "token_id": 2083,
+            "text": "no"
+          },
+          {
+            "seconds": 4.440194038033951,
+            "token_id": 487,
+            "text": "\","
+          },
+          {
+            "seconds": 4.484356058994308,
+            "token_id": 198,
+            "text": "\n"
+          },
+          {
+            "seconds": 4.5284191989921965,
+            "token_id": 220,
+            "text": " "
+          },
+          {
+            "seconds": 4.573107993986923,
+            "token_id": 328,
+            "text": " \""
+          },
+          {
+            "seconds": 4.617833449039608,
+            "token_id": 2083,
+            "text": "no"
+          },
+          {
+            "seconds": 4.6624876339919865,
+            "token_id": 487,
+            "text": "\","
+          },
+          {
+            "seconds": 4.7071988779935054,
+            "token_id": 198,
+            "text": "\n"
+          },
+          {
+            "seconds": 4.751979214022867,
+            "token_id": 220,
+            "text": " "
+          },
+          {
+            "seconds": 4.7967392900027335,
+            "token_id": 328,
+            "text": " \""
+          },
+          {
+            "seconds": 4.841560155036859,
+            "token_id": 2083,
+            "text": "no"
+          },
+          {
+            "seconds": 4.88624752999749,
+            "token_id": 487,
+            "text": "\","
+          },
+          {
+            "seconds": 4.930667583015747,
+            "token_id": 198,
+            "text": "\n"
+          },
+          {
+            "seconds": 4.974843534000684,
+            "token_id": 220,
+            "text": " "
+          },
+          {
+            "seconds": 5.0197102400125,
+            "token_id": 328,
+            "text": " \""
+          },
+          {
+            "seconds": 5.0643702350207604,
+            "token_id": 2083,
+            "text": "no"
+          },
+          {
+            "seconds": 5.108904569002334,
+            "token_id": 1,
+            "text": "\""
+          },
+          {
+            "seconds": 5.153259992017411,
+            "token_id": 198,
+            "text": "\n"
+          },
+          {
+            "seconds": 5.1977565650013275,
+            "token_id": 60,
+            "text": "]"
+          },
+          {
+            "seconds": 5.242385760007892,
+            "token_id": 248046,
+            "text": "<|im_end|>"
+          },
+          {
+            "seconds": 5.2869767540250905,
+            "token_id": 198,
+            "text": "\n"
+          },
+          {
+            "seconds": 5.331432687002234,
+            "token_id": 248044,
+            "text": "<|endoftext|>"
+          }
+        ],
+        "peak_cuda_bytes": 9073111552
+      },
+      {
+        "prompt_sha256": "4310f4e635768b2cdbefe601ee7d9ca8678d2059c5c56f86396c94ba887d7b9a",
+        "input_tokens": 2147,
+        "output_tokens": 111,
+        "time_to_first_token_seconds": 0.4883691109716892,
+        "total_seconds": 5.413413154950831,
+        "output_text": "[\n  \"yes\",\n  \"yes\",\n  \"no\",\n  \"no\",\n  \"no\",\n  \"no\",\n  \"no\",\n  \"no\",\n  \"yes\",\n  \"no\",\n  \"no\",\n  \"no\",\n  \"yes\",\n  \"no\",\n  \"yes\",\n  \"no\",\n  \"no\",\n  \"no\",\n  \"no\",\n  \"no\",\n  \"no\"\n]\n",
+        "valid_complete_array": true,
+        "choices": [
+          "yes",
+          "yes",
+          "no",
+          "no",
+          "no",
+          "no",
+          "no",
+          "no",
+          "yes",
+          "no",
+          "no",
+          "no",
+          "yes",
+          "no",
+          "yes",
+          "no",
+          "no",
+          "no",
+          "no",
+          "no",
+          "no"
+        ],
+        "timeline": [
+          {
+            "seconds": 0.4883691109716892,
+            "token_id": 58,
+            "text": "["
+          },
+          {
+            "seconds": 0.5357003559474833,
+            "token_id": 198,
+            "text": "\n"
+          },
+          {
+            "seconds": 0.5827331579639576,
+            "token_id": 220,
+            "text": " "
+          },
+          {
+            "seconds": 0.6292683659703471,
+            "token_id": 328,
+            "text": " \""
+          },
+          {
+            "seconds": 0.6755032119690441,
+            "token_id": 9405,
+            "text": "yes"
+          },
+          {
+            "seconds": 0.7224806639715098,
+            "token_id": 487,
+            "text": "\","
+          },
+          {
+            "seconds": 0.769071772985626,
+            "token_id": 198,
+            "text": "\n"
+          },
+          {
+            "seconds": 0.8148203549790196,
+            "token_id": 220,
+            "text": " "
+          },
+          {
+            "seconds": 0.860860550950747,
+            "token_id": 328,
+            "text": " \""
+          },
+          {
+            "seconds": 0.9070758169982582,
+            "token_id": 9405,
+            "text": "yes"
+          },
+          {
+            "seconds": 0.9534684249665588,
+            "token_id": 487,
+            "text": "\","
+          },
+          {
+            "seconds": 0.9990351359592751,
+            "token_id": 198,
+            "text": "\n"
+          },
+          {
+            "seconds": 1.0447359279496595,
+            "token_id": 220,
+            "text": " "
+          },
+          {
+            "seconds": 1.0905733319814317,
+            "token_id": 328,
+            "text": " \""
+          },
+          {
+            "seconds": 1.136301354970783,
+            "token_id": 2083,
+            "text": "no"
+          },
+          {
+            "seconds": 1.1816126339836046,
+            "token_id": 487,
+            "text": "\","
+          },
+          {
+            "seconds": 1.2263326199608855,
+            "token_id": 198,
+            "text": "\n"
+          },
+          {
+            "seconds": 1.271175735979341,
+            "token_id": 220,
+            "text": " "
+          },
+          {
+            "seconds": 1.316273143980652,
+            "token_id": 328,
+            "text": " \""
+          },
+          {
+            "seconds": 1.360563005961012,
+            "token_id": 2083,
+            "text": "no"
+          },
+          {
+            "seconds": 1.4056284839753062,
+            "token_id": 487,
+            "text": "\","
+          },
+          {
+            "seconds": 1.4500740169896744,
+            "token_id": 198,
+            "text": "\n"
+          },
+          {
+            "seconds": 1.4946412819554098,
+            "token_id": 220,
+            "text": " "
+          },
+          {
+            "seconds": 1.537661224952899,
+            "token_id": 328,
+            "text": " \""
+          },
+          {
+            "seconds": 1.581546493980568,
+            "token_id": 2083,
+            "text": "no"
+          },
+          {
+            "seconds": 1.6263214299688116,
+            "token_id": 487,
+            "text": "\","
+          },
+          {
+            "seconds": 1.6688077789731324,
+            "token_id": 198,
+            "text": "\n"
+          },
+          {
+            "seconds": 1.7113559689605609,
+            "token_id": 220,
+            "text": " "
+          },
+          {
+            "seconds": 1.755740441964008,
+            "token_id": 328,
+            "text": " \""
+          },
+          {
+            "seconds": 1.7970890929573216,
+            "token_id": 2083,
+            "text": "no"
+          },
+          {
+            "seconds": 1.8381437810021453,
+            "token_id": 487,
+            "text": "\","
+          },
+          {
+            "seconds": 1.8820229709963314,
+            "token_id": 198,
+            "text": "\n"
+          },
+          {
+            "seconds": 1.925243295961991,
+            "token_id": 220,
+            "text": " "
+          },
+          {
+            "seconds": 1.96820572798606,
+            "token_id": 328,
+            "text": " \""
+          },
+          {
+            "seconds": 2.008209409948904,
+            "token_id": 2083,
+            "text": "no"
+          },
+          {
+            "seconds": 2.0502629349939525,
+            "token_id": 487,
+            "text": "\","
+          },
+          {
+            "seconds": 2.090992611949332,
+            "token_id": 198,
+            "text": "\n"
+          },
+          {
+            "seconds": 2.1298754349700175,
+            "token_id": 220,
+            "text": " "
+          },
+          {
+            "seconds": 2.17226031399332,
+            "token_id": 328,
+            "text": " \""
+          },
+          {
+            "seconds": 2.218214148946572,
+            "token_id": 2083,
+            "text": "no"
+          },
+          {
+            "seconds": 2.2588177139987238,
+            "token_id": 487,
+            "text": "\","
+          },
+          {
+            "seconds": 2.299772601982113,
+            "token_id": 198,
+            "text": "\n"
+          },
+          {
+            "seconds": 2.342976045969408,
+            "token_id": 220,
+            "text": " "
+          },
+          {
+            "seconds": 2.3831248380010948,
+            "token_id": 328,
+            "text": " \""
+          },
+          {
+            "seconds": 2.423570432991255,
+            "token_id": 9405,
+            "text": "yes"
+          },
+          {
+            "seconds": 2.4679907760000788,
+            "token_id": 487,
+            "text": "\","
+          },
+          {
+            "seconds": 2.5097316699684598,
+            "token_id": 198,
+            "text": "\n"
+          },
+          {
+            "seconds": 2.555898295948282,
+            "token_id": 220,
+            "text": " "
+          },
+          {
+            "seconds": 2.603272300970275,
+            "token_id": 328,
+            "text": " \""
+          },
+          {
+            "seconds": 2.6465339759597555,
+            "token_id": 2083,
+            "text": "no"
+          },
+          {
+            "seconds": 2.691391961998306,
+            "token_id": 487,
+            "text": "\","
+          },
+          {
+            "seconds": 2.737524958967697,
+            "token_id": 198,
+            "text": "\n"
+          },
+          {
+            "seconds": 2.7839005569694564,
+            "token_id": 220,
+            "text": " "
+          },
+          {
+            "seconds": 2.8306116570020095,
+            "token_id": 328,
+            "text": " \""
+          },
+          {
+            "seconds": 2.8778769909986295,
+            "token_id": 2083,
+            "text": "no"
+          },
+          {
+            "seconds": 2.922981928975787,
+            "token_id": 487,
+            "text": "\","
+          },
+          {
+            "seconds": 2.9666255969787017,
+            "token_id": 198,
+            "text": "\n"
+          },
+          {
+            "seconds": 3.009211456985213,
+            "token_id": 220,
+            "text": " "
+          },
+          {
+            "seconds": 3.0504404669627547,
+            "token_id": 328,
+            "text": " \""
+          },
+          {
+            "seconds": 3.094932220992632,
+            "token_id": 2083,
+            "text": "no"
+          },
+          {
+            "seconds": 3.1422900959732942,
+            "token_id": 487,
+            "text": "\","
+          },
+          {
+            "seconds": 3.190952720993664,
+            "token_id": 198,
+            "text": "\n"
+          },
+          {
+            "seconds": 3.2399473879486322,
+            "token_id": 220,
+            "text": " "
+          },
+          {
+            "seconds": 3.28566479095025,
+            "token_id": 328,
+            "text": " \""
+          },
+          {
+            "seconds": 3.326109164976515,
+            "token_id": 9405,
+            "text": "yes"
+          },
+          {
+            "seconds": 3.367971289961133,
+            "token_id": 487,
+            "text": "\","
+          },
+          {
+            "seconds": 3.412335782952141,
+            "token_id": 198,
+            "text": "\n"
+          },
+          {
+            "seconds": 3.460380832955707,
+            "token_id": 220,
+            "text": " "
+          },
+          {
+            "seconds": 3.508184470993001,
+            "token_id": 328,
+            "text": " \""
+          },
+          {
+            "seconds": 3.5543658069800586,
+            "token_id": 2083,
+            "text": "no"
+          },
+          {
+            "seconds": 3.5990273019997403,
+            "token_id": 487,
+            "text": "\","
+          },
+          {
+            "seconds": 3.6400538509478793,
+            "token_id": 198,
+            "text": "\n"
+          },
+          {
+            "seconds": 3.6816057039541192,
+            "token_id": 220,
+            "text": " "
+          },
+          {
+            "seconds": 3.7279045920004137,
+            "token_id": 328,
+            "text": " \""
+          },
+          {
+            "seconds": 3.7766626569791697,
+            "token_id": 9405,
+            "text": "yes"
+          },
+          {
+            "seconds": 3.82454963499913,
+            "token_id": 487,
+            "text": "\","
+          },
+          {
+            "seconds": 3.866543782001827,
+            "token_id": 198,
+            "text": "\n"
+          },
+          {
+            "seconds": 3.9088667999603786,
+            "token_id": 220,
+            "text": " "
+          },
+          {
+            "seconds": 3.9525053079705685,
+            "token_id": 328,
+            "text": " \""
+          },
+          {
+            "seconds": 3.9966798499808647,
+            "token_id": 2083,
+            "text": "no"
+          },
+          {
+            "seconds": 4.0422468619653955,
+            "token_id": 487,
+            "text": "\","
+          },
+          {
+            "seconds": 4.086315621971153,
+            "token_id": 198,
+            "text": "\n"
+          },
+          {
+            "seconds": 4.132220276980661,
+            "token_id": 220,
+            "text": " "
+          },
+          {
+            "seconds": 4.179457570950035,
+            "token_id": 328,
+            "text": " \""
+          },
+          {
+            "seconds": 4.226447983994149,
+            "token_id": 2083,
+            "text": "no"
+          },
+          {
+            "seconds": 4.2724060289910994,
+            "token_id": 487,
+            "text": "\","
+          },
+          {
+            "seconds": 4.316267647955101,
+            "token_id": 198,
+            "text": "\n"
+          },
+          {
+            "seconds": 4.361716538958717,
+            "token_id": 220,
+            "text": " "
+          },
+          {
+            "seconds": 4.410946857999079,
+            "token_id": 328,
+            "text": " \""
+          },
+          {
+            "seconds": 4.4578583389520645,
+            "token_id": 2083,
+            "text": "no"
+          },
+          {
+            "seconds": 4.506534733984154,
+            "token_id": 487,
+            "text": "\","
+          },
+          {
+            "seconds": 4.553590747003909,
+            "token_id": 198,
+            "text": "\n"
+          },
+          {
+            "seconds": 4.598686795972753,
+            "token_id": 220,
+            "text": " "
+          },
+          {
+            "seconds": 4.640577580954414,
+            "token_id": 328,
+            "text": " \""
+          },
+          {
+            "seconds": 4.685103285999503,
+            "token_id": 2083,
+            "text": "no"
+          },
+          {
+            "seconds": 4.731720845971722,
+            "token_id": 487,
+            "text": "\","
+          },
+          {
+            "seconds": 4.779045381001197,
+            "token_id": 198,
+            "text": "\n"
+          },
+          {
+            "seconds": 4.824185720004607,
+            "token_id": 220,
+            "text": " "
+          },
+          {
+            "seconds": 4.8696117009967566,
+            "token_id": 328,
+            "text": " \""
+          },
+          {
+            "seconds": 4.9172741179936565,
+            "token_id": 2083,
+            "text": "no"
+          },
+          {
+            "seconds": 4.963114541955292,
+            "token_id": 487,
+            "text": "\","
+          },
+          {
+            "seconds": 5.006498278991785,
+            "token_id": 198,
+            "text": "\n"
+          },
+          {
+            "seconds": 5.049811834003776,
+            "token_id": 220,
+            "text": " "
+          },
+          {
+            "seconds": 5.09392802597722,
+            "token_id": 328,
+            "text": " \""
+          },
+          {
+            "seconds": 5.139210216002539,
+            "token_id": 2083,
+            "text": "no"
+          },
+          {
+            "seconds": 5.184290223987773,
+            "token_id": 1,
+            "text": "\""
+          },
+          {
+            "seconds": 5.231577718979679,
+            "token_id": 198,
+            "text": "\n"
+          },
+          {
+            "seconds": 5.277970107970759,
+            "token_id": 60,
+            "text": "]"
+          },
+          {
+            "seconds": 5.32247486198321,
+            "token_id": 248046,
+            "text": "<|im_end|>"
+          },
+          {
+            "seconds": 5.368350085976999,
+            "token_id": 198,
+            "text": "\n"
+          },
+          {
+            "seconds": 5.413161782955285,
+            "token_id": 248044,
+            "text": "<|endoftext|>"
+          }
+        ],
+        "peak_cuda_bytes": 9073111552
+      }
+    ],
+    "median_total_seconds": 5.331690029008314,
+    "median_output_tokens": 111,
+    "all_runs_valid_complete_arrays": true,
+    "agreement_with_direct_argmax_first_run": 0.8571428571428571
+  },
+  "median_wall_ratio": 5.211718927551365
+}
