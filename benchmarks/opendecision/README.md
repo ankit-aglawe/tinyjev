@@ -28,6 +28,8 @@ the README default since 0.1.0. No number here was chosen after looking at it.
 | model | correct / 500 | accuracy (95% CI) | dev | holdout | ECE | Brier | gate ≥0.85: coverage @ accuracy | coverage at ≤2% error | mean latency |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
 | claude-opus-5-5 | 496 | 0.992 [0.984, 0.998] | 371/375 | 125/125 | 0.070 | 0.017 | 95.4% @ 1.000 | 100.0% | cloud |
+| tinyjev-4b | 474 | 0.948 [0.928, 0.966] | 353/375 | 121/125 | 0.022 | 0.071 | 87.4% @ 0.991 | 92.4% | 628 ms |
+| tinyjev-4b-int8 | 473 | 0.946 [0.926, 0.964] | 352/375 | 121/125 | 0.024 | 0.071 | 87.4% @ 0.991 | 92.2% | 845 ms |
 | kev-0.8b | 463 | 0.926 [0.902, 0.948] | 349/375 | 114/125 | 0.189 | 0.176 | 37.2% @ 1.000 | 72.8% | 173 ms |
 | lostargon-tiny-jev | 445 | 0.890 [0.862, 0.916] | 338/375 | 107/125 | 0.041 | 0.173 | 81.6% @ 0.951 | 62.2% | 1979 ms |
 | kev-0.6b | 441 | 0.882 [0.854, 0.910] | 330/375 | 111/125 | 0.025 | 0.158 | 75.6% @ 0.982 | 76.0% | 85 ms |
@@ -35,7 +37,7 @@ the README default since 0.1.0. No number here was chosen after looking at it.
 | **tinyjev-0.6b** | 440 | 0.880 [0.850, 0.906] | 330/375 | 110/125 | 0.071 | 0.178 | 59.2% @ 0.980 | 63.4% | 85 ms |
 | opendecision-engine | 428 | 0.856 [0.824, 0.886] | 319/375 | 109/125 | 0.151 | 0.255 | 28.4% @ 0.979 | 43.6% | 683 ms |
 | agent-jev-0.6b | 415 | 0.830 [0.796, 0.860] | 306/375 | 109/125 | 0.358 | 0.434 | 2.0% @ 0.600 | 0.2% | 384 ms |
-| von-1.2 | 414 | 0.828 [0.794, 0.860] | 310/375 | 104/125 | 0.068 | 0.271 | 69.2% @ 0.913 | 33.2% | 343 ms |
+| von-1.2 | 414 | 0.828 [0.796, 0.860] | 310/375 | 104/125 | 0.068 | 0.271 | 69.2% @ 0.913 | 33.2% | 343 ms |
 | laya-typed-decisions | 395 | 0.790 [0.754, 0.826] | 296/375 | 99/125 | 0.305 | 0.430 | 3.8% @ 1.000 | 33.6% | 125 ms |
 | laya-english | 367 | 0.734 [0.694, 0.774] | 276/375 | 91/125 | 0.053 | 0.377 | 35.2% @ 0.960 | 31.6% | 138 ms |
 | qwen3-0.6b-base-logit-readout | 354 | 0.708 [0.668, 0.748] | 260/375 | 94/125 | 0.102 | 0.424 | 15.8% @ 0.975 | 20.4% | 265 ms |
@@ -57,6 +59,8 @@ it is here because it shares the backbone, not because it is a text baseline.
 
 <!-- HOWRUN:start -->
 - **claude-opus-5-5** — frontier model, cloud; probabilities are self-reported in its JSON answer, not logits. runtime: Claude Code subagents on the author's subscription, model override claude-opus-5-5, effort low, structured output; probabilities: SELF-REPORTED by the model in its JSON answer, not logits; latency: not measured per case: 20 agents x 25 cases in parallel, 77.6 s wall-clock total; ms below is null
+- **tinyjev-4b** — . runtime: tinyjev 0.1.3; backend: mlx; temperature: 1.0; checkpoint: AnkitAI/TinyJev-4B
+- **tinyjev-4b-int8** — . runtime: tinyjev 0.1.3; backend: mlx; quantize: 8; temperature: 1.0; checkpoint: AnkitAI/TinyJev-4B
 - **kev-0.8b** — Kev's current small model, Qwen3.5 base, via Kev's own server on torch. runtime: systemone-http; url: http://127.0.0.1:8009/v1/systemone; note: jaredpalmer/kev-0.8b (Qwen3.5-0.8B, DeltaNet) via Kev's own kev.serve, bf16, torch on Apple Silicon; ran alongside other jobs so ms is noisy
 - **lostargon-tiny-jev** — the other 'Tiny-Jev' on Hugging Face (name collision), its own custom head. runtime: transformers; checkpoint: lostargon/Tiny-Jev; device: cpu
 - **kev-0.6b** — the checkpoint tinyjev reproduces; served at T=1.0 (no fitted temperature in the converted manifest). runtime: tinyjev 0.1.3; backend: mlx; temperature: 1.0; checkpoint: tinyjev-kev-0.6b (tinyjev-v2 conversion, local)

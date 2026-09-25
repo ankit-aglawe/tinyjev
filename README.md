@@ -7,7 +7,7 @@
 <p>
   <a href="https://pypi.org/project/tinyjev/"><img alt="PyPI" src="https://img.shields.io/pypi/v/tinyjev?label=pypi&color=E46412"></a>
   <a href="https://pypi.org/project/tinyjev/"><img alt="Python" src="https://img.shields.io/badge/python-3.9%2B-E46412"></a>
-  <a href="https://huggingface.co/AnkitAI/TinyJev-0.6B"><img alt="Weights" src="https://img.shields.io/badge/weights-TinyJev--0.6B-E46412?logo=huggingface&logoColor=FFD21E"></a>
+  <a href="https://huggingface.co/collections/AnkitAI/tinyjev-6ab68b5702fbd9988dac9f80"><img alt="Weights" src="https://img.shields.io/badge/weights-TinyJev--0.6B_%C2%B7_TinyJev--4B-E46412?logo=huggingface&logoColor=FFD21E"></a>
   <a href="https://github.com/ankit-aglawe/tinyjev/blob/main/LICENSE"><img alt="License" src="https://img.shields.io/badge/license-MIT-E46412"></a>
 </p>
 

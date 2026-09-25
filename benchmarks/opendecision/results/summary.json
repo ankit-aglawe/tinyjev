@@ -702,12 +702,132 @@
    "suite_sha256": "cd7372e594fce7a5464c3eb3edc73db45c309c8a67e7eef7daf78ec97288edeb"
   }
  },
+ "tinyjev-4b-int8": {
+  "n": 500,
+  "correct": 473,
+  "accuracy": 0.946,
+  "ci95": [
+   0.926,
+   0.964
+  ],
+  "dev": "352/375",
+  "holdout": "121/125",
+  "ece": 0.0237,
+  "brier": 0.0714,
+  "mean_ms": 845.2,
+  "gate_0.85": {
+   "n": 437,
+   "coverage": 0.874,
+   "accuracy": 0.9908
+  },
+  "coverage_at_err": {
+   "2%": 0.922,
+   "5%": 0.994,
+   "10%": 1.0
+  },
+  "per_domain": {
+   "appliance_issue": "17/20",
+   "citation_relation": "18/20",
+   "contract_clause": "20/20",
+   "database_intent": "20/20",
+   "date_semantics": "20/20",
+   "document_type": "20/20",
+   "email_intent": "17/20",
+   "entity_matching": "14/20",
+   "function_routing": "20/20",
+   "job_family": "20/20",
+   "logistics_exception": "20/20",
+   "manufacturing_defect": "20/20",
+   "meeting_intent": "20/20",
+   "ml_task": "19/20",
+   "policy_decision": "17/20",
+   "product_taxonomy": "20/20",
+   "research_method": "20/20",
+   "return_reason": "19/20",
+   "science_phenomenon": "19/20",
+   "security_event": "18/20",
+   "semantic_extraction": "20/20",
+   "software_bug": "19/20",
+   "support_routing": "20/20",
+   "transaction_type": "17/20",
+   "word_sense": "19/20"
+  },
+  "meta": {
+   "runtime": "tinyjev 0.1.3",
+   "backend": "mlx",
+   "quantize": 8,
+   "temperature": 1.0,
+   "checkpoint": "AnkitAI/TinyJev-4B",
+   "model": "tinyjev-4b-int8",
+   "suite_sha256": "cd7372e594fce7a5464c3eb3edc73db45c309c8a67e7eef7daf78ec97288edeb"
+  }
+ },
+ "tinyjev-4b": {
+  "n": 500,
+  "correct": 474,
+  "accuracy": 0.948,
+  "ci95": [
+   0.928,
+   0.966
+  ],
+  "dev": "353/375",
+  "holdout": "121/125",
+  "ece": 0.0217,
+  "brier": 0.0708,
+  "mean_ms": 627.5,
+  "gate_0.85": {
+   "n": 437,
+   "coverage": 0.874,
+   "accuracy": 0.9908
+  },
+  "coverage_at_err": {
+   "2%": 0.924,
+   "5%": 0.996,
+   "10%": 1.0
+  },
+  "per_domain": {
+   "appliance_issue": "17/20",
+   "citation_relation": "18/20",
+   "contract_clause": "20/20",
+   "database_intent": "20/20",
+   "date_semantics": "20/20",
+   "document_type": "20/20",
+   "email_intent": "17/20",
+   "entity_matching": "14/20",
+   "function_routing": "20/20",
+   "job_family": "20/20",
+   "logistics_exception": "20/20",
+   "manufacturing_defect": "20/20",
+   "meeting_intent": "20/20",
+   "ml_task": "19/20",
+   "policy_decision": "17/20",
+   "product_taxonomy": "20/20",
+   "research_method": "20/20",
+   "return_reason": "19/20",
+   "science_phenomenon": "19/20",
+   "security_event": "18/20",
+   "semantic_extraction": "20/20",
+   "software_bug": "19/20",
+   "support_routing": "20/20",
+   "transaction_type": "17/20",
+   "word_sense": "20/20"
+  },
+  "meta": {
+   "runtime": "tinyjev 0.1.3",
+   "backend": "mlx",
+   "quantize": null,
+   "temperature": 1.0,
+   "checkpoint": "AnkitAI/TinyJev-4B",
+   "model": "tinyjev-4b",
+   "suite_sha256": "cd7372e594fce7a5464c3eb3edc73db45c309c8a67e7eef7daf78ec97288edeb"
+  }
+ },
  "von-1.2": {
   "n": 500,
   "correct": 414,
   "accuracy": 0.828,
   "ci95": [
-   0.794,
+   0.796,
    0.86
   ],
   "dev": "310/375",
