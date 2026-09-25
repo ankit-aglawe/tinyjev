@@ -7,11 +7,11 @@
  "one_state_21_criteria": {
   "criteria": 21,
   "runs_ms": [
-   1645.6,
-   1550.3,
-   1454.8
+   1717.6,
+   1539.5,
+   1456.2
   ],
-  "median_ms": 1550.3,
+  "median_ms": 1539.5,
   "prefix_tokens_theirs": 1812,
   "p_true": [
    0.488,
@@ -67,9 +67,9 @@
  "all_777": {
   "decisions": 777,
   "states": 37,
-  "total_s": 58.99,
-  "decisions_per_s": 13.17,
-  "median_state_ms": 1562.4,
+  "total_s": 68.51,
+  "decisions_per_s": 11.34,
+  "median_state_ms": 1813.0,
   "semif_decisions_per_s": {
    "fresh": 2.33,
    "serial_prefix_reuse": 10.75,

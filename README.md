@@ -58,7 +58,7 @@ single forward pass, about 110 ms each. Every number in that recording came from
 At confidence ≥ 0.85 it handled 296 of 500 cases (59.2%) at 98.0% accuracy and sent the rest to a person.
 The same Qwen3-0.6B weights read through next-token letter logits, with no head, score 354/500.
 Kev-0.6B, the checkpoint this reproduces, scores 441/500 and covers more of the queue at the same gate; the gap is the served temperature, see the benchmark page.
-86 ms a case on a base M1 via MLX. Every case, every probability, and the same-input baselines it loses to are in [`benchmarks/opendecision`](benchmarks/opendecision).
+85 ms a case on a base M1 via MLX. Every case, every probability, and the same-input baselines it loses to are in [`benchmarks/opendecision`](benchmarks/opendecision).
 <!-- MEASURED-BLOCK:end -->
 
 ```bash

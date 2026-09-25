@@ -32,7 +32,7 @@ the README default since 0.1.0. No number here was chosen after looking at it.
 | lostargon-tiny-jev | 445 | 0.890 [0.862, 0.916] | 338/375 | 107/125 | 0.041 | 0.173 | 81.6% @ 0.951 | 62.2% | 1979 ms |
 | kev-0.6b | 441 | 0.882 [0.854, 0.910] | 330/375 | 111/125 | 0.025 | 0.158 | 75.6% @ 0.982 | 76.0% | 85 ms |
 | tinyjev-0.6b-int8 | 440 | 0.880 [0.852, 0.908] | 330/375 | 110/125 | 0.066 | 0.179 | 59.4% @ 0.980 | 63.2% | 90 ms |
-| **tinyjev-0.6b** | 440 | 0.880 [0.850, 0.906] | 330/375 | 110/125 | 0.071 | 0.178 | 59.2% @ 0.980 | 63.4% | 86 ms |
+| **tinyjev-0.6b** | 440 | 0.880 [0.850, 0.906] | 330/375 | 110/125 | 0.071 | 0.178 | 59.2% @ 0.980 | 63.4% | 85 ms |
 | opendecision-engine | 428 | 0.856 [0.824, 0.886] | 319/375 | 109/125 | 0.151 | 0.255 | 28.4% @ 0.979 | 43.6% | 683 ms |
 | agent-jev-0.6b | 415 | 0.830 [0.796, 0.860] | 306/375 | 109/125 | 0.358 | 0.434 | 2.0% @ 0.600 | 0.2% | 384 ms |
 | von-1.2 | 414 | 0.828 [0.794, 0.860] | 310/375 | 104/125 | 0.068 | 0.271 | 69.2% @ 0.913 | 33.2% | 343 ms |
@@ -61,7 +61,7 @@ it is here because it shares the backbone, not because it is a text baseline.
 - **lostargon-tiny-jev** — the other 'Tiny-Jev' on Hugging Face (name collision), its own custom head. runtime: transformers; checkpoint: lostargon/Tiny-Jev; device: cpu
 - **kev-0.6b** — the checkpoint tinyjev reproduces; served at T=1.0 (no fitted temperature in the converted manifest). runtime: tinyjev 0.1.3; backend: mlx; temperature: 1.0; checkpoint: tinyjev-kev-0.6b (tinyjev-v2 conversion, local)
 - **tinyjev-0.6b-int8** — this repo, MLX INT8 backbone. runtime: tinyjev 0.1.3; backend: mlx; quantize: 8; temperature: 1.4640856959456252; checkpoint: AnkitAI/tinyjev-0.6b@0fdb9ea
-- **tinyjev-0.6b** — this repo, MLX fp16, served temperature 1.464. runtime: tinyjev 0.1.0; backend: mlx; temperature: 1.4640856959456252; checkpoint: AnkitAI/tinyjev-0.6b@0fdb9ea
+- **tinyjev-0.6b** — this repo, MLX fp16, served temperature 1.464. runtime: tinyjev 0.1.3; backend: mlx; temperature: 1.4640856959456252; checkpoint: AnkitAI/tinyjev-0.6b@9de04a1
 - **opendecision-engine** — the suite owner's own engine, ModernBERT-large zero-shot NLI, default profile. runtime: opendecision 0.1.1; profile: default
 - **agent-jev-0.6b** — Qwen3-0.6B with a permutation-equivariant set head, via the author's engine on MPS. runtime: systemone-http; url: http://127.0.0.1:8011/v1/systemone; note: aimeigaoshou/agent-jev fp32 via the author's DecisionEngine behind a 47-line /v1/systemone shim, MPS; ran alongside other jobs so ms is noisy
 - **von-1.2** — ModernBERT-Large 395M, own weights, via von-sdk. runtime: von-sdk

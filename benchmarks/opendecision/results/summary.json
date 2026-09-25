@@ -654,7 +654,7 @@
   "holdout": "110/125",
   "ece": 0.0706,
   "brier": 0.178,
-  "mean_ms": 85.6,
+  "mean_ms": 85.3,
   "gate_0.85": {
    "n": 296,
    "coverage": 0.592,
@@ -693,13 +693,13 @@
    "word_sense": "20/20"
   },
   "meta": {
-   "model": "tinyjev-0.6b",
-   "suite_sha256": "cd7372e594fce7a5464c3eb3edc73db45c309c8a67e7eef7daf78ec97288edeb",
-   "runtime": "tinyjev 0.1.0",
+   "runtime": "tinyjev 0.1.3",
    "backend": "mlx",
    "quantize": null,
    "temperature": 1.4640856959456252,
-   "checkpoint": "/Users/ankit/.cache/huggingface/hub/models--AnkitAI--tinyjev-0.6b/snapshots/0fdb9ea476be431cb88ef326134f52cc5b1228cd"
+   "checkpoint": "/Users/ankit/.cache/huggingface/hub/models--AnkitAI--tinyjev-0.6b/snapshots/9de04a155b350a5ba0ed784b035d07954417b01f",
+   "model": "tinyjev-0.6b",
+   "suite_sha256": "cd7372e594fce7a5464c3eb3edc73db45c309c8a67e7eef7daf78ec97288edeb"
   }
  },
  "von-1.2": {
