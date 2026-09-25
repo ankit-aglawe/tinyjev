@@ -1,0 +1,9 @@
+{
+ "fit_partition": "typesafe_public choice cases",
+ "n_fit": 51,
+ "served_T": 1.4640856959456252,
+ "fitted_T": 0.8,
+ "nll_served": 0.6316121132574924,
+ "nll_fitted": 0.5325410191699756,
+ "nll_T1": 0.5467913550490032
+}

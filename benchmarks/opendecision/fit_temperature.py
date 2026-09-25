@@ -23,7 +23,7 @@ for c in fit_cases:
     q = {"q": {"type": "choice", "instructions": c["instructions"], "criteria": c["criteria"]}}
     out = agent.logits({"state": c["state"], "questions": q})
     rec = next(iter(out.values()))
-    keys = rec["keys"]; z = np.array(rec["logits"]) * served_T   # undo the served T -> raw head logits
+    keys = list(rec["answer"]["probabilities"]); z = np.array(rec["logits"]) * served_T   # undo the served T -> raw head logits
     Z.append(z); Y.append(keys.index(c["expected"]))
 
 
