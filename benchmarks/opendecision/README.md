@@ -126,9 +126,12 @@ here (ECE 0.071, 59% of the queue clears 0.85), at raw logits it is nearly calib
 difference between the two rows; it is the same model class with the same behaviour.
 
 This is a finding, not a fix. Refitting the temperature on the suite you are reporting
-would be fitting to the test set. The next release fits it on a held-out
-out-of-distribution partition and reports both. Until then, `agent.predict(payload,
-temperature=1/1.464)` gives you the raw logits.
+would be fitting to the test set. A first refit on a separate out-of-distribution partition
+(`fit_temperature.py`, the 51 choice cases of OpenDecision's typesafe_public set, OD-500
+untouched) lands at T = 0.80: ECE 0.039, gate-0.85 coverage 81.8% at 95.8%, coverage at
+≤2% error 69.0%. Better than the served value on every axis, still above the ≤0.03 gate
+in `docs/research/PLAN-v2.md`, so nothing ships from it; a larger calibration partition is
+next. Until then, `agent.predict(payload, temperature=1/1.464)` gives you the raw logits.
 
 ## Per domain
 

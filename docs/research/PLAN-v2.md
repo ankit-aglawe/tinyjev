@@ -65,6 +65,15 @@ coverage-at-2%-error on OD-500 and transfer-v4 dev at the old and new T.
 **Gate:** ECE on OD-500 ≤ 0.03 with OD-500 untouched during fitting; transfer-v4 ECE not
 worse than 0.10. Ships as 0.1.4 (a one-number change in `tinyjev.json`).
 
+**Run 2026-09-25 (`benchmarks/opendecision/fit_temperature.py`): gate missed.** Fitting on
+the 51 typesafe_public choice cases gives T = 0.80 (NLL 0.533 vs 0.632 served). On the
+untouched OD-500 that is ECE 0.039 (from 0.071), gate-0.85 coverage 81.8% at 95.8% (from
+59.2% at 98.0%), coverage at ≤2% error 69.0% (from 63.4%). Better on every axis than the
+served value, above the 0.03 gate. T = 1.0 would pass (ECE 0.019) but picking it because
+OD-500 likes it is fitting to the test set, so it is not picked. Next: a larger OOD
+calibration partition (a few hundred cases from domains outside both suites), then refit.
+Nothing ships from this run.
+
 ### E11 — The bigger model. ~$5, one evening.
 
 `tinyjev-4b`: Qwen3-4B-Base (attention-only, so MLX stays fast on a Mac; Kev's Qwen3.5
