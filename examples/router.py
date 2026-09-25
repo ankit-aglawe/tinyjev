@@ -1,7 +1,7 @@
 """Decide locally whether a request needs the expensive model."""
 import tinyjev
 
-agent = tinyjev.load("tinyjev-0.6b")
+agent = tinyjev.load("TinyJev-0.6B")
 
 REQUESTS = [
     "What's 15% of 240?",

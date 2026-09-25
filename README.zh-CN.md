@@ -7,7 +7,7 @@
 <p>
   <a href="https://pypi.org/project/tinyjev/"><img alt="PyPI" src="https://img.shields.io/pypi/v/tinyjev?label=pypi&color=E46412"></a>
   <a href="https://pypi.org/project/tinyjev/"><img alt="Python" src="https://img.shields.io/badge/python-3.9%2B-E46412"></a>
-  <a href="https://huggingface.co/AnkitAI/tinyjev-0.6b"><img alt="Weights" src="https://img.shields.io/badge/weights-tinyjev--0.6b-E46412?logo=huggingface&logoColor=FFD21E"></a>
+  <a href="https://huggingface.co/AnkitAI/TinyJev-0.6B"><img alt="Weights" src="https://img.shields.io/badge/weights-TinyJev--0.6B-E46412?logo=huggingface&logoColor=FFD21E"></a>
   <a href="https://github.com/ankit-aglawe/tinyjev/blob/main/LICENSE"><img alt="License" src="https://img.shields.io/badge/license-MIT-E46412"></a>
 </p>
 
@@ -57,7 +57,7 @@ python demos/triage_desk.py --lang zh --gif demo.gif
 
 ```python
 import tinyjev
-agent = tinyjev.load("tinyjev-0.6b")
+agent = tinyjev.load("TinyJev-0.6B")
 
 agent.predict({
     "state": "Shoes arrived two weeks late and in the wrong size. Also I see two charges on my card.",
@@ -122,7 +122,7 @@ pip install 'tinyjev[torch]'   # everything else
 ```python
 import tinyjev
 
-agent = tinyjev.load("tinyjev-0.6b")     # ~1.2 GB, downloads once, then offline
+agent = tinyjev.load("TinyJev-0.6B")     # ~1.2 GB, downloads once, then offline
 print(agent.predict({
     "state": "I was charged twice. Please fix this ASAP.",
     "questions": {"billing": {"type": "noul", "instructions": "Is this about billing?"}}}))
@@ -135,13 +135,13 @@ pip install 'tinyjev[mlx]' modelscope
 ```
 
 ```python
-agent = tinyjev.load("modelscope:AnkitAI/tinyjev-0.6b")
+agent = tinyjev.load("modelscope:AnkitAI/TinyJev-0.6B")
 ```
 
 在 Apple Silicon 上可以在加载时量化。8 位是免费的：显存减半，速度略快，在我们的留出集上分数与全精度完全一致。4 位更小，但会损失约两个点的准确率。
 
 ```python
-agent = tinyjev.load("tinyjev-0.6b", quantize=8)
+agent = tinyjev.load("TinyJev-0.6B", quantize=8)
 ```
 
 运行示例：
@@ -155,8 +155,8 @@ python examples/router.py
 把它跑成服务：
 
 ```bash
-tinyjev serve tinyjev-0.6b                # POST /v1/systemone on 127.0.0.1:8077
-tinyjev serve tinyjev-0.6b --quantize 8   # half the memory
+tinyjev serve TinyJev-0.6B                # POST /v1/systemone on 127.0.0.1:8077
+tinyjev serve TinyJev-0.6B --quantize 8   # half the memory
 ```
 
 ```bash
@@ -171,7 +171,7 @@ curl -s localhost:8077/v1/systemone -H 'content-type: application/json' -d '{
 
 ## 当前状态
 
-`tinyjev-0.6b` 已经完成并发布。权重在 Hugging Face 和 ModelScope 上，Python 包在 PyPI 上。
+`TinyJev-0.6B` 已经完成并发布。权重在 Hugging Face 和 ModelScope 上，Python 包在 PyPI 上。
 
 下一步是一个更小的版本，大约 0.15B。
 

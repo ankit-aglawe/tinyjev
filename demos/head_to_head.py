@@ -89,7 +89,7 @@ def frame_for(case, n, total, raw_ans, raw_ms, tj_ans, tj_ms, raw_tally, tj_tall
 
 def closing(raw_tally, tj_tally):
     s = json.loads((ROOT / "results" / "summary.json").read_text())
-    raw, tj = s.get("qwen3-0.6b-base-logit-readout"), s.get("tinyjev-0.6b")
+    raw, tj = s.get("qwen3-0.6b-base-logit-readout"), s.get("TinyJev-0.6B")
     f = R.Frame("Same weights, two heads", "the full 500, every case logged")
     f.text((32, 96), f"this recording: readout {raw_tally[1]}/{raw_tally[0]} · trained head {tj_tally[1]}/{tj_tally[0]}", R.F_LABEL, R.MUTED)
     y = 140
@@ -112,7 +112,7 @@ def main():
     args = ap.parse_args()
     cases = draw_cases(args.n)
     raw = RawReadout()
-    tj = tinyjev.load("tinyjev-0.6b")
+    tj = tinyjev.load("TinyJev-0.6B")
     frames, rt, tt = [], [0, 0, 0.0], [0, 0, 0.0]
     for n, c in enumerate(cases, 1):
         ra, rms = raw.predict(c)

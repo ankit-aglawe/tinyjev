@@ -299,6 +299,8 @@ def main():
     ap.add_argument("--mp4", default="")
     ap.add_argument("--gif", default="")
     ap.add_argument("--gif-width", type=int, default=720)
+    ap.add_argument("--gif-colors", type=int, default=48, help="palette size; 128 for a high-quality README GIF")
+    ap.add_argument("--gif-every", type=int, default=2, help="keep every Nth frame in the GIF; 1 keeps all")
     ap.add_argument("--tinyjev-data", default="assets/recordings/race-tinyjev.json",
                     help="tinyjev's measured answers and times; written on first run, replayed after")
     a = ap.parse_args()
@@ -308,7 +310,7 @@ def main():
     saved = json.loads(tj_path.read_text()) if tj_path.exists() else {}
     need = [c for c in cases if c["id"] not in saved]
     if need:                                          # measure once; later renders replay the saved numbers
-        agent = tinyjev.load("tinyjev-0.6b")
+        agent = tinyjev.load("TinyJev-0.6B")
         run_tinyjev(agent, cases[0])                  # warm, so the first lane does not pay a first-call cost
         for c in need:
             tj, ms = run_tinyjev(agent, c)
@@ -382,9 +384,9 @@ def main():
         print(f"{a.mp4} · {len(frames)} frames · {Path(a.mp4).stat().st_size // 1024} KB")
     if a.gif:
         small = [f.resize((a.gif_width, a.gif_width), Image.LANCZOS) for f in frames]
-        # a GIF at this length needs a coarser clock: keep every other frame
-        kb = R.save_gif(small[::2], int(2000 / FPS), Path(a.gif), hold_ms=int(2000 / FPS), colors=48)
-        print(f"{a.gif} · {len(small[::2])} frames · {kb} KB")
+        kept = small[::a.gif_every]   # a GIF at this length usually needs a coarser clock
+        kb = R.save_gif(kept, int(a.gif_every * 1000 / FPS), Path(a.gif), hold_ms=int(a.gif_every * 1000 / FPS), colors=a.gif_colors)
+        print(f"{a.gif} · {len(kept)} frames · {kb} KB")
 
 
 if __name__ == "__main__":

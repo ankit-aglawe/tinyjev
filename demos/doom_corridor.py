@@ -283,7 +283,7 @@ def save_gif(frames: list[Image.Image], output: Path, fps: int) -> None:
 
 
 def run(output: Path, decisions: int, fps: int, skill: int, seed: int) -> None:
-    agent = tinyjev.load("tinyjev-0.6b", quantize=8)
+    agent = tinyjev.load("TinyJev-0.6B", quantize=8)
     # Warm the exact two-choice inference path.
     agent.predict({"state": "Health 100. No enemy nearby. Goal ahead.", "questions": {"action": {
         "type": "choice", "instructions": "Which action best executes advance mode?",

@@ -15,7 +15,7 @@ import tinyjev
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--model", default="tinyjev-0.6b")
+    ap.add_argument("--model", default="TinyJev-0.6B")
     ap.add_argument("--name", default="")
     ap.add_argument("--quantize", type=int, default=0)
     ap.add_argument("--limit", type=int, default=0)

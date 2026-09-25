@@ -178,7 +178,7 @@ def frame_for(ticket, ans, ms, n, total, seen, auto, ms_sum, history, lang):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--model", default="tinyjev-0.6b")
+    ap.add_argument("--model", default="TinyJev-0.6B")
     ap.add_argument("--gif", default="")
     ap.add_argument("--ms", type=int, default=2000)
     ap.add_argument("--colors", type=int, default=32)

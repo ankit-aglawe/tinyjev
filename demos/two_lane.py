@@ -1,4 +1,4 @@
-"""Laptop vs frontier. Left lane: tinyjev-0.6b, live, offline, on this machine. Right lane:
+"""Laptop vs frontier. Left lane: TinyJev-0.6B, live, offline, on this machine. Right lane:
 Claude Opus 5.5's recorded answers to the same never-seen cases, from the benchmark
 run in benchmarks/opendecision/results/claude-opus-5-5.jsonl (self-reported confidence,
 answered through Claude Code on 2026-09-25, no per-case latency measured).
@@ -61,7 +61,7 @@ def frame_for(case, n, total, tj_ans, tj_ms, op_ans, tt, ot):
         f.text((32, y), line, R.F_BODY, R.INK); y += 18
     f.text((32, y + 2), textwrap.shorten(case["instructions"], 110) + f"   ·   expected: {case['expected'].replace('_', ' ')}",
            R.F_LABEL, R.MUTED)
-    lane(f, 32, 370, "tinyjev-0.6b", f"live · offline · {R.MACHINE}", tj_ans, f"{tj_ms:.0f} ms", case, tt, R.ACCENT_TEXT)
+    lane(f, 32, 370, "TinyJev-0.6B", f"live · offline · {R.MACHINE}", tj_ans, f"{tj_ms:.0f} ms", case, tt, R.ACCENT_TEXT)
     f.d.line([R.px(420), R.px(84), R.px(420), R.px(364)], fill=R.RULE, width=max(1, R.S // 2))
     lane(f, 438, 370, RIGHT_NAME, "recorded 2026-09-25 · cloud · self-reported confidence", op_ans, "cloud", case, ot, R.INK)
     return f.finish()
@@ -69,14 +69,14 @@ def frame_for(case, n, total, tj_ans, tj_ms, op_ans, tt, ot):
 
 def closing(tt, ot):
     s = json.loads((ROOT / "results" / "summary.json").read_text())
-    tj, op = s.get("tinyjev-0.6b"), s.get("claude-opus-5-5")
+    tj, op = s.get("TinyJev-0.6B"), s.get("claude-opus-5-5")
     f = R.Frame("Laptop vs frontier", "the full 500, every case logged")
     f.text((32, 96), f"this recording: tinyjev {tt[1]}/{tt[0]} · {RIGHT_NAME} {ot[1]}/{ot[0]}", R.F_LABEL, R.MUTED)
     y = 140
     if tj and op:
         f.text((32, y), "500 never-seen decisions, 25 domains", R.F_MODE, R.INK); y += 40
         f.text((32, y), f"{RIGHT_NAME}:   {op['correct']} / {op['n']}   ({op['accuracy']:.1%})   cloud, metered", R.F_MODE, R.INK); y += 30
-        f.text((32, y), f"tinyjev-0.6b:        {tj['correct']} / {tj['n']}   ({tj['accuracy']:.1%})   {tj['mean_ms']:.0f} ms, offline, $0", R.F_MODE, R.ACCENT_TEXT); y += 40
+        f.text((32, y), f"TinyJev-0.6B:        {tj['correct']} / {tj['n']}   ({tj['accuracy']:.1%})   {tj['mean_ms']:.0f} ms, offline, $0", R.F_MODE, R.ACCENT_TEXT); y += 40
         f.text((32, y), "The frontier model is better. That is not the question.", R.F_LABEL, R.INK); y += 22
         f.text((32, y), "The question is what 596M parameters on a laptop get you, and how they know when to stop.", R.F_LABEL, R.INK); y += 30
         g = tj["gate_0.85"]
@@ -94,7 +94,7 @@ def main():
     args = ap.parse_args()
     cases = draw_cases(args.n)
     recorded = load_recorded()
-    tj = tinyjev.load("tinyjev-0.6b")
+    tj = tinyjev.load("TinyJev-0.6B")
     frames, tt, ot = [], [0, 0], [0, 0]
     for n, c in enumerate(cases, 1):
         q = {"q": {"type": "choice", "instructions": c["instructions"], "criteria": c["criteria"]}}

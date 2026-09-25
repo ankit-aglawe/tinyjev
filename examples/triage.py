@@ -2,7 +2,7 @@
 import json
 import tinyjev
 
-agent = tinyjev.load("tinyjev-0.6b")
+agent = tinyjev.load("TinyJev-0.6B")
 
 result = agent.predict({
     "state": "Shoes arrived two weeks late and in the wrong size. Also I see two charges on my card.",

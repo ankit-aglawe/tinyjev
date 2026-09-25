@@ -39,7 +39,7 @@ PAIR = re.compile(r'"([A-Za-z0-9_]+)"\s*:\s*"([^"]*)"')
 # ----------------------------------------------------------------------------- measure
 def measure_tinyjev(case, repeats=3):
     import tinyjev
-    agent = tinyjev.load("tinyjev-0.6b")
+    agent = tinyjev.load("TinyJev-0.6B")
     qs = {q["id"]: {"type": "choice", "instructions": q["question"], "criteria": q["options"]} for q in case["questions"]}
     first = case["questions"][0]["id"]
     agent.predict({"state": case["state"], "questions": {first: qs[first]}})        # warm; not kept
@@ -49,7 +49,7 @@ def measure_tinyjev(case, repeats=3):
         res = agent.predict({"state": case["state"], "questions": qs})
         runs.append((time.perf_counter() - t0) * 1000)
     ans = res["states"][0]["answers"]
-    return {"model": "tinyjev-0.6b", "hardware": R.MACHINE, "runs_ms": [round(x, 1) for x in runs],
+    return {"model": "TinyJev-0.6B", "hardware": R.MACHINE, "runs_ms": [round(x, 1) for x in runs],
             "ms": round(statistics.median(runs), 1),
             "answers": {q["id"]: ans[q["id"]]["choice"] for q in case["questions"]},
             "confidence": {q["id"]: round(float(ans[q["id"]]["confidence"]), 4) for q in case["questions"]},
@@ -233,7 +233,7 @@ def frame(data, t_ms):
     return c.finish()
 
 
-def render(data, mp4="", gif="", gif_width=720, hold=3.2, lead=0.3):
+def render(data, mp4="", gif="", gif_width=720, hold=3.2, lead=0.3, gif_colors=48):
     end = max(data["tinyjev"]["ms"], data["llm"]["ms"])
     step = 1000.0 / FPS
     frames = [frame(data, 0.0)] * int(lead * FPS)
@@ -252,7 +252,7 @@ def render(data, mp4="", gif="", gif_width=720, hold=3.2, lead=0.3):
         print(f"{mp4} · {len(frames)} frames · {Path(mp4).stat().st_size // 1024} KB")
     if gif:
         small = [f.resize((gif_width, gif_width), Image.LANCZOS) for f in frames]
-        kb = R.save_gif(small, int(1000 / FPS), Path(gif), hold_ms=int(1000 / FPS), colors=48)
+        kb = R.save_gif(small, int(1000 / FPS), Path(gif), hold_ms=int(1000 / FPS), colors=gif_colors)
         print(f"{gif} · {len(small)} frames · {kb} KB")
     return frames
 
@@ -268,6 +268,7 @@ def main():
     ap.add_argument("--mp4", default="")
     ap.add_argument("--gif", default="")
     ap.add_argument("--gif-width", type=int, default=720)
+    ap.add_argument("--gif-colors", type=int, default=48, help="palette size; 128 for a high-quality README GIF")
     ap.add_argument("--hold", type=float, default=3.2)
     ap.add_argument("--stills", default="", help="directory for a few PNG frames to look at")
     a = ap.parse_args()
@@ -294,7 +295,7 @@ def main():
         flag = "" if x == q["expected"] == y else f"   <- expected {q['expected']}"
         print(f"  {q['label']:20s} tinyjev {x:20s} {tj['confidence'][q['id']]:.2f}   {llm['name']} {str(y):20s}{flag}")
     if a.mp4 or a.gif or a.stills:
-        frames = render(data, a.mp4, a.gif, a.gif_width, a.hold)
+        frames = render(data, a.mp4, a.gif, a.gif_width, a.hold, gif_colors=a.gif_colors)
         if a.stills:
             Path(a.stills).mkdir(parents=True, exist_ok=True)
             for frac in (0.0, 0.15, 0.4, 0.7, 1.0):

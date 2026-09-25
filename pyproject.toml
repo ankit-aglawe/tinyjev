@@ -44,7 +44,7 @@ tinyjev = "tinyjev.cli:main"
 [project.urls]
 Homepage = "https://github.com/ankit-aglawe/tinyjev"
 Issues = "https://github.com/ankit-aglawe/tinyjev/issues"
-Weights = "https://huggingface.co/AnkitAI/tinyjev-0.6b"
+Weights = "https://huggingface.co/AnkitAI/TinyJev-0.6B"
 
 [tool.setuptools.packages.find]
 include = ["tinyjev*"]

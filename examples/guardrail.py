@@ -1,7 +1,7 @@
 """Screen a prompt before it reaches a bigger model or a tool."""
 import tinyjev
 
-agent = tinyjev.load("tinyjev-0.6b")
+agent = tinyjev.load("TinyJev-0.6B")
 
 PROMPTS = [
     "What's the refund policy for orders over 30 days old?",

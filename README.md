@@ -7,7 +7,7 @@
 <p>
   <a href="https://pypi.org/project/tinyjev/"><img alt="PyPI" src="https://img.shields.io/pypi/v/tinyjev?label=pypi&color=E46412"></a>
   <a href="https://pypi.org/project/tinyjev/"><img alt="Python" src="https://img.shields.io/badge/python-3.9%2B-E46412"></a>
-  <a href="https://huggingface.co/AnkitAI/tinyjev-0.6b"><img alt="Weights" src="https://img.shields.io/badge/weights-tinyjev--0.6b-E46412?logo=huggingface&logoColor=FFD21E"></a>
+  <a href="https://huggingface.co/AnkitAI/TinyJev-0.6B"><img alt="Weights" src="https://img.shields.io/badge/weights-TinyJev--0.6B-E46412?logo=huggingface&logoColor=FFD21E"></a>
   <a href="https://github.com/ankit-aglawe/tinyjev/blob/main/LICENSE"><img alt="License" src="https://img.shields.io/badge/license-MIT-E46412"></a>
 </p>
 
@@ -16,7 +16,7 @@
   <a href="#get-started">Get started</a> ·
   <a href="#models">Models</a> ·
   <a href="#what-can-it-do">What it does</a> ·
-  <a href="https://huggingface.co/AnkitAI/tinyjev-0.6b">Weights</a> ·
+  <a href="https://huggingface.co/collections/AnkitAI/tinyjev-6ab68b5702fbd9988dac9f80">Weights</a> ·
   <a href="https://github.com/ankit-aglawe/tinyjev/tree/main/examples">Examples</a>
 </p>
 
@@ -41,7 +41,7 @@ TinyJev provides:
 - Calibrated confidence, so a threshold means something and you can decide what to automate.
 - A Python API, a local HTTP server, and a System One compatible endpoint.
 
-Two sizes: TinyJev 0.6B (596M parameters, 1.2 GB, published) and TinyJev 4B (8 GB, trained and measured, release pending). Both run on MLX on Apple Silicon and on PyTorch everywhere else, entirely offline. Every example below is a single forward pass; the numbers are in the Models table and under Get started.
+Two sizes: TinyJev 0.6B (596M parameters, 1.2 GB) and TinyJev 4B (8 GB, 4.5 GB at 8 bits). Both run on MLX on Apple Silicon and on PyTorch everywhere else, entirely offline. Every example below is a single forward pass; the numbers are in the Models table and under Get started.
 
 TinyJev is MIT licensed.
 
@@ -138,7 +138,7 @@ Latency on a base M1 (16 GB) via MLX, all single forward passes:
 ```python
 import tinyjev
 
-agent = tinyjev.load("tinyjev-0.6b")     # ~1.2 GB, downloads once, then offline
+agent = tinyjev.load("TinyJev-0.6B")     # ~1.2 GB, downloads once, then offline
 print(agent.predict({
     "state": "I was charged twice. Please fix this ASAP.",
     "questions": {"billing": {"type": "noul", "instructions": "Is this about billing?"}}}))
@@ -155,7 +155,7 @@ On Apple Silicon you can quantize the backbone as it loads. Measured on the tran
 Eight bits is free. Four bits costs about two points. These are MLX INT8 figures; ONNX INT8 is not measured.
 
 ```python
-agent = tinyjev.load("tinyjev-0.6b", quantize=8)
+agent = tinyjev.load("TinyJev-0.6B", quantize=8)
 ```
 
 Run the examples:
@@ -169,8 +169,8 @@ python examples/router.py
 Serve it:
 
 ```bash
-tinyjev serve tinyjev-0.6b                # POST /v1/systemone on 127.0.0.1:8077
-tinyjev serve tinyjev-0.6b --quantize 8   # half the memory
+tinyjev serve TinyJev-0.6B                # POST /v1/systemone on 127.0.0.1:8077
+tinyjev serve TinyJev-0.6B --quantize 8   # half the memory
 ```
 
 ```bash
@@ -191,13 +191,13 @@ Latency is a base M1 (16 GB) via MLX, one forward pass per case.
 
 | Model | Params | OD-500 | Gate 0.85 | ms / case | Weights |
 |---|---:|---:|---|---:|---|
-| <img src="https://raw.githubusercontent.com/ankit-aglawe/tinyjev/main/assets/logos/tinyjev.png" width="18"> **TinyJev&nbsp;0.6B** | 596M, 1.2 GB | 440 (88.0%) | 59% @ 98.0% | 85 | 🤗 [AnkitAI/tinyjev-0.6b](https://huggingface.co/AnkitAI/tinyjev-0.6b) |
-| <img src="https://raw.githubusercontent.com/ankit-aglawe/tinyjev/main/assets/logos/tinyjev.png" width="18"> **TinyJev&nbsp;4B** | 4.0B, 8.0 GB | 474 (94.8%) | 87% @ 99.1% | 628 | 🤗 release pending |
+| <img src="https://raw.githubusercontent.com/ankit-aglawe/tinyjev/main/assets/logos/tinyjev.png" width="18"> **TinyJev&nbsp;0.6B** | 596M, 1.2 GB | 440 (88.0%) | 59% @ 98.0% | 85 | 🤗 [AnkitAI/TinyJev-0.6B](https://huggingface.co/AnkitAI/TinyJev-0.6B) |
+| <img src="https://raw.githubusercontent.com/ankit-aglawe/tinyjev/main/assets/logos/tinyjev.png" width="18"> **TinyJev&nbsp;4B** | 4.0B, 8.0 GB | 474 (94.8%) | 87% @ 99.1% | 628 | 🤗 [AnkitAI/TinyJev-4B](https://huggingface.co/AnkitAI/TinyJev-4B) |
 
 OD-500 is correct answers out of 500. Gate 0.85 is the share of decisions answered on its own at
 confidence ≥ 0.85, and how often those were right. Calibration (ECE 0.071 vs 0.022), coverage at 2%
 error (63% vs 92%) and transfer-v4 dev (0.625 vs 0.762) are on the benchmark page. Load either with
-`tinyjev.load("tinyjev-0.6b")` or `tinyjev.load("tinyjev-4b")` once released.
+`tinyjev.load("TinyJev-0.6B")` or `tinyjev.load("TinyJev-4B")`.
 
 Both rows are fp16. Loading with `quantize=8` keeps the same weights in half the memory and changes
 almost nothing: the 0.6B scores 440 at 90 ms, the 4B 473 at 845 ms, one answer in 500 different from
@@ -213,7 +213,7 @@ Three questions in one pass. They share the ticket and cannot see each other's a
 
 ```python
 import tinyjev
-agent = tinyjev.load("tinyjev-0.6b")
+agent = tinyjev.load("TinyJev-0.6B")
 
 agent.predict({
     "state": "Shoes arrived two weeks late and in the wrong size. Also I see two charges on my card.",
@@ -278,9 +278,9 @@ Choose the threshold on your own data. The right cutoff depends on what a wrong 
 
 ## Current status
 
-`tinyjev-0.6b` is published: weights on Hugging Face and ModelScope, the package on PyPI.
-`tinyjev-4b` is trained and scored (the Models table) and waits for its release; a 149M encoder
-variant scored 0.532 on transfer-v4 dev, under the 0.55 gate, so there is no smaller model yet.
+Both models are published on Hugging Face ([the TinyJev collection](https://huggingface.co/collections/AnkitAI/tinyjev-6ab68b5702fbd9988dac9f80)),
+the 0.6B on ModelScope as well, the package on PyPI. A 149M encoder variant scored 0.532 on
+transfer-v4 dev, under the 0.55 gate, so there is no smaller model yet.
 
 Known weakness, measured: the 0.6B answers yes to almost any statement-form yes/no check (it was
 trained on questions, not statements). The 4B halves that gap. A fix with statement-form training

@@ -50,7 +50,7 @@ def draw_cases(n: int, split: str = "holdout"):
 def full_run_numbers():
     """The closing frame quotes the full 500-case run from results/summary.json,
     so the headline numbers are the logged ones, not this 12-case sample."""
-    s = json.loads((ROOT / "results" / "summary.json").read_text()).get("tinyjev-0.6b")
+    s = json.loads((ROOT / "results" / "summary.json").read_text()).get("TinyJev-0.6B")
     if not s:
         return None
     g = s["gate_0.85"]
@@ -122,7 +122,7 @@ def closing_frame(sample_tally, full):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--model", default="tinyjev-0.6b")
+    ap.add_argument("--model", default="TinyJev-0.6B")
     ap.add_argument("--n", type=int, default=12)
     ap.add_argument("--gif", default="")
     ap.add_argument("--ms", type=int, default=2400)

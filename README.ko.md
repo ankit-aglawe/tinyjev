@@ -7,7 +7,7 @@
 <p>
   <a href="https://pypi.org/project/tinyjev/"><img alt="PyPI" src="https://img.shields.io/pypi/v/tinyjev?label=pypi&color=E46412"></a>
   <a href="https://pypi.org/project/tinyjev/"><img alt="Python" src="https://img.shields.io/badge/python-3.9%2B-E46412"></a>
-  <a href="https://huggingface.co/AnkitAI/tinyjev-0.6b"><img alt="Weights" src="https://img.shields.io/badge/weights-tinyjev--0.6b-E46412?logo=huggingface&logoColor=FFD21E"></a>
+  <a href="https://huggingface.co/AnkitAI/TinyJev-0.6B"><img alt="Weights" src="https://img.shields.io/badge/weights-TinyJev--0.6B-E46412?logo=huggingface&logoColor=FFD21E"></a>
   <a href="https://github.com/ankit-aglawe/tinyjev/blob/main/LICENSE"><img alt="License" src="https://img.shields.io/badge/license-MIT-E46412"></a>
 </p>
 
@@ -57,7 +57,7 @@ python demos/triage_desk.py --gif demo.gif
 
 ```python
 import tinyjev
-agent = tinyjev.load("tinyjev-0.6b")
+agent = tinyjev.load("TinyJev-0.6B")
 
 agent.predict({
     "state": "Shoes arrived two weeks late and in the wrong size. Also I see two charges on my card.",
@@ -122,7 +122,7 @@ pip install 'tinyjev[torch]'   # everything else
 ```python
 import tinyjev
 
-agent = tinyjev.load("tinyjev-0.6b")     # ~1.2 GB, downloads once, then offline
+agent = tinyjev.load("TinyJev-0.6B")     # ~1.2 GB, downloads once, then offline
 print(agent.predict({
     "state": "I was charged twice. Please fix this ASAP.",
     "questions": {"billing": {"type": "noul", "instructions": "Is this about billing?"}}}))
@@ -131,7 +131,7 @@ print(agent.predict({
 Apple Silicon에서는 로드하면서 양자화할 수 있습니다. 8비트는 공짜입니다. 메모리는 절반, 속도는 조금 더 빠르고, 홀드아웃 점수는 전정밀도와 똑같았습니다. 4비트는 더 작지만 정확도를 약 2포인트 잃습니다.
 
 ```python
-agent = tinyjev.load("tinyjev-0.6b", quantize=8)
+agent = tinyjev.load("TinyJev-0.6B", quantize=8)
 ```
 
 예제 실행하기:
@@ -145,8 +145,8 @@ python examples/router.py
 서버로 띄우기:
 
 ```bash
-tinyjev serve tinyjev-0.6b                # POST /v1/systemone on 127.0.0.1:8077
-tinyjev serve tinyjev-0.6b --quantize 8   # half the memory
+tinyjev serve TinyJev-0.6B                # POST /v1/systemone on 127.0.0.1:8077
+tinyjev serve TinyJev-0.6B --quantize 8   # half the memory
 ```
 
 ```bash
@@ -161,7 +161,7 @@ curl -s localhost:8077/v1/systemone -H 'content-type: application/json' -d '{
 
 ## 현재 상태
 
-`tinyjev-0.6b`는 완성되어 공개되었습니다. 가중치는 Hugging Face와 ModelScope에, 패키지는 PyPI에 있습니다.
+`TinyJev-0.6B`는 완성되어 공개되었습니다. 가중치는 Hugging Face와 ModelScope에, 패키지는 PyPI에 있습니다.
 
 다음은 더 작은 것, 0.15B 정도입니다.
 
