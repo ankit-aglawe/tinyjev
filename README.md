@@ -2,7 +2,7 @@
 
 <img alt="TinyJev" src="https://raw.githubusercontent.com/ankit-aglawe/tinyjev/main/assets/tinyjev_header.png" width="620">
 
-<p>Typed decisions, on your laptop, in one forward pass.</p>
+<p>Typed decisions on your laptop that know when to ask a human.</p>
 
 <p>
   <a href="https://pypi.org/project/tinyjev/"><img alt="PyPI" src="https://img.shields.io/pypi/v/tinyjev?label=pypi&color=E46412"></a>
@@ -39,7 +39,7 @@ TinyJev provides:
 - Calibrated confidence, so a threshold means something and you can decide what to automate.
 - A Python API, a local HTTP server, and a System One compatible endpoint.
 
-The model is 596M parameters, about 1.2 GB. It runs on MLX on Apple Silicon and on PyTorch everywhere else, entirely offline. Every example below is a single forward pass that finishes in well under a tenth of a second on a base M1.
+The model is 596M parameters, about 1.2 GB. It runs on MLX on Apple Silicon and on PyTorch everywhere else, entirely offline. Every example below is a single forward pass; measured timings are in the table under Get started.
 
 TinyJev is MIT licensed.
 
@@ -52,15 +52,18 @@ TinyJev is MIT licensed.
 Eight real support tickets, one after another, on a base M1. Three questions per ticket in a
 single forward pass, about 110 ms each. Every number in that recording came from a live run.
 
+<!-- MEASURED-BLOCK -->
+
 ```bash
 pip install 'tinyjev[mlx,demo]'
 python demos/triage_desk.py --gif demo.gif
 ```
 
-### Watch it play Doom
+<details>
+<summary><b>And, for fun, Doom</b> — click to expand</summary>
 
 <div align="center">
-  <img alt="TinyJev choosing actions in VizDoom" src="assets/tinyjev_doom.gif" width="860">
+  <img alt="TinyJev choosing actions in VizDoom" src="https://raw.githubusercontent.com/ankit-aglawe/tinyjev/main/assets/tinyjev_doom.gif" width="860">
 </div>
 
 TinyJev is text-only, so it never sees the game pixels. VizDoom supplies health, ammo, enemy
@@ -68,10 +71,16 @@ positions, recent damage and the location of the goal. A small rules-based route
 mode; TinyJev chooses a tactic and returns its probabilities; ordinary code handles aiming and key
 presses. In this fixed-seed run it kills all six enemies and reaches the goal.
 
+This is a demo, not a benchmark. On structured numeric state the model's answer barely moves with
+the input (see *What it cannot do* below); the router is doing the game's work and the model is
+doing the judgement-shaped part.
+
 ```bash
 pip install 'tinyjev[mlx,doom]'
 python demos/doom_corridor.py --gif tinyjev_doom.gif
 ```
+
+</details>
 
 ## What can it do?
 
@@ -132,7 +141,7 @@ Branch on the score and the easy half never reaches the frontier model.
 
 ### Decide what to automate
 
-Probabilities are calibrated against held-out data, so a cutoff is meaningful.
+Probabilities are calibrated against held-out data (ECE 0.082 on Kev's locked transfer test, against 0.128 for Kev-0.6B), so a cutoff is meaningful.
 
 ```python
 answer = result["states"][0]["answers"]["team"]
@@ -151,6 +160,14 @@ pip install 'tinyjev[mlx]'     # Apple Silicon
 pip install 'tinyjev[torch]'   # everything else
 ```
 
+Latency on a base M1 (16 GB) via MLX, all single forward passes:
+
+| Request | Time |
+|---|---:|
+| One short question | 65 ms (58 ms at INT8) |
+| A three-question support ticket | ~110 ms |
+| Mean per case, OpenDecision 500 | 85 ms |
+
 ```python
 import tinyjev
 
@@ -160,9 +177,15 @@ print(agent.predict({
     "questions": {"billing": {"type": "noul", "instructions": "Is this about billing?"}}}))
 ```
 
-On Apple Silicon you can quantize the backbone as it loads. Eight bits is free: it halves the
-memory, runs slightly faster, and scored identically to full precision on our held-out set.
-Four bits is smaller again but costs about two points of accuracy.
+On Apple Silicon you can quantize the backbone as it loads. Measured on the transfer-v4 dev set, base M1, MLX:
+
+| Backbone | Accuracy | One short question |
+|---|---:|---:|
+| fp16 | 0.6204 | 65 ms |
+| INT8 | 0.6204 | 58 ms |
+| 4-bit | 0.599 | — |
+
+Eight bits is free. Four bits costs about two points. These are MLX INT8 figures; ONNX INT8 is not measured.
 
 ```python
 agent = tinyjev.load("tinyjev-0.6b", quantize=8)
@@ -197,7 +220,9 @@ A question is `{"type": "choice" | "noul" | "score", "instructions": ..., "crite
 
 `tinyjev-0.6b` is done and published. Weights on Hugging Face and ModelScope, the package on PyPI.
 
-Next is a smaller one, around 0.15B.
+A 149M encoder variant was trained and scored 0.532 on transfer-v4 dev, under the 0.55 gate, so
+there is no smaller release. Next is more measurement, not more model: the benchmarks folder is
+where new numbers land, every case logged.
 
 ## Support this project
 

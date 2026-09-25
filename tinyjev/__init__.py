@@ -10,4 +10,4 @@ from .convert import convert
 from .registry import MODELS
 
 __all__ = ["Agent", "load", "convert", "normalize_request", "MODELS", "__version__"]
-__version__ = "0.1.0"
+__version__ = "0.1.3"

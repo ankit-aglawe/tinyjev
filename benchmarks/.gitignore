@@ -1,0 +1,2 @@
+# per-run scratch; results/*.jsonl are committed on purpose
+__pycache__/
