@@ -1,0 +1,4524 @@
+{
+ "model": "tinyjev-0.6b",
+ "cases": 500,
+ "k": 2,
+ "seed": 20260925,
+ "flip_rate": 0.059,
+ "flips": 59,
+ "permutations": 1000,
+ "accuracy_canonical": 0.88,
+ "accuracy_permuted": 0.898,
+ "flip_rate_by_n_options": {
+  "3": 0.1313,
+  "4": 0.0,
+  "6": 0.075,
+  "8": 0.045,
+  "10": 0.0417
+ },
+ "cases_with_any_flip": 44,
+ "mean_confidence_flipped": 0.3875,
+ "mean_confidence_stable": 0.8165,
+ "seconds": 136.8,
+ "rows": [
+  {
+   "id": "od_appliance_issue_001",
+   "domain": "appliance_issue",
+   "n_options": 8,
+   "canonical": "power_supply",
+   "canonical_confidence": 0.45,
+   "flips": 0,
+   "expected": "power_supply"
+  },
+  {
+   "id": "od_appliance_issue_002",
+   "domain": "appliance_issue",
+   "n_options": 8,
+   "canonical": "network",
+   "canonical_confidence": 0.32,
+   "flips": 0,
+   "expected": "network"
+  },
+  {
+   "id": "od_appliance_issue_003",
+   "domain": "appliance_issue",
+   "n_options": 8,
+   "canonical": "mechanical",
+   "canonical_confidence": 0.43,
+   "flips": 0,
+   "expected": "mechanical"
+  },
+  {
+   "id": "od_appliance_issue_004",
+   "domain": "appliance_issue",
+   "n_options": 8,
+   "canonical": "sensor",
+   "canonical_confidence": 0.87,
+   "flips": 0,
+   "expected": "sensor"
+  },
+  {
+   "id": "od_appliance_issue_005",
+   "domain": "appliance_issue",
+   "n_options": 8,
+   "canonical": "software",
+   "canonical_confidence": 0.94,
+   "flips": 0,
+   "expected": "software"
+  },
+  {
+   "id": "od_appliance_issue_006",
+   "domain": "appliance_issue",
+   "n_options": 8,
+   "canonical": "consumable",
+   "canonical_confidence": 0.72,
+   "flips": 0,
+   "expected": "consumable"
+  },
+  {
+   "id": "od_appliance_issue_007",
+   "domain": "appliance_issue",
+   "n_options": 8,
+   "canonical": "user_setup",
+   "canonical_confidence": 0.86,
+   "flips": 0,
+   "expected": "user_setup"
+  },
+  {
+   "id": "od_appliance_issue_008",
+   "domain": "appliance_issue",
+   "n_options": 8,
+   "canonical": "professional_service",
+   "canonical_confidence": 0.62,
+   "flips": 0,
+   "expected": "professional_service"
+  },
+  {
+   "id": "od_appliance_issue_009",
+   "domain": "appliance_issue",
+   "n_options": 8,
+   "canonical": "mechanical",
+   "canonical_confidence": 0.61,
+   "flips": 0,
+   "expected": "power_supply"
+  },
+  {
+   "id": "od_appliance_issue_010",
+   "domain": "appliance_issue",
+   "n_options": 8,
+   "canonical": "network",
+   "canonical_confidence": 0.84,
+   "flips": 0,
+   "expected": "network"
+  },
+  {
+   "id": "od_appliance_issue_011",
+   "domain": "appliance_issue",
+   "n_options": 8,
+   "canonical": "mechanical",
+   "canonical_confidence": 0.69,
+   "flips": 0,
+   "expected": "mechanical"
+  },
+  {
+   "id": "od_appliance_issue_012",
+   "domain": "appliance_issue",
+   "n_options": 8,
+   "canonical": "sensor",
+   "canonical_confidence": 0.73,
+   "flips": 0,
+   "expected": "sensor"
+  },
+  {
+   "id": "od_appliance_issue_013",
+   "domain": "appliance_issue",
+   "n_options": 8,
+   "canonical": "software",
+   "canonical_confidence": 0.88,
+   "flips": 0,
+   "expected": "software"
+  },
+  {
+   "id": "od_appliance_issue_014",
+   "domain": "appliance_issue",
+   "n_options": 8,
+   "canonical": "consumable",
+   "canonical_confidence": 0.74,
+   "flips": 0,
+   "expected": "consumable"
+  },
+  {
+   "id": "od_appliance_issue_015",
+   "domain": "appliance_issue",
+   "n_options": 8,
+   "canonical": "user_setup",
+   "canonical_confidence": 0.32,
+   "flips": 0,
+   "expected": "user_setup"
+  },
+  {
+   "id": "od_appliance_issue_016",
+   "domain": "appliance_issue",
+   "n_options": 8,
+   "canonical": "professional_service",
+   "canonical_confidence": 0.52,
+   "flips": 0,
+   "expected": "professional_service"
+  },
+  {
+   "id": "od_appliance_issue_017",
+   "domain": "appliance_issue",
+   "n_options": 8,
+   "canonical": "power_supply",
+   "canonical_confidence": 0.5,
+   "flips": 0,
+   "expected": "power_supply"
+  },
+  {
+   "id": "od_appliance_issue_018",
+   "domain": "appliance_issue",
+   "n_options": 8,
+   "canonical": "software",
+   "canonical_confidence": 0.26,
+   "flips": 0,
+   "expected": "network"
+  },
+  {
+   "id": "od_appliance_issue_019",
+   "domain": "appliance_issue",
+   "n_options": 8,
+   "canonical": "mechanical",
+   "canonical_confidence": 0.7,
+   "flips": 0,
+   "expected": "mechanical"
+  },
+  {
+   "id": "od_appliance_issue_020",
+   "domain": "appliance_issue",
+   "n_options": 8,
+   "canonical": "sensor",
+   "canonical_confidence": 0.42,
+   "flips": 2,
+   "expected": "sensor"
+  },
+  {
+   "id": "od_citation_relation_001",
+   "domain": "citation_relation",
+   "n_options": 3,
+   "canonical": "supports",
+   "canonical_confidence": 0.94,
+   "flips": 0,
+   "expected": "supports"
+  },
+  {
+   "id": "od_citation_relation_002",
+   "domain": "citation_relation",
+   "n_options": 3,
+   "canonical": "irrelevant",
+   "canonical_confidence": 0.18,
+   "flips": 0,
+   "expected": "contradicts"
+  },
+  {
+   "id": "od_citation_relation_003",
+   "domain": "citation_relation",
+   "n_options": 3,
+   "canonical": "supports",
+   "canonical_confidence": 0.81,
+   "flips": 0,
+   "expected": "irrelevant"
+  },
+  {
+   "id": "od_citation_relation_004",
+   "domain": "citation_relation",
+   "n_options": 3,
+   "canonical": "supports",
+   "canonical_confidence": 0.99,
+   "flips": 0,
+   "expected": "supports"
+  },
+  {
+   "id": "od_citation_relation_005",
+   "domain": "citation_relation",
+   "n_options": 3,
+   "canonical": "irrelevant",
+   "canonical_confidence": 0.32,
+   "flips": 0,
+   "expected": "contradicts"
+  },
+  {
+   "id": "od_citation_relation_006",
+   "domain": "citation_relation",
+   "n_options": 3,
+   "canonical": "supports",
+   "canonical_confidence": 0.67,
+   "flips": 0,
+   "expected": "irrelevant"
+  },
+  {
+   "id": "od_citation_relation_007",
+   "domain": "citation_relation",
+   "n_options": 3,
+   "canonical": "supports",
+   "canonical_confidence": 0.97,
+   "flips": 0,
+   "expected": "supports"
+  },
+  {
+   "id": "od_citation_relation_008",
+   "domain": "citation_relation",
+   "n_options": 3,
+   "canonical": "irrelevant",
+   "canonical_confidence": 0.71,
+   "flips": 1,
+   "expected": "contradicts"
+  },
+  {
+   "id": "od_citation_relation_009",
+   "domain": "citation_relation",
+   "n_options": 3,
+   "canonical": "irrelevant",
+   "canonical_confidence": 0.59,
+   "flips": 0,
+   "expected": "irrelevant"
+  },
+  {
+   "id": "od_citation_relation_010",
+   "domain": "citation_relation",
+   "n_options": 3,
+   "canonical": "irrelevant",
+   "canonical_confidence": 0.53,
+   "flips": 0,
+   "expected": "supports"
+  },
+  {
+   "id": "od_citation_relation_011",
+   "domain": "citation_relation",
+   "n_options": 3,
+   "canonical": "contradicts",
+   "canonical_confidence": 0.46,
+   "flips": 0,
+   "expected": "contradicts"
+  },
+  {
+   "id": "od_citation_relation_012",
+   "domain": "citation_relation",
+   "n_options": 3,
+   "canonical": "irrelevant",
+   "canonical_confidence": 0.52,
+   "flips": 0,
+   "expected": "irrelevant"
+  },
+  {
+   "id": "od_citation_relation_013",
+   "domain": "citation_relation",
+   "n_options": 3,
+   "canonical": "supports",
+   "canonical_confidence": 0.87,
+   "flips": 0,
+   "expected": "supports"
+  },
+  {
+   "id": "od_citation_relation_014",
+   "domain": "citation_relation",
+   "n_options": 3,
+   "canonical": "irrelevant",
+   "canonical_confidence": 0.33,
+   "flips": 2,
+   "expected": "contradicts"
+  },
+  {
+   "id": "od_citation_relation_015",
+   "domain": "citation_relation",
+   "n_options": 3,
+   "canonical": "supports",
+   "canonical_confidence": 0.31,
+   "flips": 2,
+   "expected": "irrelevant"
+  },
+  {
+   "id": "od_citation_relation_016",
+   "domain": "citation_relation",
+   "n_options": 3,
+   "canonical": "supports",
+   "canonical_confidence": 0.92,
+   "flips": 0,
+   "expected": "supports"
+  },
+  {
+   "id": "od_citation_relation_017",
+   "domain": "citation_relation",
+   "n_options": 3,
+   "canonical": "irrelevant",
+   "canonical_confidence": 0.66,
+   "flips": 0,
+   "expected": "contradicts"
+  },
+  {
+   "id": "od_citation_relation_018",
+   "domain": "citation_relation",
+   "n_options": 3,
+   "canonical": "supports",
+   "canonical_confidence": 0.29,
+   "flips": 2,
+   "expected": "irrelevant"
+  },
+  {
+   "id": "od_citation_relation_019",
+   "domain": "citation_relation",
+   "n_options": 3,
+   "canonical": "supports",
+   "canonical_confidence": 0.97,
+   "flips": 0,
+   "expected": "supports"
+  },
+  {
+   "id": "od_citation_relation_020",
+   "domain": "citation_relation",
+   "n_options": 3,
+   "canonical": "irrelevant",
+   "canonical_confidence": 0.3,
+   "flips": 2,
+   "expected": "contradicts"
+  },
+  {
+   "id": "od_contract_clause_001",
+   "domain": "contract_clause",
+   "n_options": 8,
+   "canonical": "termination",
+   "canonical_confidence": 0.99,
+   "flips": 0,
+   "expected": "termination"
+  },
+  {
+   "id": "od_contract_clause_002",
+   "domain": "contract_clause",
+   "n_options": 8,
+   "canonical": "confidentiality",
+   "canonical_confidence": 0.98,
+   "flips": 0,
+   "expected": "confidentiality"
+  },
+  {
+   "id": "od_contract_clause_003",
+   "domain": "contract_clause",
+   "n_options": 8,
+   "canonical": "payment",
+   "canonical_confidence": 1.0,
+   "flips": 0,
+   "expected": "payment"
+  },
+  {
+   "id": "od_contract_clause_004",
+   "domain": "contract_clause",
+   "n_options": 8,
+   "canonical": "liability",
+   "canonical_confidence": 0.89,
+   "flips": 0,
+   "expected": "liability"
+  },
+  {
+   "id": "od_contract_clause_005",
+   "domain": "contract_clause",
+   "n_options": 8,
+   "canonical": "intellectual_property",
+   "canonical_confidence": 0.97,
+   "flips": 0,
+   "expected": "intellectual_property"
+  },
+  {
+   "id": "od_contract_clause_006",
+   "domain": "contract_clause",
+   "n_options": 8,
+   "canonical": "renewal",
+   "canonical_confidence": 0.99,
+   "flips": 0,
+   "expected": "renewal"
+  },
+  {
+   "id": "od_contract_clause_007",
+   "domain": "contract_clause",
+   "n_options": 8,
+   "canonical": "governing_law",
+   "canonical_confidence": 0.97,
+   "flips": 0,
+   "expected": "governing_law"
+  },
+  {
+   "id": "od_contract_clause_008",
+   "domain": "contract_clause",
+   "n_options": 8,
+   "canonical": "force_majeure",
+   "canonical_confidence": 0.76,
+   "flips": 0,
+   "expected": "force_majeure"
+  },
+  {
+   "id": "od_contract_clause_009",
+   "domain": "contract_clause",
+   "n_options": 8,
+   "canonical": "termination",
+   "canonical_confidence": 0.89,
+   "flips": 0,
+   "expected": "termination"
+  },
+  {
+   "id": "od_contract_clause_010",
+   "domain": "contract_clause",
+   "n_options": 8,
+   "canonical": "confidentiality",
+   "canonical_confidence": 0.99,
+   "flips": 0,
+   "expected": "confidentiality"
+  },
+  {
+   "id": "od_contract_clause_011",
+   "domain": "contract_clause",
+   "n_options": 8,
+   "canonical": "payment",
+   "canonical_confidence": 1.0,
+   "flips": 0,
+   "expected": "payment"
+  },
+  {
+   "id": "od_contract_clause_012",
+   "domain": "contract_clause",
+   "n_options": 8,
+   "canonical": "liability",
+   "canonical_confidence": 0.97,
+   "flips": 0,
+   "expected": "liability"
+  },
+  {
+   "id": "od_contract_clause_013",
+   "domain": "contract_clause",
+   "n_options": 8,
+   "canonical": "intellectual_property",
+   "canonical_confidence": 0.98,
+   "flips": 0,
+   "expected": "intellectual_property"
+  },
+  {
+   "id": "od_contract_clause_014",
+   "domain": "contract_clause",
+   "n_options": 8,
+   "canonical": "renewal",
+   "canonical_confidence": 0.96,
+   "flips": 0,
+   "expected": "renewal"
+  },
+  {
+   "id": "od_contract_clause_015",
+   "domain": "contract_clause",
+   "n_options": 8,
+   "canonical": "governing_law",
+   "canonical_confidence": 0.98,
+   "flips": 0,
+   "expected": "governing_law"
+  },
+  {
+   "id": "od_contract_clause_016",
+   "domain": "contract_clause",
+   "n_options": 8,
+   "canonical": "force_majeure",
+   "canonical_confidence": 0.98,
+   "flips": 0,
+   "expected": "force_majeure"
+  },
+  {
+   "id": "od_contract_clause_017",
+   "domain": "contract_clause",
+   "n_options": 8,
+   "canonical": "termination",
+   "canonical_confidence": 0.9,
+   "flips": 0,
+   "expected": "termination"
+  },
+  {
+   "id": "od_contract_clause_018",
+   "domain": "contract_clause",
+   "n_options": 8,
+   "canonical": "confidentiality",
+   "canonical_confidence": 0.96,
+   "flips": 0,
+   "expected": "confidentiality"
+  },
+  {
+   "id": "od_contract_clause_019",
+   "domain": "contract_clause",
+   "n_options": 8,
+   "canonical": "payment",
+   "canonical_confidence": 0.98,
+   "flips": 0,
+   "expected": "payment"
+  },
+  {
+   "id": "od_contract_clause_020",
+   "domain": "contract_clause",
+   "n_options": 8,
+   "canonical": "liability",
+   "canonical_confidence": 0.98,
+   "flips": 0,
+   "expected": "liability"
+  },
+  {
+   "id": "od_database_intent_001",
+   "domain": "database_intent",
+   "n_options": 8,
+   "canonical": "insert",
+   "canonical_confidence": 0.37,
+   "flips": 2,
+   "expected": "select"
+  },
+  {
+   "id": "od_database_intent_002",
+   "domain": "database_intent",
+   "n_options": 8,
+   "canonical": "insert",
+   "canonical_confidence": 0.99,
+   "flips": 0,
+   "expected": "insert"
+  },
+  {
+   "id": "od_database_intent_003",
+   "domain": "database_intent",
+   "n_options": 8,
+   "canonical": "update",
+   "canonical_confidence": 0.7,
+   "flips": 0,
+   "expected": "update"
+  },
+  {
+   "id": "od_database_intent_004",
+   "domain": "database_intent",
+   "n_options": 8,
+   "canonical": "delete",
+   "canonical_confidence": 0.97,
+   "flips": 0,
+   "expected": "delete"
+  },
+  {
+   "id": "od_database_intent_005",
+   "domain": "database_intent",
+   "n_options": 8,
+   "canonical": "aggregate",
+   "canonical_confidence": 0.93,
+   "flips": 0,
+   "expected": "aggregate"
+  },
+  {
+   "id": "od_database_intent_006",
+   "domain": "database_intent",
+   "n_options": 8,
+   "canonical": "join",
+   "canonical_confidence": 0.84,
+   "flips": 0,
+   "expected": "join"
+  },
+  {
+   "id": "od_database_intent_007",
+   "domain": "database_intent",
+   "n_options": 8,
+   "canonical": "schema_change",
+   "canonical_confidence": 0.67,
+   "flips": 0,
+   "expected": "schema_change"
+  },
+  {
+   "id": "od_database_intent_008",
+   "domain": "database_intent",
+   "n_options": 8,
+   "canonical": "transaction_control",
+   "canonical_confidence": 0.8,
+   "flips": 0,
+   "expected": "transaction_control"
+  },
+  {
+   "id": "od_database_intent_009",
+   "domain": "database_intent",
+   "n_options": 8,
+   "canonical": "select",
+   "canonical_confidence": 0.85,
+   "flips": 0,
+   "expected": "select"
+  },
+  {
+   "id": "od_database_intent_010",
+   "domain": "database_intent",
+   "n_options": 8,
+   "canonical": "insert",
+   "canonical_confidence": 0.99,
+   "flips": 0,
+   "expected": "insert"
+  },
+  {
+   "id": "od_database_intent_011",
+   "domain": "database_intent",
+   "n_options": 8,
+   "canonical": "update",
+   "canonical_confidence": 0.28,
+   "flips": 2,
+   "expected": "update"
+  },
+  {
+   "id": "od_database_intent_012",
+   "domain": "database_intent",
+   "n_options": 8,
+   "canonical": "delete",
+   "canonical_confidence": 0.98,
+   "flips": 0,
+   "expected": "delete"
+  },
+  {
+   "id": "od_database_intent_013",
+   "domain": "database_intent",
+   "n_options": 8,
+   "canonical": "aggregate",
+   "canonical_confidence": 0.97,
+   "flips": 0,
+   "expected": "aggregate"
+  },
+  {
+   "id": "od_database_intent_014",
+   "domain": "database_intent",
+   "n_options": 8,
+   "canonical": "join",
+   "canonical_confidence": 0.94,
+   "flips": 0,
+   "expected": "join"
+  },
+  {
+   "id": "od_database_intent_015",
+   "domain": "database_intent",
+   "n_options": 8,
+   "canonical": "schema_change",
+   "canonical_confidence": 0.66,
+   "flips": 0,
+   "expected": "schema_change"
+  },
+  {
+   "id": "od_database_intent_016",
+   "domain": "database_intent",
+   "n_options": 8,
+   "canonical": "transaction_control",
+   "canonical_confidence": 0.8,
+   "flips": 0,
+   "expected": "transaction_control"
+  },
+  {
+   "id": "od_database_intent_017",
+   "domain": "database_intent",
+   "n_options": 8,
+   "canonical": "delete",
+   "canonical_confidence": 0.21,
+   "flips": 1,
+   "expected": "select"
+  },
+  {
+   "id": "od_database_intent_018",
+   "domain": "database_intent",
+   "n_options": 8,
+   "canonical": "update",
+   "canonical_confidence": 0.85,
+   "flips": 0,
+   "expected": "insert"
+  },
+  {
+   "id": "od_database_intent_019",
+   "domain": "database_intent",
+   "n_options": 8,
+   "canonical": "update",
+   "canonical_confidence": 0.97,
+   "flips": 0,
+   "expected": "update"
+  },
+  {
+   "id": "od_database_intent_020",
+   "domain": "database_intent",
+   "n_options": 8,
+   "canonical": "delete",
+   "canonical_confidence": 0.86,
+   "flips": 0,
+   "expected": "delete"
+  },
+  {
+   "id": "od_date_semantics_001",
+   "domain": "date_semantics",
+   "n_options": 6,
+   "canonical": "absolute_single",
+   "canonical_confidence": 0.85,
+   "flips": 0,
+   "expected": "absolute_single"
+  },
+  {
+   "id": "od_date_semantics_002",
+   "domain": "date_semantics",
+   "n_options": 6,
+   "canonical": "absolute_single",
+   "canonical_confidence": 0.35,
+   "flips": 1,
+   "expected": "relative_single"
+  },
+  {
+   "id": "od_date_semantics_003",
+   "domain": "date_semantics",
+   "n_options": 6,
+   "canonical": "recurring",
+   "canonical_confidence": 0.87,
+   "flips": 0,
+   "expected": "recurring"
+  },
+  {
+   "id": "od_date_semantics_004",
+   "domain": "date_semantics",
+   "n_options": 6,
+   "canonical": "date_range",
+   "canonical_confidence": 0.51,
+   "flips": 0,
+   "expected": "date_range"
+  },
+  {
+   "id": "od_date_semantics_005",
+   "domain": "date_semantics",
+   "n_options": 6,
+   "canonical": "deadline",
+   "canonical_confidence": 0.79,
+   "flips": 0,
+   "expected": "deadline"
+  },
+  {
+   "id": "od_date_semantics_006",
+   "domain": "date_semantics",
+   "n_options": 6,
+   "canonical": "none",
+   "canonical_confidence": 0.85,
+   "flips": 0,
+   "expected": "none"
+  },
+  {
+   "id": "od_date_semantics_007",
+   "domain": "date_semantics",
+   "n_options": 6,
+   "canonical": "absolute_single",
+   "canonical_confidence": 0.54,
+   "flips": 0,
+   "expected": "absolute_single"
+  },
+  {
+   "id": "od_date_semantics_008",
+   "domain": "date_semantics",
+   "n_options": 6,
+   "canonical": "deadline",
+   "canonical_confidence": 0.26,
+   "flips": 0,
+   "expected": "relative_single"
+  },
+  {
+   "id": "od_date_semantics_009",
+   "domain": "date_semantics",
+   "n_options": 6,
+   "canonical": "recurring",
+   "canonical_confidence": 0.91,
+   "flips": 0,
+   "expected": "recurring"
+  },
+  {
+   "id": "od_date_semantics_010",
+   "domain": "date_semantics",
+   "n_options": 6,
+   "canonical": "date_range",
+   "canonical_confidence": 0.57,
+   "flips": 0,
+   "expected": "date_range"
+  },
+  {
+   "id": "od_date_semantics_011",
+   "domain": "date_semantics",
+   "n_options": 6,
+   "canonical": "deadline",
+   "canonical_confidence": 0.87,
+   "flips": 0,
+   "expected": "deadline"
+  },
+  {
+   "id": "od_date_semantics_012",
+   "domain": "date_semantics",
+   "n_options": 6,
+   "canonical": "none",
+   "canonical_confidence": 0.86,
+   "flips": 0,
+   "expected": "none"
+  },
+  {
+   "id": "od_date_semantics_013",
+   "domain": "date_semantics",
+   "n_options": 6,
+   "canonical": "absolute_single",
+   "canonical_confidence": 0.86,
+   "flips": 0,
+   "expected": "absolute_single"
+  },
+  {
+   "id": "od_date_semantics_014",
+   "domain": "date_semantics",
+   "n_options": 6,
+   "canonical": "relative_single",
+   "canonical_confidence": 0.28,
+   "flips": 0,
+   "expected": "relative_single"
+  },
+  {
+   "id": "od_date_semantics_015",
+   "domain": "date_semantics",
+   "n_options": 6,
+   "canonical": "recurring",
+   "canonical_confidence": 0.95,
+   "flips": 0,
+   "expected": "recurring"
+  },
+  {
+   "id": "od_date_semantics_016",
+   "domain": "date_semantics",
+   "n_options": 6,
+   "canonical": "date_range",
+   "canonical_confidence": 0.64,
+   "flips": 0,
+   "expected": "date_range"
+  },
+  {
+   "id": "od_date_semantics_017",
+   "domain": "date_semantics",
+   "n_options": 6,
+   "canonical": "deadline",
+   "canonical_confidence": 0.61,
+   "flips": 0,
+   "expected": "deadline"
+  },
+  {
+   "id": "od_date_semantics_018",
+   "domain": "date_semantics",
+   "n_options": 6,
+   "canonical": "none",
+   "canonical_confidence": 0.6,
+   "flips": 0,
+   "expected": "none"
+  },
+  {
+   "id": "od_date_semantics_019",
+   "domain": "date_semantics",
+   "n_options": 6,
+   "canonical": "date_range",
+   "canonical_confidence": 0.29,
+   "flips": 1,
+   "expected": "absolute_single"
+  },
+  {
+   "id": "od_date_semantics_020",
+   "domain": "date_semantics",
+   "n_options": 6,
+   "canonical": "deadline",
+   "canonical_confidence": 0.17,
+   "flips": 2,
+   "expected": "relative_single"
+  },
+  {
+   "id": "od_document_type_001",
+   "domain": "document_type",
+   "n_options": 8,
+   "canonical": "invoice",
+   "canonical_confidence": 0.87,
+   "flips": 0,
+   "expected": "invoice"
+  },
+  {
+   "id": "od_document_type_002",
+   "domain": "document_type",
+   "n_options": 8,
+   "canonical": "receipt",
+   "canonical_confidence": 0.77,
+   "flips": 0,
+   "expected": "receipt"
+  },
+  {
+   "id": "od_document_type_003",
+   "domain": "document_type",
+   "n_options": 8,
+   "canonical": "contract",
+   "canonical_confidence": 1.0,
+   "flips": 0,
+   "expected": "contract"
+  },
+  {
+   "id": "od_document_type_004",
+   "domain": "document_type",
+   "n_options": 8,
+   "canonical": "resume",
+   "canonical_confidence": 1.0,
+   "flips": 0,
+   "expected": "resume"
+  },
+  {
+   "id": "od_document_type_005",
+   "domain": "document_type",
+   "n_options": 8,
+   "canonical": "incident_report",
+   "canonical_confidence": 1.0,
+   "flips": 0,
+   "expected": "incident_report"
+  },
+  {
+   "id": "od_document_type_006",
+   "domain": "document_type",
+   "n_options": 8,
+   "canonical": "policy",
+   "canonical_confidence": 0.57,
+   "flips": 0,
+   "expected": "policy"
+  },
+  {
+   "id": "od_document_type_007",
+   "domain": "document_type",
+   "n_options": 8,
+   "canonical": "purchase_order",
+   "canonical_confidence": 0.99,
+   "flips": 0,
+   "expected": "purchase_order"
+  },
+  {
+   "id": "od_document_type_008",
+   "domain": "document_type",
+   "n_options": 8,
+   "canonical": "policy",
+   "canonical_confidence": 0.38,
+   "flips": 1,
+   "expected": "meeting_notes"
+  },
+  {
+   "id": "od_document_type_009",
+   "domain": "document_type",
+   "n_options": 8,
+   "canonical": "invoice",
+   "canonical_confidence": 0.92,
+   "flips": 0,
+   "expected": "invoice"
+  },
+  {
+   "id": "od_document_type_010",
+   "domain": "document_type",
+   "n_options": 8,
+   "canonical": "receipt",
+   "canonical_confidence": 0.95,
+   "flips": 0,
+   "expected": "receipt"
+  },
+  {
+   "id": "od_document_type_011",
+   "domain": "document_type",
+   "n_options": 8,
+   "canonical": "contract",
+   "canonical_confidence": 0.44,
+   "flips": 1,
+   "expected": "contract"
+  },
+  {
+   "id": "od_document_type_012",
+   "domain": "document_type",
+   "n_options": 8,
+   "canonical": "resume",
+   "canonical_confidence": 1.0,
+   "flips": 0,
+   "expected": "resume"
+  },
+  {
+   "id": "od_document_type_013",
+   "domain": "document_type",
+   "n_options": 8,
+   "canonical": "incident_report",
+   "canonical_confidence": 1.0,
+   "flips": 0,
+   "expected": "incident_report"
+  },
+  {
+   "id": "od_document_type_014",
+   "domain": "document_type",
+   "n_options": 8,
+   "canonical": "policy",
+   "canonical_confidence": 0.79,
+   "flips": 0,
+   "expected": "policy"
+  },
+  {
+   "id": "od_document_type_015",
+   "domain": "document_type",
+   "n_options": 8,
+   "canonical": "purchase_order",
+   "canonical_confidence": 0.95,
+   "flips": 0,
+   "expected": "purchase_order"
+  },
+  {
+   "id": "od_document_type_016",
+   "domain": "document_type",
+   "n_options": 8,
+   "canonical": "meeting_notes",
+   "canonical_confidence": 0.68,
+   "flips": 0,
+   "expected": "meeting_notes"
+  },
+  {
+   "id": "od_document_type_017",
+   "domain": "document_type",
+   "n_options": 8,
+   "canonical": "invoice",
+   "canonical_confidence": 0.55,
+   "flips": 0,
+   "expected": "invoice"
+  },
+  {
+   "id": "od_document_type_018",
+   "domain": "document_type",
+   "n_options": 8,
+   "canonical": "receipt",
+   "canonical_confidence": 0.93,
+   "flips": 0,
+   "expected": "receipt"
+  },
+  {
+   "id": "od_document_type_019",
+   "domain": "document_type",
+   "n_options": 8,
+   "canonical": "contract",
+   "canonical_confidence": 0.97,
+   "flips": 0,
+   "expected": "contract"
+  },
+  {
+   "id": "od_document_type_020",
+   "domain": "document_type",
+   "n_options": 8,
+   "canonical": "resume",
+   "canonical_confidence": 0.4,
+   "flips": 0,
+   "expected": "resume"
+  },
+  {
+   "id": "od_email_intent_001",
+   "domain": "email_intent",
+   "n_options": 8,
+   "canonical": "action_request",
+   "canonical_confidence": 0.95,
+   "flips": 0,
+   "expected": "action_request"
+  },
+  {
+   "id": "od_email_intent_002",
+   "domain": "email_intent",
+   "n_options": 8,
+   "canonical": "information",
+   "canonical_confidence": 0.96,
+   "flips": 0,
+   "expected": "information"
+  },
+  {
+   "id": "od_email_intent_003",
+   "domain": "email_intent",
+   "n_options": 8,
+   "canonical": "scheduling",
+   "canonical_confidence": 0.74,
+   "flips": 0,
+   "expected": "scheduling"
+  },
+  {
+   "id": "od_email_intent_004",
+   "domain": "email_intent",
+   "n_options": 8,
+   "canonical": "approval",
+   "canonical_confidence": 0.43,
+   "flips": 1,
+   "expected": "approval"
+  },
+  {
+   "id": "od_email_intent_005",
+   "domain": "email_intent",
+   "n_options": 8,
+   "canonical": "action_request",
+   "canonical_confidence": 0.23,
+   "flips": 2,
+   "expected": "escalation"
+  },
+  {
+   "id": "od_email_intent_006",
+   "domain": "email_intent",
+   "n_options": 8,
+   "canonical": "information",
+   "canonical_confidence": 0.31,
+   "flips": 0,
+   "expected": "billing"
+  },
+  {
+   "id": "od_email_intent_007",
+   "domain": "email_intent",
+   "n_options": 8,
+   "canonical": "unsubscribe",
+   "canonical_confidence": 0.94,
+   "flips": 0,
+   "expected": "unsubscribe"
+  },
+  {
+   "id": "od_email_intent_008",
+   "domain": "email_intent",
+   "n_options": 8,
+   "canonical": "information",
+   "canonical_confidence": 0.51,
+   "flips": 0,
+   "expected": "spam"
+  },
+  {
+   "id": "od_email_intent_009",
+   "domain": "email_intent",
+   "n_options": 8,
+   "canonical": "information",
+   "canonical_confidence": 0.6,
+   "flips": 0,
+   "expected": "action_request"
+  },
+  {
+   "id": "od_email_intent_010",
+   "domain": "email_intent",
+   "n_options": 8,
+   "canonical": "information",
+   "canonical_confidence": 0.56,
+   "flips": 0,
+   "expected": "information"
+  },
+  {
+   "id": "od_email_intent_011",
+   "domain": "email_intent",
+   "n_options": 8,
+   "canonical": "scheduling",
+   "canonical_confidence": 0.46,
+   "flips": 0,
+   "expected": "scheduling"
+  },
+  {
+   "id": "od_email_intent_012",
+   "domain": "email_intent",
+   "n_options": 8,
+   "canonical": "approval",
+   "canonical_confidence": 0.86,
+   "flips": 0,
+   "expected": "approval"
+  },
+  {
+   "id": "od_email_intent_013",
+   "domain": "email_intent",
+   "n_options": 8,
+   "canonical": "escalation",
+   "canonical_confidence": 0.75,
+   "flips": 0,
+   "expected": "escalation"
+  },
+  {
+   "id": "od_email_intent_014",
+   "domain": "email_intent",
+   "n_options": 8,
+   "canonical": "billing",
+   "canonical_confidence": 0.54,
+   "flips": 0,
+   "expected": "billing"
+  },
+  {
+   "id": "od_email_intent_015",
+   "domain": "email_intent",
+   "n_options": 8,
+   "canonical": "unsubscribe",
+   "canonical_confidence": 0.93,
+   "flips": 0,
+   "expected": "unsubscribe"
+  },
+  {
+   "id": "od_email_intent_016",
+   "domain": "email_intent",
+   "n_options": 8,
+   "canonical": "action_request",
+   "canonical_confidence": 0.43,
+   "flips": 1,
+   "expected": "spam"
+  },
+  {
+   "id": "od_email_intent_017",
+   "domain": "email_intent",
+   "n_options": 8,
+   "canonical": "action_request",
+   "canonical_confidence": 0.94,
+   "flips": 0,
+   "expected": "action_request"
+  },
+  {
+   "id": "od_email_intent_018",
+   "domain": "email_intent",
+   "n_options": 8,
+   "canonical": "information",
+   "canonical_confidence": 0.56,
+   "flips": 0,
+   "expected": "information"
+  },
+  {
+   "id": "od_email_intent_019",
+   "domain": "email_intent",
+   "n_options": 8,
+   "canonical": "scheduling",
+   "canonical_confidence": 0.92,
+   "flips": 0,
+   "expected": "scheduling"
+  },
+  {
+   "id": "od_email_intent_020",
+   "domain": "email_intent",
+   "n_options": 8,
+   "canonical": "approval",
+   "canonical_confidence": 0.56,
+   "flips": 0,
+   "expected": "approval"
+  },
+  {
+   "id": "od_entity_matching_001",
+   "domain": "entity_matching",
+   "n_options": 3,
+   "canonical": "same_entity",
+   "canonical_confidence": 0.83,
+   "flips": 0,
+   "expected": "same_entity"
+  },
+  {
+   "id": "od_entity_matching_002",
+   "domain": "entity_matching",
+   "n_options": 3,
+   "canonical": "same_entity",
+   "canonical_confidence": 0.46,
+   "flips": 1,
+   "expected": "related_variant"
+  },
+  {
+   "id": "od_entity_matching_003",
+   "domain": "entity_matching",
+   "n_options": 3,
+   "canonical": "different_entity",
+   "canonical_confidence": 0.12,
+   "flips": 0,
+   "expected": "different_entity"
+  },
+  {
+   "id": "od_entity_matching_004",
+   "domain": "entity_matching",
+   "n_options": 3,
+   "canonical": "same_entity",
+   "canonical_confidence": 0.54,
+   "flips": 0,
+   "expected": "same_entity"
+  },
+  {
+   "id": "od_entity_matching_005",
+   "domain": "entity_matching",
+   "n_options": 3,
+   "canonical": "same_entity",
+   "canonical_confidence": 0.34,
+   "flips": 1,
+   "expected": "related_variant"
+  },
+  {
+   "id": "od_entity_matching_006",
+   "domain": "entity_matching",
+   "n_options": 3,
+   "canonical": "same_entity",
+   "canonical_confidence": 0.3,
+   "flips": 1,
+   "expected": "different_entity"
+  },
+  {
+   "id": "od_entity_matching_007",
+   "domain": "entity_matching",
+   "n_options": 3,
+   "canonical": "same_entity",
+   "canonical_confidence": 0.85,
+   "flips": 1,
+   "expected": "same_entity"
+  },
+  {
+   "id": "od_entity_matching_008",
+   "domain": "entity_matching",
+   "n_options": 3,
+   "canonical": "same_entity",
+   "canonical_confidence": 0.7,
+   "flips": 0,
+   "expected": "related_variant"
+  },
+  {
+   "id": "od_entity_matching_009",
+   "domain": "entity_matching",
+   "n_options": 3,
+   "canonical": "related_variant",
+   "canonical_confidence": 0.16,
+   "flips": 0,
+   "expected": "different_entity"
+  },
+  {
+   "id": "od_entity_matching_010",
+   "domain": "entity_matching",
+   "n_options": 3,
+   "canonical": "same_entity",
+   "canonical_confidence": 0.85,
+   "flips": 0,
+   "expected": "same_entity"
+  },
+  {
+   "id": "od_entity_matching_011",
+   "domain": "entity_matching",
+   "n_options": 3,
+   "canonical": "same_entity",
+   "canonical_confidence": 0.7,
+   "flips": 1,
+   "expected": "related_variant"
+  },
+  {
+   "id": "od_entity_matching_012",
+   "domain": "entity_matching",
+   "n_options": 3,
+   "canonical": "same_entity",
+   "canonical_confidence": 0.47,
+   "flips": 0,
+   "expected": "different_entity"
+  },
+  {
+   "id": "od_entity_matching_013",
+   "domain": "entity_matching",
+   "n_options": 3,
+   "canonical": "same_entity",
+   "canonical_confidence": 0.54,
+   "flips": 0,
+   "expected": "same_entity"
+  },
+  {
+   "id": "od_entity_matching_014",
+   "domain": "entity_matching",
+   "n_options": 3,
+   "canonical": "same_entity",
+   "canonical_confidence": 0.29,
+   "flips": 1,
+   "expected": "different_entity"
+  },
+  {
+   "id": "od_entity_matching_015",
+   "domain": "entity_matching",
+   "n_options": 3,
+   "canonical": "same_entity",
+   "canonical_confidence": 0.8,
+   "flips": 0,
+   "expected": "same_entity"
+  },
+  {
+   "id": "od_entity_matching_016",
+   "domain": "entity_matching",
+   "n_options": 3,
+   "canonical": "same_entity",
+   "canonical_confidence": 0.49,
+   "flips": 1,
+   "expected": "related_variant"
+  },
+  {
+   "id": "od_entity_matching_017",
+   "domain": "entity_matching",
+   "n_options": 3,
+   "canonical": "same_entity",
+   "canonical_confidence": 0.63,
+   "flips": 1,
+   "expected": "same_entity"
+  },
+  {
+   "id": "od_entity_matching_018",
+   "domain": "entity_matching",
+   "n_options": 3,
+   "canonical": "same_entity",
+   "canonical_confidence": 0.63,
+   "flips": 0,
+   "expected": "related_variant"
+  },
+  {
+   "id": "od_entity_matching_019",
+   "domain": "entity_matching",
+   "n_options": 3,
+   "canonical": "same_entity",
+   "canonical_confidence": 0.82,
+   "flips": 0,
+   "expected": "same_entity"
+  },
+  {
+   "id": "od_entity_matching_020",
+   "domain": "entity_matching",
+   "n_options": 3,
+   "canonical": "same_entity",
+   "canonical_confidence": 0.26,
+   "flips": 0,
+   "expected": "different_entity"
+  },
+  {
+   "id": "od_function_routing_001",
+   "domain": "function_routing",
+   "n_options": 10,
+   "canonical": "web_search",
+   "canonical_confidence": 0.73,
+   "flips": 0,
+   "expected": "web_search"
+  },
+  {
+   "id": "od_function_routing_002",
+   "domain": "function_routing",
+   "n_options": 10,
+   "canonical": "file_search",
+   "canonical_confidence": 0.94,
+   "flips": 0,
+   "expected": "file_search"
+  },
+  {
+   "id": "od_function_routing_003",
+   "domain": "function_routing",
+   "n_options": 10,
+   "canonical": "calculator",
+   "canonical_confidence": 0.87,
+   "flips": 0,
+   "expected": "calculator"
+  },
+  {
+   "id": "od_function_routing_004",
+   "domain": "function_routing",
+   "n_options": 10,
+   "canonical": "calendar",
+   "canonical_confidence": 0.51,
+   "flips": 2,
+   "expected": "send_email"
+  },
+  {
+   "id": "od_function_routing_005",
+   "domain": "function_routing",
+   "n_options": 10,
+   "canonical": "calendar",
+   "canonical_confidence": 0.99,
+   "flips": 0,
+   "expected": "calendar"
+  },
+  {
+   "id": "od_function_routing_006",
+   "domain": "function_routing",
+   "n_options": 10,
+   "canonical": "database_query",
+   "canonical_confidence": 0.95,
+   "flips": 0,
+   "expected": "database_query"
+  },
+  {
+   "id": "od_function_routing_007",
+   "domain": "function_routing",
+   "n_options": 10,
+   "canonical": "image_generation",
+   "canonical_confidence": 0.94,
+   "flips": 0,
+   "expected": "image_generation"
+  },
+  {
+   "id": "od_function_routing_008",
+   "domain": "function_routing",
+   "n_options": 10,
+   "canonical": "code_execution",
+   "canonical_confidence": 0.93,
+   "flips": 0,
+   "expected": "code_execution"
+  },
+  {
+   "id": "od_function_routing_009",
+   "domain": "function_routing",
+   "n_options": 10,
+   "canonical": "summarize_document",
+   "canonical_confidence": 0.98,
+   "flips": 0,
+   "expected": "summarize_document"
+  },
+  {
+   "id": "od_function_routing_010",
+   "domain": "function_routing",
+   "n_options": 10,
+   "canonical": "translate_text",
+   "canonical_confidence": 0.96,
+   "flips": 0,
+   "expected": "translate_text"
+  },
+  {
+   "id": "od_function_routing_011",
+   "domain": "function_routing",
+   "n_options": 10,
+   "canonical": "web_search",
+   "canonical_confidence": 0.85,
+   "flips": 0,
+   "expected": "web_search"
+  },
+  {
+   "id": "od_function_routing_012",
+   "domain": "function_routing",
+   "n_options": 10,
+   "canonical": "file_search",
+   "canonical_confidence": 0.82,
+   "flips": 0,
+   "expected": "file_search"
+  },
+  {
+   "id": "od_function_routing_013",
+   "domain": "function_routing",
+   "n_options": 10,
+   "canonical": "calculator",
+   "canonical_confidence": 0.91,
+   "flips": 0,
+   "expected": "calculator"
+  },
+  {
+   "id": "od_function_routing_014",
+   "domain": "function_routing",
+   "n_options": 10,
+   "canonical": "send_email",
+   "canonical_confidence": 0.69,
+   "flips": 0,
+   "expected": "send_email"
+  },
+  {
+   "id": "od_function_routing_015",
+   "domain": "function_routing",
+   "n_options": 10,
+   "canonical": "calendar",
+   "canonical_confidence": 0.95,
+   "flips": 0,
+   "expected": "calendar"
+  },
+  {
+   "id": "od_function_routing_016",
+   "domain": "function_routing",
+   "n_options": 10,
+   "canonical": "database_query",
+   "canonical_confidence": 0.86,
+   "flips": 0,
+   "expected": "database_query"
+  },
+  {
+   "id": "od_function_routing_017",
+   "domain": "function_routing",
+   "n_options": 10,
+   "canonical": "image_generation",
+   "canonical_confidence": 0.85,
+   "flips": 0,
+   "expected": "image_generation"
+  },
+  {
+   "id": "od_function_routing_018",
+   "domain": "function_routing",
+   "n_options": 10,
+   "canonical": "code_execution",
+   "canonical_confidence": 0.93,
+   "flips": 0,
+   "expected": "code_execution"
+  },
+  {
+   "id": "od_function_routing_019",
+   "domain": "function_routing",
+   "n_options": 10,
+   "canonical": "summarize_document",
+   "canonical_confidence": 0.85,
+   "flips": 0,
+   "expected": "summarize_document"
+  },
+  {
+   "id": "od_function_routing_020",
+   "domain": "function_routing",
+   "n_options": 10,
+   "canonical": "translate_text",
+   "canonical_confidence": 0.99,
+   "flips": 0,
+   "expected": "translate_text"
+  },
+  {
+   "id": "od_job_family_001",
+   "domain": "job_family",
+   "n_options": 8,
+   "canonical": "backend_engineering",
+   "canonical_confidence": 0.97,
+   "flips": 0,
+   "expected": "backend_engineering"
+  },
+  {
+   "id": "od_job_family_002",
+   "domain": "job_family",
+   "n_options": 8,
+   "canonical": "frontend_engineering",
+   "canonical_confidence": 0.93,
+   "flips": 0,
+   "expected": "frontend_engineering"
+  },
+  {
+   "id": "od_job_family_003",
+   "domain": "job_family",
+   "n_options": 8,
+   "canonical": "data_science",
+   "canonical_confidence": 0.98,
+   "flips": 0,
+   "expected": "data_science"
+  },
+  {
+   "id": "od_job_family_004",
+   "domain": "job_family",
+   "n_options": 8,
+   "canonical": "devops_sre",
+   "canonical_confidence": 0.96,
+   "flips": 0,
+   "expected": "devops_sre"
+  },
+  {
+   "id": "od_job_family_005",
+   "domain": "job_family",
+   "n_options": 8,
+   "canonical": "product_design",
+   "canonical_confidence": 0.99,
+   "flips": 0,
+   "expected": "product_design"
+  },
+  {
+   "id": "od_job_family_006",
+   "domain": "job_family",
+   "n_options": 8,
+   "canonical": "product_management",
+   "canonical_confidence": 0.98,
+   "flips": 0,
+   "expected": "product_management"
+  },
+  {
+   "id": "od_job_family_007",
+   "domain": "job_family",
+   "n_options": 8,
+   "canonical": "sales_engineering",
+   "canonical_confidence": 0.89,
+   "flips": 0,
+   "expected": "sales_engineering"
+  },
+  {
+   "id": "od_job_family_008",
+   "domain": "job_family",
+   "n_options": 8,
+   "canonical": "support_engineering",
+   "canonical_confidence": 0.84,
+   "flips": 0,
+   "expected": "support_engineering"
+  },
+  {
+   "id": "od_job_family_009",
+   "domain": "job_family",
+   "n_options": 8,
+   "canonical": "backend_engineering",
+   "canonical_confidence": 0.89,
+   "flips": 0,
+   "expected": "backend_engineering"
+  },
+  {
+   "id": "od_job_family_010",
+   "domain": "job_family",
+   "n_options": 8,
+   "canonical": "frontend_engineering",
+   "canonical_confidence": 0.94,
+   "flips": 0,
+   "expected": "frontend_engineering"
+  },
+  {
+   "id": "od_job_family_011",
+   "domain": "job_family",
+   "n_options": 8,
+   "canonical": "data_science",
+   "canonical_confidence": 0.98,
+   "flips": 0,
+   "expected": "data_science"
+  },
+  {
+   "id": "od_job_family_012",
+   "domain": "job_family",
+   "n_options": 8,
+   "canonical": "devops_sre",
+   "canonical_confidence": 0.95,
+   "flips": 0,
+   "expected": "devops_sre"
+  },
+  {
+   "id": "od_job_family_013",
+   "domain": "job_family",
+   "n_options": 8,
+   "canonical": "product_design",
+   "canonical_confidence": 0.97,
+   "flips": 0,
+   "expected": "product_design"
+  },
+  {
+   "id": "od_job_family_014",
+   "domain": "job_family",
+   "n_options": 8,
+   "canonical": "product_management",
+   "canonical_confidence": 0.67,
+   "flips": 0,
+   "expected": "product_management"
+  },
+  {
+   "id": "od_job_family_015",
+   "domain": "job_family",
+   "n_options": 8,
+   "canonical": "sales_engineering",
+   "canonical_confidence": 0.33,
+   "flips": 0,
+   "expected": "sales_engineering"
+  },
+  {
+   "id": "od_job_family_016",
+   "domain": "job_family",
+   "n_options": 8,
+   "canonical": "support_engineering",
+   "canonical_confidence": 0.94,
+   "flips": 0,
+   "expected": "support_engineering"
+  },
+  {
+   "id": "od_job_family_017",
+   "domain": "job_family",
+   "n_options": 8,
+   "canonical": "backend_engineering",
+   "canonical_confidence": 0.97,
+   "flips": 0,
+   "expected": "backend_engineering"
+  },
+  {
+   "id": "od_job_family_018",
+   "domain": "job_family",
+   "n_options": 8,
+   "canonical": "frontend_engineering",
+   "canonical_confidence": 0.83,
+   "flips": 0,
+   "expected": "frontend_engineering"
+  },
+  {
+   "id": "od_job_family_019",
+   "domain": "job_family",
+   "n_options": 8,
+   "canonical": "data_science",
+   "canonical_confidence": 0.96,
+   "flips": 0,
+   "expected": "data_science"
+  },
+  {
+   "id": "od_job_family_020",
+   "domain": "job_family",
+   "n_options": 8,
+   "canonical": "devops_sre",
+   "canonical_confidence": 0.66,
+   "flips": 1,
+   "expected": "devops_sre"
+  },
+  {
+   "id": "od_logistics_exception_001",
+   "domain": "logistics_exception",
+   "n_options": 8,
+   "canonical": "address_issue",
+   "canonical_confidence": 0.95,
+   "flips": 0,
+   "expected": "address_issue"
+  },
+  {
+   "id": "od_logistics_exception_002",
+   "domain": "logistics_exception",
+   "n_options": 8,
+   "canonical": "carrier_delay",
+   "canonical_confidence": 0.9,
+   "flips": 0,
+   "expected": "carrier_delay"
+  },
+  {
+   "id": "od_logistics_exception_003",
+   "domain": "logistics_exception",
+   "n_options": 8,
+   "canonical": "warehouse_hold",
+   "canonical_confidence": 0.9,
+   "flips": 0,
+   "expected": "warehouse_hold"
+  },
+  {
+   "id": "od_logistics_exception_004",
+   "domain": "logistics_exception",
+   "n_options": 8,
+   "canonical": "customs",
+   "canonical_confidence": 0.77,
+   "flips": 0,
+   "expected": "customs"
+  },
+  {
+   "id": "od_logistics_exception_005",
+   "domain": "logistics_exception",
+   "n_options": 8,
+   "canonical": "damaged",
+   "canonical_confidence": 0.98,
+   "flips": 0,
+   "expected": "damaged"
+  },
+  {
+   "id": "od_logistics_exception_006",
+   "domain": "logistics_exception",
+   "n_options": 8,
+   "canonical": "lost",
+   "canonical_confidence": 0.86,
+   "flips": 0,
+   "expected": "lost"
+  },
+  {
+   "id": "od_logistics_exception_007",
+   "domain": "logistics_exception",
+   "n_options": 8,
+   "canonical": "customer_unavailable",
+   "canonical_confidence": 0.45,
+   "flips": 1,
+   "expected": "customer_unavailable"
+  },
+  {
+   "id": "od_logistics_exception_008",
+   "domain": "logistics_exception",
+   "n_options": 8,
+   "canonical": "delivered_dispute",
+   "canonical_confidence": 0.65,
+   "flips": 0,
+   "expected": "delivered_dispute"
+  },
+  {
+   "id": "od_logistics_exception_009",
+   "domain": "logistics_exception",
+   "n_options": 8,
+   "canonical": "address_issue",
+   "canonical_confidence": 0.22,
+   "flips": 0,
+   "expected": "address_issue"
+  },
+  {
+   "id": "od_logistics_exception_010",
+   "domain": "logistics_exception",
+   "n_options": 8,
+   "canonical": "carrier_delay",
+   "canonical_confidence": 0.81,
+   "flips": 0,
+   "expected": "carrier_delay"
+  },
+  {
+   "id": "od_logistics_exception_011",
+   "domain": "logistics_exception",
+   "n_options": 8,
+   "canonical": "warehouse_hold",
+   "canonical_confidence": 0.94,
+   "flips": 0,
+   "expected": "warehouse_hold"
+  },
+  {
+   "id": "od_logistics_exception_012",
+   "domain": "logistics_exception",
+   "n_options": 8,
+   "canonical": "customs",
+   "canonical_confidence": 0.73,
+   "flips": 0,
+   "expected": "customs"
+  },
+  {
+   "id": "od_logistics_exception_013",
+   "domain": "logistics_exception",
+   "n_options": 8,
+   "canonical": "damaged",
+   "canonical_confidence": 0.94,
+   "flips": 0,
+   "expected": "damaged"
+  },
+  {
+   "id": "od_logistics_exception_014",
+   "domain": "logistics_exception",
+   "n_options": 8,
+   "canonical": "lost",
+   "canonical_confidence": 0.7,
+   "flips": 0,
+   "expected": "lost"
+  },
+  {
+   "id": "od_logistics_exception_015",
+   "domain": "logistics_exception",
+   "n_options": 8,
+   "canonical": "customer_unavailable",
+   "canonical_confidence": 0.63,
+   "flips": 0,
+   "expected": "customer_unavailable"
+  },
+  {
+   "id": "od_logistics_exception_016",
+   "domain": "logistics_exception",
+   "n_options": 8,
+   "canonical": "address_issue",
+   "canonical_confidence": 0.29,
+   "flips": 1,
+   "expected": "delivered_dispute"
+  },
+  {
+   "id": "od_logistics_exception_017",
+   "domain": "logistics_exception",
+   "n_options": 8,
+   "canonical": "address_issue",
+   "canonical_confidence": 0.91,
+   "flips": 0,
+   "expected": "address_issue"
+  },
+  {
+   "id": "od_logistics_exception_018",
+   "domain": "logistics_exception",
+   "n_options": 8,
+   "canonical": "carrier_delay",
+   "canonical_confidence": 0.82,
+   "flips": 0,
+   "expected": "carrier_delay"
+  },
+  {
+   "id": "od_logistics_exception_019",
+   "domain": "logistics_exception",
+   "n_options": 8,
+   "canonical": "warehouse_hold",
+   "canonical_confidence": 0.48,
+   "flips": 0,
+   "expected": "warehouse_hold"
+  },
+  {
+   "id": "od_logistics_exception_020",
+   "domain": "logistics_exception",
+   "n_options": 8,
+   "canonical": "customs",
+   "canonical_confidence": 0.96,
+   "flips": 0,
+   "expected": "customs"
+  },
+  {
+   "id": "od_manufacturing_defect_001",
+   "domain": "manufacturing_defect",
+   "n_options": 8,
+   "canonical": "cosmetic",
+   "canonical_confidence": 0.53,
+   "flips": 0,
+   "expected": "cosmetic"
+  },
+  {
+   "id": "od_manufacturing_defect_002",
+   "domain": "manufacturing_defect",
+   "n_options": 8,
+   "canonical": "dimensional",
+   "canonical_confidence": 0.91,
+   "flips": 0,
+   "expected": "dimensional"
+  },
+  {
+   "id": "od_manufacturing_defect_003",
+   "domain": "manufacturing_defect",
+   "n_options": 8,
+   "canonical": "contamination",
+   "canonical_confidence": 0.82,
+   "flips": 0,
+   "expected": "contamination"
+  },
+  {
+   "id": "od_manufacturing_defect_004",
+   "domain": "manufacturing_defect",
+   "n_options": 8,
+   "canonical": "electrical",
+   "canonical_confidence": 0.89,
+   "flips": 0,
+   "expected": "electrical"
+  },
+  {
+   "id": "od_manufacturing_defect_005",
+   "domain": "manufacturing_defect",
+   "n_options": 8,
+   "canonical": "mechanical",
+   "canonical_confidence": 0.97,
+   "flips": 0,
+   "expected": "mechanical"
+  },
+  {
+   "id": "od_manufacturing_defect_006",
+   "domain": "manufacturing_defect",
+   "n_options": 8,
+   "canonical": "packaging",
+   "canonical_confidence": 0.85,
+   "flips": 0,
+   "expected": "packaging"
+  },
+  {
+   "id": "od_manufacturing_defect_007",
+   "domain": "manufacturing_defect",
+   "n_options": 8,
+   "canonical": "labeling",
+   "canonical_confidence": 0.81,
+   "flips": 0,
+   "expected": "labeling"
+  },
+  {
+   "id": "od_manufacturing_defect_008",
+   "domain": "manufacturing_defect",
+   "n_options": 8,
+   "canonical": "process_deviation",
+   "canonical_confidence": 0.92,
+   "flips": 0,
+   "expected": "process_deviation"
+  },
+  {
+   "id": "od_manufacturing_defect_009",
+   "domain": "manufacturing_defect",
+   "n_options": 8,
+   "canonical": "cosmetic",
+   "canonical_confidence": 0.39,
+   "flips": 0,
+   "expected": "cosmetic"
+  },
+  {
+   "id": "od_manufacturing_defect_010",
+   "domain": "manufacturing_defect",
+   "n_options": 8,
+   "canonical": "dimensional",
+   "canonical_confidence": 0.86,
+   "flips": 0,
+   "expected": "dimensional"
+  },
+  {
+   "id": "od_manufacturing_defect_011",
+   "domain": "manufacturing_defect",
+   "n_options": 8,
+   "canonical": "contamination",
+   "canonical_confidence": 0.99,
+   "flips": 0,
+   "expected": "contamination"
+  },
+  {
+   "id": "od_manufacturing_defect_012",
+   "domain": "manufacturing_defect",
+   "n_options": 8,
+   "canonical": "process_deviation",
+   "canonical_confidence": 0.3,
+   "flips": 2,
+   "expected": "electrical"
+  },
+  {
+   "id": "od_manufacturing_defect_013",
+   "domain": "manufacturing_defect",
+   "n_options": 8,
+   "canonical": "mechanical",
+   "canonical_confidence": 0.52,
+   "flips": 0,
+   "expected": "mechanical"
+  },
+  {
+   "id": "od_manufacturing_defect_014",
+   "domain": "manufacturing_defect",
+   "n_options": 8,
+   "canonical": "packaging",
+   "canonical_confidence": 0.55,
+   "flips": 0,
+   "expected": "packaging"
+  },
+  {
+   "id": "od_manufacturing_defect_015",
+   "domain": "manufacturing_defect",
+   "n_options": 8,
+   "canonical": "labeling",
+   "canonical_confidence": 0.86,
+   "flips": 0,
+   "expected": "labeling"
+  },
+  {
+   "id": "od_manufacturing_defect_016",
+   "domain": "manufacturing_defect",
+   "n_options": 8,
+   "canonical": "process_deviation",
+   "canonical_confidence": 0.68,
+   "flips": 0,
+   "expected": "process_deviation"
+  },
+  {
+   "id": "od_manufacturing_defect_017",
+   "domain": "manufacturing_defect",
+   "n_options": 8,
+   "canonical": "cosmetic",
+   "canonical_confidence": 0.68,
+   "flips": 0,
+   "expected": "cosmetic"
+  },
+  {
+   "id": "od_manufacturing_defect_018",
+   "domain": "manufacturing_defect",
+   "n_options": 8,
+   "canonical": "dimensional",
+   "canonical_confidence": 0.89,
+   "flips": 0,
+   "expected": "dimensional"
+  },
+  {
+   "id": "od_manufacturing_defect_019",
+   "domain": "manufacturing_defect",
+   "n_options": 8,
+   "canonical": "contamination",
+   "canonical_confidence": 0.96,
+   "flips": 0,
+   "expected": "contamination"
+  },
+  {
+   "id": "od_manufacturing_defect_020",
+   "domain": "manufacturing_defect",
+   "n_options": 8,
+   "canonical": "electrical",
+   "canonical_confidence": 0.88,
+   "flips": 0,
+   "expected": "electrical"
+  },
+  {
+   "id": "od_meeting_intent_001",
+   "domain": "meeting_intent",
+   "n_options": 8,
+   "canonical": "status_update",
+   "canonical_confidence": 0.74,
+   "flips": 0,
+   "expected": "status_update"
+  },
+  {
+   "id": "od_meeting_intent_002",
+   "domain": "meeting_intent",
+   "n_options": 8,
+   "canonical": "planning",
+   "canonical_confidence": 0.42,
+   "flips": 0,
+   "expected": "planning"
+  },
+  {
+   "id": "od_meeting_intent_003",
+   "domain": "meeting_intent",
+   "n_options": 8,
+   "canonical": "decision",
+   "canonical_confidence": 0.7,
+   "flips": 0,
+   "expected": "decision"
+  },
+  {
+   "id": "od_meeting_intent_004",
+   "domain": "meeting_intent",
+   "n_options": 8,
+   "canonical": "brainstorm",
+   "canonical_confidence": 0.89,
+   "flips": 0,
+   "expected": "brainstorm"
+  },
+  {
+   "id": "od_meeting_intent_005",
+   "domain": "meeting_intent",
+   "n_options": 8,
+   "canonical": "retrospective",
+   "canonical_confidence": 0.73,
+   "flips": 0,
+   "expected": "retrospective"
+  },
+  {
+   "id": "od_meeting_intent_006",
+   "domain": "meeting_intent",
+   "n_options": 8,
+   "canonical": "one_on_one",
+   "canonical_confidence": 0.96,
+   "flips": 0,
+   "expected": "one_on_one"
+  },
+  {
+   "id": "od_meeting_intent_007",
+   "domain": "meeting_intent",
+   "n_options": 8,
+   "canonical": "incident_review",
+   "canonical_confidence": 0.73,
+   "flips": 0,
+   "expected": "incident_review"
+  },
+  {
+   "id": "od_meeting_intent_008",
+   "domain": "meeting_intent",
+   "n_options": 8,
+   "canonical": "demo",
+   "canonical_confidence": 0.9,
+   "flips": 0,
+   "expected": "demo"
+  },
+  {
+   "id": "od_meeting_intent_009",
+   "domain": "meeting_intent",
+   "n_options": 8,
+   "canonical": "status_update",
+   "canonical_confidence": 0.78,
+   "flips": 0,
+   "expected": "status_update"
+  },
+  {
+   "id": "od_meeting_intent_010",
+   "domain": "meeting_intent",
+   "n_options": 8,
+   "canonical": "planning",
+   "canonical_confidence": 0.77,
+   "flips": 0,
+   "expected": "planning"
+  },
+  {
+   "id": "od_meeting_intent_011",
+   "domain": "meeting_intent",
+   "n_options": 8,
+   "canonical": "decision",
+   "canonical_confidence": 0.87,
+   "flips": 0,
+   "expected": "decision"
+  },
+  {
+   "id": "od_meeting_intent_012",
+   "domain": "meeting_intent",
+   "n_options": 8,
+   "canonical": "brainstorm",
+   "canonical_confidence": 0.73,
+   "flips": 0,
+   "expected": "brainstorm"
+  },
+  {
+   "id": "od_meeting_intent_013",
+   "domain": "meeting_intent",
+   "n_options": 8,
+   "canonical": "retrospective",
+   "canonical_confidence": 0.88,
+   "flips": 0,
+   "expected": "retrospective"
+  },
+  {
+   "id": "od_meeting_intent_014",
+   "domain": "meeting_intent",
+   "n_options": 8,
+   "canonical": "decision",
+   "canonical_confidence": 0.31,
+   "flips": 2,
+   "expected": "one_on_one"
+  },
+  {
+   "id": "od_meeting_intent_015",
+   "domain": "meeting_intent",
+   "n_options": 8,
+   "canonical": "incident_review",
+   "canonical_confidence": 0.52,
+   "flips": 0,
+   "expected": "incident_review"
+  },
+  {
+   "id": "od_meeting_intent_016",
+   "domain": "meeting_intent",
+   "n_options": 8,
+   "canonical": "demo",
+   "canonical_confidence": 0.49,
+   "flips": 0,
+   "expected": "demo"
+  },
+  {
+   "id": "od_meeting_intent_017",
+   "domain": "meeting_intent",
+   "n_options": 8,
+   "canonical": "retrospective",
+   "canonical_confidence": 0.22,
+   "flips": 1,
+   "expected": "status_update"
+  },
+  {
+   "id": "od_meeting_intent_018",
+   "domain": "meeting_intent",
+   "n_options": 8,
+   "canonical": "planning",
+   "canonical_confidence": 0.46,
+   "flips": 0,
+   "expected": "planning"
+  },
+  {
+   "id": "od_meeting_intent_019",
+   "domain": "meeting_intent",
+   "n_options": 8,
+   "canonical": "decision",
+   "canonical_confidence": 0.89,
+   "flips": 0,
+   "expected": "decision"
+  },
+  {
+   "id": "od_meeting_intent_020",
+   "domain": "meeting_intent",
+   "n_options": 8,
+   "canonical": "brainstorm",
+   "canonical_confidence": 0.64,
+   "flips": 0,
+   "expected": "brainstorm"
+  },
+  {
+   "id": "od_ml_task_001",
+   "domain": "ml_task",
+   "n_options": 8,
+   "canonical": "classification",
+   "canonical_confidence": 0.9,
+   "flips": 0,
+   "expected": "classification"
+  },
+  {
+   "id": "od_ml_task_002",
+   "domain": "ml_task",
+   "n_options": 8,
+   "canonical": "regression",
+   "canonical_confidence": 0.96,
+   "flips": 0,
+   "expected": "regression"
+  },
+  {
+   "id": "od_ml_task_003",
+   "domain": "ml_task",
+   "n_options": 8,
+   "canonical": "clustering",
+   "canonical_confidence": 0.97,
+   "flips": 0,
+   "expected": "clustering"
+  },
+  {
+   "id": "od_ml_task_004",
+   "domain": "ml_task",
+   "n_options": 8,
+   "canonical": "ranking",
+   "canonical_confidence": 0.98,
+   "flips": 0,
+   "expected": "ranking"
+  },
+  {
+   "id": "od_ml_task_005",
+   "domain": "ml_task",
+   "n_options": 8,
+   "canonical": "generation",
+   "canonical_confidence": 0.67,
+   "flips": 0,
+   "expected": "generation"
+  },
+  {
+   "id": "od_ml_task_006",
+   "domain": "ml_task",
+   "n_options": 8,
+   "canonical": "anomaly_detection",
+   "canonical_confidence": 0.98,
+   "flips": 0,
+   "expected": "anomaly_detection"
+  },
+  {
+   "id": "od_ml_task_007",
+   "domain": "ml_task",
+   "n_options": 8,
+   "canonical": "forecasting",
+   "canonical_confidence": 0.85,
+   "flips": 0,
+   "expected": "forecasting"
+  },
+  {
+   "id": "od_ml_task_008",
+   "domain": "ml_task",
+   "n_options": 8,
+   "canonical": "dimensionality_reduction",
+   "canonical_confidence": 0.91,
+   "flips": 0,
+   "expected": "dimensionality_reduction"
+  },
+  {
+   "id": "od_ml_task_009",
+   "domain": "ml_task",
+   "n_options": 8,
+   "canonical": "classification",
+   "canonical_confidence": 0.87,
+   "flips": 0,
+   "expected": "classification"
+  },
+  {
+   "id": "od_ml_task_010",
+   "domain": "ml_task",
+   "n_options": 8,
+   "canonical": "forecasting",
+   "canonical_confidence": 0.44,
+   "flips": 2,
+   "expected": "regression"
+  },
+  {
+   "id": "od_ml_task_011",
+   "domain": "ml_task",
+   "n_options": 8,
+   "canonical": "clustering",
+   "canonical_confidence": 0.77,
+   "flips": 0,
+   "expected": "clustering"
+  },
+  {
+   "id": "od_ml_task_012",
+   "domain": "ml_task",
+   "n_options": 8,
+   "canonical": "ranking",
+   "canonical_confidence": 0.95,
+   "flips": 0,
+   "expected": "ranking"
+  },
+  {
+   "id": "od_ml_task_013",
+   "domain": "ml_task",
+   "n_options": 8,
+   "canonical": "generation",
+   "canonical_confidence": 0.98,
+   "flips": 0,
+   "expected": "generation"
+  },
+  {
+   "id": "od_ml_task_014",
+   "domain": "ml_task",
+   "n_options": 8,
+   "canonical": "anomaly_detection",
+   "canonical_confidence": 0.98,
+   "flips": 0,
+   "expected": "anomaly_detection"
+  },
+  {
+   "id": "od_ml_task_015",
+   "domain": "ml_task",
+   "n_options": 8,
+   "canonical": "forecasting",
+   "canonical_confidence": 0.79,
+   "flips": 0,
+   "expected": "forecasting"
+  },
+  {
+   "id": "od_ml_task_016",
+   "domain": "ml_task",
+   "n_options": 8,
+   "canonical": "dimensionality_reduction",
+   "canonical_confidence": 0.97,
+   "flips": 0,
+   "expected": "dimensionality_reduction"
+  },
+  {
+   "id": "od_ml_task_017",
+   "domain": "ml_task",
+   "n_options": 8,
+   "canonical": "classification",
+   "canonical_confidence": 0.84,
+   "flips": 0,
+   "expected": "classification"
+  },
+  {
+   "id": "od_ml_task_018",
+   "domain": "ml_task",
+   "n_options": 8,
+   "canonical": "regression",
+   "canonical_confidence": 0.75,
+   "flips": 0,
+   "expected": "regression"
+  },
+  {
+   "id": "od_ml_task_019",
+   "domain": "ml_task",
+   "n_options": 8,
+   "canonical": "clustering",
+   "canonical_confidence": 0.94,
+   "flips": 0,
+   "expected": "clustering"
+  },
+  {
+   "id": "od_ml_task_020",
+   "domain": "ml_task",
+   "n_options": 8,
+   "canonical": "ranking",
+   "canonical_confidence": 0.92,
+   "flips": 0,
+   "expected": "ranking"
+  },
+  {
+   "id": "od_policy_decision_001",
+   "domain": "policy_decision",
+   "n_options": 4,
+   "canonical": "allow",
+   "canonical_confidence": 0.99,
+   "flips": 0,
+   "expected": "allow"
+  },
+  {
+   "id": "od_policy_decision_002",
+   "domain": "policy_decision",
+   "n_options": 4,
+   "canonical": "allow",
+   "canonical_confidence": 0.96,
+   "flips": 0,
+   "expected": "allow"
+  },
+  {
+   "id": "od_policy_decision_003",
+   "domain": "policy_decision",
+   "n_options": 4,
+   "canonical": "deny",
+   "canonical_confidence": 0.35,
+   "flips": 0,
+   "expected": "manual_review"
+  },
+  {
+   "id": "od_policy_decision_004",
+   "domain": "policy_decision",
+   "n_options": 4,
+   "canonical": "allow",
+   "canonical_confidence": 0.99,
+   "flips": 0,
+   "expected": "allow"
+  },
+  {
+   "id": "od_policy_decision_005",
+   "domain": "policy_decision",
+   "n_options": 4,
+   "canonical": "deny",
+   "canonical_confidence": 0.81,
+   "flips": 0,
+   "expected": "deny"
+  },
+  {
+   "id": "od_policy_decision_006",
+   "domain": "policy_decision",
+   "n_options": 4,
+   "canonical": "request_info",
+   "canonical_confidence": 0.36,
+   "flips": 0,
+   "expected": "request_info"
+  },
+  {
+   "id": "od_policy_decision_007",
+   "domain": "policy_decision",
+   "n_options": 4,
+   "canonical": "allow",
+   "canonical_confidence": 0.99,
+   "flips": 0,
+   "expected": "allow"
+  },
+  {
+   "id": "od_policy_decision_008",
+   "domain": "policy_decision",
+   "n_options": 4,
+   "canonical": "deny",
+   "canonical_confidence": 0.82,
+   "flips": 0,
+   "expected": "deny"
+  },
+  {
+   "id": "od_policy_decision_009",
+   "domain": "policy_decision",
+   "n_options": 4,
+   "canonical": "allow",
+   "canonical_confidence": 0.93,
+   "flips": 0,
+   "expected": "manual_review"
+  },
+  {
+   "id": "od_policy_decision_010",
+   "domain": "policy_decision",
+   "n_options": 4,
+   "canonical": "allow",
+   "canonical_confidence": 0.99,
+   "flips": 0,
+   "expected": "allow"
+  },
+  {
+   "id": "od_policy_decision_011",
+   "domain": "policy_decision",
+   "n_options": 4,
+   "canonical": "allow",
+   "canonical_confidence": 0.93,
+   "flips": 0,
+   "expected": "manual_review"
+  },
+  {
+   "id": "od_policy_decision_012",
+   "domain": "policy_decision",
+   "n_options": 4,
+   "canonical": "allow",
+   "canonical_confidence": 0.67,
+   "flips": 0,
+   "expected": "request_info"
+  },
+  {
+   "id": "od_policy_decision_013",
+   "domain": "policy_decision",
+   "n_options": 4,
+   "canonical": "allow",
+   "canonical_confidence": 0.98,
+   "flips": 0,
+   "expected": "allow"
+  },
+  {
+   "id": "od_policy_decision_014",
+   "domain": "policy_decision",
+   "n_options": 4,
+   "canonical": "deny",
+   "canonical_confidence": 0.82,
+   "flips": 0,
+   "expected": "deny"
+  },
+  {
+   "id": "od_policy_decision_015",
+   "domain": "policy_decision",
+   "n_options": 4,
+   "canonical": "allow",
+   "canonical_confidence": 0.97,
+   "flips": 0,
+   "expected": "allow"
+  },
+  {
+   "id": "od_policy_decision_016",
+   "domain": "policy_decision",
+   "n_options": 4,
+   "canonical": "allow",
+   "canonical_confidence": 0.93,
+   "flips": 0,
+   "expected": "manual_review"
+  },
+  {
+   "id": "od_policy_decision_017",
+   "domain": "policy_decision",
+   "n_options": 4,
+   "canonical": "allow",
+   "canonical_confidence": 0.64,
+   "flips": 0,
+   "expected": "allow"
+  },
+  {
+   "id": "od_policy_decision_018",
+   "domain": "policy_decision",
+   "n_options": 4,
+   "canonical": "deny",
+   "canonical_confidence": 0.24,
+   "flips": 0,
+   "expected": "deny"
+  },
+  {
+   "id": "od_policy_decision_019",
+   "domain": "policy_decision",
+   "n_options": 4,
+   "canonical": "allow",
+   "canonical_confidence": 0.9,
+   "flips": 0,
+   "expected": "request_info"
+  },
+  {
+   "id": "od_policy_decision_020",
+   "domain": "policy_decision",
+   "n_options": 4,
+   "canonical": "allow",
+   "canonical_confidence": 0.92,
+   "flips": 0,
+   "expected": "allow"
+  },
+  {
+   "id": "od_product_taxonomy_001",
+   "domain": "product_taxonomy",
+   "n_options": 10,
+   "canonical": "electronics_networking",
+   "canonical_confidence": 1.0,
+   "flips": 0,
+   "expected": "electronics_networking"
+  },
+  {
+   "id": "od_product_taxonomy_002",
+   "domain": "product_taxonomy",
+   "n_options": 10,
+   "canonical": "electronics_audio",
+   "canonical_confidence": 1.0,
+   "flips": 0,
+   "expected": "electronics_audio"
+  },
+  {
+   "id": "od_product_taxonomy_003",
+   "domain": "product_taxonomy",
+   "n_options": 10,
+   "canonical": "kitchen_cookware",
+   "canonical_confidence": 1.0,
+   "flips": 0,
+   "expected": "kitchen_cookware"
+  },
+  {
+   "id": "od_product_taxonomy_004",
+   "domain": "product_taxonomy",
+   "n_options": 10,
+   "canonical": "sports_cycling",
+   "canonical_confidence": 1.0,
+   "flips": 0,
+   "expected": "sports_cycling"
+  },
+  {
+   "id": "od_product_taxonomy_005",
+   "domain": "product_taxonomy",
+   "n_options": 10,
+   "canonical": "apparel_outerwear",
+   "canonical_confidence": 1.0,
+   "flips": 0,
+   "expected": "apparel_outerwear"
+  },
+  {
+   "id": "od_product_taxonomy_006",
+   "domain": "product_taxonomy",
+   "n_options": 10,
+   "canonical": "furniture_seating",
+   "canonical_confidence": 1.0,
+   "flips": 0,
+   "expected": "furniture_seating"
+  },
+  {
+   "id": "od_product_taxonomy_007",
+   "domain": "product_taxonomy",
+   "n_options": 10,
+   "canonical": "pet_cat_furniture",
+   "canonical_confidence": 0.95,
+   "flips": 0,
+   "expected": "pet_cat_furniture"
+  },
+  {
+   "id": "od_product_taxonomy_008",
+   "domain": "product_taxonomy",
+   "n_options": 10,
+   "canonical": "automotive_tools",
+   "canonical_confidence": 0.99,
+   "flips": 0,
+   "expected": "automotive_tools"
+  },
+  {
+   "id": "od_product_taxonomy_009",
+   "domain": "product_taxonomy",
+   "n_options": 10,
+   "canonical": "office_writing",
+   "canonical_confidence": 1.0,
+   "flips": 0,
+   "expected": "office_writing"
+  },
+  {
+   "id": "od_product_taxonomy_010",
+   "domain": "product_taxonomy",
+   "n_options": 10,
+   "canonical": "home_lighting",
+   "canonical_confidence": 0.99,
+   "flips": 0,
+   "expected": "home_lighting"
+  },
+  {
+   "id": "od_product_taxonomy_011",
+   "domain": "product_taxonomy",
+   "n_options": 10,
+   "canonical": "electronics_networking",
+   "canonical_confidence": 1.0,
+   "flips": 0,
+   "expected": "electronics_networking"
+  },
+  {
+   "id": "od_product_taxonomy_012",
+   "domain": "product_taxonomy",
+   "n_options": 10,
+   "canonical": "electronics_audio",
+   "canonical_confidence": 1.0,
+   "flips": 0,
+   "expected": "electronics_audio"
+  },
+  {
+   "id": "od_product_taxonomy_013",
+   "domain": "product_taxonomy",
+   "n_options": 10,
+   "canonical": "kitchen_cookware",
+   "canonical_confidence": 1.0,
+   "flips": 0,
+   "expected": "kitchen_cookware"
+  },
+  {
+   "id": "od_product_taxonomy_014",
+   "domain": "product_taxonomy",
+   "n_options": 10,
+   "canonical": "sports_cycling",
+   "canonical_confidence": 1.0,
+   "flips": 0,
+   "expected": "sports_cycling"
+  },
+  {
+   "id": "od_product_taxonomy_015",
+   "domain": "product_taxonomy",
+   "n_options": 10,
+   "canonical": "apparel_outerwear",
+   "canonical_confidence": 1.0,
+   "flips": 0,
+   "expected": "apparel_outerwear"
+  },
+  {
+   "id": "od_product_taxonomy_016",
+   "domain": "product_taxonomy",
+   "n_options": 10,
+   "canonical": "furniture_seating",
+   "canonical_confidence": 1.0,
+   "flips": 0,
+   "expected": "furniture_seating"
+  },
+  {
+   "id": "od_product_taxonomy_017",
+   "domain": "product_taxonomy",
+   "n_options": 10,
+   "canonical": "pet_cat_furniture",
+   "canonical_confidence": 0.98,
+   "flips": 0,
+   "expected": "pet_cat_furniture"
+  },
+  {
+   "id": "od_product_taxonomy_018",
+   "domain": "product_taxonomy",
+   "n_options": 10,
+   "canonical": "automotive_tools",
+   "canonical_confidence": 1.0,
+   "flips": 0,
+   "expected": "automotive_tools"
+  },
+  {
+   "id": "od_product_taxonomy_019",
+   "domain": "product_taxonomy",
+   "n_options": 10,
+   "canonical": "office_writing",
+   "canonical_confidence": 1.0,
+   "flips": 0,
+   "expected": "office_writing"
+  },
+  {
+   "id": "od_product_taxonomy_020",
+   "domain": "product_taxonomy",
+   "n_options": 10,
+   "canonical": "home_lighting",
+   "canonical_confidence": 1.0,
+   "flips": 0,
+   "expected": "home_lighting"
+  },
+  {
+   "id": "od_research_method_001",
+   "domain": "research_method",
+   "n_options": 8,
+   "canonical": "fluorescence_microscopy",
+   "canonical_confidence": 0.98,
+   "flips": 0,
+   "expected": "fluorescence_microscopy"
+  },
+  {
+   "id": "od_research_method_002",
+   "domain": "research_method",
+   "n_options": 8,
+   "canonical": "optical_tweezers",
+   "canonical_confidence": 0.89,
+   "flips": 0,
+   "expected": "optical_tweezers"
+  },
+  {
+   "id": "od_research_method_003",
+   "domain": "research_method",
+   "n_options": 8,
+   "canonical": "xray_scattering",
+   "canonical_confidence": 0.95,
+   "flips": 0,
+   "expected": "xray_scattering"
+  },
+  {
+   "id": "od_research_method_004",
+   "domain": "research_method",
+   "n_options": 8,
+   "canonical": "mass_spectrometry",
+   "canonical_confidence": 0.95,
+   "flips": 0,
+   "expected": "mass_spectrometry"
+  },
+  {
+   "id": "od_research_method_005",
+   "domain": "research_method",
+   "n_options": 8,
+   "canonical": "chromatography",
+   "canonical_confidence": 0.95,
+   "flips": 0,
+   "expected": "chromatography"
+  },
+  {
+   "id": "od_research_method_006",
+   "domain": "research_method",
+   "n_options": 8,
+   "canonical": "sequencing",
+   "canonical_confidence": 0.99,
+   "flips": 0,
+   "expected": "sequencing"
+  },
+  {
+   "id": "od_research_method_007",
+   "domain": "research_method",
+   "n_options": 8,
+   "canonical": "electrophoresis",
+   "canonical_confidence": 0.97,
+   "flips": 0,
+   "expected": "electrophoresis"
+  },
+  {
+   "id": "od_research_method_008",
+   "domain": "research_method",
+   "n_options": 8,
+   "canonical": "spectroscopy",
+   "canonical_confidence": 0.99,
+   "flips": 0,
+   "expected": "spectroscopy"
+  },
+  {
+   "id": "od_research_method_009",
+   "domain": "research_method",
+   "n_options": 8,
+   "canonical": "fluorescence_microscopy",
+   "canonical_confidence": 0.8,
+   "flips": 0,
+   "expected": "fluorescence_microscopy"
+  },
+  {
+   "id": "od_research_method_010",
+   "domain": "research_method",
+   "n_options": 8,
+   "canonical": "optical_tweezers",
+   "canonical_confidence": 0.78,
+   "flips": 0,
+   "expected": "optical_tweezers"
+  },
+  {
+   "id": "od_research_method_011",
+   "domain": "research_method",
+   "n_options": 8,
+   "canonical": "xray_scattering",
+   "canonical_confidence": 0.98,
+   "flips": 0,
+   "expected": "xray_scattering"
+  },
+  {
+   "id": "od_research_method_012",
+   "domain": "research_method",
+   "n_options": 8,
+   "canonical": "mass_spectrometry",
+   "canonical_confidence": 0.53,
+   "flips": 1,
+   "expected": "mass_spectrometry"
+  },
+  {
+   "id": "od_research_method_013",
+   "domain": "research_method",
+   "n_options": 8,
+   "canonical": "chromatography",
+   "canonical_confidence": 0.94,
+   "flips": 0,
+   "expected": "chromatography"
+  },
+  {
+   "id": "od_research_method_014",
+   "domain": "research_method",
+   "n_options": 8,
+   "canonical": "sequencing",
+   "canonical_confidence": 0.97,
+   "flips": 0,
+   "expected": "sequencing"
+  },
+  {
+   "id": "od_research_method_015",
+   "domain": "research_method",
+   "n_options": 8,
+   "canonical": "electrophoresis",
+   "canonical_confidence": 0.88,
+   "flips": 0,
+   "expected": "electrophoresis"
+  },
+  {
+   "id": "od_research_method_016",
+   "domain": "research_method",
+   "n_options": 8,
+   "canonical": "spectroscopy",
+   "canonical_confidence": 0.99,
+   "flips": 0,
+   "expected": "spectroscopy"
+  },
+  {
+   "id": "od_research_method_017",
+   "domain": "research_method",
+   "n_options": 8,
+   "canonical": "fluorescence_microscopy",
+   "canonical_confidence": 0.84,
+   "flips": 0,
+   "expected": "fluorescence_microscopy"
+  },
+  {
+   "id": "od_research_method_018",
+   "domain": "research_method",
+   "n_options": 8,
+   "canonical": "optical_tweezers",
+   "canonical_confidence": 0.67,
+   "flips": 0,
+   "expected": "optical_tweezers"
+  },
+  {
+   "id": "od_research_method_019",
+   "domain": "research_method",
+   "n_options": 8,
+   "canonical": "xray_scattering",
+   "canonical_confidence": 0.91,
+   "flips": 0,
+   "expected": "xray_scattering"
+  },
+  {
+   "id": "od_research_method_020",
+   "domain": "research_method",
+   "n_options": 8,
+   "canonical": "mass_spectrometry",
+   "canonical_confidence": 0.91,
+   "flips": 0,
+   "expected": "mass_spectrometry"
+  },
+  {
+   "id": "od_return_reason_001",
+   "domain": "return_reason",
+   "n_options": 8,
+   "canonical": "wrong_size",
+   "canonical_confidence": 0.78,
+   "flips": 0,
+   "expected": "wrong_size"
+  },
+  {
+   "id": "od_return_reason_002",
+   "domain": "return_reason",
+   "n_options": 8,
+   "canonical": "wrong_item",
+   "canonical_confidence": 0.71,
+   "flips": 0,
+   "expected": "wrong_item"
+  },
+  {
+   "id": "od_return_reason_003",
+   "domain": "return_reason",
+   "n_options": 8,
+   "canonical": "damaged",
+   "canonical_confidence": 0.95,
+   "flips": 0,
+   "expected": "damaged"
+  },
+  {
+   "id": "od_return_reason_004",
+   "domain": "return_reason",
+   "n_options": 8,
+   "canonical": "defective",
+   "canonical_confidence": 0.62,
+   "flips": 0,
+   "expected": "defective"
+  },
+  {
+   "id": "od_return_reason_005",
+   "domain": "return_reason",
+   "n_options": 8,
+   "canonical": "changed_mind",
+   "canonical_confidence": 0.93,
+   "flips": 0,
+   "expected": "changed_mind"
+  },
+  {
+   "id": "od_return_reason_006",
+   "domain": "return_reason",
+   "n_options": 8,
+   "canonical": "not_as_described",
+   "canonical_confidence": 0.39,
+   "flips": 0,
+   "expected": "not_as_described"
+  },
+  {
+   "id": "od_return_reason_007",
+   "domain": "return_reason",
+   "n_options": 8,
+   "canonical": "late_delivery",
+   "canonical_confidence": 0.67,
+   "flips": 0,
+   "expected": "late_delivery"
+  },
+  {
+   "id": "od_return_reason_008",
+   "domain": "return_reason",
+   "n_options": 8,
+   "canonical": "duplicate_order",
+   "canonical_confidence": 0.97,
+   "flips": 0,
+   "expected": "duplicate_order"
+  },
+  {
+   "id": "od_return_reason_009",
+   "domain": "return_reason",
+   "n_options": 8,
+   "canonical": "wrong_size",
+   "canonical_confidence": 0.56,
+   "flips": 0,
+   "expected": "wrong_size"
+  },
+  {
+   "id": "od_return_reason_010",
+   "domain": "return_reason",
+   "n_options": 8,
+   "canonical": "wrong_item",
+   "canonical_confidence": 0.24,
+   "flips": 0,
+   "expected": "wrong_item"
+  },
+  {
+   "id": "od_return_reason_011",
+   "domain": "return_reason",
+   "n_options": 8,
+   "canonical": "damaged",
+   "canonical_confidence": 0.97,
+   "flips": 0,
+   "expected": "damaged"
+  },
+  {
+   "id": "od_return_reason_012",
+   "domain": "return_reason",
+   "n_options": 8,
+   "canonical": "defective",
+   "canonical_confidence": 0.65,
+   "flips": 0,
+   "expected": "defective"
+  },
+  {
+   "id": "od_return_reason_013",
+   "domain": "return_reason",
+   "n_options": 8,
+   "canonical": "changed_mind",
+   "canonical_confidence": 0.85,
+   "flips": 0,
+   "expected": "changed_mind"
+  },
+  {
+   "id": "od_return_reason_014",
+   "domain": "return_reason",
+   "n_options": 8,
+   "canonical": "not_as_described",
+   "canonical_confidence": 0.52,
+   "flips": 0,
+   "expected": "not_as_described"
+  },
+  {
+   "id": "od_return_reason_015",
+   "domain": "return_reason",
+   "n_options": 8,
+   "canonical": "late_delivery",
+   "canonical_confidence": 0.7,
+   "flips": 0,
+   "expected": "late_delivery"
+  },
+  {
+   "id": "od_return_reason_016",
+   "domain": "return_reason",
+   "n_options": 8,
+   "canonical": "duplicate_order",
+   "canonical_confidence": 0.89,
+   "flips": 0,
+   "expected": "duplicate_order"
+  },
+  {
+   "id": "od_return_reason_017",
+   "domain": "return_reason",
+   "n_options": 8,
+   "canonical": "wrong_size",
+   "canonical_confidence": 0.73,
+   "flips": 0,
+   "expected": "wrong_size"
+  },
+  {
+   "id": "od_return_reason_018",
+   "domain": "return_reason",
+   "n_options": 8,
+   "canonical": "wrong_item",
+   "canonical_confidence": 0.79,
+   "flips": 0,
+   "expected": "wrong_item"
+  },
+  {
+   "id": "od_return_reason_019",
+   "domain": "return_reason",
+   "n_options": 8,
+   "canonical": "damaged",
+   "canonical_confidence": 0.75,
+   "flips": 0,
+   "expected": "damaged"
+  },
+  {
+   "id": "od_return_reason_020",
+   "domain": "return_reason",
+   "n_options": 8,
+   "canonical": "defective",
+   "canonical_confidence": 0.6,
+   "flips": 0,
+   "expected": "defective"
+  },
+  {
+   "id": "od_science_phenomenon_001",
+   "domain": "science_phenomenon",
+   "n_options": 10,
+   "canonical": "crystallization",
+   "canonical_confidence": 0.6,
+   "flips": 1,
+   "expected": "phase_separation"
+  },
+  {
+   "id": "od_science_phenomenon_002",
+   "domain": "science_phenomenon",
+   "n_options": 10,
+   "canonical": "diffusion",
+   "canonical_confidence": 0.83,
+   "flips": 0,
+   "expected": "diffusion"
+  },
+  {
+   "id": "od_science_phenomenon_003",
+   "domain": "science_phenomenon",
+   "n_options": 10,
+   "canonical": "osmosis",
+   "canonical_confidence": 0.8,
+   "flips": 0,
+   "expected": "osmosis"
+  },
+  {
+   "id": "od_science_phenomenon_004",
+   "domain": "science_phenomenon",
+   "n_options": 10,
+   "canonical": "fluorescence",
+   "canonical_confidence": 0.99,
+   "flips": 0,
+   "expected": "fluorescence"
+  },
+  {
+   "id": "od_science_phenomenon_005",
+   "domain": "science_phenomenon",
+   "n_options": 10,
+   "canonical": "photobleaching",
+   "canonical_confidence": 0.99,
+   "flips": 0,
+   "expected": "photobleaching"
+  },
+  {
+   "id": "od_science_phenomenon_006",
+   "domain": "science_phenomenon",
+   "n_options": 10,
+   "canonical": "denaturation",
+   "canonical_confidence": 0.99,
+   "flips": 0,
+   "expected": "denaturation"
+  },
+  {
+   "id": "od_science_phenomenon_007",
+   "domain": "science_phenomenon",
+   "n_options": 10,
+   "canonical": "crystallization",
+   "canonical_confidence": 0.96,
+   "flips": 0,
+   "expected": "crystallization"
+  },
+  {
+   "id": "od_science_phenomenon_008",
+   "domain": "science_phenomenon",
+   "n_options": 10,
+   "canonical": "adsorption",
+   "canonical_confidence": 0.43,
+   "flips": 0,
+   "expected": "adsorption"
+  },
+  {
+   "id": "od_science_phenomenon_009",
+   "domain": "science_phenomenon",
+   "n_options": 10,
+   "canonical": "polymerization",
+   "canonical_confidence": 1.0,
+   "flips": 0,
+   "expected": "polymerization"
+  },
+  {
+   "id": "od_science_phenomenon_010",
+   "domain": "science_phenomenon",
+   "n_options": 10,
+   "canonical": "sedimentation",
+   "canonical_confidence": 0.92,
+   "flips": 0,
+   "expected": "sedimentation"
+  },
+  {
+   "id": "od_science_phenomenon_011",
+   "domain": "science_phenomenon",
+   "n_options": 10,
+   "canonical": "phase_separation",
+   "canonical_confidence": 0.52,
+   "flips": 2,
+   "expected": "phase_separation"
+  },
+  {
+   "id": "od_science_phenomenon_012",
+   "domain": "science_phenomenon",
+   "n_options": 10,
+   "canonical": "diffusion",
+   "canonical_confidence": 0.91,
+   "flips": 0,
+   "expected": "diffusion"
+  },
+  {
+   "id": "od_science_phenomenon_013",
+   "domain": "science_phenomenon",
+   "n_options": 10,
+   "canonical": "osmosis",
+   "canonical_confidence": 0.87,
+   "flips": 0,
+   "expected": "osmosis"
+  },
+  {
+   "id": "od_science_phenomenon_014",
+   "domain": "science_phenomenon",
+   "n_options": 10,
+   "canonical": "fluorescence",
+   "canonical_confidence": 0.99,
+   "flips": 0,
+   "expected": "fluorescence"
+  },
+  {
+   "id": "od_science_phenomenon_015",
+   "domain": "science_phenomenon",
+   "n_options": 10,
+   "canonical": "photobleaching",
+   "canonical_confidence": 0.98,
+   "flips": 0,
+   "expected": "photobleaching"
+  },
+  {
+   "id": "od_science_phenomenon_016",
+   "domain": "science_phenomenon",
+   "n_options": 10,
+   "canonical": "denaturation",
+   "canonical_confidence": 0.99,
+   "flips": 0,
+   "expected": "denaturation"
+  },
+  {
+   "id": "od_science_phenomenon_017",
+   "domain": "science_phenomenon",
+   "n_options": 10,
+   "canonical": "phase_separation",
+   "canonical_confidence": 0.45,
+   "flips": 0,
+   "expected": "crystallization"
+  },
+  {
+   "id": "od_science_phenomenon_018",
+   "domain": "science_phenomenon",
+   "n_options": 10,
+   "canonical": "adsorption",
+   "canonical_confidence": 0.98,
+   "flips": 0,
+   "expected": "adsorption"
+  },
+  {
+   "id": "od_science_phenomenon_019",
+   "domain": "science_phenomenon",
+   "n_options": 10,
+   "canonical": "polymerization",
+   "canonical_confidence": 0.99,
+   "flips": 0,
+   "expected": "polymerization"
+  },
+  {
+   "id": "od_science_phenomenon_020",
+   "domain": "science_phenomenon",
+   "n_options": 10,
+   "canonical": "sedimentation",
+   "canonical_confidence": 0.93,
+   "flips": 0,
+   "expected": "sedimentation"
+  },
+  {
+   "id": "od_security_event_001",
+   "domain": "security_event",
+   "n_options": 8,
+   "canonical": "phishing",
+   "canonical_confidence": 0.94,
+   "flips": 0,
+   "expected": "phishing"
+  },
+  {
+   "id": "od_security_event_002",
+   "domain": "security_event",
+   "n_options": 8,
+   "canonical": "brute_force",
+   "canonical_confidence": 0.83,
+   "flips": 0,
+   "expected": "brute_force"
+  },
+  {
+   "id": "od_security_event_003",
+   "domain": "security_event",
+   "n_options": 8,
+   "canonical": "malware",
+   "canonical_confidence": 0.99,
+   "flips": 0,
+   "expected": "malware"
+  },
+  {
+   "id": "od_security_event_004",
+   "domain": "security_event",
+   "n_options": 8,
+   "canonical": "impossible_travel",
+   "canonical_confidence": 0.97,
+   "flips": 0,
+   "expected": "impossible_travel"
+  },
+  {
+   "id": "od_security_event_005",
+   "domain": "security_event",
+   "n_options": 8,
+   "canonical": "benign_admin",
+   "canonical_confidence": 0.74,
+   "flips": 0,
+   "expected": "privilege_escalation"
+  },
+  {
+   "id": "od_security_event_006",
+   "domain": "security_event",
+   "n_options": 8,
+   "canonical": "data_exfiltration",
+   "canonical_confidence": 0.98,
+   "flips": 0,
+   "expected": "data_exfiltration"
+  },
+  {
+   "id": "od_security_event_007",
+   "domain": "security_event",
+   "n_options": 8,
+   "canonical": "benign_admin",
+   "canonical_confidence": 0.98,
+   "flips": 0,
+   "expected": "benign_admin"
+  },
+  {
+   "id": "od_security_event_008",
+   "domain": "security_event",
+   "n_options": 8,
+   "canonical": "vulnerability_scan",
+   "canonical_confidence": 0.91,
+   "flips": 0,
+   "expected": "vulnerability_scan"
+  },
+  {
+   "id": "od_security_event_009",
+   "domain": "security_event",
+   "n_options": 8,
+   "canonical": "phishing",
+   "canonical_confidence": 0.21,
+   "flips": 0,
+   "expected": "phishing"
+  },
+  {
+   "id": "od_security_event_010",
+   "domain": "security_event",
+   "n_options": 8,
+   "canonical": "brute_force",
+   "canonical_confidence": 0.49,
+   "flips": 0,
+   "expected": "brute_force"
+  },
+  {
+   "id": "od_security_event_011",
+   "domain": "security_event",
+   "n_options": 8,
+   "canonical": "malware",
+   "canonical_confidence": 0.99,
+   "flips": 0,
+   "expected": "malware"
+  },
+  {
+   "id": "od_security_event_012",
+   "domain": "security_event",
+   "n_options": 8,
+   "canonical": "impossible_travel",
+   "canonical_confidence": 0.98,
+   "flips": 0,
+   "expected": "impossible_travel"
+  },
+  {
+   "id": "od_security_event_013",
+   "domain": "security_event",
+   "n_options": 8,
+   "canonical": "privilege_escalation",
+   "canonical_confidence": 0.63,
+   "flips": 0,
+   "expected": "privilege_escalation"
+  },
+  {
+   "id": "od_security_event_014",
+   "domain": "security_event",
+   "n_options": 8,
+   "canonical": "data_exfiltration",
+   "canonical_confidence": 0.82,
+   "flips": 0,
+   "expected": "data_exfiltration"
+  },
+  {
+   "id": "od_security_event_015",
+   "domain": "security_event",
+   "n_options": 8,
+   "canonical": "benign_admin",
+   "canonical_confidence": 0.99,
+   "flips": 0,
+   "expected": "benign_admin"
+  },
+  {
+   "id": "od_security_event_016",
+   "domain": "security_event",
+   "n_options": 8,
+   "canonical": "vulnerability_scan",
+   "canonical_confidence": 0.85,
+   "flips": 0,
+   "expected": "vulnerability_scan"
+  },
+  {
+   "id": "od_security_event_017",
+   "domain": "security_event",
+   "n_options": 8,
+   "canonical": "benign_admin",
+   "canonical_confidence": 0.23,
+   "flips": 1,
+   "expected": "phishing"
+  },
+  {
+   "id": "od_security_event_018",
+   "domain": "security_event",
+   "n_options": 8,
+   "canonical": "brute_force",
+   "canonical_confidence": 0.84,
+   "flips": 0,
+   "expected": "brute_force"
+  },
+  {
+   "id": "od_security_event_019",
+   "domain": "security_event",
+   "n_options": 8,
+   "canonical": "malware",
+   "canonical_confidence": 0.97,
+   "flips": 0,
+   "expected": "malware"
+  },
+  {
+   "id": "od_security_event_020",
+   "domain": "security_event",
+   "n_options": 8,
+   "canonical": "data_exfiltration",
+   "canonical_confidence": 0.97,
+   "flips": 0,
+   "expected": "data_exfiltration"
+  },
+  {
+   "id": "od_semantic_extraction_001",
+   "domain": "semantic_extraction",
+   "n_options": 3,
+   "canonical": "maya",
+   "canonical_confidence": 0.45,
+   "flips": 0,
+   "expected": "maya"
+  },
+  {
+   "id": "od_semantic_extraction_002",
+   "domain": "semantic_extraction",
+   "n_options": 3,
+   "canonical": "total",
+   "canonical_confidence": 0.97,
+   "flips": 0,
+   "expected": "total"
+  },
+  {
+   "id": "od_semantic_extraction_003",
+   "domain": "semantic_extraction",
+   "n_options": 3,
+   "canonical": "mobile",
+   "canonical_confidence": 0.91,
+   "flips": 0,
+   "expected": "mobile"
+  },
+  {
+   "id": "od_semantic_extraction_004",
+   "domain": "semantic_extraction",
+   "n_options": 3,
+   "canonical": "seattle",
+   "canonical_confidence": 0.91,
+   "flips": 0,
+   "expected": "seattle"
+  },
+  {
+   "id": "od_semantic_extraction_005",
+   "domain": "semantic_extraction",
+   "n_options": 3,
+   "canonical": "bake",
+   "canonical_confidence": 0.92,
+   "flips": 0,
+   "expected": "bake"
+  },
+  {
+   "id": "od_semantic_extraction_006",
+   "domain": "semantic_extraction",
+   "n_options": 3,
+   "canonical": "b",
+   "canonical_confidence": 0.25,
+   "flips": 1,
+   "expected": "a"
+  },
+  {
+   "id": "od_semantic_extraction_007",
+   "domain": "semantic_extraction",
+   "n_options": 3,
+   "canonical": "ana",
+   "canonical_confidence": 0.49,
+   "flips": 2,
+   "expected": "ana"
+  },
+  {
+   "id": "od_semantic_extraction_008",
+   "domain": "semantic_extraction",
+   "n_options": 3,
+   "canonical": "quantity",
+   "canonical_confidence": 0.94,
+   "flips": 0,
+   "expected": "quantity"
+  },
+  {
+   "id": "od_semantic_extraction_009",
+   "domain": "semantic_extraction",
+   "n_options": 3,
+   "canonical": "talk",
+   "canonical_confidence": 0.95,
+   "flips": 0,
+   "expected": "talk"
+  },
+  {
+   "id": "od_semantic_extraction_010",
+   "domain": "semantic_extraction",
+   "n_options": 3,
+   "canonical": "mgcl2",
+   "canonical_confidence": 0.83,
+   "flips": 0,
+   "expected": "mgcl2"
+  },
+  {
+   "id": "od_semantic_extraction_011",
+   "domain": "semantic_extraction",
+   "n_options": 3,
+   "canonical": "city",
+   "canonical_confidence": 0.95,
+   "flips": 0,
+   "expected": "city"
+  },
+  {
+   "id": "od_semantic_extraction_012",
+   "domain": "semantic_extraction",
+   "n_options": 3,
+   "canonical": "target",
+   "canonical_confidence": 0.93,
+   "flips": 0,
+   "expected": "target"
+  },
+  {
+   "id": "od_semantic_extraction_013",
+   "domain": "semantic_extraction",
+   "n_options": 3,
+   "canonical": "seat",
+   "canonical_confidence": 0.78,
+   "flips": 0,
+   "expected": "seat"
+  },
+  {
+   "id": "od_semantic_extraction_014",
+   "domain": "semantic_extraction",
+   "n_options": 3,
+   "canonical": "journal",
+   "canonical_confidence": 0.66,
+   "flips": 0,
+   "expected": "journal"
+  },
+  {
+   "id": "od_semantic_extraction_015",
+   "domain": "semantic_extraction",
+   "n_options": 3,
+   "canonical": "arrangement",
+   "canonical_confidence": 0.63,
+   "flips": 0,
+   "expected": "arrangement"
+  },
+  {
+   "id": "od_semantic_extraction_016",
+   "domain": "semantic_extraction",
+   "n_options": 3,
+   "canonical": "ip",
+   "canonical_confidence": 0.56,
+   "flips": 0,
+   "expected": "ip"
+  },
+  {
+   "id": "od_semantic_extraction_017",
+   "domain": "semantic_extraction",
+   "n_options": 3,
+   "canonical": "po",
+   "canonical_confidence": 0.88,
+   "flips": 0,
+   "expected": "po"
+  },
+  {
+   "id": "od_semantic_extraction_018",
+   "domain": "semantic_extraction",
+   "n_options": 3,
+   "canonical": "institution",
+   "canonical_confidence": 0.9,
+   "flips": 0,
+   "expected": "institution"
+  },
+  {
+   "id": "od_semantic_extraction_019",
+   "domain": "semantic_extraction",
+   "n_options": 3,
+   "canonical": "strength",
+   "canonical_confidence": 0.57,
+   "flips": 0,
+   "expected": "strength"
+  },
+  {
+   "id": "od_semantic_extraction_020",
+   "domain": "semantic_extraction",
+   "n_options": 3,
+   "canonical": "validation",
+   "canonical_confidence": 0.4,
+   "flips": 0,
+   "expected": "validation"
+  },
+  {
+   "id": "od_software_bug_001",
+   "domain": "software_bug",
+   "n_options": 8,
+   "canonical": "crash",
+   "canonical_confidence": 0.74,
+   "flips": 0,
+   "expected": "crash"
+  },
+  {
+   "id": "od_software_bug_002",
+   "domain": "software_bug",
+   "n_options": 8,
+   "canonical": "incorrect_output",
+   "canonical_confidence": 0.64,
+   "flips": 0,
+   "expected": "incorrect_output"
+  },
+  {
+   "id": "od_software_bug_003",
+   "domain": "software_bug",
+   "n_options": 8,
+   "canonical": "performance",
+   "canonical_confidence": 0.79,
+   "flips": 0,
+   "expected": "performance"
+  },
+  {
+   "id": "od_software_bug_004",
+   "domain": "software_bug",
+   "n_options": 8,
+   "canonical": "authentication",
+   "canonical_confidence": 0.91,
+   "flips": 0,
+   "expected": "authentication"
+  },
+  {
+   "id": "od_software_bug_005",
+   "domain": "software_bug",
+   "n_options": 8,
+   "canonical": "integration",
+   "canonical_confidence": 0.71,
+   "flips": 0,
+   "expected": "integration"
+  },
+  {
+   "id": "od_software_bug_006",
+   "domain": "software_bug",
+   "n_options": 8,
+   "canonical": "ui_visual",
+   "canonical_confidence": 0.91,
+   "flips": 0,
+   "expected": "ui_visual"
+  },
+  {
+   "id": "od_software_bug_007",
+   "domain": "software_bug",
+   "n_options": 8,
+   "canonical": "data_loss",
+   "canonical_confidence": 0.33,
+   "flips": 1,
+   "expected": "data_loss"
+  },
+  {
+   "id": "od_software_bug_008",
+   "domain": "software_bug",
+   "n_options": 8,
+   "canonical": "configuration",
+   "canonical_confidence": 0.73,
+   "flips": 0,
+   "expected": "configuration"
+  },
+  {
+   "id": "od_software_bug_009",
+   "domain": "software_bug",
+   "n_options": 8,
+   "canonical": "crash",
+   "canonical_confidence": 0.47,
+   "flips": 0,
+   "expected": "crash"
+  },
+  {
+   "id": "od_software_bug_010",
+   "domain": "software_bug",
+   "n_options": 8,
+   "canonical": "incorrect_output",
+   "canonical_confidence": 0.67,
+   "flips": 0,
+   "expected": "incorrect_output"
+  },
+  {
+   "id": "od_software_bug_011",
+   "domain": "software_bug",
+   "n_options": 8,
+   "canonical": "performance",
+   "canonical_confidence": 0.77,
+   "flips": 0,
+   "expected": "performance"
+  },
+  {
+   "id": "od_software_bug_012",
+   "domain": "software_bug",
+   "n_options": 8,
+   "canonical": "authentication",
+   "canonical_confidence": 0.74,
+   "flips": 0,
+   "expected": "authentication"
+  },
+  {
+   "id": "od_software_bug_013",
+   "domain": "software_bug",
+   "n_options": 8,
+   "canonical": "configuration",
+   "canonical_confidence": 0.21,
+   "flips": 1,
+   "expected": "integration"
+  },
+  {
+   "id": "od_software_bug_014",
+   "domain": "software_bug",
+   "n_options": 8,
+   "canonical": "ui_visual",
+   "canonical_confidence": 0.81,
+   "flips": 0,
+   "expected": "ui_visual"
+  },
+  {
+   "id": "od_software_bug_015",
+   "domain": "software_bug",
+   "n_options": 8,
+   "canonical": "data_loss",
+   "canonical_confidence": 0.35,
+   "flips": 0,
+   "expected": "data_loss"
+  },
+  {
+   "id": "od_software_bug_016",
+   "domain": "software_bug",
+   "n_options": 8,
+   "canonical": "configuration",
+   "canonical_confidence": 0.82,
+   "flips": 0,
+   "expected": "configuration"
+  },
+  {
+   "id": "od_software_bug_017",
+   "domain": "software_bug",
+   "n_options": 8,
+   "canonical": "crash",
+   "canonical_confidence": 0.35,
+   "flips": 0,
+   "expected": "crash"
+  },
+  {
+   "id": "od_software_bug_018",
+   "domain": "software_bug",
+   "n_options": 8,
+   "canonical": "incorrect_output",
+   "canonical_confidence": 0.86,
+   "flips": 0,
+   "expected": "incorrect_output"
+  },
+  {
+   "id": "od_software_bug_019",
+   "domain": "software_bug",
+   "n_options": 8,
+   "canonical": "performance",
+   "canonical_confidence": 0.87,
+   "flips": 0,
+   "expected": "performance"
+  },
+  {
+   "id": "od_software_bug_020",
+   "domain": "software_bug",
+   "n_options": 8,
+   "canonical": "incorrect_output",
+   "canonical_confidence": 0.22,
+   "flips": 0,
+   "expected": "authentication"
+  },
+  {
+   "id": "od_support_routing_001",
+   "domain": "support_routing",
+   "n_options": 6,
+   "canonical": "billing",
+   "canonical_confidence": 0.88,
+   "flips": 0,
+   "expected": "billing"
+  },
+  {
+   "id": "od_support_routing_002",
+   "domain": "support_routing",
+   "n_options": 6,
+   "canonical": "technical",
+   "canonical_confidence": 0.99,
+   "flips": 0,
+   "expected": "technical"
+  },
+  {
+   "id": "od_support_routing_003",
+   "domain": "support_routing",
+   "n_options": 6,
+   "canonical": "sales",
+   "canonical_confidence": 0.95,
+   "flips": 0,
+   "expected": "sales"
+  },
+  {
+   "id": "od_support_routing_004",
+   "domain": "support_routing",
+   "n_options": 6,
+   "canonical": "technical",
+   "canonical_confidence": 0.33,
+   "flips": 1,
+   "expected": "account"
+  },
+  {
+   "id": "od_support_routing_005",
+   "domain": "support_routing",
+   "n_options": 6,
+   "canonical": "shipping",
+   "canonical_confidence": 0.9,
+   "flips": 0,
+   "expected": "shipping"
+  },
+  {
+   "id": "od_support_routing_006",
+   "domain": "support_routing",
+   "n_options": 6,
+   "canonical": "returns",
+   "canonical_confidence": 0.99,
+   "flips": 0,
+   "expected": "returns"
+  },
+  {
+   "id": "od_support_routing_007",
+   "domain": "support_routing",
+   "n_options": 6,
+   "canonical": "billing",
+   "canonical_confidence": 0.85,
+   "flips": 0,
+   "expected": "billing"
+  },
+  {
+   "id": "od_support_routing_008",
+   "domain": "support_routing",
+   "n_options": 6,
+   "canonical": "technical",
+   "canonical_confidence": 0.96,
+   "flips": 0,
+   "expected": "technical"
+  },
+  {
+   "id": "od_support_routing_009",
+   "domain": "support_routing",
+   "n_options": 6,
+   "canonical": "sales",
+   "canonical_confidence": 0.52,
+   "flips": 0,
+   "expected": "sales"
+  },
+  {
+   "id": "od_support_routing_010",
+   "domain": "support_routing",
+   "n_options": 6,
+   "canonical": "technical",
+   "canonical_confidence": 0.12,
+   "flips": 1,
+   "expected": "account"
+  },
+  {
+   "id": "od_support_routing_011",
+   "domain": "support_routing",
+   "n_options": 6,
+   "canonical": "shipping",
+   "canonical_confidence": 0.6,
+   "flips": 0,
+   "expected": "shipping"
+  },
+  {
+   "id": "od_support_routing_012",
+   "domain": "support_routing",
+   "n_options": 6,
+   "canonical": "returns",
+   "canonical_confidence": 0.97,
+   "flips": 0,
+   "expected": "returns"
+  },
+  {
+   "id": "od_support_routing_013",
+   "domain": "support_routing",
+   "n_options": 6,
+   "canonical": "billing",
+   "canonical_confidence": 0.99,
+   "flips": 0,
+   "expected": "billing"
+  },
+  {
+   "id": "od_support_routing_014",
+   "domain": "support_routing",
+   "n_options": 6,
+   "canonical": "technical",
+   "canonical_confidence": 0.98,
+   "flips": 0,
+   "expected": "technical"
+  },
+  {
+   "id": "od_support_routing_015",
+   "domain": "support_routing",
+   "n_options": 6,
+   "canonical": "sales",
+   "canonical_confidence": 0.53,
+   "flips": 0,
+   "expected": "sales"
+  },
+  {
+   "id": "od_support_routing_016",
+   "domain": "support_routing",
+   "n_options": 6,
+   "canonical": "account",
+   "canonical_confidence": 0.75,
+   "flips": 0,
+   "expected": "account"
+  },
+  {
+   "id": "od_support_routing_017",
+   "domain": "support_routing",
+   "n_options": 6,
+   "canonical": "shipping",
+   "canonical_confidence": 0.9,
+   "flips": 0,
+   "expected": "shipping"
+  },
+  {
+   "id": "od_support_routing_018",
+   "domain": "support_routing",
+   "n_options": 6,
+   "canonical": "returns",
+   "canonical_confidence": 0.93,
+   "flips": 0,
+   "expected": "returns"
+  },
+  {
+   "id": "od_support_routing_019",
+   "domain": "support_routing",
+   "n_options": 6,
+   "canonical": "billing",
+   "canonical_confidence": 0.61,
+   "flips": 0,
+   "expected": "billing"
+  },
+  {
+   "id": "od_support_routing_020",
+   "domain": "support_routing",
+   "n_options": 6,
+   "canonical": "technical",
+   "canonical_confidence": 0.96,
+   "flips": 0,
+   "expected": "technical"
+  },
+  {
+   "id": "od_transaction_type_001",
+   "domain": "transaction_type",
+   "n_options": 8,
+   "canonical": "purchase",
+   "canonical_confidence": 0.93,
+   "flips": 0,
+   "expected": "purchase"
+  },
+  {
+   "id": "od_transaction_type_002",
+   "domain": "transaction_type",
+   "n_options": 8,
+   "canonical": "subscription",
+   "canonical_confidence": 1.0,
+   "flips": 0,
+   "expected": "subscription"
+  },
+  {
+   "id": "od_transaction_type_003",
+   "domain": "transaction_type",
+   "n_options": 8,
+   "canonical": "refund",
+   "canonical_confidence": 0.89,
+   "flips": 0,
+   "expected": "refund"
+  },
+  {
+   "id": "od_transaction_type_004",
+   "domain": "transaction_type",
+   "n_options": 8,
+   "canonical": "transfer",
+   "canonical_confidence": 0.93,
+   "flips": 0,
+   "expected": "transfer"
+  },
+  {
+   "id": "od_transaction_type_005",
+   "domain": "transaction_type",
+   "n_options": 8,
+   "canonical": "fee",
+   "canonical_confidence": 0.98,
+   "flips": 0,
+   "expected": "fee"
+  },
+  {
+   "id": "od_transaction_type_006",
+   "domain": "transaction_type",
+   "n_options": 8,
+   "canonical": "payroll",
+   "canonical_confidence": 0.98,
+   "flips": 0,
+   "expected": "payroll"
+  },
+  {
+   "id": "od_transaction_type_007",
+   "domain": "transaction_type",
+   "n_options": 8,
+   "canonical": "cash_withdrawal",
+   "canonical_confidence": 0.99,
+   "flips": 0,
+   "expected": "cash_withdrawal"
+  },
+  {
+   "id": "od_transaction_type_008",
+   "domain": "transaction_type",
+   "n_options": 8,
+   "canonical": "interest",
+   "canonical_confidence": 0.95,
+   "flips": 0,
+   "expected": "interest"
+  },
+  {
+   "id": "od_transaction_type_009",
+   "domain": "transaction_type",
+   "n_options": 8,
+   "canonical": "purchase",
+   "canonical_confidence": 0.97,
+   "flips": 0,
+   "expected": "purchase"
+  },
+  {
+   "id": "od_transaction_type_010",
+   "domain": "transaction_type",
+   "n_options": 8,
+   "canonical": "subscription",
+   "canonical_confidence": 0.91,
+   "flips": 0,
+   "expected": "subscription"
+  },
+  {
+   "id": "od_transaction_type_011",
+   "domain": "transaction_type",
+   "n_options": 8,
+   "canonical": "purchase",
+   "canonical_confidence": 0.37,
+   "flips": 0,
+   "expected": "refund"
+  },
+  {
+   "id": "od_transaction_type_012",
+   "domain": "transaction_type",
+   "n_options": 8,
+   "canonical": "purchase",
+   "canonical_confidence": 0.39,
+   "flips": 0,
+   "expected": "transfer"
+  },
+  {
+   "id": "od_transaction_type_013",
+   "domain": "transaction_type",
+   "n_options": 8,
+   "canonical": "fee",
+   "canonical_confidence": 0.97,
+   "flips": 0,
+   "expected": "fee"
+  },
+  {
+   "id": "od_transaction_type_014",
+   "domain": "transaction_type",
+   "n_options": 8,
+   "canonical": "payroll",
+   "canonical_confidence": 0.92,
+   "flips": 0,
+   "expected": "payroll"
+  },
+  {
+   "id": "od_transaction_type_015",
+   "domain": "transaction_type",
+   "n_options": 8,
+   "canonical": "cash_withdrawal",
+   "canonical_confidence": 0.99,
+   "flips": 0,
+   "expected": "cash_withdrawal"
+  },
+  {
+   "id": "od_transaction_type_016",
+   "domain": "transaction_type",
+   "n_options": 8,
+   "canonical": "interest",
+   "canonical_confidence": 0.77,
+   "flips": 0,
+   "expected": "interest"
+  },
+  {
+   "id": "od_transaction_type_017",
+   "domain": "transaction_type",
+   "n_options": 8,
+   "canonical": "purchase",
+   "canonical_confidence": 0.92,
+   "flips": 0,
+   "expected": "purchase"
+  },
+  {
+   "id": "od_transaction_type_018",
+   "domain": "transaction_type",
+   "n_options": 8,
+   "canonical": "subscription",
+   "canonical_confidence": 0.99,
+   "flips": 0,
+   "expected": "subscription"
+  },
+  {
+   "id": "od_transaction_type_019",
+   "domain": "transaction_type",
+   "n_options": 8,
+   "canonical": "refund",
+   "canonical_confidence": 0.63,
+   "flips": 0,
+   "expected": "refund"
+  },
+  {
+   "id": "od_transaction_type_020",
+   "domain": "transaction_type",
+   "n_options": 8,
+   "canonical": "transfer",
+   "canonical_confidence": 0.89,
+   "flips": 0,
+   "expected": "transfer"
+  },
+  {
+   "id": "od_word_sense_001",
+   "domain": "word_sense",
+   "n_options": 3,
+   "canonical": "financial",
+   "canonical_confidence": 0.98,
+   "flips": 0,
+   "expected": "financial"
+  },
+  {
+   "id": "od_word_sense_002",
+   "domain": "word_sense",
+   "n_options": 3,
+   "canonical": "river",
+   "canonical_confidence": 0.96,
+   "flips": 0,
+   "expected": "river"
+  },
+  {
+   "id": "od_word_sense_003",
+   "domain": "word_sense",
+   "n_options": 3,
+   "canonical": "tilt",
+   "canonical_confidence": 0.96,
+   "flips": 0,
+   "expected": "tilt"
+  },
+  {
+   "id": "od_word_sense_004",
+   "domain": "word_sense",
+   "n_options": 3,
+   "canonical": "animal",
+   "canonical_confidence": 0.78,
+   "flips": 0,
+   "expected": "animal"
+  },
+  {
+   "id": "od_word_sense_005",
+   "domain": "word_sense",
+   "n_options": 3,
+   "canonical": "sports",
+   "canonical_confidence": 0.94,
+   "flips": 0,
+   "expected": "sports"
+  },
+  {
+   "id": "od_word_sense_006",
+   "domain": "word_sense",
+   "n_options": 3,
+   "canonical": "water",
+   "canonical_confidence": 1.0,
+   "flips": 0,
+   "expected": "water"
+  },
+  {
+   "id": "od_word_sense_007",
+   "domain": "word_sense",
+   "n_options": 3,
+   "canonical": "coil",
+   "canonical_confidence": 0.87,
+   "flips": 0,
+   "expected": "coil"
+  },
+  {
+   "id": "od_word_sense_008",
+   "domain": "word_sense",
+   "n_options": 3,
+   "canonical": "season",
+   "canonical_confidence": 1.0,
+   "flips": 0,
+   "expected": "season"
+  },
+  {
+   "id": "od_word_sense_009",
+   "domain": "word_sense",
+   "n_options": 3,
+   "canonical": "electric",
+   "canonical_confidence": 0.99,
+   "flips": 0,
+   "expected": "electric"
+  },
+  {
+   "id": "od_word_sense_010",
+   "domain": "word_sense",
+   "n_options": 3,
+   "canonical": "fee",
+   "canonical_confidence": 1.0,
+   "flips": 0,
+   "expected": "fee"
+  },
+  {
+   "id": "od_word_sense_011",
+   "domain": "word_sense",
+   "n_options": 3,
+   "canonical": "accusation",
+   "canonical_confidence": 1.0,
+   "flips": 0,
+   "expected": "accusation"
+  },
+  {
+   "id": "od_word_sense_012",
+   "domain": "word_sense",
+   "n_options": 3,
+   "canonical": "electric",
+   "canonical_confidence": 0.95,
+   "flips": 0,
+   "expected": "electric"
+  },
+  {
+   "id": "od_word_sense_013",
+   "domain": "word_sense",
+   "n_options": 3,
+   "canonical": "water",
+   "canonical_confidence": 0.98,
+   "flips": 0,
+   "expected": "water"
+  },
+  {
+   "id": "od_word_sense_014",
+   "domain": "word_sense",
+   "n_options": 3,
+   "canonical": "present",
+   "canonical_confidence": 0.98,
+   "flips": 0,
+   "expected": "present"
+  },
+  {
+   "id": "od_word_sense_015",
+   "domain": "word_sense",
+   "n_options": 3,
+   "canonical": "tone",
+   "canonical_confidence": 0.98,
+   "flips": 0,
+   "expected": "tone"
+  },
+  {
+   "id": "od_word_sense_016",
+   "domain": "word_sense",
+   "n_options": 3,
+   "canonical": "sales",
+   "canonical_confidence": 0.92,
+   "flips": 0,
+   "expected": "sales"
+  },
+  {
+   "id": "od_word_sense_017",
+   "domain": "word_sense",
+   "n_options": 3,
+   "canonical": "throw",
+   "canonical_confidence": 0.76,
+   "flips": 0,
+   "expected": "throw"
+  },
+  {
+   "id": "od_word_sense_018",
+   "domain": "word_sense",
+   "n_options": 3,
+   "canonical": "lab",
+   "canonical_confidence": 0.99,
+   "flips": 0,
+   "expected": "lab"
+  },
+  {
+   "id": "od_word_sense_019",
+   "domain": "word_sense",
+   "n_options": 3,
+   "canonical": "society",
+   "canonical_confidence": 0.26,
+   "flips": 1,
+   "expected": "society"
+  },
+  {
+   "id": "od_word_sense_020",
+   "domain": "word_sense",
+   "n_options": 3,
+   "canonical": "arts",
+   "canonical_confidence": 0.97,
+   "flips": 0,
+   "expected": "arts"
+  }
+ ]
+}

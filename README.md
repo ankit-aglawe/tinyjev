@@ -46,11 +46,48 @@ TinyJev is MIT licensed.
 ## Watch it decide
 
 <div align="center">
+  <img alt="TinyJev answering 12 typed decisions about one support ticket in one forward pass, next to GPT-6 Sol writing the same answers as JSON token by token" src="https://raw.githubusercontent.com/ankit-aglawe/tinyjev/main/assets/demo_batch.gif" width="860">
+</div>
+
+One support ticket, twelve typed decisions: which team, what priority, what the customer wants.
+TinyJev scores every option of every question in a single forward pass and returns all twelve
+together, 596 ms on a base M1, 10 of 12 right. GPT-6 Sol writes the same twelve as JSON, token by
+token: 2,198 ms, 12 of 12 right. Both lanes are real runs replayed at real speed; the API lane is a
+recording with wall-clock timestamps. The ticket, the questions, the expected answers and both
+measurements are in [`demos/cases`](demos/cases) and [`assets/recordings`](assets/recordings).
+
+```bash
+pip install 'tinyjev[mlx,demo]'
+python demos/batch_race.py --data assets/recordings/batch-support-ticket-gpt-6-sol.json --gif demo.gif
+```
+
+<details>
+<summary><b>Six single questions against GPT-6 Sol</b> — click to expand</summary>
+
+<div align="center">
+  <img alt="TinyJev and GPT-6 Sol answering the same six never-seen questions from a shared start" src="https://raw.githubusercontent.com/ankit-aglawe/tinyjev/main/assets/demo_race.gif" width="860">
+</div>
+
+Six decisions from six domains it never trained on, the same question to both at the same instant.
+TinyJev 6 of 6 at 86 ms a question; GPT-6 Sol 6 of 6 at 2,042 ms. Recorded once, replayed from disk.
+
+</details>
+
+<details>
+<summary><b>Eight tickets, three questions each</b> — click to expand</summary>
+
+<div align="center">
   <img alt="TinyJev triaging support tickets" src="https://raw.githubusercontent.com/ankit-aglawe/tinyjev/main/assets/demo_triage.gif" width="860">
 </div>
 
 Eight real support tickets, one after another, on a base M1. Three questions per ticket in a
 single forward pass, about 110 ms each. Every number in that recording came from a live run.
+
+```bash
+python demos/triage_desk.py --gif demo.gif
+```
+
+</details>
 
 <!-- MEASURED-BLOCK:start -->
 **Measured.** On OpenDecision's Original Choice 500, a suite of 25 domains that was not in the training data:
@@ -60,11 +97,6 @@ The same Qwen3-0.6B weights read through next-token letter logits, with no head,
 Kev-0.6B, the checkpoint this reproduces, scores 441/500 and covers more of the queue at the same gate; the gap is the served temperature, see the benchmark page.
 85 ms a case on a base M1 via MLX. Every case, every probability, and the same-input baselines it loses to are in [`benchmarks/opendecision`](benchmarks/opendecision).
 <!-- MEASURED-BLOCK:end -->
-
-```bash
-pip install 'tinyjev[mlx,demo]'
-python demos/triage_desk.py --gif demo.gif
-```
 
 <details>
 <summary><b>And, for fun, Doom</b> — click to expand</summary>

@@ -83,6 +83,12 @@ one H100 via Modal, ≈ 1–1.5 GPU-hours. Convert to tinyjev-v2, MLX fp16 and I
 INT8 within 0.5 pt of fp16; ≤ 400 ms per short question on a base M1.
 This is the fastest visible accuracy win and the second post.
 
+**Run 2026-09-25 (Modal, `tinyjev-e11-4b`, 0.8 H100-h): transfer-v4 dev 0.762, decision-v7 dev
+0.859 (ECE 0.064).** +13.7 points over the 0.6B on transfer; 2.8 under the 0.79 gate, which was
+Kev-4B's number, and Kev-4B is a full fine-tune where this is LoRA r16. OD-500 pending the local
+conversion. If OD-500 clears 0.94 the model ships as tinyjev-4b with the transfer number stated;
+the full-fine-tune arm (E11b, ~2 H100-h) waits for October's credit.
+
 ### E8 — Data scale at 0.6B. ~$10–30 API + ~$8–16 GPU. The real bet.
 
 Build a 100k+ typed-decision corpus and retrain the 0.6B on 10× and 30× the data with
@@ -100,9 +106,12 @@ scaling curve as the artifact.
 ### E9 — Option-order invariance. ~$4, one H100-hour.
 
 von reports 0.0% answer flips under option permutation after v1.2 (49.5% before).
-Measure tinyjev's flip rate on OD-500 (permute options, re-run, count argmax changes),
-then train one E1(b) arm with permutation augmentation (each example seen under k
-random option orders).
+**Measured 2026-09-25 (`benchmarks/opendecision/permute.py`, k=2, seed 20260925):** flip rate
+5.9% (59 of 1,000 shuffles), 44 of 500 cases flip at least once, accuracy 88.0% canonical vs
+89.8% under shuffles. Flipping cases average 0.39 confidence against 0.82 for stable ones, so
+the gate already catches most of them. Worst domains: citation_relation 22.5%, entity_matching
+20.0% (both 9/20 anyway), 3-option cases 13.1%. Ceiling on this arm is ~2 points. Low priority.
+Arm: one E1(b) run with permutation augmentation (each example seen under k random option orders).
 **Gate:** flip rate ≤ 2% with OD-500 accuracy within 0.5 pt of the un-augmented arm.
 
 ### E12 — The smaller model. After E8.
@@ -119,10 +128,16 @@ answered true, p_true flat at 0.6-0.8 in every format tried (noul statement, 2-w
 yes/no descriptions, question phrasing, true/false). Batching is not the cause; single and
 21-question calls give identical probabilities. OD-500 is all choice cases, so no benchmark
 caught it. Evidence: `tinyjev-research/experiments/noul-bias/`.
+Audit of decision-v7 (same day): train noul labels are 3,081 false / 2,143 true, so balance is
+not the cause. Two shape gaps are: every training noul is a *question* ("does the euro sign go
+before the number?") while TypeSafe's public cases and real check lists are *statements*; and
+the training negatives are factual no's (BoolQ), never a statement about a topic the state
+mentions but does not support. Question phrasing alone lifts the authored list 14 → 17/21.
 **Gate:** the same two check lists ≥ 19/21 and ≥ 7/8 with OD-500 choice accuracy unchanged
-within 0.5 pt. Arms: (a) rebalance noul labels in the training mix; (b) hard negatives,
-statements about a topic that is present in the state but false of it. Ships as a 0.6B
-point release; the choice head is untouched.
+within 0.5 pt. Arms: (a) statement-form noul, the existing items re-templated as statements
+with the same labels; (b) hard negatives, statements about a topic present in the state but
+false of it, ~2k written from the ten source datasets' held-out rows. Ships as a 0.6B point
+release; the choice head is untouched.
 
 ### E10 — Trained logit scale. ~$6–8. Lowest priority.
 
