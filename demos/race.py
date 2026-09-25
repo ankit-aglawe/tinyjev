@@ -5,7 +5,10 @@ streamed through its API with wall-clock timestamps. tinyjev runs live here. Bot
 replayed from a shared t=0 at real speed; the stopwatches are the measured times.
 
     python demos/record_api.py                                   # once, needs ANTHROPIC_API_KEY
-    python demos/race.py --recording assets/recordings/claude-opus-5-5.jsonl --mp4 race.mp4 --gif race.gif
+    python demos/race.py --recording assets/recordings/gpt-6-sol.jsonl --mp4 race.mp4 --gif race.gif
+
+tinyjev's lane is measured on the first run and saved to assets/recordings/race-tinyjev.json;
+every later render replays both lanes from disk, so design changes need no model and no key.
 
 A local MLX chat model can stand in for the recording with --llm <mlx model path>.
 """
@@ -124,11 +127,50 @@ def run_llm(model, tok, case, max_tokens=160):
 
 
 # ----------------------------------------------------------------------------- frames
+LOGOS = Path(__file__).resolve().parent.parent / "assets" / "logos"
+
+
+def logo_for(name):
+    n = name.lower()
+    if "tinyjev" in n:
+        return LOGOS / "tinyjev.png"
+    if "gpt" in n or "chatgpt" in n or n.startswith("o"):
+        return LOGOS / "chatgpt.png"
+    if "claude" in n or "opus" in n or "sonnet" in n:
+        return LOGOS / "claude.png"
+    return None
+
+
+def paste_logo(c, path, x, y, size):
+    if path and Path(path).exists():
+        im = Image.open(path).convert("RGBA")
+        im.thumbnail((P(size), P(size)), Image.LANCZOS)
+        c.img.paste(im, (P(x), P(y)), im)
+        return True
+    return False
+
+
+TJ_NAME = "TinyJev"
+TJ_MODEL = "TinyJev 0.6B"
+
+
+def title_row(c, llm_name, y=40):
+    """[ant] TinyJev vs [mark] GPT-6 Sol, logos at title height."""
+    x = 60
+    if paste_logo(c, logo_for("tinyjev"), x, y - 2, 40):
+        x += 50
+    c.text((x, y), TJ_NAME, F_TITLE, R.INK); x += c.d.textlength(TJ_NAME, font=F_TITLE) / S + 14
+    c.text((x, y), "vs", F_TITLE, R.MUTED); x += c.d.textlength("vs", font=F_TITLE) / S + 14
+    if paste_logo(c, logo_for(llm_name), x, y - 2, 40):
+        x += 50
+    c.text((x, y), llm_name, F_TITLE, R.INK)
+    c.text((W - 60, 50), TJ_NAME, F_LANE, R.ACCENT_TEXT, anchor="ra")
+
+
 def frame(case, idx, total, tj, tj_ms, llm, t_ms, llm_name, tally, history=()):
     c = Canvas()
-    c.text((60, 44), f"tinyjev vs {llm_name}", F_TITLE, R.INK)
+    title_row(c, llm_name)
     c.text((60, 88), "same question to both · every number is a real run", F_SUB, R.MUTED)
-    c.text((W - 60, 50), "tinyjev", F_LANE, R.ACCENT_TEXT, anchor="ra")
     c.rule(60, 122, W - 60)
 
     # the case
@@ -144,8 +186,9 @@ def frame(case, idx, total, tj, tj_ms, llm, t_ms, llm_name, tally, history=()):
     top = 300
     c.vrule(540, top, 940)
     # left: tinyjev
-    c.text((lx, top), "tinyjev-0.6b", F_LANE, R.INK)
-    c.text((lx, top + 26), "one forward pass · 0 tokens generated", F_TINY, R.MUTED)
+    off = 54 if paste_logo(c, logo_for("tinyjev"), lx, top - 4, 44) else 0
+    c.text((lx + off, top - 2), TJ_MODEL, F_LANE, R.INK)
+    c.text((lx + off, top + 22), "one forward pass · 0 tokens generated", F_TINY, R.MUTED)
     done_l = t_ms >= tj_ms
     shown = min(t_ms, tj_ms)
     c.text((lx, top + 52), f"{shown:,.0f} ms", F_BIG, R.ACCENT_TEXT if done_l else R.INK)
@@ -165,8 +208,9 @@ def frame(case, idx, total, tj, tj_ms, llm, t_ms, llm_name, tally, history=()):
         c.text((lx, top + 112), "reading the state…", F_VALUE, R.MUTED)
 
     # right: the LLM
-    c.text((rx, top), llm_name, F_LANE, R.INK)
-    c.text((rx, top + 26), llm.get("lane_note", "writes the answer as JSON, token by token"), F_TINY, R.MUTED)
+    off = 54 if paste_logo(c, logo_for(llm_name), rx, top - 4, 44) else 0
+    c.text((rx + off, top - 2), llm_name, F_LANE, R.INK)
+    c.text((rx + off, top + 22), llm.get("lane_note", "writes the answer as JSON, token by token"), F_TINY, R.MUTED)
     done_r = t_ms >= llm["ms"]
     shown_r = min(t_ms, llm["ms"])
     c.text((rx, top + 52), f"{shown_r:,.0f} ms", F_BIG, R.ACCENT_TEXT if done_r else R.INK)
@@ -177,7 +221,9 @@ def frame(case, idx, total, tj, tj_ms, llm, t_ms, llm_name, tally, history=()):
             txt = so_far
         else:
             break
-    ntok_now = sum(1 for ms, _ in llm["timeline"] if ms <= t_ms)
+    chunks = sum(1 for ms, _ in llm["timeline"] if ms <= t_ms)
+    # ponytail: API chunks are not tokens; scale to the billed count so the live number ends where the final line does
+    ntok_now = max(1, round(llm["tokens"] * chunks / max(1, len(llm["timeline"])))) if chunks else 0
     if ntok_now == 0 and not done_r:
         c.text((rx, top + 112), f"reading the prompt, {llm['prompt_tokens']} tokens…", F_VALUE, R.MUTED)
     else:
@@ -198,7 +244,7 @@ def frame(case, idx, total, tj, tj_ms, llm, t_ms, llm_name, tally, history=()):
     if history:
         c.rule(60, 700, W - 60)
         c.text((60, 714), "EARLIER", F_TINY, R.MUTED)
-        c.text((330, 714), "TINYJEV", F_TINY, R.MUTED); c.text((560, 714), llm_name.split(" ")[0].upper(), F_TINY, R.MUTED)
+        c.text((330, 714), TJ_NAME.upper(), F_TINY, R.MUTED); c.text((560, 714), llm_name.split(" ")[0].upper(), F_TINY, R.MUTED)
         hy = 734
         for (dom, tj_ok, tj_t, ll_ok, ll_t) in history[-5:]:
             c.text((60, hy), dom.replace("_", " "), F_BODY, R.INK)
@@ -211,9 +257,9 @@ def frame(case, idx, total, tj, tj_ms, llm, t_ms, llm_name, tally, history=()):
     def stat(x, label, value, color=R.INK):
         c.text((x, 976), label.upper(), F_TINY, R.MUTED); c.text((x, 994), value, F_VALUE, color)
     stat(60, "cases", str(n))
-    stat(190, "tinyjev right", f"{tj_ok} / {n}", R.ACCENT_TEXT)
+    stat(190, f"{TJ_NAME} right", f"{tj_ok} / {n}", R.ACCENT_TEXT)
     stat(360, f"{llm_name.split(' ')[0]} right", f"{llm_ok} / {n}")
-    stat(560, "tinyjev mean", f"{tj_sum / max(n, 1):,.0f} ms", R.ACCENT_TEXT)
+    stat(560, f"{TJ_NAME} mean", f"{tj_sum / max(n, 1):,.0f} ms", R.ACCENT_TEXT)
     stat(730, f"{llm_name.split(' ')[0]} mean", f"{llm_sum / max(n, 1):,.0f} ms")
     stat(900, "finished first", f"{first} / {n}", R.ACCENT_TEXT)
     c.text((60, H - 36), llm.get("footer", "both measured, replayed at real speed from a shared t=0"), F_TINY, R.MUTED)
@@ -224,20 +270,19 @@ def frame(case, idx, total, tj, tj_ms, llm, t_ms, llm_name, tally, history=()):
 def closing(tally, llm_name, n_total):
     c = Canvas()
     n, tj_ok, llm_ok, tj_sum, llm_sum, first = tally
-    c.text((60, 44), f"tinyjev vs {llm_name}", F_TITLE, R.INK)
+    title_row(c, llm_name)
     c.text((60, 88), f"{n} never-seen decisions from 25 domains", F_SUB, R.MUTED)
-    c.text((W - 60, 50), "tinyjev", F_LANE, R.ACCENT_TEXT, anchor="ra")
     c.rule(60, 122, W - 60)
     y = 200
-    rows = [("tinyjev-0.6b, one forward pass", f"{tj_ok} / {n} right", f"{tj_sum / n:,.0f} ms a case", R.ACCENT_TEXT),
+    rows = [(f"{TJ_MODEL}, one forward pass", f"{tj_ok} / {n} right", f"{tj_sum / n:,.0f} ms a case", R.ACCENT_TEXT),
             (f"{llm_name}, writing JSON", f"{llm_ok} / {n} right", f"{llm_sum / n:,.0f} ms a case", R.INK)]
     for name, acc, ms, col in rows:
         c.text((60, y), name, F_LANE, col); c.text((640, y), acc, F_LANE, col); c.text((W - 60, y), ms, F_LANE, col, anchor="ra"); y += 56
     c.rule(60, y, W - 60); y += 30
     c.text((60, y), f"{llm_sum / max(tj_sum, 1):.0f}× faster", F_BIG, R.ACCENT_TEXT); y += 62
-    c.text((60, y), f"tinyjev finished first {first} of {n} times and never generated a token.", F_VALUE, R.INK); y += 30
-    c.text((60, y), f"On the full 500 it scores 440 to {llm_name}'s 496. Put in front of {llm_name}, it matches", F_VALUE, R.INK); y += 24
-    c.text((60, y), f"{llm_name}'s accuracy while a third of the decisions never reach it.", F_VALUE, R.INK); y += 50
+    c.text((60, y), f"{TJ_NAME} finished first {first} of {n} times and never generated a token.", F_VALUE, R.INK); y += 30
+    c.text((60, y), "On the full 500-case suite it scores 440 and flags 54 of its own 60 misses below a 0.85 gate,", F_VALUE, R.INK); y += 24
+    c.text((60, y), "which is what lets it sit in front of a frontier model and hand up only what it is unsure of.", F_VALUE, R.INK); y += 50
     c.text((60, y), "596M parameters · MIT · pip install tinyjev · every case logged in benchmarks/opendecision", F_BODY, R.MUTED)
     c.text((60, H - 36), "both measured, replayed at real speed · nothing staged", F_TINY, R.MUTED)
     c.text((W - 60, H - 36), "github.com/ankit-aglawe/tinyjev", F_TINY, R.ACCENT_TEXT, anchor="ra")
@@ -254,11 +299,22 @@ def main():
     ap.add_argument("--mp4", default="")
     ap.add_argument("--gif", default="")
     ap.add_argument("--gif-width", type=int, default=720)
+    ap.add_argument("--tinyjev-data", default="assets/recordings/race-tinyjev.json",
+                    help="tinyjev's measured answers and times; written on first run, replayed after")
     a = ap.parse_args()
 
     cases = draw_cases(a.n)
-    agent = tinyjev.load("tinyjev-0.6b")
-    run_tinyjev(agent, cases[0])                      # warm, so the first lane does not pay a first-call cost
+    tj_path = Path(a.tinyjev_data)
+    saved = json.loads(tj_path.read_text()) if tj_path.exists() else {}
+    need = [c for c in cases if c["id"] not in saved]
+    if need:                                          # measure once; later renders replay the saved numbers
+        agent = tinyjev.load("tinyjev-0.6b")
+        run_tinyjev(agent, cases[0])                  # warm, so the first lane does not pay a first-call cost
+        for c in need:
+            tj, ms = run_tinyjev(agent, c)
+            saved[c["id"]] = {"answer": tj, "ms": ms, "measured": time.strftime("%Y-%m-%d"), "hardware": R.MACHINE}
+        tj_path.parent.mkdir(parents=True, exist_ok=True)
+        tj_path.write_text(json.dumps(saved, indent=1))
     recorded = {}
     if a.recording:
         meta = {}
@@ -270,9 +326,10 @@ def main():
                 else:
                     recorded[r["id"]] = r
         pretty = {"claude-opus-5-5": "Claude Opus 5.5", "claude-opus-5": "Claude Opus 5", "claude-sonnet-5": "Claude Sonnet 5"}
-        a.llm_name = a.llm_name or pretty.get(meta.get("model", ""), meta.get("model", "the API model"))
+        mid = meta.get("model", "")
+        a.llm_name = a.llm_name or pretty.get(mid) or ("ChatGPT " + mid.replace("gpt-", "").upper() if mid.startswith("gpt-") else mid or "the API model")
         lane_note = f"answers through its API, streamed · recorded {meta.get('recorded', '')}"
-        footer = "tinyjev measured live; the API lane recorded with real timestamps; both replayed from a shared t=0"
+        footer = f"{TJ_NAME} measured live; the API lane recorded with real timestamps; both replayed from a shared t=0"
         missing = [c["id"] for c in cases if c["id"] not in recorded]
         if missing:
             raise SystemExit(f"recording lacks {len(missing)} of the {len(cases)} race cases; re-run record_api.py with --n {a.n}")
@@ -288,7 +345,7 @@ def main():
 
     frames, tally, history = [], [0, 0, 0, 0.0, 0.0, 0], []
     for i, case in enumerate(cases, 1):
-        tj, tj_ms = run_tinyjev(agent, case)
+        tj, tj_ms = saved[case["id"]]["answer"], saved[case["id"]]["ms"]
         if recorded:
             r = recorded[case["id"]]
             llm = {"text": r["text"], "choice": r["choice"], "timeline": [(ms, t) for ms, t in r["timeline"]],

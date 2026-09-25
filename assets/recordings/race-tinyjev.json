@@ -1,0 +1,123 @@
+{
+ "od_support_routing_003": {
+  "answer": {
+   "type": "choice",
+   "choice": "sales",
+   "value": "sales",
+   "confidence": 0.95,
+   "probabilities": {
+    "billing": 0.03420925633422687,
+    "technical": 0.005762304908894778,
+    "sales": 0.9546142287872972,
+    "account": 0.0018774038515098858,
+    "shipping": 0.002288018542178607,
+    "returns": 0.0012487875758924688
+   }
+  },
+  "ms": 65.31658299999954,
+  "measured": "2026-09-25",
+  "hardware": "Apple M1 \u00b7 16 GB"
+ },
+ "od_transaction_type_006": {
+  "answer": {
+   "type": "choice",
+   "choice": "payroll",
+   "value": "payroll",
+   "confidence": 0.98,
+   "probabilities": {
+    "purchase": 0.002623581917862668,
+    "subscription": 0.0005470562396346545,
+    "refund": 0.0005678299098387132,
+    "transfer": 0.0056269251440022195,
+    "fee": 0.0036834763110146114,
+    "payroll": 0.9849093644114181,
+    "cash_withdrawal": 0.0014320623208219515,
+    "interest": 0.0006097037454070777
+   }
+  },
+  "ms": 92.88316600000002,
+  "measured": "2026-09-25",
+  "hardware": "Apple M1 \u00b7 16 GB"
+ },
+ "od_contract_clause_004": {
+  "answer": {
+   "type": "choice",
+   "choice": "liability",
+   "value": "liability",
+   "confidence": 0.89,
+   "probabilities": {
+    "termination": 0.008580164025562626,
+    "confidentiality": 0.006634594512579516,
+    "payment": 0.0047523841910815995,
+    "liability": 0.9036645525719951,
+    "intellectual_property": 0.008253109407866693,
+    "renewal": 0.006055510916934231,
+    "governing_law": 0.013934620237612553,
+    "force_majeure": 0.04812506413636786
+   }
+  },
+  "ms": 94.12133400000045,
+  "measured": "2026-09-25",
+  "hardware": "Apple M1 \u00b7 16 GB"
+ },
+ "od_semantic_extraction_014": {
+  "answer": {
+   "type": "choice",
+   "choice": "journal",
+   "value": "journal",
+   "confidence": 0.66,
+   "probabilities": {
+    "title": 0.04354188764423329,
+    "journal": 0.775392407565787,
+    "year": 0.1810657047899796
+   }
+  },
+  "ms": 39.11762500000027,
+  "measured": "2026-09-25",
+  "hardware": "Apple M1 \u00b7 16 GB"
+ },
+ "od_security_event_006": {
+  "answer": {
+   "type": "choice",
+   "choice": "data_exfiltration",
+   "value": "data_exfiltration",
+   "confidence": 0.98,
+   "probabilities": {
+    "phishing": 0.0004087844004203998,
+    "brute_force": 0.00010913604648946903,
+    "malware": 0.008298655274054352,
+    "impossible_travel": 0.001891877083252974,
+    "privilege_escalation": 0.0009209190630017364,
+    "data_exfiltration": 0.9837249204320881,
+    "benign_admin": 0.00313507101486636,
+    "vulnerability_scan": 0.0015106366858268431
+   }
+  },
+  "ms": 97.37658299999995,
+  "measured": "2026-09-25",
+  "hardware": "Apple M1 \u00b7 16 GB"
+ },
+ "od_science_phenomenon_007": {
+  "answer": {
+   "type": "choice",
+   "choice": "crystallization",
+   "value": "crystallization",
+   "confidence": 0.96,
+   "probabilities": {
+    "phase_separation": 0.01785118437569325,
+    "diffusion": 0.0052259802498081775,
+    "osmosis": 0.002565902440807864,
+    "fluorescence": 0.0009439559217458538,
+    "photobleaching": 0.001374894157001461,
+    "denaturation": 0.003395379713871439,
+    "crystallization": 0.961253462550615,
+    "adsorption": 0.0027531139369736776,
+    "polymerization": 0.0021186581464246955,
+    "sedimentation": 0.0025174685070587554
+   }
+  },
+  "ms": 125.09591699999945,
+  "measured": "2026-09-25",
+  "hardware": "Apple M1 \u00b7 16 GB"
+ }
+}

@@ -1,0 +1,544 @@
+{
+ "case": {
+  "id": "support-ticket",
+  "title": "one support ticket · 12 typed decisions",
+  "source": "authored for this demo on 2026-09-25; the expected values were written with the ticket before either model ran; not in any training or benchmark set",
+  "state": "Subject: Order A48213 arrived damaged, need a replacement before Friday\n\nHi, my order A48213 (the 27-inch monitor, $329) arrived yesterday with a cracked screen and the box was dented on one corner. I already emailed on Monday and got no reply. I need a working monitor before Friday for a client presentation, so please send a replacement with express shipping rather than a refund. I am a Premium member. If this cannot be sorted by Thursday I will have to cancel my membership. Photos attached.\nPriya Nair, priya@example.com",
+  "questions": [
+   {
+    "id": "team",
+    "label": "route to team",
+    "options": {
+     "returns": "Returns and replacements: damaged, faulty or unwanted items",
+     "shipping": "Shipping: delivery status, lost or delayed parcels",
+     "billing": "Billing: charges, invoices and payments",
+     "technical": "Technical support: setup and troubleshooting",
+     "sales": "Sales: quotes and new purchases",
+     "account": "Account: membership, login and profile"
+    },
+    "expected": "returns",
+    "question": "Which team should handle this ticket?"
+   },
+   {
+    "id": "issue",
+    "label": "issue type",
+    "options": {
+     "damaged_on_arrival": "The item arrived physically damaged",
+     "dead_on_arrival": "The item arrived intact but does not work",
+     "wrong_item": "A different item was delivered",
+     "missing_item": "The parcel never arrived or is incomplete",
+     "late_delivery": "The parcel arrived later than promised",
+     "billing_error": "The customer was charged incorrectly"
+    },
+    "expected": "damaged_on_arrival",
+    "question": "What is the customer's issue?"
+   },
+   {
+    "id": "action",
+    "label": "requested action",
+    "options": {
+     "replacement": "Send a replacement item",
+     "refund": "Refund the payment",
+     "repair": "Repair the item",
+     "information": "Answer a question, no action on the order",
+     "cancellation": "Cancel the order"
+    },
+    "expected": "replacement",
+    "question": "What does the customer want done?"
+   },
+   {
+    "id": "priority",
+    "label": "priority",
+    "options": {
+     "urgent": "A hard deadline within days, or the customer threatens to leave",
+     "high": "The customer is blocked but states no deadline",
+     "normal": "A routine request",
+     "low": "Feedback or a question with no request"
+    },
+    "expected": "urgent",
+    "question": "What priority should the ticket get?"
+   },
+   {
+    "id": "tone",
+    "label": "customer tone",
+    "options": {
+     "calm": "Polite and matter-of-fact",
+     "frustrated": "Unhappy or impatient but civil",
+     "hostile": "Insulting or threatening the staff"
+    },
+    "expected": "frustrated",
+    "question": "What is the customer's tone?"
+   },
+   {
+    "id": "product",
+    "label": "product category",
+    "options": {
+     "monitors": "Monitors and displays",
+     "laptops": "Laptops and desktops",
+     "phones": "Phones and tablets",
+     "accessories": "Cables, stands and peripherals",
+     "software": "Software and subscriptions"
+    },
+    "expected": "monitors",
+    "question": "Which product category is the order?"
+   },
+   {
+    "id": "tier",
+    "label": "customer tier",
+    "options": {
+     "premium": "The customer says they are a Premium member",
+     "standard": "The customer says they are a standard member",
+     "unknown": "No tier is mentioned"
+    },
+    "expected": "premium",
+    "question": "What membership tier does the customer state?"
+   },
+   {
+    "id": "shipping",
+    "label": "shipping requested",
+    "options": {
+     "express": "Express or expedited shipping",
+     "standard": "Standard shipping",
+     "none": "No shipping preference is given"
+    },
+    "expected": "express",
+    "question": "Which shipping speed does the customer ask for?"
+   },
+   {
+    "id": "history",
+    "label": "contact history",
+    "options": {
+     "follow_up": "Yes, the customer has written about this issue before",
+     "first_contact": "No, this is the first message about it"
+    },
+    "expected": "follow_up",
+    "question": "Has the customer contacted support about this before?"
+   },
+   {
+    "id": "attachments",
+    "label": "attachments",
+    "options": {
+     "photos": "Photos or video of the problem",
+     "documents": "Receipts, invoices or other documents",
+     "none": "Nothing is attached"
+    },
+    "expected": "photos",
+    "question": "What does the customer say is attached?"
+   },
+   {
+    "id": "churn",
+    "label": "churn risk",
+    "options": {
+     "threatens_to_leave": "The customer says they will cancel or leave",
+     "none_stated": "No threat to leave"
+    },
+    "expected": "threatens_to_leave",
+    "question": "Does the customer threaten to leave?"
+   },
+   {
+    "id": "deadline",
+    "label": "deadline",
+    "options": {
+     "this_week": "Within the coming days",
+     "this_month": "Within a few weeks",
+     "none": "No deadline is given"
+    },
+    "expected": "this_week",
+    "question": "When does the customer need this resolved?"
+   }
+  ]
+ },
+ "tinyjev": {
+  "model": "tinyjev-0.6b",
+  "hardware": "Apple M1 · 16 GB",
+  "runs_ms": [
+   638.9,
+   595.5,
+   593.9
+  ],
+  "ms": 595.5,
+  "answers": {
+   "team": "returns",
+   "issue": "damaged_on_arrival",
+   "action": "replacement",
+   "priority": "urgent",
+   "tone": "frustrated",
+   "product": "monitors",
+   "tier": "premium",
+   "shipping": "express",
+   "history": "first_contact",
+   "attachments": "photos",
+   "churn": "none_stated",
+   "deadline": "this_week"
+  },
+  "confidence": {
+   "team": 0.81,
+   "issue": 0.9,
+   "action": 0.72,
+   "priority": 0.45,
+   "tone": 0.52,
+   "product": 0.96,
+   "tier": 0.86,
+   "shipping": 0.83,
+   "history": 0.23,
+   "attachments": 0.78,
+   "churn": 0.5,
+   "deadline": 0.47
+  },
+  "probabilities": {
+   "team": {
+    "returns": 0.8389,
+    "shipping": 0.1365,
+    "billing": 0.002,
+    "technical": 0.0057,
+    "sales": 0.0068,
+    "account": 0.0102
+   },
+   "issue": {
+    "damaged_on_arrival": 0.9173,
+    "dead_on_arrival": 0.0248,
+    "wrong_item": 0.0141,
+    "missing_item": 0.0144,
+    "late_delivery": 0.0287,
+    "billing_error": 0.0006
+   },
+   "action": {
+    "replacement": 0.7736,
+    "refund": 0.0015,
+    "repair": 0.0052,
+    "information": 0.2001,
+    "cancellation": 0.0196
+   },
+   "priority": {
+    "urgent": 0.5841,
+    "high": 0.1251,
+    "normal": 0.2001,
+    "low": 0.0907
+   },
+   "tone": {
+    "calm": 0.3069,
+    "frustrated": 0.6772,
+    "hostile": 0.0159
+   },
+   "product": {
+    "monitors": 0.9711,
+    "laptops": 0.0173,
+    "phones": 0.0016,
+    "accessories": 0.0084,
+    "software": 0.0016
+   },
+   "tier": {
+    "premium": 0.9067,
+    "standard": 0.0336,
+    "unknown": 0.0597
+   },
+   "shipping": {
+    "express": 0.8895,
+    "standard": 0.017,
+    "none": 0.0935
+   },
+   "history": {
+    "follow_up": 0.3835,
+    "first_contact": 0.6165
+   },
+   "attachments": {
+    "photos": 0.8504,
+    "documents": 0.0118,
+    "none": 0.1378
+   },
+   "churn": {
+    "threatens_to_leave": 0.2489,
+    "none_stated": 0.7511
+   },
+   "deadline": {
+    "this_week": 0.6443,
+    "this_month": 0.2797,
+    "none": 0.076
+   }
+  },
+  "measured": "2026-09-25",
+  "note": "one predict() call with every question: one batched forward pass over the shared state, no generated tokens"
+ },
+ "llm": {
+  "model": "gpt-6-sol",
+  "name": "GPT-6 Sol",
+  "provider": "openai",
+  "effort": "low",
+  "text": "{\"team\":\"returns\",\"issue\":\"damaged_on_arrival\",\"action\":\"replacement\",\"priority\":\"urgent\",\"tone\":\"frustrated\",\"product\":\"monitors\",\"tier\":\"premium\",\"shipping\":\"express\",\"history\":\"follow_up\",\"attachments\":\"photos\",\"churn\":\"threatens_to_leave\",\"deadline\":\"this_week\"}",
+  "timeline": [
+   [
+    1570.5,
+    "{\""
+   ],
+   [
+    1570.8,
+    "{\"team"
+   ],
+   [
+    1571.1,
+    "{\"team\":\""
+   ],
+   [
+    1625.4,
+    "{\"team\":\"returns"
+   ],
+   [
+    1625.9,
+    "{\"team\":\"returns\",\""
+   ],
+   [
+    1634.0,
+    "{\"team\":\"returns\",\"issue"
+   ],
+   [
+    1634.4,
+    "{\"team\":\"returns\",\"issue\":\""
+   ],
+   [
+    1638.7,
+    "{\"team\":\"returns\",\"issue\":\"dam"
+   ],
+   [
+    1639.1,
+    "{\"team\":\"returns\",\"issue\":\"damaged"
+   ],
+   [
+    1780.6,
+    "{\"team\":\"returns\",\"issue\":\"damaged_on"
+   ],
+   [
+    1781.3,
+    "{\"team\":\"returns\",\"issue\":\"damaged_on_arr"
+   ],
+   [
+    1782.1,
+    "{\"team\":\"returns\",\"issue\":\"damaged_on_arrival"
+   ],
+   [
+    1782.8,
+    "{\"team\":\"returns\",\"issue\":\"damaged_on_arrival\",\""
+   ],
+   [
+    1783.9,
+    "{\"team\":\"returns\",\"issue\":\"damaged_on_arrival\",\"action"
+   ],
+   [
+    1784.3,
+    "{\"team\":\"returns\",\"issue\":\"damaged_on_arrival\",\"action\":\""
+   ],
+   [
+    1784.8,
+    "{\"team\":\"returns\",\"issue\":\"damaged_on_arrival\",\"action\":\"replacement"
+   ],
+   [
+    1785.1,
+    "{\"team\":\"returns\",\"issue\":\"damaged_on_arrival\",\"action\":\"replacement\",\""
+   ],
+   [
+    1785.5,
+    "{\"team\":\"returns\",\"issue\":\"damaged_on_arrival\",\"action\":\"replacement\",\"priority"
+   ],
+   [
+    1785.8,
+    "{\"team\":\"returns\",\"issue\":\"damaged_on_arrival\",\"action\":\"replacement\",\"priority\":\""
+   ],
+   [
+    1786.2,
+    "{\"team\":\"returns\",\"issue\":\"damaged_on_arrival\",\"action\":\"replacement\",\"priority\":\"urgent"
+   ],
+   [
+    1786.4,
+    "{\"team\":\"returns\",\"issue\":\"damaged_on_arrival\",\"action\":\"replacement\",\"priority\":\"urgent\",\""
+   ],
+   [
+    1786.8,
+    "{\"team\":\"returns\",\"issue\":\"damaged_on_arrival\",\"action\":\"replacement\",\"priority\":\"urgent\",\"tone"
+   ],
+   [
+    1787.1,
+    "{\"team\":\"returns\",\"issue\":\"damaged_on_arrival\",\"action\":\"replacement\",\"priority\":\"urgent\",\"tone\":\""
+   ],
+   [
+    1787.6,
+    "{\"team\":\"returns\",\"issue\":\"damaged_on_arrival\",\"action\":\"replacement\",\"priority\":\"urgent\",\"tone\":\"fr"
+   ],
+   [
+    1788.0,
+    "{\"team\":\"returns\",\"issue\":\"damaged_on_arrival\",\"action\":\"replacement\",\"priority\":\"urgent\",\"tone\":\"frustr"
+   ],
+   [
+    1838.0,
+    "{\"team\":\"returns\",\"issue\":\"damaged_on_arrival\",\"action\":\"replacement\",\"priority\":\"urgent\",\"tone\":\"frustrated"
+   ],
+   [
+    1838.3,
+    "{\"team\":\"returns\",\"issue\":\"damaged_on_arrival\",\"action\":\"replacement\",\"priority\":\"urgent\",\"tone\":\"frustrated\",\""
+   ],
+   [
+    1851.3,
+    "{\"team\":\"returns\",\"issue\":\"damaged_on_arrival\",\"action\":\"replacement\",\"priority\":\"urgent\",\"tone\":\"frustrated\",\"product"
+   ],
+   [
+    1851.7,
+    "{\"team\":\"returns\",\"issue\":\"damaged_on_arrival\",\"action\":\"replacement\",\"priority\":\"urgent\",\"tone\":\"frustrated\",\"product\":\""
+   ],
+   [
+    1858.4,
+    "{\"team\":\"returns\",\"issue\":\"damaged_on_arrival\",\"action\":\"replacement\",\"priority\":\"urgent\",\"tone\":\"frustrated\",\"product\":\"mon"
+   ],
+   [
+    1858.7,
+    "{\"team\":\"returns\",\"issue\":\"damaged_on_arrival\",\"action\":\"replacement\",\"priority\":\"urgent\",\"tone\":\"frustrated\",\"product\":\"monitors"
+   ],
+   [
+    1859.9,
+    "{\"team\":\"returns\",\"issue\":\"damaged_on_arrival\",\"action\":\"replacement\",\"priority\":\"urgent\",\"tone\":\"frustrated\",\"product\":\"monitors\",\""
+   ],
+   [
+    1860.2,
+    "{\"team\":\"returns\",\"issue\":\"damaged_on_arrival\",\"action\":\"replacement\",\"priority\":\"urgent\",\"tone\":\"frustrated\",\"product\":\"monitors\",\"tier"
+   ],
+   [
+    1914.9,
+    "{\"team\":\"returns\",\"issue\":\"damaged_on_arrival\",\"action\":\"replacement\",\"priority\":\"urgent\",\"tone\":\"frustrated\",\"product\":\"monitors\",\"tier\":\""
+   ],
+   [
+    1915.4,
+    "{\"team\":\"returns\",\"issue\":\"damaged_on_arrival\",\"action\":\"replacement\",\"priority\":\"urgent\",\"tone\":\"frustrated\",\"product\":\"monitors\",\"tier\":\"premium"
+   ],
+   [
+    2008.6,
+    "{\"team\":\"returns\",\"issue\":\"damaged_on_arrival\",\"action\":\"replacement\",\"priority\":\"urgent\",\"tone\":\"frustrated\",\"product\":\"monitors\",\"tier\":\"premium\",\""
+   ],
+   [
+    2008.9,
+    "{\"team\":\"returns\",\"issue\":\"damaged_on_arrival\",\"action\":\"replacement\",\"priority\":\"urgent\",\"tone\":\"frustrated\",\"product\":\"monitors\",\"tier\":\"premium\",\"shipping"
+   ],
+   [
+    2027.9,
+    "{\"team\":\"returns\",\"issue\":\"damaged_on_arrival\",\"action\":\"replacement\",\"priority\":\"urgent\",\"tone\":\"frustrated\",\"product\":\"monitors\",\"tier\":\"premium\",\"shipping\":\""
+   ],
+   [
+    2028.2,
+    "{\"team\":\"returns\",\"issue\":\"damaged_on_arrival\",\"action\":\"replacement\",\"priority\":\"urgent\",\"tone\":\"frustrated\",\"product\":\"monitors\",\"tier\":\"premium\",\"shipping\":\"express"
+   ],
+   [
+    2066.2,
+    "{\"team\":\"returns\",\"issue\":\"damaged_on_arrival\",\"action\":\"replacement\",\"priority\":\"urgent\",\"tone\":\"frustrated\",\"product\":\"monitors\",\"tier\":\"premium\",\"shipping\":\"express\",\""
+   ],
+   [
+    2066.9,
+    "{\"team\":\"returns\",\"issue\":\"damaged_on_arrival\",\"action\":\"replacement\",\"priority\":\"urgent\",\"tone\":\"frustrated\",\"product\":\"monitors\",\"tier\":\"premium\",\"shipping\":\"express\",\"history"
+   ],
+   [
+    2100.7,
+    "{\"team\":\"returns\",\"issue\":\"damaged_on_arrival\",\"action\":\"replacement\",\"priority\":\"urgent\",\"tone\":\"frustrated\",\"product\":\"monitors\",\"tier\":\"premium\",\"shipping\":\"express\",\"history\":\""
+   ],
+   [
+    2101.1,
+    "{\"team\":\"returns\",\"issue\":\"damaged_on_arrival\",\"action\":\"replacement\",\"priority\":\"urgent\",\"tone\":\"frustrated\",\"product\":\"monitors\",\"tier\":\"premium\",\"shipping\":\"express\",\"history\":\"follow"
+   ],
+   [
+    2103.1,
+    "{\"team\":\"returns\",\"issue\":\"damaged_on_arrival\",\"action\":\"replacement\",\"priority\":\"urgent\",\"tone\":\"frustrated\",\"product\":\"monitors\",\"tier\":\"premium\",\"shipping\":\"express\",\"history\":\"follow_up"
+   ],
+   [
+    2103.4,
+    "{\"team\":\"returns\",\"issue\":\"damaged_on_arrival\",\"action\":\"replacement\",\"priority\":\"urgent\",\"tone\":\"frustrated\",\"product\":\"monitors\",\"tier\":\"premium\",\"shipping\":\"express\",\"history\":\"follow_up\",\""
+   ],
+   [
+    2103.9,
+    "{\"team\":\"returns\",\"issue\":\"damaged_on_arrival\",\"action\":\"replacement\",\"priority\":\"urgent\",\"tone\":\"frustrated\",\"product\":\"monitors\",\"tier\":\"premium\",\"shipping\":\"express\",\"history\":\"follow_up\",\"attachments"
+   ],
+   [
+    2104.2,
+    "{\"team\":\"returns\",\"issue\":\"damaged_on_arrival\",\"action\":\"replacement\",\"priority\":\"urgent\",\"tone\":\"frustrated\",\"product\":\"monitors\",\"tier\":\"premium\",\"shipping\":\"express\",\"history\":\"follow_up\",\"attachments\":\""
+   ],
+   [
+    2104.6,
+    "{\"team\":\"returns\",\"issue\":\"damaged_on_arrival\",\"action\":\"replacement\",\"priority\":\"urgent\",\"tone\":\"frustrated\",\"product\":\"monitors\",\"tier\":\"premium\",\"shipping\":\"express\",\"history\":\"follow_up\",\"attachments\":\"photos"
+   ],
+   [
+    2104.9,
+    "{\"team\":\"returns\",\"issue\":\"damaged_on_arrival\",\"action\":\"replacement\",\"priority\":\"urgent\",\"tone\":\"frustrated\",\"product\":\"monitors\",\"tier\":\"premium\",\"shipping\":\"express\",\"history\":\"follow_up\",\"attachments\":\"photos\",\""
+   ],
+   [
+    2105.4,
+    "{\"team\":\"returns\",\"issue\":\"damaged_on_arrival\",\"action\":\"replacement\",\"priority\":\"urgent\",\"tone\":\"frustrated\",\"product\":\"monitors\",\"tier\":\"premium\",\"shipping\":\"express\",\"history\":\"follow_up\",\"attachments\":\"photos\",\"ch"
+   ],
+   [
+    2105.7,
+    "{\"team\":\"returns\",\"issue\":\"damaged_on_arrival\",\"action\":\"replacement\",\"priority\":\"urgent\",\"tone\":\"frustrated\",\"product\":\"monitors\",\"tier\":\"premium\",\"shipping\":\"express\",\"history\":\"follow_up\",\"attachments\":\"photos\",\"churn"
+   ],
+   [
+    2106.2,
+    "{\"team\":\"returns\",\"issue\":\"damaged_on_arrival\",\"action\":\"replacement\",\"priority\":\"urgent\",\"tone\":\"frustrated\",\"product\":\"monitors\",\"tier\":\"premium\",\"shipping\":\"express\",\"history\":\"follow_up\",\"attachments\":\"photos\",\"churn\":\""
+   ],
+   [
+    2106.5,
+    "{\"team\":\"returns\",\"issue\":\"damaged_on_arrival\",\"action\":\"replacement\",\"priority\":\"urgent\",\"tone\":\"frustrated\",\"product\":\"monitors\",\"tier\":\"premium\",\"shipping\":\"express\",\"history\":\"follow_up\",\"attachments\":\"photos\",\"churn\":\"th"
+   ],
+   [
+    2106.9,
+    "{\"team\":\"returns\",\"issue\":\"damaged_on_arrival\",\"action\":\"replacement\",\"priority\":\"urgent\",\"tone\":\"frustrated\",\"product\":\"monitors\",\"tier\":\"premium\",\"shipping\":\"express\",\"history\":\"follow_up\",\"attachments\":\"photos\",\"churn\":\"threat"
+   ],
+   [
+    2107.2,
+    "{\"team\":\"returns\",\"issue\":\"damaged_on_arrival\",\"action\":\"replacement\",\"priority\":\"urgent\",\"tone\":\"frustrated\",\"product\":\"monitors\",\"tier\":\"premium\",\"shipping\":\"express\",\"history\":\"follow_up\",\"attachments\":\"photos\",\"churn\":\"threatens"
+   ],
+   [
+    2107.7,
+    "{\"team\":\"returns\",\"issue\":\"damaged_on_arrival\",\"action\":\"replacement\",\"priority\":\"urgent\",\"tone\":\"frustrated\",\"product\":\"monitors\",\"tier\":\"premium\",\"shipping\":\"express\",\"history\":\"follow_up\",\"attachments\":\"photos\",\"churn\":\"threatens_to"
+   ],
+   [
+    2107.9,
+    "{\"team\":\"returns\",\"issue\":\"damaged_on_arrival\",\"action\":\"replacement\",\"priority\":\"urgent\",\"tone\":\"frustrated\",\"product\":\"monitors\",\"tier\":\"premium\",\"shipping\":\"express\",\"history\":\"follow_up\",\"attachments\":\"photos\",\"churn\":\"threatens_to_leave"
+   ],
+   [
+    2128.7,
+    "{\"team\":\"returns\",\"issue\":\"damaged_on_arrival\",\"action\":\"replacement\",\"priority\":\"urgent\",\"tone\":\"frustrated\",\"product\":\"monitors\",\"tier\":\"premium\",\"shipping\":\"express\",\"history\":\"follow_up\",\"attachments\":\"photos\",\"churn\":\"threatens_to_leave\",\""
+   ],
+   [
+    2129.0,
+    "{\"team\":\"returns\",\"issue\":\"damaged_on_arrival\",\"action\":\"replacement\",\"priority\":\"urgent\",\"tone\":\"frustrated\",\"product\":\"monitors\",\"tier\":\"premium\",\"shipping\":\"express\",\"history\":\"follow_up\",\"attachments\":\"photos\",\"churn\":\"threatens_to_leave\",\"deadline"
+   ],
+   [
+    2137.7,
+    "{\"team\":\"returns\",\"issue\":\"damaged_on_arrival\",\"action\":\"replacement\",\"priority\":\"urgent\",\"tone\":\"frustrated\",\"product\":\"monitors\",\"tier\":\"premium\",\"shipping\":\"express\",\"history\":\"follow_up\",\"attachments\":\"photos\",\"churn\":\"threatens_to_leave\",\"deadline\":\""
+   ],
+   [
+    2138.0,
+    "{\"team\":\"returns\",\"issue\":\"damaged_on_arrival\",\"action\":\"replacement\",\"priority\":\"urgent\",\"tone\":\"frustrated\",\"product\":\"monitors\",\"tier\":\"premium\",\"shipping\":\"express\",\"history\":\"follow_up\",\"attachments\":\"photos\",\"churn\":\"threatens_to_leave\",\"deadline\":\"this"
+   ],
+   [
+    2153.2,
+    "{\"team\":\"returns\",\"issue\":\"damaged_on_arrival\",\"action\":\"replacement\",\"priority\":\"urgent\",\"tone\":\"frustrated\",\"product\":\"monitors\",\"tier\":\"premium\",\"shipping\":\"express\",\"history\":\"follow_up\",\"attachments\":\"photos\",\"churn\":\"threatens_to_leave\",\"deadline\":\"this_week"
+   ],
+   [
+    2153.5,
+    "{\"team\":\"returns\",\"issue\":\"damaged_on_arrival\",\"action\":\"replacement\",\"priority\":\"urgent\",\"tone\":\"frustrated\",\"product\":\"monitors\",\"tier\":\"premium\",\"shipping\":\"express\",\"history\":\"follow_up\",\"attachments\":\"photos\",\"churn\":\"threatens_to_leave\",\"deadline\":\"this_week\"}"
+   ]
+  ],
+  "answers": {
+   "team": "returns",
+   "issue": "damaged_on_arrival",
+   "action": "replacement",
+   "priority": "urgent",
+   "tone": "frustrated",
+   "product": "monitors",
+   "tier": "premium",
+   "shipping": "express",
+   "history": "follow_up",
+   "attachments": "photos",
+   "churn": "threatens_to_leave",
+   "deadline": "this_week"
+  },
+  "ms": 2198.0,
+  "ttft": 1570.5,
+  "tokens": 70,
+  "prompt_tokens": 1198,
+  "reasoning_tokens": 0,
+  "recorded": "2026-09-25",
+  "note": "streamed through the OpenAI API from this machine; timestamps are wall-clock ms from request start; the output is the shortest JSON that answers every question, option ids only"
+ }
+}

@@ -111,6 +111,19 @@ Qwen2.5-0.5B or SmolLM2-360M, trained on E8's best data mix (not on 12.5k; the E
 encoder at 0.532 was the 12.5k recipe, not a size verdict).
 **Gate:** transfer-v4 dev ≥ 0.55; OD-500 ≥ 0.80; ≤ 40 ms per short question on M1.
 
+### E13 — noul negatives. After E11. Found 2026-09-25 while building the batch demo.
+
+tinyjev-0.6b answers "yes" to almost every yes/no check: 14/21 on an authored support-email
+check list and 6/8 on TypeSafe's public insurance noul cases, every miss a false statement
+answered true, p_true flat at 0.6-0.8 in every format tried (noul statement, 2-way choice with
+yes/no descriptions, question phrasing, true/false). Batching is not the cause; single and
+21-question calls give identical probabilities. OD-500 is all choice cases, so no benchmark
+caught it. Evidence: `tinyjev-research/experiments/noul-bias/`.
+**Gate:** the same two check lists ≥ 19/21 and ≥ 7/8 with OD-500 choice accuracy unchanged
+within 0.5 pt. Arms: (a) rebalance noul labels in the training mix; (b) hard negatives,
+statements about a topic that is present in the state but false of it. Ships as a 0.6B
+point release; the choice head is untouched.
+
 ### E10 — Trained logit scale. ~$6–8. Lowest priority.
 
 CLM trains a global scale with the CE gradient; tinyjev uses 1/√d plus a post-hoc T. One
@@ -119,7 +132,7 @@ leaves ECE above the gate.
 
 ## Order and money
 
-E7 → E11 → E8 → E9 → E12 → E10. Modal ledger, September: $19.07 spent of the $30 free
+E7 → E11 → E13 → E8 → E9 → E12 → E10. Modal ledger, September: $19.07 spent of the $30 free
 tier, self-ceiling $25. E7 is free; E11 lands at ≈ $24. E8 and after are October. No run
 starts without the ledger total stated first.
 
