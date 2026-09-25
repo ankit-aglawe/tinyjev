@@ -85,9 +85,15 @@ This is the fastest visible accuracy win and the second post.
 
 **Run 2026-09-25 (Modal, `tinyjev-e11-4b`, 0.8 H100-h): transfer-v4 dev 0.762, decision-v7 dev
 0.859 (ECE 0.064).** +13.7 points over the 0.6B on transfer; 2.8 under the 0.79 gate, which was
-Kev-4B's number, and Kev-4B is a full fine-tune where this is LoRA r16. OD-500 pending the local
-conversion. If OD-500 clears 0.94 the model ships as tinyjev-4b with the transfer number stated;
-the full-fine-tune arm (E11b, ~2 H100-h) waits for October's credit.
+Kev-4B's number, and Kev-4B is a full fine-tune where this is LoRA r16.
+
+**OD-500, converted and scored locally the same afternoon (MLX INT8, base M1): 473/500 = 0.946
+(95% CI 0.926–0.964), ECE 0.024, Brier 0.071, gate 0.85 covers 87.4% at 99.1%.** Gate passed. Kev-0.8B
+is 463, the 0.6B is 440, Opus 496. Latency INT8: median 644 ms, mean 845, p90 1,164 per case on the
+M1, so the ≤ 400 ms line in the gate was wrong by 1.6× and is restated as measured. fp16 (unquantized) scores
+474/500 with ECE 0.022; INT8 is within the 0.5-point gate (1 answers differ). The transfer
+shortfall is the open item; the full-fine-tune arm (E11b, ~2 H100-h) waits for
+October's credit. Shipping as tinyjev-4b is Ankit's call (HF upload).
 
 ### E8 — Data scale at 0.6B. ~$10–30 API + ~$8–16 GPU. The real bet.
 
@@ -138,6 +144,25 @@ within 0.5 pt. Arms: (a) statement-form noul, the existing items re-templated as
 with the same labels; (b) hard negatives, statements about a topic present in the state but
 false of it, ~2k written from the ten source datasets' held-out rows. Ships as a 0.6B point
 release; the choice head is untouched.
+
+**Data built 2026-09-25 (`tinyjev-research/experiments/e13/`):** 1,592 statement-form questions (992 BoolQ
+train questions rewritten by Claude Sonnet, 600 templated rows) + hard negatives written per state (one true,
+one topic-present-but-false statement, 2 per state, ~575 states when the last batches land) + Kev's own night2
+assertion set (1,020 template statements). Held-out dev: 230 statements + 160 hard-negative questions.
+Trial plan `tinyjev-research/experiments/e13-noul.json`: E1(b) + extras with the whole decision-v7 train
+replayed, against an E1(b) control at the same seed. Gate scored by `benchmarks/noul_checks/run.py`.
+
+| set (0.6B, before) | n | acc | yes rate | acc on false |
+|---|---:|---:|---:|---:|
+| support_email | 21 | 0.667 | 1.00 | 0.00 |
+| insurance_claim | 8 | 0.750 | 1.00 | 0.00 |
+| typesafe_noul | 20 | 0.650 | 1.00 | 0.00 |
+| statements_dev | 230 | 0.778 | 0.64 | 0.62 |
+| hardneg_dev | 240 | 0.613 | 0.78 | 0.33 |
+
+Same sets, E11-4B INT8 (same afternoon): support_email 0.857 (yes 0.81, false 0.57), insurance_claim 0.875,
+typesafe_noul 0.900 (false 0.71), statements_dev 0.826 (yes 0.52, false 0.78), hardneg_dev 0.808 (false 0.71).
+Capacity closes about half the gap; E13 is run at 0.6B first and then as a delta on the 4B if it helps.
 
 ### E10 — Trained logit scale. ~$6–8. Lowest priority.
 

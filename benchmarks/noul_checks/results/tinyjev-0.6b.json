@@ -1,0 +1,2655 @@
+{
+ "model": "TinyJev-0.6B",
+ "checkpoint": "/Users/ankit/.cache/huggingface/hub/models--AnkitAI--tinyjev-0.6b/snapshots/bf802cd06fbabb05e511f1a6ddb7504eaf2b012a",
+ "quantize": null,
+ "measured": "2026-09-25",
+ "sets": {
+  "support_email": {
+   "n": 21,
+   "acc": 0.6667,
+   "yes_rate": 1.0,
+   "false_items": 7,
+   "acc_on_false": 0.0,
+   "seconds": 1.1
+  },
+  "insurance_claim": {
+   "n": 8,
+   "acc": 0.75,
+   "yes_rate": 1.0,
+   "false_items": 2,
+   "acc_on_false": 0.0,
+   "seconds": 0.4
+  },
+  "typesafe_noul": {
+   "n": 20,
+   "acc": 0.65,
+   "yes_rate": 1.0,
+   "false_items": 7,
+   "acc_on_false": 0.0,
+   "seconds": 4.3
+  },
+  "statements_dev": {
+   "n": 230,
+   "acc": 0.7783,
+   "yes_rate": 0.6435,
+   "false_items": 129,
+   "acc_on_false": 0.6202,
+   "seconds": 56.1
+  },
+  "hardneg_dev": {
+   "n": 240,
+   "acc": 0.6125,
+   "yes_rate": 0.7792,
+   "false_items": 120,
+   "acc_on_false": 0.3333,
+   "seconds": 57.2
+  }
+ },
+ "rows": {
+  "support_email": [
+   {
+    "text": "The message includes an order number.",
+    "label": true,
+    "p_true": 0.7182
+   },
+   {
+    "text": "The customer says the item arrived damaged.",
+    "label": true,
+    "p_true": 0.7528
+   },
+   {
+    "text": "The customer asks for a refund.",
+    "label": false,
+    "p_true": 0.6159
+   },
+   {
+    "text": "The customer asks for a replacement item.",
+    "label": true,
+    "p_true": 0.6989
+   },
+   {
+    "text": "The packaging is described as damaged.",
+    "label": true,
+    "p_true": 0.7309
+   },
+   {
+    "text": "This is the customer's first message about the issue.",
+    "label": false,
+    "p_true": 0.6732
+   },
+   {
+    "text": "The customer states a deadline.",
+    "label": true,
+    "p_true": 0.6939
+   },
+   {
+    "text": "The customer threatens to cancel their membership.",
+    "label": true,
+    "p_true": 0.6698
+   },
+   {
+    "text": "The customer says they are a Premium member.",
+    "label": true,
+    "p_true": 0.6859
+   },
+   {
+    "text": "The customer asks for express shipping.",
+    "label": true,
+    "p_true": 0.7332
+   },
+   {
+    "text": "The customer says photos are attached.",
+    "label": true,
+    "p_true": 0.6824
+   },
+   {
+    "text": "The message states the price of the item.",
+    "label": true,
+    "p_true": 0.776
+   },
+   {
+    "text": "The customer asks to be called by phone.",
+    "label": false,
+    "p_true": 0.6957
+   },
+   {
+    "text": "The order is a physical product.",
+    "label": true,
+    "p_true": 0.6806
+   },
+   {
+    "text": "The customer is writing about a software subscription.",
+    "label": false,
+    "p_true": 0.6146
+   },
+   {
+    "text": "The customer gives an email address.",
+    "label": true,
+    "p_true": 0.7527
+   },
+   {
+    "text": "The message contains abusive language.",
+    "label": false,
+    "p_true": 0.7513
+   },
+   {
+    "text": "The customer needs the item for work.",
+    "label": true,
+    "p_true": 0.6732
+   },
+   {
+    "text": "The customer complains that the delivery was late.",
+    "label": false,
+    "p_true": 0.7109
+   },
+   {
+    "text": "The customer says they received the wrong item.",
+    "label": false,
+    "p_true": 0.7345
+   },
+   {
+    "text": "The request is time-sensitive.",
+    "label": true,
+    "p_true": 0.677
+   }
+  ],
+  "insurance_claim": [
+   {
+    "text": "The collision happened while the vehicle was being driven on the racetrack itself.",
+    "label": false,
+    "p_true": 0.7026
+   },
+   {
+    "text": "The amount claimed is within the policy's per-incident coverage limit.",
+    "label": true,
+    "p_true": 0.7669
+   },
+   {
+    "text": "The loss occurred during the policy's active coverage period.",
+    "label": true,
+    "p_true": 0.7574
+   },
+   {
+    "text": "The loss was reported within the policy's required reporting window.",
+    "label": true,
+    "p_true": 0.7772
+   },
+   {
+    "text": "The rental-car cost is eligible for reimbursement under this policy.",
+    "label": false,
+    "p_true": 0.7313
+   },
+   {
+    "text": "Payment was approved by automated triage without a human adjuster's review.",
+    "label": true,
+    "p_true": 0.84
+   },
+   {
+    "text": "The claimed line-item costs add up to the total amount claimed.",
+    "label": true,
+    "p_true": 0.795
+   },
+   {
+    "text": "There is a potentially at-fault third party the insurer could pursue for recovery.",
+    "label": true,
+    "p_true": 0.7714
+   }
+  ],
+  "typesafe_noul": [
+   {
+    "text": "The $1,315.50 amount is a credit or refund to the customer rather than a charge.",
+    "label": false,
+    "p_true": 0.6961
+   },
+   {
+    "text": "The $50.00 amount is a credit or refund to the customer rather than a charge.",
+    "label": true,
+    "p_true": 0.6237
+   },
+   {
+    "text": "The collision happened while the vehicle was being driven on the racetrack itself.",
+    "label": false,
+    "p_true": 0.7026
+   },
+   {
+    "text": "The amount claimed is within the policy's per-incident coverage limit.",
+    "label": true,
+    "p_true": 0.7669
+   },
+   {
+    "text": "The loss occurred during the policy's active coverage period.",
+    "label": true,
+    "p_true": 0.7574
+   },
+   {
+    "text": "The loss was reported within the policy's required reporting window.",
+    "label": true,
+    "p_true": 0.7772
+   },
+   {
+    "text": "The rental-car cost is eligible for reimbursement under this policy.",
+    "label": false,
+    "p_true": 0.7313
+   },
+   {
+    "text": "Payment was approved by automated triage without a human adjuster's review.",
+    "label": true,
+    "p_true": 0.84
+   },
+   {
+    "text": "The claimed line-item costs add up to the total amount claimed.",
+    "label": true,
+    "p_true": 0.795
+   },
+   {
+    "text": "There is a potentially at-fault third party the insurer could pursue for recovery.",
+    "label": true,
+    "p_true": 0.7714
+   },
+   {
+    "text": "The two entities state the same beer name.",
+    "label": true,
+    "p_true": 0.8981
+   },
+   {
+    "text": "The two entities are from the same brewery.",
+    "label": true,
+    "p_true": 0.8872
+   },
+   {
+    "text": "The two entities describe the same beer style.",
+    "label": true,
+    "p_true": 0.876
+   },
+   {
+    "text": "The two entities state the same beer name.",
+    "label": false,
+    "p_true": 0.8072
+   },
+   {
+    "text": "The two entities are from the same brewery.",
+    "label": false,
+    "p_true": 0.6652
+   },
+   {
+    "text": "The two entities describe the same beer style.",
+    "label": false,
+    "p_true": 0.6823
+   },
+   {
+    "text": "The two entities state the same beer name.",
+    "label": true,
+    "p_true": 0.8872
+   },
+   {
+    "text": "The two entities are from the same brewery.",
+    "label": true,
+    "p_true": 0.8453
+   },
+   {
+    "text": "The two entities describe the same beer style.",
+    "label": false,
+    "p_true": 0.8572
+   },
+   {
+    "text": "The two entities are from the same brewery.",
+    "label": true,
+    "p_true": 0.8267
+   }
+  ],
+  "statements_dev": [
+   {
+    "text": "This reviewer would recommend the business.",
+    "label": false,
+    "p_true": 0.6329
+   },
+   {
+    "text": "Gone with the Wind won Best Picture.",
+    "label": true,
+    "p_true": 0.6705
+   },
+   {
+    "text": "The applicant is eligible.",
+    "label": true,
+    "p_true": 0.9179
+   },
+   {
+    "text": "What a Wonderful World is in the public domain.",
+    "label": false,
+    "p_true": 0.5567
+   },
+   {
+    "text": "This movie review is positive.",
+    "label": false,
+    "p_true": 0.1347
+   },
+   {
+    "text": "Great white sharks live at the bottom of the sea.",
+    "label": false,
+    "p_true": 0.7027
+   },
+   {
+    "text": "This article is about sports.",
+    "label": false,
+    "p_true": 0.0954
+   },
+   {
+    "text": "This article is about business.",
+    "label": false,
+    "p_true": 0.5344
+   },
+   {
+    "text": "This reviewer would recommend the business.",
+    "label": true,
+    "p_true": 0.8324
+   },
+   {
+    "text": "A Bachelor of Education is an undergraduate degree.",
+    "label": false,
+    "p_true": 0.845
+   },
+   {
+    "text": "This reviewer would recommend the business.",
+    "label": true,
+    "p_true": 0.6998
+   },
+   {
+    "text": "This reviewer would recommend the business.",
+    "label": false,
+    "p_true": 0.6554
+   },
+   {
+    "text": "PVA glue and Elmer's glue are the same thing.",
+    "label": true,
+    "p_true": 0.7097
+   },
+   {
+    "text": "This article is about science and technology.",
+    "label": false,
+    "p_true": 0.2825
+   },
+   {
+    "text": "This article is about business.",
+    "label": false,
+    "p_true": 0.3513
+   },
+   {
+    "text": "This reviewer would recommend the business.",
+    "label": true,
+    "p_true": 0.8021
+   },
+   {
+    "text": "This movie review is positive.",
+    "label": true,
+    "p_true": 0.8667
+   },
+   {
+    "text": "This article is about sports.",
+    "label": false,
+    "p_true": 0.2256
+   },
+   {
+    "text": "This article is about business.",
+    "label": true,
+    "p_true": 0.5008
+   },
+   {
+    "text": "This article is about business.",
+    "label": true,
+    "p_true": 0.6427
+   },
+   {
+    "text": "This article is about sports.",
+    "label": false,
+    "p_true": 0.454
+   },
+   {
+    "text": "This article is about world news.",
+    "label": false,
+    "p_true": 0.6813
+   },
+   {
+    "text": "There is a second season of Your Lie in April.",
+    "label": false,
+    "p_true": 0.5563
+   },
+   {
+    "text": "They still make Benson & Hedges cigarettes.",
+    "label": true,
+    "p_true": 0.7954
+   },
+   {
+    "text": "There is such a thing as brain freeze.",
+    "label": true,
+    "p_true": 0.8539
+   },
+   {
+    "text": "The Wizarding World of Harry Potter is in Islands of Adventure.",
+    "label": true,
+    "p_true": 0.7072
+   },
+   {
+    "text": "The applicant is eligible.",
+    "label": false,
+    "p_true": 0.1155
+   },
+   {
+    "text": "This return request is within the policy window.",
+    "label": true,
+    "p_true": 0.7988
+   },
+   {
+    "text": "This reviewer would recommend the business.",
+    "label": false,
+    "p_true": 0.3666
+   },
+   {
+    "text": "This reviewer would recommend the business.",
+    "label": true,
+    "p_true": 0.7805
+   },
+   {
+    "text": "Hong Kong is inside the Great Firewall of China.",
+    "label": false,
+    "p_true": 0.5098
+   },
+   {
+    "text": "This movie review is positive.",
+    "label": false,
+    "p_true": 0.5902
+   },
+   {
+    "text": "Mineral oil is the same as hydraulic oil.",
+    "label": false,
+    "p_true": 0.8462
+   },
+   {
+    "text": "We still follow the Articles of Confederation.",
+    "label": false,
+    "p_true": 0.3219
+   },
+   {
+    "text": "This article is about sports.",
+    "label": false,
+    "p_true": 0.6355
+   },
+   {
+    "text": "This article is about sports.",
+    "label": false,
+    "p_true": 0.2062
+   },
+   {
+    "text": "Hawaii is part of the United States territory.",
+    "label": true,
+    "p_true": 0.7349
+   },
+   {
+    "text": "This article is about science and technology.",
+    "label": false,
+    "p_true": 0.2054
+   },
+   {
+    "text": "The southern tip of South America is cold.",
+    "label": true,
+    "p_true": 0.6659
+   },
+   {
+    "text": "Song of Solomon is the same as Song of Songs.",
+    "label": true,
+    "p_true": 0.8173
+   },
+   {
+    "text": "There is a town under Caesar's Creek.",
+    "label": true,
+    "p_true": 0.6705
+   },
+   {
+    "text": "This article is about sports.",
+    "label": false,
+    "p_true": 0.3326
+   },
+   {
+    "text": "The TV show The Resident is over for the season.",
+    "label": true,
+    "p_true": 0.7258
+   },
+   {
+    "text": "This article is about world news.",
+    "label": true,
+    "p_true": 0.7421
+   },
+   {
+    "text": "This article is about sports.",
+    "label": true,
+    "p_true": 0.6532
+   },
+   {
+    "text": "This reviewer would recommend the business.",
+    "label": false,
+    "p_true": 0.2598
+   },
+   {
+    "text": "This reviewer would recommend the business.",
+    "label": true,
+    "p_true": 0.8339
+   },
+   {
+    "text": "This movie review is positive.",
+    "label": true,
+    "p_true": 0.5117
+   },
+   {
+    "text": "This reviewer would recommend the business.",
+    "label": false,
+    "p_true": 0.5226
+   },
+   {
+    "text": "This article is about science and technology.",
+    "label": false,
+    "p_true": 0.3647
+   },
+   {
+    "text": "A beef burger is the same as a hamburger.",
+    "label": true,
+    "p_true": 0.8311
+   },
+   {
+    "text": "This article is about business.",
+    "label": false,
+    "p_true": 0.5835
+   },
+   {
+    "text": "The applicant is eligible.",
+    "label": false,
+    "p_true": 0.0515
+   },
+   {
+    "text": "This article is about business.",
+    "label": false,
+    "p_true": 0.5808
+   },
+   {
+    "text": "Enterprise value is the same as firm value.",
+    "label": true,
+    "p_true": 0.6866
+   },
+   {
+    "text": "This article is about business.",
+    "label": true,
+    "p_true": 0.6238
+   },
+   {
+    "text": "This article is about world news.",
+    "label": true,
+    "p_true": 0.7232
+   },
+   {
+    "text": "There were survivors in the Pompeii eruption.",
+    "label": true,
+    "p_true": 0.6069
+   },
+   {
+    "text": "This article is about world news.",
+    "label": false,
+    "p_true": 0.4965
+   },
+   {
+    "text": "This article is about world news.",
+    "label": false,
+    "p_true": 0.4152
+   },
+   {
+    "text": "This article is about world news.",
+    "label": false,
+    "p_true": 0.4664
+   },
+   {
+    "text": "This reviewer would recommend the business.",
+    "label": true,
+    "p_true": 0.5724
+   },
+   {
+    "text": "This movie review is positive.",
+    "label": true,
+    "p_true": 0.7383
+   },
+   {
+    "text": "This article is about sports.",
+    "label": false,
+    "p_true": 0.4692
+   },
+   {
+    "text": "The Berlin Wall is the same as the Berlin Blockade.",
+    "label": false,
+    "p_true": 0.3185
+   },
+   {
+    "text": "The standard error is the same as standard deviation.",
+    "label": true,
+    "p_true": 0.3534
+   },
+   {
+    "text": "This article is about science and technology.",
+    "label": false,
+    "p_true": 0.2441
+   },
+   {
+    "text": "This article is about sports.",
+    "label": false,
+    "p_true": 0.3642
+   },
+   {
+    "text": "There is such a thing as a blue ruby.",
+    "label": false,
+    "p_true": 0.7384
+   },
+   {
+    "text": "This movie review is positive.",
+    "label": true,
+    "p_true": 0.6092
+   },
+   {
+    "text": "The applicant is eligible.",
+    "label": true,
+    "p_true": 0.9033
+   },
+   {
+    "text": "This article is about business.",
+    "label": false,
+    "p_true": 0.3478
+   },
+   {
+    "text": "This movie review is positive.",
+    "label": true,
+    "p_true": 0.6562
+   },
+   {
+    "text": "This reviewer would recommend the business.",
+    "label": true,
+    "p_true": 0.6313
+   },
+   {
+    "text": "This article is about business.",
+    "label": false,
+    "p_true": 0.5293
+   },
+   {
+    "text": "This article is about business.",
+    "label": false,
+    "p_true": 0.4152
+   },
+   {
+    "text": "Someone can be an attorney without taking the bar exam.",
+    "label": false,
+    "p_true": 0.4162
+   },
+   {
+    "text": "This movie review is positive.",
+    "label": true,
+    "p_true": 0.803
+   },
+   {
+    "text": "This movie review is positive.",
+    "label": false,
+    "p_true": 0.1425
+   },
+   {
+    "text": "This movie review is positive.",
+    "label": true,
+    "p_true": 0.8942
+   },
+   {
+    "text": "This movie review is positive.",
+    "label": false,
+    "p_true": 0.2767
+   },
+   {
+    "text": "The president is the only member of the executive branch.",
+    "label": true,
+    "p_true": 0.738
+   },
+   {
+    "text": "This article is about world news.",
+    "label": false,
+    "p_true": 0.3011
+   },
+   {
+    "text": "This movie review is positive.",
+    "label": false,
+    "p_true": 0.8283
+   },
+   {
+    "text": "Beet juice can show up in your urine.",
+    "label": true,
+    "p_true": 0.834
+   },
+   {
+    "text": "This return request is within the policy window.",
+    "label": false,
+    "p_true": 0.7639
+   },
+   {
+    "text": "This return request is within the policy window.",
+    "label": true,
+    "p_true": 0.7931
+   },
+   {
+    "text": "This article is about sports.",
+    "label": false,
+    "p_true": 0.3665
+   },
+   {
+    "text": "Away goals count in the League 2 playoffs.",
+    "label": false,
+    "p_true": 0.4576
+   },
+   {
+    "text": "This movie review is positive.",
+    "label": false,
+    "p_true": 0.1996
+   },
+   {
+    "text": "This article is about business.",
+    "label": false,
+    "p_true": 0.4305
+   },
+   {
+    "text": "This reviewer would recommend the business.",
+    "label": false,
+    "p_true": 0.2601
+   },
+   {
+    "text": "This reviewer would recommend the business.",
+    "label": false,
+    "p_true": 0.3864
+   },
+   {
+    "text": "ABBA wrote songs specifically for Mamma Mia.",
+    "label": false,
+    "p_true": 0.6663
+   },
+   {
+    "text": "This reviewer would recommend the business.",
+    "label": true,
+    "p_true": 0.5867
+   },
+   {
+    "text": "Alaska is still part of the United States.",
+    "label": true,
+    "p_true": 0.7263
+   },
+   {
+    "text": "Psalm 119 is the longest chapter of the Bible.",
+    "label": true,
+    "p_true": 0.6677
+   },
+   {
+    "text": "This reviewer would recommend the business.",
+    "label": false,
+    "p_true": 0.5587
+   },
+   {
+    "text": "Ireland has qualified for the World Cup 2018.",
+    "label": true,
+    "p_true": 0.8165
+   },
+   {
+    "text": "Race 3 is a continuation of Race 2.",
+    "label": false,
+    "p_true": 0.5313
+   },
+   {
+    "text": "Heat index is the same as real feel.",
+    "label": true,
+    "p_true": 0.6369
+   },
+   {
+    "text": "A flask counts as an open container.",
+    "label": true,
+    "p_true": 0.758
+   },
+   {
+    "text": "A sac fly counts as an at-bat.",
+    "label": false,
+    "p_true": 0.6892
+   },
+   {
+    "text": "This article is about world news.",
+    "label": false,
+    "p_true": 0.5242
+   },
+   {
+    "text": "This article is about sports.",
+    "label": false,
+    "p_true": 0.2142
+   },
+   {
+    "text": "Transit number is the same as institution number.",
+    "label": false,
+    "p_true": 0.5764
+   },
+   {
+    "text": "There are states where you can marry your sibling.",
+    "label": false,
+    "p_true": 0.4001
+   },
+   {
+    "text": "This article is about sports.",
+    "label": false,
+    "p_true": 0.2142
+   },
+   {
+    "text": "This article is about world news.",
+    "label": false,
+    "p_true": 0.7007
+   },
+   {
+    "text": "This article is about sports.",
+    "label": false,
+    "p_true": 0.7399
+   },
+   {
+    "text": "This article is about sports.",
+    "label": false,
+    "p_true": 0.3542
+   },
+   {
+    "text": "An image can be formed without a screen.",
+    "label": true,
+    "p_true": 0.633
+   },
+   {
+    "text": "This return request is within the policy window.",
+    "label": false,
+    "p_true": 0.7675
+   },
+   {
+    "text": "This article is about sports.",
+    "label": false,
+    "p_true": 0.2881
+   },
+   {
+    "text": "This article is about science and technology.",
+    "label": false,
+    "p_true": 0.4523
+   },
+   {
+    "text": "This movie review is positive.",
+    "label": true,
+    "p_true": 0.8651
+   },
+   {
+    "text": "The applicant is eligible.",
+    "label": false,
+    "p_true": 0.0274
+   },
+   {
+    "text": "The cortex of the cerebellum is gray matter.",
+    "label": true,
+    "p_true": 0.801
+   },
+   {
+    "text": "The movie Strangers was based on a true story.",
+    "label": true,
+    "p_true": 0.7328
+   },
+   {
+    "text": "Willy Wonka and the Chocolate Factory is a musical.",
+    "label": true,
+    "p_true": 0.6695
+   },
+   {
+    "text": "This article is about business.",
+    "label": false,
+    "p_true": 0.4712
+   },
+   {
+    "text": "This article is about world news.",
+    "label": false,
+    "p_true": 0.4302
+   },
+   {
+    "text": "This article is about science and technology.",
+    "label": false,
+    "p_true": 0.1078
+   },
+   {
+    "text": "This reviewer would recommend the business.",
+    "label": false,
+    "p_true": 0.378
+   },
+   {
+    "text": "Lynette's family dies in the tornado.",
+    "label": false,
+    "p_true": 0.5765
+   },
+   {
+    "text": "This article is about sports.",
+    "label": false,
+    "p_true": 0.0449
+   },
+   {
+    "text": "Hot Springs, Arkansas is sitting on a volcano.",
+    "label": false,
+    "p_true": 0.0558
+   },
+   {
+    "text": "This article is about business.",
+    "label": true,
+    "p_true": 0.5922
+   },
+   {
+    "text": "This article is about science and technology.",
+    "label": false,
+    "p_true": 0.3073
+   },
+   {
+    "text": "This movie review is positive.",
+    "label": true,
+    "p_true": 0.7891
+   },
+   {
+    "text": "This return request is within the policy window.",
+    "label": true,
+    "p_true": 0.7683
+   },
+   {
+    "text": "This article is about sports.",
+    "label": true,
+    "p_true": 0.6795
+   },
+   {
+    "text": "All members of Peter, Paul and Mary are still alive.",
+    "label": false,
+    "p_true": 0.7501
+   },
+   {
+    "text": "Minors can drink with parents in New York.",
+    "label": true,
+    "p_true": 0.5544
+   },
+   {
+    "text": "This article is about business.",
+    "label": false,
+    "p_true": 0.5759
+   },
+   {
+    "text": "Mamma Mia was a play before a movie.",
+    "label": true,
+    "p_true": 0.6839
+   },
+   {
+    "text": "500 Days of Summer is based on a true story.",
+    "label": true,
+    "p_true": 0.8347
+   },
+   {
+    "text": "This reviewer would recommend the business.",
+    "label": false,
+    "p_true": 0.6476
+   },
+   {
+    "text": "This article is about business.",
+    "label": false,
+    "p_true": 0.5377
+   },
+   {
+    "text": "This reviewer would recommend the business.",
+    "label": false,
+    "p_true": 0.32
+   },
+   {
+    "text": "This movie review is positive.",
+    "label": false,
+    "p_true": 0.1018
+   },
+   {
+    "text": "This article is about science and technology.",
+    "label": false,
+    "p_true": 0.0602
+   },
+   {
+    "text": "This movie review is positive.",
+    "label": false,
+    "p_true": 0.274
+   },
+   {
+    "text": "The goalkeeper can pick up the ball from a throw-in.",
+    "label": false,
+    "p_true": 0.5374
+   },
+   {
+    "text": "This article is about world news.",
+    "label": false,
+    "p_true": 0.3739
+   },
+   {
+    "text": "The first iPhone had a front camera.",
+    "label": false,
+    "p_true": 0.7341
+   },
+   {
+    "text": "This reviewer would recommend the business.",
+    "label": true,
+    "p_true": 0.6524
+   },
+   {
+    "text": "A cocoa bean is the same as a coffee bean.",
+    "label": false,
+    "p_true": 0.6759
+   },
+   {
+    "text": "There is a new X-Men movie coming out.",
+    "label": true,
+    "p_true": 0.8051
+   },
+   {
+    "text": "This return request is within the policy window.",
+    "label": true,
+    "p_true": 0.7733
+   },
+   {
+    "text": "This reviewer would recommend the business.",
+    "label": false,
+    "p_true": 0.3486
+   },
+   {
+    "text": "The applicant is eligible.",
+    "label": false,
+    "p_true": 0.047
+   },
+   {
+    "text": "This article is about science and technology.",
+    "label": true,
+    "p_true": 0.711
+   },
+   {
+    "text": "One can travel faster than the speed of light.",
+    "label": false,
+    "p_true": 0.2863
+   },
+   {
+    "text": "The show Shadowhunters is based on a book.",
+    "label": true,
+    "p_true": 0.7304
+   },
+   {
+    "text": "This movie review is positive.",
+    "label": false,
+    "p_true": 0.3483
+   },
+   {
+    "text": "Big Time Rush was a band before the show.",
+    "label": false,
+    "p_true": 0.6314
+   },
+   {
+    "text": "This article is about sports.",
+    "label": false,
+    "p_true": 0.3753
+   },
+   {
+    "text": "Cod liver oil is from a cod's liver.",
+    "label": true,
+    "p_true": 0.8103
+   },
+   {
+    "text": "There is a river in Ellicott City, MD.",
+    "label": true,
+    "p_true": 0.8656
+   },
+   {
+    "text": "This reviewer would recommend the business.",
+    "label": true,
+    "p_true": 0.8396
+   },
+   {
+    "text": "This movie review is positive.",
+    "label": true,
+    "p_true": 0.8521
+   },
+   {
+    "text": "This movie review is positive.",
+    "label": false,
+    "p_true": 0.3867
+   },
+   {
+    "text": "DirecTV and Dish Network are owned by the same company.",
+    "label": false,
+    "p_true": 0.729
+   },
+   {
+    "text": "This movie review is positive.",
+    "label": false,
+    "p_true": 0.6498
+   },
+   {
+    "text": "This article is about world news.",
+    "label": false,
+    "p_true": 0.3202
+   },
+   {
+    "text": "This article is about world news.",
+    "label": false,
+    "p_true": 0.5165
+   },
+   {
+    "text": "Babies R Us and Toys R Us are the same.",
+    "label": true,
+    "p_true": 0.6338
+   },
+   {
+    "text": "There are grizzly bears in the United States.",
+    "label": true,
+    "p_true": 0.7426
+   },
+   {
+    "text": "This reviewer would recommend the business.",
+    "label": true,
+    "p_true": 0.7489
+   },
+   {
+    "text": "The applicant is eligible.",
+    "label": false,
+    "p_true": 0.073
+   },
+   {
+    "text": "The sea and the ocean are the same thing.",
+    "label": true,
+    "p_true": 0.3407
+   },
+   {
+    "text": "There is such a thing as an upside-down rainbow.",
+    "label": true,
+    "p_true": 0.7654
+   },
+   {
+    "text": "This article is about science and technology.",
+    "label": false,
+    "p_true": 0.1724
+   },
+   {
+    "text": "This reviewer would recommend the business.",
+    "label": false,
+    "p_true": 0.4484
+   },
+   {
+    "text": "Base runners can advance on an infield fly rule.",
+    "label": true,
+    "p_true": 0.7744
+   },
+   {
+    "text": "This article is about world news.",
+    "label": false,
+    "p_true": 0.4213
+   },
+   {
+    "text": "This article is about business.",
+    "label": false,
+    "p_true": 0.3218
+   },
+   {
+    "text": "This movie review is positive.",
+    "label": false,
+    "p_true": 0.4892
+   },
+   {
+    "text": "This article is about business.",
+    "label": false,
+    "p_true": 0.4112
+   },
+   {
+    "text": "There are more than 9 seasons of Heartland.",
+    "label": true,
+    "p_true": 0.6812
+   },
+   {
+    "text": "This article is about science and technology.",
+    "label": false,
+    "p_true": 0.1883
+   },
+   {
+    "text": "This article is about science and technology.",
+    "label": true,
+    "p_true": 0.6469
+   },
+   {
+    "text": "This movie review is positive.",
+    "label": true,
+    "p_true": 0.7911
+   },
+   {
+    "text": "This article is about world news.",
+    "label": true,
+    "p_true": 0.7421
+   },
+   {
+    "text": "Michigan has the stand-your-ground law.",
+    "label": true,
+    "p_true": 0.804
+   },
+   {
+    "text": "There is going to be a season 13 of Criminal Minds.",
+    "label": true,
+    "p_true": 0.9153
+   },
+   {
+    "text": "There is such thing as a no carb diet.",
+    "label": true,
+    "p_true": 0.7057
+   },
+   {
+    "text": "This reviewer would recommend the business.",
+    "label": false,
+    "p_true": 0.2841
+   },
+   {
+    "text": "A PDF counts as a print source.",
+    "label": true,
+    "p_true": 0.8725
+   },
+   {
+    "text": "In-N-Out is only located in California.",
+    "label": false,
+    "p_true": 0.5494
+   },
+   {
+    "text": "This article is about business.",
+    "label": false,
+    "p_true": 0.5642
+   },
+   {
+    "text": "This reviewer would recommend the business.",
+    "label": false,
+    "p_true": 0.1616
+   },
+   {
+    "text": "This article is about sports.",
+    "label": true,
+    "p_true": 0.7745
+   },
+   {
+    "text": "An isothermal change is the internal energy of the ideal gas molecules.",
+    "label": true,
+    "p_true": 0.7917
+   },
+   {
+    "text": "This article is about world news.",
+    "label": false,
+    "p_true": 0.377
+   },
+   {
+    "text": "Alcohol can be bought in Maine on Sundays.",
+    "label": true,
+    "p_true": 0.8324
+   },
+   {
+    "text": "This movie review is positive.",
+    "label": true,
+    "p_true": 0.8403
+   },
+   {
+    "text": "This reviewer would recommend the business.",
+    "label": true,
+    "p_true": 0.7929
+   },
+   {
+    "text": "Greece qualified for the 2018 World Cup.",
+    "label": false,
+    "p_true": 0.7145
+   },
+   {
+    "text": "There is a bird faster than a cheetah.",
+    "label": true,
+    "p_true": 0.6905
+   },
+   {
+    "text": "Someone can be a sir if not British.",
+    "label": true,
+    "p_true": 0.8146
+   },
+   {
+    "text": "This article is about science and technology.",
+    "label": false,
+    "p_true": 0.3787
+   },
+   {
+    "text": "The non-striker can be run out by the bowler.",
+    "label": true,
+    "p_true": 0.7154
+   },
+   {
+    "text": "This reviewer would recommend the business.",
+    "label": true,
+    "p_true": 0.7683
+   },
+   {
+    "text": "This article is about sports.",
+    "label": false,
+    "p_true": 0.3045
+   },
+   {
+    "text": "This return request is within the policy window.",
+    "label": true,
+    "p_true": 0.8168
+   },
+   {
+    "text": "This article is about world news.",
+    "label": false,
+    "p_true": 0.4918
+   },
+   {
+    "text": "This movie review is positive.",
+    "label": true,
+    "p_true": 0.7141
+   },
+   {
+    "text": "This reviewer would recommend the business.",
+    "label": false,
+    "p_true": 0.6221
+   },
+   {
+    "text": "This return request is within the policy window.",
+    "label": false,
+    "p_true": 0.7727
+   },
+   {
+    "text": "St. Augustine is the oldest city in Florida.",
+    "label": true,
+    "p_true": 0.7275
+   },
+   {
+    "text": "This article is about world news.",
+    "label": false,
+    "p_true": 0.4213
+   },
+   {
+    "text": "The National Guard is part of the Coast Guard.",
+    "label": false,
+    "p_true": 0.7092
+   },
+   {
+    "text": "This article is about science and technology.",
+    "label": false,
+    "p_true": 0.0864
+   },
+   {
+    "text": "This return request is within the policy window.",
+    "label": false,
+    "p_true": 0.685
+   },
+   {
+    "text": "This article is about sports.",
+    "label": false,
+    "p_true": 0.276
+   },
+   {
+    "text": "This reviewer would recommend the business.",
+    "label": true,
+    "p_true": 0.5303
+   },
+   {
+    "text": "This reviewer would recommend the business.",
+    "label": false,
+    "p_true": 0.4721
+   },
+   {
+    "text": "This reviewer would recommend the business.",
+    "label": true,
+    "p_true": 0.56
+   },
+   {
+    "text": "This article is about world news.",
+    "label": true,
+    "p_true": 0.8221
+   },
+   {
+    "text": "This reviewer would recommend the business.",
+    "label": true,
+    "p_true": 0.8222
+   },
+   {
+    "text": "This article is about business.",
+    "label": false,
+    "p_true": 0.4434
+   },
+   {
+    "text": "This article is about sports.",
+    "label": false,
+    "p_true": 0.2986
+   },
+   {
+    "text": "You can get a caution without being arrested.",
+    "label": false,
+    "p_true": 0.6806
+   },
+   {
+    "text": "There is a sequel to the movie 300.",
+    "label": true,
+    "p_true": 0.7532
+   },
+   {
+    "text": "The applicant is eligible.",
+    "label": true,
+    "p_true": 0.9148
+   },
+   {
+    "text": "Split phase is the same as single phase.",
+    "label": true,
+    "p_true": 0.712
+   },
+   {
+    "text": "The Bronx Zoo is the largest zoo in the world.",
+    "label": false,
+    "p_true": 0.666
+   },
+   {
+    "text": "This return request is within the policy window.",
+    "label": true,
+    "p_true": 0.8123
+   }
+  ],
+  "hardneg_dev": [
+   {
+    "text": "The waitress calls the reviewer darling at Harlows.",
+    "label": true,
+    "p_true": 0.7627
+   },
+   {
+    "text": "The line stays short and moves quickly at Harlows.",
+    "label": false,
+    "p_true": 0.7382
+   },
+   {
+    "text": "The reviewer's insurance recommends this shop after an accident.",
+    "label": true,
+    "p_true": 0.6464
+   },
+   {
+    "text": "The reviewer gives the shop a five-star rating for the repair.",
+    "label": false,
+    "p_true": 0.6073
+   },
+   {
+    "text": "The pair of silver-haired ladies is pleasantly surprised by the film.",
+    "label": true,
+    "p_true": 0.6963
+   },
+   {
+    "text": "Nine ten-year-old girls talk loudly throughout the movie.",
+    "label": false,
+    "p_true": 0.6368
+   },
+   {
+    "text": "The waiter dupes the reviewer into buying an entree.",
+    "label": true,
+    "p_true": 0.5937
+   },
+   {
+    "text": "The reviewer awards the restaurant four and a half stars.",
+    "label": false,
+    "p_true": 0.5423
+   },
+   {
+    "text": "Priya, age 20, applies for the volunteer driver program.",
+    "label": true,
+    "p_true": 0.107
+   },
+   {
+    "text": "Priya qualifies for the volunteer driver program at age 20.",
+    "label": false,
+    "p_true": 0.0975
+   },
+   {
+    "text": "Tomas, who is 29 years old, meets the driver program's age requirement.",
+    "label": true,
+    "p_true": 0.9065
+   },
+   {
+    "text": "Tomas is under 18 years old according to his application.",
+    "label": false,
+    "p_true": 0.1339
+   },
+   {
+    "text": "Forbes.com examines several explanations for tech stocks' poor 2004 performance.",
+    "label": true,
+    "p_true": 0.5586
+   },
+   {
+    "text": "The article claims tech stocks deliver strong gains in 2004.",
+    "label": false,
+    "p_true": 0.4363
+   },
+   {
+    "text": "The customer's payment error involves an incorrect account number.",
+    "label": true,
+    "p_true": 0.7021
+   },
+   {
+    "text": "The customer successfully cancels the payment by himself.",
+    "label": false,
+    "p_true": 0.3843
+   },
+   {
+    "text": "The customer wants to transfer money into a friend's account.",
+    "label": true,
+    "p_true": 0.6144
+   },
+   {
+    "text": "The customer's transfer to the friend's account succeeds immediately.",
+    "label": false,
+    "p_true": 0.6359
+   },
+   {
+    "text": "Aiko orders a coffee grinder for residential delivery.",
+    "label": true,
+    "p_true": 0.7016
+   },
+   {
+    "text": "Aiko's coffee grinder order exceeds the maximum allowed quantity.",
+    "label": false,
+    "p_true": 0.1855
+   },
+   {
+    "text": "The Pariwhakaoho River flows northeast toward Golden Bay.",
+    "label": true,
+    "p_true": 0.7707
+   },
+   {
+    "text": "The Pariwhakaoho River reaches Golden Bay southeast of Takaka.",
+    "label": false,
+    "p_true": 0.7609
+   },
+   {
+    "text": "Both presidential candidates publish election promises in scientific journals.",
+    "label": true,
+    "p_true": 0.811
+   },
+   {
+    "text": "A single candidate shares election promises through scientific journals.",
+    "label": false,
+    "p_true": 0.7559
+   },
+   {
+    "text": "George Clooney portrays a crippled safe breaker in this movie.",
+    "label": true,
+    "p_true": 0.7329
+   },
+   {
+    "text": "Michael Jeter plays the crook named Riley in the film.",
+    "label": false,
+    "p_true": 0.6991
+   },
+   {
+    "text": "Regulators express doubts about Wall Street's holiday gift-giving practices.",
+    "label": true,
+    "p_true": 0.2566
+   },
+   {
+    "text": "Regulators enthusiastically embrace Wall Street's holiday gift-giving traditions.",
+    "label": false,
+    "p_true": 0.2651
+   },
+   {
+    "text": "In the movie, Billy eats ten worms in one day.",
+    "label": true,
+    "p_true": 0.6296
+   },
+   {
+    "text": "In the movie, Billy eats fifteen worms in fifteen days.",
+    "label": false,
+    "p_true": 0.7006
+   },
+   {
+    "text": "The staff at PT's bar is fun and relaxed.",
+    "label": true,
+    "p_true": 0.6573
+   },
+   {
+    "text": "PT's bar has excellent sanitation practices.",
+    "label": false,
+    "p_true": 0.6582
+   },
+   {
+    "text": "The reviewer gives the state fair a two star rating.",
+    "label": true,
+    "p_true": 0.4686
+   },
+   {
+    "text": "The state fair's own parking lot charges five to fifteen dollars.",
+    "label": false,
+    "p_true": 0.586
+   },
+   {
+    "text": "Treasury prices slip on Wednesday according to the report.",
+    "label": true,
+    "p_true": 0.6251
+   },
+   {
+    "text": "The manufacturing survey shows a sharp decline in September.",
+    "label": false,
+    "p_true": 0.4192
+   },
+   {
+    "text": "Noah's ticket is routed through the phone queue.",
+    "label": true,
+    "p_true": 0.6875
+   },
+   {
+    "text": "Noah's ticket response constitutes a major service breach.",
+    "label": false,
+    "p_true": 0.4167
+   },
+   {
+    "text": "The reviewer gets arrested after vandalizing the television set.",
+    "label": true,
+    "p_true": 0.5946
+   },
+   {
+    "text": "The reviewer watches the movie together with his siblings.",
+    "label": false,
+    "p_true": 0.5839
+   },
+   {
+    "text": "The Clippers squander a 14-point lead on Monday night.",
+    "label": true,
+    "p_true": 0.6817
+   },
+   {
+    "text": "The Clippers protect their 14-point lead and win easily.",
+    "label": false,
+    "p_true": 0.6429
+   },
+   {
+    "text": "Karbala village's 2006 census records 226 residents in 46 families.",
+    "label": true,
+    "p_true": 0.543
+   },
+   {
+    "text": "Karbala village's 2006 census counts 226 separate families.",
+    "label": false,
+    "p_true": 0.4993
+   },
+   {
+    "text": "The reviewer pays eight dollars for the meal.",
+    "label": true,
+    "p_true": 0.55
+   },
+   {
+    "text": "Burger King serves the reviewer a hot, crispy breakfast.",
+    "label": false,
+    "p_true": 0.4839
+   },
+   {
+    "text": "Pedro Martinez is one of the top free agents this offseason.",
+    "label": true,
+    "p_true": 0.664
+   },
+   {
+    "text": "Pedro Martinez holds higher value for other teams than Boston.",
+    "label": false,
+    "p_true": 0.538
+   },
+   {
+    "text": "Mira orders four units of running shoes for delivery.",
+    "label": true,
+    "p_true": 0.7801
+   },
+   {
+    "text": "Mira's running shoe order is held for review.",
+    "label": false,
+    "p_true": 0.3155
+   },
+   {
+    "text": "The reviewer describes the theater as cozy.",
+    "label": true,
+    "p_true": 0.5442
+   },
+   {
+    "text": "The reviewer gives the show a rating of five.",
+    "label": false,
+    "p_true": 0.5385
+   },
+   {
+    "text": "The customer's card payment shows as pending.",
+    "label": true,
+    "p_true": 0.4726
+   },
+   {
+    "text": "The customer's card payment completes successfully right away.",
+    "label": false,
+    "p_true": 0.314
+   },
+   {
+    "text": "Lena requests delivery to a residential address.",
+    "label": true,
+    "p_true": 0.8333
+   },
+   {
+    "text": "Lena's coffee grinder order gets held for review.",
+    "label": false,
+    "p_true": 0.19
+   },
+   {
+    "text": "Tributes for Yasser Arafat pour in at the United Nations.",
+    "label": true,
+    "p_true": 0.721
+   },
+   {
+    "text": "Yasser Arafat passes away in a New York hospital.",
+    "label": false,
+    "p_true": 0.684
+   },
+   {
+    "text": "Microsoft offers migration tools for Novell NetWare customers.",
+    "label": true,
+    "p_true": 0.6801
+   },
+   {
+    "text": "Customers migrate from Windows Server 2003 to Novell NetWare.",
+    "label": false,
+    "p_true": 0.5757
+   },
+   {
+    "text": "Packera breweri is commonly known as Brewer's ragwort.",
+    "label": true,
+    "p_true": 0.6376
+   },
+   {
+    "text": "Packera breweri produces multiple stems from a fibrous root.",
+    "label": false,
+    "p_true": 0.6225
+   },
+   {
+    "text": "The reviewer finds Steve's locked during the Packer game.",
+    "label": true,
+    "p_true": 0.6379
+   },
+   {
+    "text": "Steve's staff greets the reviewer during the Packer game.",
+    "label": false,
+    "p_true": 0.5237
+   },
+   {
+    "text": "Elin orders eight units of a wireless keyboard.",
+    "label": true,
+    "p_true": 0.6396
+   },
+   {
+    "text": "Elin's order for eight wireless keyboards is held for review.",
+    "label": false,
+    "p_true": 0.7289
+   },
+   {
+    "text": "Russel plays the ex-jock who peaked in high school.",
+    "label": true,
+    "p_true": 0.7836
+   },
+   {
+    "text": "Williams plays the ex-jock who peaked in high school.",
+    "label": false,
+    "p_true": 0.796
+   },
+   {
+    "text": "Tomas is thirty-five years old when he applies.",
+    "label": true,
+    "p_true": 0.8962
+   },
+   {
+    "text": "Tomas turns twenty-one years old before applying for the rental agreement.",
+    "label": false,
+    "p_true": 0.9134
+   },
+   {
+    "text": "The reviewer calls the movie overall a good crime film.",
+    "label": true,
+    "p_true": 0.6547
+   },
+   {
+    "text": "Every story decision makes perfect sense in this crime film.",
+    "label": false,
+    "p_true": 0.5734
+   },
+   {
+    "text": "The reviewer calls Gunga Din a classic film.",
+    "label": true,
+    "p_true": 0.8
+   },
+   {
+    "text": "The reviewer criticizes Cary Grant's onscreen charisma as weak.",
+    "label": false,
+    "p_true": 0.2189
+   },
+   {
+    "text": "JP McManus and John Magnier own a 29.9 percent stake.",
+    "label": true,
+    "p_true": 0.3645
+   },
+   {
+    "text": "JP McManus and John Magnier accept Glazer's 300 pence per share offer.",
+    "label": false,
+    "p_true": 0.1948
+   },
+   {
+    "text": "Researchers develop a phone case made of new polymer.",
+    "label": true,
+    "p_true": 0.6795
+   },
+   {
+    "text": "The seed makes the phone case fully waterproof.",
+    "label": false,
+    "p_true": 0.69
+   },
+   {
+    "text": "The customer's card has unauthorized online shopping charges.",
+    "label": true,
+    "p_true": 0.8014
+   },
+   {
+    "text": "The customer wants to keep using the compromised card.",
+    "label": false,
+    "p_true": 0.5578
+   },
+   {
+    "text": "Elin places a business order for a desk lamp.",
+    "label": true,
+    "p_true": 0.7559
+   },
+   {
+    "text": "Elin's order of thirty-three desk lamps qualifies for the volume discount.",
+    "label": false,
+    "p_true": 0.8792
+   },
+   {
+    "text": "The reviewer thanks a representative named Rey for great service.",
+    "label": true,
+    "p_true": 0.819
+   },
+   {
+    "text": "Rey rushes through the meeting and ignores the customer's questions.",
+    "label": false,
+    "p_true": 0.5158
+   },
+   {
+    "text": "Tomas pays his $980 invoice by bank transfer.",
+    "label": true,
+    "p_true": 0.8087
+   },
+   {
+    "text": "Tomas's late payment incurs a two percent fee.",
+    "label": false,
+    "p_true": 0.8852
+   },
+   {
+    "text": "The reviewer rates this movie zero out of ten.",
+    "label": true,
+    "p_true": 0.4033
+   },
+   {
+    "text": "The reviewer recommends this movie over Dances with Wolves.",
+    "label": false,
+    "p_true": 0.2416
+   },
+   {
+    "text": "US Airways asks a judge for permission to skip a pension payment.",
+    "label": true,
+    "p_true": 0.561
+   },
+   {
+    "text": "US Airways pays the pension obligation on time this week.",
+    "label": false,
+    "p_true": 0.5534
+   },
+   {
+    "text": "Talkin' Honky Blues wins the 2004 Juno Award for Alternative Album of the Year.",
+    "label": true,
+    "p_true": 0.8006
+   },
+   {
+    "text": "Buck 65 records a blues album called Talkin' Honky Blues.",
+    "label": false,
+    "p_true": 0.7994
+   },
+   {
+    "text": "The group includes six people who all enjoy dinner.",
+    "label": true,
+    "p_true": 0.6867
+   },
+   {
+    "text": "The wine steward charges a seventy dollar corkage fee.",
+    "label": false,
+    "p_true": 0.6131
+   },
+   {
+    "text": "Tomas's $341 expense claim is approved automatically under the policy.",
+    "label": true,
+    "p_true": 0.7843
+   },
+   {
+    "text": "Tomas's expense claim requires director sign-off before approval.",
+    "label": false,
+    "p_true": 0.2313
+   },
+   {
+    "text": "The owner greets guests at the door personally.",
+    "label": true,
+    "p_true": 0.775
+   },
+   {
+    "text": "The reviewer complains about the restaurant's long wait times.",
+    "label": false,
+    "p_true": 0.4969
+   },
+   {
+    "text": "Baseball owners approve the Expos' move to Washington.",
+    "label": true,
+    "p_true": 0.867
+   },
+   {
+    "text": "Peter Angelos votes in favor of the Expos' relocation.",
+    "label": false,
+    "p_true": 0.7569
+   },
+   {
+    "text": "Ait Tamlil has a population of 18720 people.",
+    "label": true,
+    "p_true": 0.7801
+   },
+   {
+    "text": "Ait Tamlil's 2004 census counts 2453 total residents.",
+    "label": false,
+    "p_true": 0.6898
+   },
+   {
+    "text": "The Ansari X Prize offers a $10 million reward.",
+    "label": true,
+    "p_true": 0.6479
+   },
+   {
+    "text": "The SpaceShipOne attempt marks the forty-eighth Sputnik anniversary.",
+    "label": false,
+    "p_true": 0.5551
+   },
+   {
+    "text": "Midland Group plans a Formula One team for 2006.",
+    "label": true,
+    "p_true": 0.7282
+   },
+   {
+    "text": "The new Formula One team is based in Russia.",
+    "label": false,
+    "p_true": 0.6687
+   },
+   {
+    "text": "The fighters defy the Iraqi government for three weeks.",
+    "label": true,
+    "p_true": 0.465
+   },
+   {
+    "text": "The fighting kills 501 Iraqis in a single day.",
+    "label": false,
+    "p_true": 0.4593
+   },
+   {
+    "text": "The reviewer credits Rodgers and Hart for the film's music.",
+    "label": true,
+    "p_true": 0.8059
+   },
+   {
+    "text": "The reviewer says E.E. Horton composes the film's music.",
+    "label": false,
+    "p_true": 0.7883
+   },
+   {
+    "text": "SAP unveils a new automated service called SAP Security Optimization.",
+    "label": true,
+    "p_true": 0.7562
+   },
+   {
+    "text": "SAP Security Optimization performs manual security-configuration checks for customers.",
+    "label": false,
+    "p_true": 0.7845
+   },
+   {
+    "text": "Mariano Rivera serves as the Yankees' closer.",
+    "label": true,
+    "p_true": 0.6651
+   },
+   {
+    "text": "Mariano Rivera suffers electrocution while cleaning his pool.",
+    "label": false,
+    "p_true": 0.6501
+   },
+   {
+    "text": "The customer submits this complaint through the email channel.",
+    "label": true,
+    "p_true": 0.6374
+   },
+   {
+    "text": "The reviewer says The Fan is a better film than Taxi Driver.",
+    "label": false,
+    "p_true": 0.263
+   },
+   {
+    "text": "SilverStone Technology Co. Ltd is founded in 2003.",
+    "label": true,
+    "p_true": 0.7194
+   },
+   {
+    "text": "The Temjin series targets home theater PC enthusiasts.",
+    "label": false,
+    "p_true": 0.6238
+   },
+   {
+    "text": "The reviewer orders grilled meatballs that are slightly chewy.",
+    "label": true,
+    "p_true": 0.731
+   },
+   {
+    "text": "The fried chicken wings taste greasy and undercooked.",
+    "label": false,
+    "p_true": 0.5057
+   },
+   {
+    "text": "The reviewer describes the waiter as awesome and friendly.",
+    "label": true,
+    "p_true": 0.5598
+   },
+   {
+    "text": "The reviewer says the food exceeds all expectations.",
+    "label": false,
+    "p_true": 0.3383
+   },
+   {
+    "text": "The reviewer describes Coyote Ugly's crowd as skanky.",
+    "label": true,
+    "p_true": 0.5967
+   },
+   {
+    "text": "The reviewer praises Coyote Ugly for its cheap drinks.",
+    "label": false,
+    "p_true": 0.5605
+   },
+   {
+    "text": "Duke Keomuka fathers both wrestler Pat Tanaka and referee Jimmy Tanaka.",
+    "label": true,
+    "p_true": 0.8926
+   },
+   {
+    "text": "Jimmy Tanaka works as a professional wrestler like his father.",
+    "label": false,
+    "p_true": 0.8337
+   },
+   {
+    "text": "CEITEC specializes in microelectronics project development and fabrication.",
+    "label": true,
+    "p_true": 0.8706
+   },
+   {
+    "text": "CEITEC operates as a Portuguese technology center for microelectronics.",
+    "label": false,
+    "p_true": 0.8259
+   },
+   {
+    "text": "Kate Winslet portrays Ophelia's descent into madness.",
+    "label": true,
+    "p_true": 0.7852
+   },
+   {
+    "text": "Derek Jacobi portrays the conniving character Polonius.",
+    "label": false,
+    "p_true": 0.8197
+   },
+   {
+    "text": "The customer contacts the seller about a refund.",
+    "label": true,
+    "p_true": 0.5104
+   },
+   {
+    "text": "The seller returns the customer's money immediately.",
+    "label": false,
+    "p_true": 0.4946
+   },
+   {
+    "text": "The Athens Olympics and US elections boost third-quarter ad spending.",
+    "label": true,
+    "p_true": 0.6287
+   },
+   {
+    "text": "The study reports ad spending falls 10.3 percent this year.",
+    "label": false,
+    "p_true": 0.4786
+   },
+   {
+    "text": "John Russell Payton has represented District 64 since 2013.",
+    "label": true,
+    "p_true": 0.5849
+   },
+   {
+    "text": "John Russell Payton represents the Democratic Party in Arkansas.",
+    "label": false,
+    "p_true": 0.5696
+   },
+   {
+    "text": "Will Brooks fights for Bellator Fighting Championships.",
+    "label": true,
+    "p_true": 0.7146
+   },
+   {
+    "text": "Will Brooks is born on October 8, 1984.",
+    "label": false,
+    "p_true": 0.5559
+   },
+   {
+    "text": "The reviewer finds the burger's meat tasty.",
+    "label": true,
+    "p_true": 0.8119
+   },
+   {
+    "text": "The hamburger shop offers spacious seating for dining in.",
+    "label": false,
+    "p_true": 0.7299
+   },
+   {
+    "text": "Schalke rallies with two late goals to beat Hamburg 2-1.",
+    "label": true,
+    "p_true": 0.6006
+   },
+   {
+    "text": "Hamburg defeats Schalke by a score of two to one.",
+    "label": false,
+    "p_true": 0.5756
+   },
+   {
+    "text": "Manufacturing activity rises in August for a 15th straight month.",
+    "label": true,
+    "p_true": 0.6753
+   },
+   {
+    "text": "Manufacturing activity grows faster in August than in July.",
+    "label": false,
+    "p_true": 0.5686
+   },
+   {
+    "text": "Ken Bigley's brother cites sources in Kuwait about a transfer.",
+    "label": true,
+    "p_true": 0.8097
+   },
+   {
+    "text": "Ken Bigley's brother announces his release from captivity.",
+    "label": false,
+    "p_true": 0.6756
+   },
+   {
+    "text": "Priya buys running shoes on September 4, 2026.",
+    "label": true,
+    "p_true": 0.6545
+   },
+   {
+    "text": "Priya's return request arrives within the 30-day deadline.",
+    "label": false,
+    "p_true": 0.8478
+   },
+   {
+    "text": "Spilarctia rubribasis is found in the Arfak Mountains of New Guinea.",
+    "label": true,
+    "p_true": 0.7398
+   },
+   {
+    "text": "Spilarctia rubribasis is a butterfly in the Arctiidae family.",
+    "label": false,
+    "p_true": 0.7074
+   },
+   {
+    "text": "Analysts predict future problems for Blair after Bush's re-election.",
+    "label": true,
+    "p_true": 0.5062
+   },
+   {
+    "text": "Analysts predict lasting gains for Blair after Bush's re-election.",
+    "label": false,
+    "p_true": 0.396
+   },
+   {
+    "text": "Mississippi State defeats Birmingham-Southern fifty-five to forty-eight.",
+    "label": true,
+    "p_true": 0.4254
+   },
+   {
+    "text": "Birmingham-Southern defeats Mississippi State by seven points.",
+    "label": false,
+    "p_true": 0.3817
+   },
+   {
+    "text": "The reviewer says the hotel bed feels too hard.",
+    "label": true,
+    "p_true": 0.4687
+   },
+   {
+    "text": "The reviewer plans to stay at this hotel again.",
+    "label": false,
+    "p_true": 0.2531
+   },
+   {
+    "text": "Sana's order of 8 running shoes is cancelled under the policy.",
+    "label": true,
+    "p_true": 0.7077
+   },
+   {
+    "text": "Sana's order of running shoes is held for review.",
+    "label": false,
+    "p_true": 0.7325
+   },
+   {
+    "text": "The restaurant offers gluten-free empanadas on its menu.",
+    "label": true,
+    "p_true": 0.7386
+   },
+   {
+    "text": "The reviewer describes the service as quite rude.",
+    "label": false,
+    "p_true": 0.4683
+   },
+   {
+    "text": "Taiwan's key stock index falls modestly on Wednesday.",
+    "label": true,
+    "p_true": 0.4372
+   },
+   {
+    "text": "Taiwan's top chipmaker issues an upbeat outlook for the fourth quarter.",
+    "label": false,
+    "p_true": 0.397
+   },
+   {
+    "text": "The reviewer calls the calamari the best they've ever had.",
+    "label": true,
+    "p_true": 0.6208
+   },
+   {
+    "text": "The reviewer says the rib roast is disappointing.",
+    "label": false,
+    "p_true": 0.4623
+   },
+   {
+    "text": "Antwone Fisher remains married to the same woman for ten years.",
+    "label": true,
+    "p_true": 0.7802
+   },
+   {
+    "text": "Antwone Fisher struggles with alcohol and drug abuse.",
+    "label": false,
+    "p_true": 0.6889
+   },
+   {
+    "text": "The reviewer describes Sole as a typical shoe store.",
+    "label": true,
+    "p_true": 0.7049
+   },
+   {
+    "text": "The reviewer praises Sole as a wonderfully unique shoe store.",
+    "label": false,
+    "p_true": 0.6546
+   },
+   {
+    "text": "The customer requests 30 pounds but receives only 10.",
+    "label": true,
+    "p_true": 0.6261
+   },
+   {
+    "text": "The customer confirms receiving the full 30 pounds requested.",
+    "label": false,
+    "p_true": 0.5422
+   },
+   {
+    "text": "Elepogon is a hybrid between Calopogon and Eleorchis.",
+    "label": true,
+    "p_true": 0.8755
+   },
+   {
+    "text": "Elp is the official abbreviation for the genus Eleorchis.",
+    "label": false,
+    "p_true": 0.7481
+   },
+   {
+    "text": "President Thabo Mbeki travels to the rebel stronghold of Bouake.",
+    "label": true,
+    "p_true": 0.6454
+   },
+   {
+    "text": "Hundreds of people in Bouake demand that Gbagbo remain president.",
+    "label": false,
+    "p_true": 0.5166
+   },
+   {
+    "text": "The customer feels overcharged for the ATM withdrawal fee.",
+    "label": true,
+    "p_true": 0.6413
+   },
+   {
+    "text": "The customer happily pays the high ATM withdrawal fee.",
+    "label": false,
+    "p_true": 0.42
+   },
+   {
+    "text": "The review says the acting is wooden even by 1936 standards.",
+    "label": true,
+    "p_true": 0.5451
+   },
+   {
+    "text": "The review says the acting excels even by 1936 standards.",
+    "label": false,
+    "p_true": 0.1993
+   },
+   {
+    "text": "The Argonauts scramble for an alternate stadium site.",
+    "label": true,
+    "p_true": 0.5504
+   },
+   {
+    "text": "The Argonauts win their bid to build Varsity Stadium.",
+    "label": false,
+    "p_true": 0.4643
+   },
+   {
+    "text": "Aksu is a village in the Almaty Province of Kazakhstan.",
+    "label": true,
+    "p_true": 0.6576
+   },
+   {
+    "text": "Aksu is located directly south of Zhansugirov.",
+    "label": false,
+    "p_true": 0.5456
+   },
+   {
+    "text": "Omar submits an expense claim totaling $773.",
+    "label": true,
+    "p_true": 0.741
+   },
+   {
+    "text": "Omar's expense claim requires director sign-off.",
+    "label": false,
+    "p_true": 0.3403
+   },
+   {
+    "text": "The staff at this restaurant is friendly.",
+    "label": true,
+    "p_true": 0.6617
+   },
+   {
+    "text": "The food at this restaurant is cheap and flavorful.",
+    "label": false,
+    "p_true": 0.5783
+   },
+   {
+    "text": "The payment arrives ten days after the invoice's due date.",
+    "label": true,
+    "p_true": 0.7686
+   },
+   {
+    "text": "Jonas's invoice incurs a ten percent fee for late payment.",
+    "label": false,
+    "p_true": 0.7762
+   },
+   {
+    "text": "Aiko's invoice amount comes to 120 dollars.",
+    "label": true,
+    "p_true": 0.7436
+   },
+   {
+    "text": "The payment incurs a 2% late fee under the policy.",
+    "label": false,
+    "p_true": 0.8488
+   },
+   {
+    "text": "Pervez Musharraf is the President of Pakistan.",
+    "label": true,
+    "p_true": 0.1565
+   },
+   {
+    "text": "Musharraf demands India set a specific Kashmir timeframe immediately.",
+    "label": false,
+    "p_true": 0.0771
+   },
+   {
+    "text": "The reviewer praises the restaurant's cozy atmosphere and decor.",
+    "label": true,
+    "p_true": 0.5274
+   },
+   {
+    "text": "The duck entree completely exceeds the reviewer's high expectations.",
+    "label": false,
+    "p_true": 0.5419
+   },
+   {
+    "text": "The customer wants a refund for an undelivered product.",
+    "label": true,
+    "p_true": 0.5182
+   },
+   {
+    "text": "The customer requests canceling the payment for her order.",
+    "label": false,
+    "p_true": 0.4205
+   },
+   {
+    "text": "The reviewer discovers this Cagney film by accident on Turner Classics.",
+    "label": true,
+    "p_true": 0.6476
+   },
+   {
+    "text": "John Garfield plays a major, unmissable role throughout the film.",
+    "label": false,
+    "p_true": 0.5038
+   },
+   {
+    "text": "Frank Le Gall is a French comics author born in Rouen.",
+    "label": true,
+    "p_true": 0.7355
+   },
+   {
+    "text": "Frank Le Gall is best known for his series Pistil.",
+    "label": false,
+    "p_true": 0.688
+   },
+   {
+    "text": "Shampoohorn is released under the group name Z.",
+    "label": true,
+    "p_true": 0.6224
+   },
+   {
+    "text": "The American version of Shampoohorn releases months before the European version.",
+    "label": false,
+    "p_true": 0.5968
+   },
+   {
+    "text": "The Journal of Clinical Epidemiology begins publication in 1955.",
+    "label": true,
+    "p_true": 0.715
+   },
+   {
+    "text": "The Journal of Clinical Epidemiology ceases publication in 1955.",
+    "label": false,
+    "p_true": 0.5501
+   },
+   {
+    "text": "Jamie Jones leads the record label Hot Creations.",
+    "label": true,
+    "p_true": 0.6758
+   },
+   {
+    "text": "Benediction peaks at number one on the UK Singles Chart.",
+    "label": false,
+    "p_true": 0.6823
+   },
+   {
+    "text": "A 10-month-old boy is hospitalized with bird flu symptoms.",
+    "label": true,
+    "p_true": 0.7921
+   },
+   {
+    "text": "The boy is the first person hospitalized with bird flu in Thailand.",
+    "label": false,
+    "p_true": 0.6731
+   },
+   {
+    "text": "Current prints restore the dog's previously censored confession scene.",
+    "label": true,
+    "p_true": 0.8127
+   },
+   {
+    "text": "The closing gag with the cat appears uncut in current prints.",
+    "label": false,
+    "p_true": 0.6547
+   },
+   {
+    "text": "The reviewer says the movie's plot lacks development.",
+    "label": true,
+    "p_true": 0.4264
+   },
+   {
+    "text": "The reviewer studies the original book in detail.",
+    "label": false,
+    "p_true": 0.4407
+   },
+   {
+    "text": "The reviewer praises Tunde Jegede's Kora playing in the film.",
+    "label": true,
+    "p_true": 0.7717
+   },
+   {
+    "text": "The film features an all-white cast throughout the story.",
+    "label": false,
+    "p_true": 0.6431
+   },
+   {
+    "text": "The reviewer orders the sirloin steak at Outback.",
+    "label": true,
+    "p_true": 0.5403
+   },
+   {
+    "text": "The reviewer plans to eat more red meat this year.",
+    "label": false,
+    "p_true": 0.4139
+   },
+   {
+    "text": "Rita Hayworth appears as a blonde in this Welles film.",
+    "label": true,
+    "p_true": 0.6503
+   },
+   {
+    "text": "The Coen brothers direct this particular Orson Welles film.",
+    "label": false,
+    "p_true": 0.7201
+   },
+   {
+    "text": "Movie sound plays through the customer's car radio.",
+    "label": true,
+    "p_true": 0.8285
+   },
+   {
+    "text": "The reviewer recommends arriving late to secure a good spot.",
+    "label": false,
+    "p_true": 0.7606
+   },
+   {
+    "text": "Mira's order of 38 backpacks qualifies for the wholesale rate.",
+    "label": true,
+    "p_true": 0.8669
+   },
+   {
+    "text": "Mira's backpack order receives the volume discount rate.",
+    "label": false,
+    "p_true": 0.8664
+   },
+   {
+    "text": "Leon Dai's film wins two awards at the Golden Horse Film Awards.",
+    "label": true,
+    "p_true": 0.5715
+   },
+   {
+    "text": "Cannot Live Without You represents Taiwan at the eighty-third Academy Awards.",
+    "label": false,
+    "p_true": 0.666
+   },
+   {
+    "text": "The U.S. trade gap shrinks according to new data.",
+    "label": true,
+    "p_true": 0.5778
+   },
+   {
+    "text": "The dollar falls to two-week lows against the yen.",
+    "label": false,
+    "p_true": 0.5315
+   },
+   {
+    "text": "The 2006 census counts 311 people living in Qadi Mahalleh.",
+    "label": true,
+    "p_true": 0.6004
+   },
+   {
+    "text": "The 2006 census counts 87 people living in Qadi Mahalleh.",
+    "label": false,
+    "p_true": 0.5758
+   },
+   {
+    "text": "John Y. Hill builds the Brown Pusey House.",
+    "label": true,
+    "p_true": 0.7194
+   },
+   {
+    "text": "The Brown Pusey House is built in 1974.",
+    "label": false,
+    "p_true": 0.2459
+   },
+   {
+    "text": "The review mocks the film's ignorance of Nietzsche's actual work.",
+    "label": true,
+    "p_true": 0.3683
+   },
+   {
+    "text": "The reviewer praises the film's accurate depiction of Nietzsche's life.",
+    "label": false,
+    "p_true": 0.4037
+   },
+   {
+    "text": "The battery warranty claim exceeds the 730-day coverage window.",
+    "label": true,
+    "p_true": 0.585
+   },
+   {
+    "text": "The battery warranty claim qualifies for full coverage under the policy.",
+    "label": false,
+    "p_true": 0.7225
+   },
+   {
+    "text": "Gaddafi appeals to the kidnappers for the hostage's release.",
+    "label": true,
+    "p_true": 0.6375
+   },
+   {
+    "text": "Gaddafi appeals for the release of an American hostage.",
+    "label": false,
+    "p_true": 0.6297
+   },
+   {
+    "text": "The customer's card payment remains pending after failing.",
+    "label": true,
+    "p_true": 0.7076
+   },
+   {
+    "text": "The customer's card payment completes successfully right away.",
+    "label": false,
+    "p_true": 0.3727
+   },
+   {
+    "text": "Omar's claim is filed more than 365 days after purchase.",
+    "label": true,
+    "p_true": 0.7283
+   },
+   {
+    "text": "Omar's claim is covered in full under the policy.",
+    "label": false,
+    "p_true": 0.7678
+   }
+  ]
+ }
+}
