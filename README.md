@@ -66,7 +66,7 @@ python demos/race.py --recording assets/recordings/gpt-6-sol.jsonl --llm-name "G
 <summary><b>Twelve decisions about one ticket, in one pass</b> — click to expand</summary>
 
 <div align="center">
-  <img alt="TinyJev answering 12 typed decisions about one support ticket in one forward pass, next to GPT-6 Sol writing the same answers as JSON token by token" src="https://raw.githubusercontent.com/ankit-aglawe/tinyjev/main/assets/demo_batch.gif" width="860">
+  <img alt="TinyJev answering 12 typed decisions about one support ticket in one forward pass, next to GPT-6 Sol writing the same answers as JSON token by token" src="https://raw.githubusercontent.com/ankit-aglawe/tinyjev/main/assets/demo_batch.gif" width="600">
 </div>
 
 One support ticket, twelve typed decisions: which team, what priority, what the customer wants.
@@ -85,7 +85,7 @@ python demos/batch_race.py --data assets/recordings/batch-support-ticket-gpt-6-s
 <summary><b>Eight tickets, three questions each</b> — click to expand</summary>
 
 <div align="center">
-  <img alt="TinyJev triaging support tickets" src="https://raw.githubusercontent.com/ankit-aglawe/tinyjev/main/assets/demo_triage.gif" width="860">
+  <img alt="TinyJev triaging support tickets" src="https://raw.githubusercontent.com/ankit-aglawe/tinyjev/main/assets/demo_triage.gif" width="600">
 </div>
 
 Eight real support tickets, one after another, on a base M1. Three questions per ticket in a
@@ -189,14 +189,15 @@ Two models so far, same head, same training data, scored on the same 500 never-s
 domains ([`benchmarks/opendecision`](benchmarks/opendecision), every case and probability logged).
 Latency is a base M1 (16 GB) via MLX, one forward pass per case.
 
-| Model | Params | OD-500 | ECE | Gate 0.85 | Cov. @ 2% err | transfer-v4 | ms / case | Size | Weights |
-|---|---:|---:|---:|---|---:|---:|---:|---:|---|
-| <img src="https://raw.githubusercontent.com/ankit-aglawe/tinyjev/main/assets/logos/tinyjev.png" width="18"> **TinyJev&nbsp;0.6B** | 596M | 440 (88.0%) | 0.071 | 59% @ 98.0% | 63% | 0.625 | 85 | 1.2 GB | 🤗 [AnkitAI/tinyjev-0.6b](https://huggingface.co/AnkitAI/tinyjev-0.6b) |
-| <img src="https://raw.githubusercontent.com/ankit-aglawe/tinyjev/main/assets/logos/tinyjev.png" width="18"> **TinyJev&nbsp;4B** | 4.0B | 474 (94.8%) | 0.022 | 87% @ 99.1% | 92% | 0.762 | 628 | 8.0 GB | 🤗 release pending |
+| Model | Params | OD-500 | Gate 0.85 | ms / case | Weights |
+|---|---:|---:|---|---:|---|
+| <img src="https://raw.githubusercontent.com/ankit-aglawe/tinyjev/main/assets/logos/tinyjev.png" width="18"> **TinyJev&nbsp;0.6B** | 596M, 1.2 GB | 440 (88.0%) | 59% @ 98.0% | 85 | 🤗 [AnkitAI/tinyjev-0.6b](https://huggingface.co/AnkitAI/tinyjev-0.6b) |
+| <img src="https://raw.githubusercontent.com/ankit-aglawe/tinyjev/main/assets/logos/tinyjev.png" width="18"> **TinyJev&nbsp;4B** | 4.0B, 8.0 GB | 474 (94.8%) | 87% @ 99.1% | 628 | 🤗 release pending |
 
 OD-500 is correct answers out of 500. Gate 0.85 is the share of decisions answered on its own at
-confidence ≥ 0.85, and how often those were right. Load either with `tinyjev.load("tinyjev-0.6b")`
-or `tinyjev.load("tinyjev-4b")` once released.
+confidence ≥ 0.85, and how often those were right. Calibration (ECE 0.071 vs 0.022), coverage at 2%
+error (63% vs 92%) and transfer-v4 dev (0.625 vs 0.762) are on the benchmark page. Load either with
+`tinyjev.load("tinyjev-0.6b")` or `tinyjev.load("tinyjev-4b")` once released.
 
 Both rows are fp16. Loading with `quantize=8` keeps the same weights in half the memory and changes
 almost nothing: the 0.6B scores 440 at 90 ms, the 4B 473 at 845 ms, one answer in 500 different from
