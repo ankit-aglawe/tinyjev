@@ -279,7 +279,7 @@ Choose the threshold on your own data. The right cutoff depends on what a wrong 
 ## Current status
 
 Both models are published on Hugging Face ([the TinyJev collection](https://huggingface.co/collections/AnkitAI/tinyjev-6ab68b5702fbd9988dac9f80)),
-the 0.6B on ModelScope as well, the package on PyPI. A 149M encoder variant scored 0.532 on
+both on ModelScope as well, the package on PyPI. A 149M encoder variant scored 0.532 on
 transfer-v4 dev, under the 0.55 gate, so there is no smaller model yet.
 
 Known weakness, measured: the 0.6B answers yes to almost any statement-form yes/no check (it was

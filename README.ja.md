@@ -255,7 +255,7 @@ else:
 
 ## 現在の状況
 
-両モデルとも Hugging Face で公開中です（[TinyJev コレクション](https://huggingface.co/collections/AnkitAI/tinyjev-6ab68b5702fbd9988dac9f80)）。0.6B は ModelScope にもあり、パッケージは PyPI にあります。149M のエンコーダー版は transfer-v4 dev で 0.532 と、ゲートの 0.55 を下回ったため、より小さなモデルはまだありません。
+両モデルとも Hugging Face で公開中です（[TinyJev コレクション](https://huggingface.co/collections/AnkitAI/tinyjev-6ab68b5702fbd9988dac9f80)）。どちらも ModelScope にもあり、パッケージは PyPI にあります。149M のエンコーダー版は transfer-v4 dev で 0.532 と、ゲートの 0.55 を下回ったため、より小さなモデルはまだありません。
 
 計測済みの既知の弱点: 0.6B は、記述文の形をした yes/no チェックのほぼすべてに「yes」と答えます（質問文で学習しており、記述文では学習していないため）。4B はその差を半分に縮めます。記述文形式の学習データによる修正が次の実験で、評価ハーネスは [`benchmarks/noul_checks`](benchmarks/noul_checks) にあります。新しい数値はすべて benchmarks フォルダに入り、すべてのケースが記録されます。
 

@@ -255,7 +255,7 @@ else:
 
 ## 현재 상태
 
-두 모델 모두 Hugging Face에 공개되어 있습니다([TinyJev 컬렉션](https://huggingface.co/collections/AnkitAI/tinyjev-6ab68b5702fbd9988dac9f80)). 0.6B는 ModelScope에도 있고, 패키지는 PyPI에 있습니다. 149M 인코더 변형은 transfer-v4 dev에서 0.532로 게이트 0.55에 못 미쳐, 더 작은 모델은 아직 없습니다.
+두 모델 모두 Hugging Face에 공개되어 있습니다([TinyJev 컬렉션](https://huggingface.co/collections/AnkitAI/tinyjev-6ab68b5702fbd9988dac9f80)). 둘 다 ModelScope에도 있고, 패키지는 PyPI에 있습니다. 149M 인코더 변형은 transfer-v4 dev에서 0.532로 게이트 0.55에 못 미쳐, 더 작은 모델은 아직 없습니다.
 
 측정된 알려진 약점: 0.6B는 진술문 형태의 예/아니오 검사 거의 전부에 「예」라고 답합니다(질문문으로 학습했고 진술문으로는 학습하지 않았기 때문). 4B는 그 격차를 절반으로 줄입니다. 진술문 형태의 학습 데이터로 고치는 것이 다음 실험이며, 평가 도구는 [`benchmarks/noul_checks`](benchmarks/noul_checks)에 있습니다. 새로운 수치는 모두 benchmarks 폴더에 들어가고, 모든 사례가 기록됩니다.
 

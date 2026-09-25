@@ -255,7 +255,7 @@ else:
 
 ## 当前状态
 
-两个模型都已发布在 Hugging Face（[TinyJev 合集](https://huggingface.co/collections/AnkitAI/tinyjev-6ab68b5702fbd9988dac9f80)），0.6B 也在 ModelScope 上，软件包在 PyPI。一个 149M 的编码器变体在 transfer-v4 开发集上得 0.532，低于 0.55 的门槛，所以目前还没有更小的模型。
+两个模型都已发布在 Hugging Face（[TinyJev 合集](https://huggingface.co/collections/AnkitAI/tinyjev-6ab68b5702fbd9988dac9f80)），两者也都在 ModelScope 上，软件包在 PyPI。一个 149M 的编码器变体在 transfer-v4 开发集上得 0.532，低于 0.55 的门槛，所以目前还没有更小的模型。
 
 已测得的已知弱点：对几乎所有陈述形式的是/否检查，0.6B 都回答「是」（它是在问句而不是陈述句上训练的）。4B 把这个差距缩小了一半。用陈述形式的训练数据修复是下一个实验；评测工具在 [`benchmarks/noul_checks`](benchmarks/noul_checks)。每个新数字都会落在 benchmarks 文件夹里，每个案例都有记录。
 
