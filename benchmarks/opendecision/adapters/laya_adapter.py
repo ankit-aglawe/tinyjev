@@ -9,9 +9,9 @@ import laya
 
 
 def main():
-    ap = argparse.ArgumentParser(); ap.add_argument("--limit", type=int, default=0); a = ap.parse_args()
-    agent = laya.load("convaiinnovations/laya")
-    w = Writer("laya-english", {"runtime": f"laya {getattr(laya, '__version__', '?')}", "checkpoint": "convaiinnovations/laya",
+    ap = argparse.ArgumentParser(); ap.add_argument("--limit", type=int, default=0); ap.add_argument("--subfolder", default=""); a = ap.parse_args()
+    agent = laya.load("convaiinnovations/laya", subfolder=a.subfolder or None)
+    w = Writer("laya-" + (a.subfolder or "english"), {"runtime": f"laya {getattr(laya, '__version__', '?')}", "checkpoint": "convaiinnovations/laya" + (f"/{a.subfolder}" if a.subfolder else ""),
                                 "note": "English ModernBERT-large checkpoint, default device"})
     for c in load_cases()[: a.limit or None]:
         q = {"q": {"type": "choice", "instructions": c["instructions"], "criteria": c["criteria"]}}

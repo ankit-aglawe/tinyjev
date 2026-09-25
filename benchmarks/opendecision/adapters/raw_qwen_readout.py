@@ -15,6 +15,15 @@ from mlx_lm import load
 LETTERS = string.ascii_uppercase
 
 
+def state_text(state):
+    if isinstance(state, str):
+        return state
+    if isinstance(state, dict):
+        return "  ".join(f"{k}: {v}" for k, v in state.items())
+    return "  ".join(str(v) for v in state)
+
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--model", default="Qwen/Qwen3-0.6B-Base")
@@ -28,7 +37,7 @@ def main():
     for c in load_cases()[: a.limit or None]:
         opts = list(c["criteria"])
         lines = [f"{LETTERS[i]}. {k}: {c['criteria'][k]}" for i, k in enumerate(opts)]
-        prompt = (f"Text:\n{c['state']}\n\nQuestion: {c['instructions']}\n\nOptions:\n" +
+        prompt = (f"Text:\n{state_text(c['state'])}\n\nQuestion: {c['instructions']}\n\nOptions:\n" +
                   "\n".join(lines) + "\n\nAnswer with the letter of the best option.\nAnswer:")
         ids = mx.array(tok.encode(prompt))[None]
 

@@ -182,6 +182,7 @@ def main():
     ap.add_argument("--gif", default="")
     ap.add_argument("--ms", type=int, default=2000)
     ap.add_argument("--colors", type=int, default=32)
+    ap.add_argument("--tickets", default="", help="JSON list of tickets to run instead of the built-in set")
     ap.add_argument("--lang", choices=["en", "zh"], default="en",
                     help="zh renders the desk and the tickets in Chinese")
     args = ap.parse_args()
@@ -190,6 +191,9 @@ def main():
         R.use_cjk()
         R.FOOTNOTE = "画面中的每个数字都来自一次真实的前向推理，现场录制"
     tickets, questions = TICKETS[args.lang], QUESTIONS[args.lang]
+    if args.tickets:
+        import json
+        tickets = json.loads(Path(args.tickets).read_text())
     cut = 18 if args.lang == "zh" else 38
 
     agent = tinyjev.load(args.model)

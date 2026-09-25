@@ -30,8 +30,9 @@ class Writer:
         self.path = RESULTS / f"{model}.jsonl"
         self.f = self.path.open("w")
         self.model = model
-        self.meta = {"model": model, "suite_sha256": suite_sha(), **meta}
+        self.meta = {**meta, "model": model, "suite_sha256": suite_sha()}
         self.f.write(json.dumps({"_meta": self.meta}) + "\n")
+        self.f.flush()
         self.n = self.hits = 0
 
     def row(self, case, probabilities, ms):

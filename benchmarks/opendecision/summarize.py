@@ -71,10 +71,12 @@ def coverage_at_error(curve, budget):
 def main():
     summary, cov_rows, base_rows = {}, [], []
     for path in sorted(R.glob("*.jsonl")):
+        if path.stat().st_size == 0:
+            continue  # a run in progress that has not flushed yet
         meta, rows = load(path)
         if not rows:
             continue
-        name = meta.get("model", path.stem)
+        name = path.stem
         hits = [r["correct"] for r in rows]; conf = [r["confidence"] for r in rows]
         acc, lo, hi = boot_acc(hits)
         dev = [r for r in rows if r["id"] in DEV]; hold = [r for r in rows if r["id"] in HOLD]
@@ -89,7 +91,7 @@ def main():
             "dev": f"{sum(r['correct'] for r in dev)}/{len(dev)}",
             "holdout": f"{sum(r['correct'] for r in hold)}/{len(hold)}",
             "ece": round(ece(conf, hits), 4), "brier": round(brier(rows), 4),
-            "mean_ms": round(float(np.mean([r["ms"] for r in rows])), 1),
+            "mean_ms": round(float(np.mean([r["ms"] for r in rows if r["ms"] is not None])), 1) if any(r["ms"] is not None for r in rows) else None,
             "gate_0.85": {"n": len(gate), "coverage": round(len(gate) / len(rows), 4),
                           "accuracy": round(np.mean([r["correct"] for r in gate]), 4) if gate else None},
             "coverage_at_err": {f"{b:.0%}": round(coverage_at_error(curve, b), 4) for b in (0.02, 0.05, 0.10)},
@@ -112,7 +114,7 @@ def main():
         g = s["gate_0.85"]
         print(f"{name:34} {s['correct']:>3}/{s['n']} = {s['accuracy']:.4f} [{s['ci95'][0]:.3f},{s['ci95'][1]:.3f}]  "
               f"dev {s['dev']:>8} hold {s['holdout']:>7}  ECE {s['ece']:.3f}  gate85 {g['coverage']:.1%}@{(g['accuracy'] or 0):.3f}  "
-              f"cov@2% {s['coverage_at_err']['2%']:.1%}  {s['mean_ms']:.0f} ms")
+              f"cov@2% {s['coverage_at_err']['2%']:.1%}  {(str(round(s['mean_ms'])) + ' ms') if s['mean_ms'] is not None else 'cloud'}")
 
 
 if __name__ == "__main__":

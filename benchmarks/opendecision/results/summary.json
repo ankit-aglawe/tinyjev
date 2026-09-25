@@ -1,4 +1,62 @@
 {
+ "claude-opus-5-5": {
+  "n": 500,
+  "correct": 496,
+  "accuracy": 0.992,
+  "ci95": [
+   0.984,
+   0.998
+  ],
+  "dev": "371/375",
+  "holdout": "125/125",
+  "ece": 0.0703,
+  "brier": 0.0171,
+  "mean_ms": null,
+  "gate_0.85": {
+   "n": 477,
+   "coverage": 0.954,
+   "accuracy": 1.0
+  },
+  "coverage_at_err": {
+   "2%": 1.0,
+   "5%": 1.0,
+   "10%": 1.0
+  },
+  "per_domain": {
+   "appliance_issue": "19/20",
+   "citation_relation": "20/20",
+   "contract_clause": "20/20",
+   "database_intent": "20/20",
+   "date_semantics": "20/20",
+   "document_type": "20/20",
+   "email_intent": "20/20",
+   "entity_matching": "19/20",
+   "function_routing": "20/20",
+   "job_family": "20/20",
+   "logistics_exception": "20/20",
+   "manufacturing_defect": "20/20",
+   "meeting_intent": "20/20",
+   "ml_task": "20/20",
+   "policy_decision": "18/20",
+   "product_taxonomy": "20/20",
+   "research_method": "20/20",
+   "return_reason": "20/20",
+   "science_phenomenon": "20/20",
+   "security_event": "20/20",
+   "semantic_extraction": "20/20",
+   "software_bug": "20/20",
+   "support_routing": "20/20",
+   "transaction_type": "20/20",
+   "word_sense": "20/20"
+  },
+  "meta": {
+   "model": "claude-opus-5-5",
+   "suite_sha256": "cd7372e594fce7a5464c3eb3edc73db45c309c8a67e7eef7daf78ec97288edeb",
+   "runtime": "Claude Code subagents on the author's subscription, model override claude-opus-5-5, effort low, structured output",
+   "probabilities": "SELF-REPORTED by the model in its JSON answer, not logits",
+   "latency": "not measured per case: 20 agents x 25 cases in parallel, 77.6 s wall-clock total; ms below is null"
+  }
+ },
  "kev-0.6b": {
   "n": 500,
   "correct": 441,
@@ -59,12 +117,108 @@
    "checkpoint": "/Users/ankit/.cache/tinyjev/v2/tinyjev-kev-0.6b"
   }
  },
+ "laya-english": {
+  "n": 500,
+  "correct": 367,
+  "accuracy": 0.734,
+  "ci95": [
+   0.694,
+   0.774
+  ],
+  "dev": "276/375",
+  "holdout": "91/125",
+  "ece": 0.0527,
+  "brier": 0.3768,
+  "mean_ms": 138.1,
+  "gate_0.85": {
+   "n": 176,
+   "coverage": 0.352,
+   "accuracy": 0.9602
+  },
+  "coverage_at_err": {
+   "2%": 0.316,
+   "5%": 0.454,
+   "10%": 0.566
+  },
+  "per_domain": {
+   "appliance_issue": "15/20",
+   "citation_relation": "16/20",
+   "contract_clause": "19/20",
+   "database_intent": "16/20",
+   "date_semantics": "10/20",
+   "document_type": "18/20",
+   "email_intent": "17/20",
+   "entity_matching": "11/20",
+   "function_routing": "18/20",
+   "job_family": "8/20",
+   "logistics_exception": "10/20",
+   "manufacturing_defect": "13/20",
+   "meeting_intent": "17/20",
+   "ml_task": "18/20",
+   "policy_decision": "11/20",
+   "product_taxonomy": "18/20",
+   "research_method": "17/20",
+   "return_reason": "11/20",
+   "science_phenomenon": "10/20",
+   "security_event": "19/20",
+   "semantic_extraction": "8/20",
+   "software_bug": "17/20",
+   "support_routing": "16/20",
+   "transaction_type": "15/20",
+   "word_sense": "19/20"
+  },
+  "meta": {
+   "model": "laya-english",
+   "suite_sha256": "cd7372e594fce7a5464c3eb3edc73db45c309c8a67e7eef7daf78ec97288edeb",
+   "runtime": "laya 0.3.20",
+   "checkpoint": "convaiinnovations/laya",
+   "note": "English ModernBERT-large checkpoint, default device"
+  }
+ },
+ "lostargon-tiny-jev": {
+  "n": 89,
+  "correct": 78,
+  "accuracy": 0.8764,
+  "ci95": [
+   0.809,
+   0.9438
+  ],
+  "dev": "60/67",
+  "holdout": "18/22",
+  "ece": 0.0779,
+  "brier": 0.2002,
+  "mean_ms": 2039.1,
+  "gate_0.85": {
+   "n": 63,
+   "coverage": 0.7079,
+   "accuracy": 0.9524
+  },
+  "coverage_at_err": {
+   "2%": 0.618,
+   "5%": 0.7191,
+   "10%": 0.9101
+  },
+  "per_domain": {
+   "appliance_issue": "19/20",
+   "citation_relation": "12/20",
+   "contract_clause": "20/20",
+   "database_intent": "20/20",
+   "date_semantics": "7/9"
+  },
+  "meta": {
+   "model": "lostargon-tiny-jev",
+   "suite_sha256": "cd7372e594fce7a5464c3eb3edc73db45c309c8a67e7eef7daf78ec97288edeb",
+   "runtime": "transformers",
+   "checkpoint": "lostargon/Tiny-Jev",
+   "device": "cpu"
+  }
+ },
  "nanojev": {
   "n": 500,
   "correct": 114,
   "accuracy": 0.228,
   "ci95": [
-   0.192,
+   0.194,
    0.266
   ],
   "dev": "83/375",
@@ -119,28 +273,85 @@
    "checkpoint": "/Users/ankit/.cache/tinyjev/v2/tinyjev-nanojev"
   }
  },
+ "opendecision-engine": {
+  "n": 500,
+  "correct": 428,
+  "accuracy": 0.856,
+  "ci95": [
+   0.824,
+   0.884
+  ],
+  "dev": "319/375",
+  "holdout": "109/125",
+  "ece": 0.1507,
+  "brier": 0.2545,
+  "mean_ms": 683.3,
+  "gate_0.85": {
+   "n": 142,
+   "coverage": 0.284,
+   "accuracy": 0.9789
+  },
+  "coverage_at_err": {
+   "2%": 0.436,
+   "5%": 0.656,
+   "10%": 0.874
+  },
+  "per_domain": {
+   "appliance_issue": "14/20",
+   "citation_relation": "10/20",
+   "contract_clause": "20/20",
+   "database_intent": "17/20",
+   "date_semantics": "16/20",
+   "document_type": "18/20",
+   "email_intent": "19/20",
+   "entity_matching": "12/20",
+   "function_routing": "19/20",
+   "job_family": "18/20",
+   "logistics_exception": "19/20",
+   "manufacturing_defect": "20/20",
+   "meeting_intent": "19/20",
+   "ml_task": "18/20",
+   "policy_decision": "12/20",
+   "product_taxonomy": "20/20",
+   "research_method": "17/20",
+   "return_reason": "18/20",
+   "science_phenomenon": "18/20",
+   "security_event": "19/20",
+   "semantic_extraction": "18/20",
+   "software_bug": "16/20",
+   "support_routing": "19/20",
+   "transaction_type": "14/20",
+   "word_sense": "18/20"
+  },
+  "meta": {
+   "model": "MoritzLaurer/ModernBERT-large-zeroshot-v2.0",
+   "suite_sha256": "cd7372e594fce7a5464c3eb3edc73db45c309c8a67e7eef7daf78ec97288edeb",
+   "runtime": "opendecision 0.1.1",
+   "profile": "default"
+  }
+ },
  "qwen3-0.6b-base-logit-readout": {
   "n": 500,
-  "correct": 353,
-  "accuracy": 0.706,
+  "correct": 354,
+  "accuracy": 0.708,
   "ci95": [
-   0.666,
-   0.746
+   0.668,
+   0.748
   ],
-  "dev": "258/375",
-  "holdout": "95/125",
-  "ece": 0.0952,
-  "brier": 0.4278,
-  "mean_ms": 148.1,
+  "dev": "260/375",
+  "holdout": "94/125",
+  "ece": 0.1022,
+  "brier": 0.4241,
+  "mean_ms": 265.4,
   "gate_0.85": {
    "n": 79,
    "coverage": 0.158,
    "accuracy": 0.9747
   },
   "coverage_at_err": {
-   "2%": 0.206,
-   "5%": 0.384,
-   "10%": 0.466
+   "2%": 0.204,
+   "5%": 0.38,
+   "10%": 0.46
   },
   "per_domain": {
    "appliance_issue": "16/20",
@@ -157,7 +368,7 @@
    "manufacturing_defect": "15/20",
    "meeting_intent": "14/20",
    "ml_task": "12/20",
-   "policy_decision": "6/20",
+   "policy_decision": "7/20",
    "product_taxonomy": "18/20",
    "research_method": "18/20",
    "return_reason": "15/20",
@@ -182,8 +393,8 @@
   "correct": 440,
   "accuracy": 0.88,
   "ci95": [
-   0.852,
-   0.91
+   0.85,
+   0.906
   ],
   "dev": "330/375",
   "holdout": "110/125",
@@ -295,6 +506,62 @@
    "quantize": null,
    "temperature": 1.4640856959456252,
    "checkpoint": "/Users/ankit/.cache/huggingface/hub/models--AnkitAI--tinyjev-0.6b/snapshots/0fdb9ea476be431cb88ef326134f52cc5b1228cd"
+  }
+ },
+ "von-1.2": {
+  "n": 500,
+  "correct": 414,
+  "accuracy": 0.828,
+  "ci95": [
+   0.794,
+   0.86
+  ],
+  "dev": "310/375",
+  "holdout": "104/125",
+  "ece": 0.0676,
+  "brier": 0.2714,
+  "mean_ms": 342.9,
+  "gate_0.85": {
+   "n": 346,
+   "coverage": 0.692,
+   "accuracy": 0.9133
+  },
+  "coverage_at_err": {
+   "2%": 0.332,
+   "5%": 0.524,
+   "10%": 0.73
+  },
+  "per_domain": {
+   "appliance_issue": "16/20",
+   "citation_relation": "16/20",
+   "contract_clause": "20/20",
+   "database_intent": "18/20",
+   "date_semantics": "12/20",
+   "document_type": "17/20",
+   "email_intent": "18/20",
+   "entity_matching": "10/20",
+   "function_routing": "19/20",
+   "job_family": "16/20",
+   "logistics_exception": "18/20",
+   "manufacturing_defect": "19/20",
+   "meeting_intent": "19/20",
+   "ml_task": "18/20",
+   "policy_decision": "9/20",
+   "product_taxonomy": "20/20",
+   "research_method": "17/20",
+   "return_reason": "17/20",
+   "science_phenomenon": "17/20",
+   "security_event": "18/20",
+   "semantic_extraction": "16/20",
+   "software_bug": "19/20",
+   "support_routing": "17/20",
+   "transaction_type": "9/20",
+   "word_sense": "19/20"
+  },
+  "meta": {
+   "model": "von-latest",
+   "suite_sha256": "cd7372e594fce7a5464c3eb3edc73db45c309c8a67e7eef7daf78ec97288edeb",
+   "runtime": "von-sdk"
   }
  }
 }
