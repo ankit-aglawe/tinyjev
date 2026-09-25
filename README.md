@@ -48,7 +48,7 @@ TinyJev is MIT licensed.
 ## Watch it decide
 
 <div align="center">
-  <img alt="TinyJev and GPT-6 Sol answering the same six never-seen questions from a shared start; TinyJev finishes each in under 130 ms, GPT-6 Sol writes JSON for about two seconds" src="https://raw.githubusercontent.com/ankit-aglawe/tinyjev/main/assets/demo_race.gif" width="860">
+  <img alt="TinyJev and GPT-6 Sol answering the same six never-seen questions from a shared start; TinyJev finishes each in under 130 ms, GPT-6 Sol writes JSON for about two seconds" src="https://raw.githubusercontent.com/ankit-aglawe/tinyjev/main/assets/demo_race.gif" width="600">
 </div>
 
 Six decisions from six domains it never trained on, the same question to both models at the same
