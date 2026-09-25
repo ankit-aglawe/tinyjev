@@ -13,8 +13,8 @@ On OpenDecision's 500 never-seen cases, same inputs for every row:
 | Claude Opus 5.5 | 496 | the ceiling |
 | kev-0.8b (Qwen3.5-0.8B base) | 463 | Kev's current small model, via its own server |
 | kev-0.6b (raw logits) | 441 | the checkpoint tinyjev reproduces |
-| **tinyjev-0.6b** | **440** | |
 | lostargon/Tiny-Jev (the name collision) | 445 | its own head, inside tinyjev's CI |
+| **tinyjev-0.6b** | **440** | |
 | OpenDecision's own engine | 428 | inside tinyjev's CI |
 | agent-jev-0.6b | 415 | same backbone, permutation-equivariant set head |
 | von 1.2 (395M encoder) | 414 | |
