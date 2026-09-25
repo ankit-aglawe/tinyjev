@@ -4,7 +4,7 @@ is typed by hand.
 
     python render_readme.py
 """
-import json, re
+import csv, json, re
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
@@ -73,6 +73,18 @@ def per_domain(name="tinyjev-0.6b"):
     return "\n".join(out)
 
 
+def cascade():
+    p = HERE / "results" / "cascade.csv"
+    if not p.exists():
+        return "_not run_"
+    rows = list(csv.DictReader(p.open()))
+    out = ["| gate | stays local | sent to Opus | cascade accuracy | Opus alone | delta |", "|---:|---:|---:|---:|---:|---:|"]
+    for r in rows:
+        if float(r["gate"]) in (0.6, 0.7, 0.8, 0.85, 0.9, 0.95, 0.99):
+            out.append(f"| {float(r['gate']):.2f} | {float(r['local_share']):.1%} | {float(r['sent_to_big']):.1%} | {float(r['cascade_accuracy']):.1%} | {float(r['big_only_accuracy']):.1%} | {float(r['delta_vs_big'])*100:+.1f} |")
+    return "\n".join(out)
+
+
 def temperature():
     p = HERE / "results" / "temperature.csv"
     if not p.exists():
@@ -116,6 +128,7 @@ def main():
     fill(rd, "HOWRUN", how_run())
     fill(rd, "DOMAINS", per_domain())
     fill(rd, "TEMPERATURE", temperature())
+    fill(rd, "CASCADE", cascade())
     fill(ROOT / "README.md", "MEASURED-BLOCK", measured_block())
     print("filled", rd, "and", ROOT / "README.md")
 

@@ -69,6 +69,33 @@ Adapters are in [`adapters/`](adapters/), one per runtime, all writing the schem
 [`common.py`](common.py). Local rows ran on a base M1 (16 GB) one model at a time except
 where the note says otherwise, so latency columns compare only within a runtime.
 
+## In front of a frontier model
+
+The use these models are actually for. tinyjev answers every case it is at least `gate`
+sure of; Claude Opus 5.5 answers the rest. Counted from the two logged runs on the same
+500 cases (`cascade.py`, full curve in `results/cascade.csv`):
+
+<!-- CASCADE:start -->
+| gate | stays local | sent to Opus | cascade accuracy | Opus alone | delta |
+|---:|---:|---:|---:|---:|---:|
+| 0.60 | 83.6% | 16.4% | 95.2% | 99.2% | -4.0 |
+| 0.70 | 75.8% | 24.2% | 96.6% | 99.2% | -2.6 |
+| 0.80 | 64.4% | 35.6% | 97.8% | 99.2% | -1.4 |
+| 0.85 | 59.2% | 40.8% | 98.2% | 99.2% | -1.0 |
+| 0.90 | 47.8% | 52.2% | 98.6% | 99.2% | -0.6 |
+| 0.95 | 33.2% | 66.8% | 99.2% | 99.2% | +0.0 |
+| 0.99 | 10.8% | 89.2% | 99.2% | 99.2% | +0.0 |
+<!-- CASCADE:end -->
+
+tinyjev alone is 88.0%. Opus alone is 99.2%. At a 0.95 gate the cascade is also 99.2%
+with a third of the decisions never leaving the laptop; at 0.85 it is 98.2% with 59%
+staying local. tinyjev put 54 of its 60 errors below the 0.85 gate on its own, which is
+why the hand-off works. At Opus 5.5's list price this shape of request is roughly
+$2.7k–$5.7k per million decisions (192 input and 97–247 output tokens each, estimated
+with a proxy tokenizer); the local share is $0.
+
+![cascade](../../assets/cascade.png)
+
 ## Where the temperature came from, and what it costs out of distribution
 
 tinyjev serves `logits / 1.464`, a temperature fitted by Kev's trial scorer on the
