@@ -110,9 +110,11 @@ class Agent:
         return self.manifest.get("name", self.manifest["family"])
 
     def _run(self, records: List[dict], temperature: float):
-        results, paths, elapsed = {}, 0, 0.0
+        results, paths, elapsed, input_tokens = {}, 0, 0.0, 0
         for rec in records:
             enc = self.family.encode(rec)
+            # Logical input: share the state once, independent of backend padding/KV reuse.
+            input_tokens += len(enc.prefix) + sum(len(row) for row in enc.rows)
             t = time.perf_counter()
             hs = self.backbone.hidden_rows(enc.prefix, enc.rows, self.family.pad_token_id)
             logits = self.family.logits(hs, enc)
@@ -127,11 +129,11 @@ class Agent:
                     "answer": self.family.answer(q, probs),
                     "path_token_counts": [len(enc.prefix) + len(enc.rows[i]) for i in
                                           (q["rows"] if "rows" in q else [q["row"]])]}
-        return results, paths, elapsed * 1000.0
+        return results, paths, elapsed * 1000.0, input_tokens
 
     def logits(self, payload: Dict[str, Any]) -> Dict[str, dict]:
         """Raw per-candidate logits/probabilities keyed by `<state id>:<question id>`."""
-        results, _, _ = self._run(normalize_request(payload), 1.0)
+        results, _, _, _ = self._run(normalize_request(payload), 1.0)
         return {k: {kk: v[kk] for kk in ("type", "logits", "probabilities", "answer", "path_token_counts")}
                 | {"candidate_ids": v["keys"]} for k, v in results.items()}
 
@@ -140,7 +142,7 @@ class Agent:
                 or temperature <= 0 or temperature != temperature:
             raise ValueError("temperature must be a finite positive number")
         records = normalize_request(payload)
-        results, paths, ms = self._run(records, float(temperature))
+        results, paths, ms, input_tokens = self._run(records, float(temperature))
         states = {r["id"]: {"id": r["id"], "answers": {}} for r in records}
         for v in results.values():
             states[v["state_id"]]["answers"][v["qid"]] = v["answer"]
@@ -150,6 +152,7 @@ class Agent:
                       "quantize_bits": self.quantize or None,
                       "directory": str(self.root), "upstream": self.manifest.get("upstream", {})},
             "temperature": {"value": float(temperature)},
+            "usage": {"input_tokens": input_tokens, "output_tokens": 0},
             "execution": {"states": len(records), "questions": len(results), "candidate_paths": paths,
                           "autoregressive_decode_steps": 0, "model_ms": round(ms, 2)},
             "states": list(states.values()),
@@ -170,6 +173,7 @@ class Agent:
                                 "legend": a.get("legend"), "probabilities": a["probabilities"],
                                 "confidence": a.get("confidence")}
         return {"model": body.get("model") or self.name, "answers": answers,
+                "usage": res["usage"],
                 "latency_ms": res["execution"]["model_ms"]}
 
 
