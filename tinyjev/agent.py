@@ -23,7 +23,7 @@ def _resolve(model_path, subfolder: Optional[str] = None) -> Path:
         root = Path(ms_download(name.split(":", 1)[1]))
         return root / subfolder if subfolder else root
 
-    repo, sub = resolve(name)
+    repo, sub, rev = resolve(name)
     sub = subfolder or sub
     p = Path(repo).expanduser()
     if p.exists():
@@ -31,7 +31,7 @@ def _resolve(model_path, subfolder: Optional[str] = None) -> Path:
     else:
         from huggingface_hub import snapshot_download
         patterns = [f"{sub}/*"] if sub else ["*"]
-        root = Path(snapshot_download(repo, allow_patterns=patterns))
+        root = Path(snapshot_download(repo, allow_patterns=patterns, revision=rev))
     return root / sub if sub else root
 
 
@@ -176,5 +176,11 @@ class Agent:
 def load(model_path, backend: Optional[str] = None, device: Optional[str] = None,
          subfolder: Optional[str] = None, quantize: int = 0) -> Agent:
     """`load("kev-0.6b")` (alias), `load("/path/to/dir")`, or `load("org/repo", subfolder="name")`.
-    quantize=8 or 4 quantizes the backbone's Linear layers at load time (mlx backend)."""
+    quantize=8 or 4 quantizes the backbone's Linear layers at load time (mlx backend).
+    TinyJev-4B (v2) and `ollama:<name>` run in a local Ollama 0.35.1+; TinyJev-4B-v1 is the pointer-head model."""
+    from .registry import entry
+    e, name = entry(model_path), str(model_path)
+    if (e and e["family"] == "ollama") or name.startswith("ollama:"):
+        from .ollama import OllamaAgent
+        return OllamaAgent(e["ollama"] if e else name.split(":", 1)[1])
     return Agent(model_path, backend=backend, device=device, subfolder=subfolder, quantize=quantize)

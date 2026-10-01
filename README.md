@@ -7,6 +7,7 @@
 <p>
   <a href="https://pypi.org/project/tinyjev/"><img alt="PyPI" src="https://img.shields.io/pypi/v/tinyjev?label=pypi&color=E46412"></a>
   <a href="https://pypi.org/project/tinyjev/"><img alt="Python" src="https://img.shields.io/badge/python-3.9%2B-E46412"></a>
+  <a href="https://ollama.com/parable/tinyjev"><img alt="Ollama" src="https://img.shields.io/badge/ollama-parable%2Ftinyjev-E46412"></a>
   <a href="https://huggingface.co/collections/AnkitAI/tinyjev-6ab68b5702fbd9988dac9f80"><img alt="Weights" src="https://img.shields.io/badge/weights-TinyJev--0.6B_%C2%B7_TinyJev--4B-E46412?logo=huggingface&logoColor=FFD21E"></a>
   <a href="https://github.com/ankit-aglawe/tinyjev/blob/main/LICENSE"><img alt="License" src="https://img.shields.io/badge/license-MIT-E46412"></a>
 </p>
@@ -41,11 +42,21 @@ TinyJev provides:
 - Calibrated confidence, so a threshold means something and you can decide what to automate.
 - A Python API, a local HTTP server, and a System One compatible endpoint.
 
-Two sizes: TinyJev 0.6B (596M parameters, 1.2 GB) and TinyJev 4B (8 GB, 4.5 GB at 8 bits). Both run on MLX on Apple Silicon and on PyTorch everywhere else, entirely offline. Every example below is a single forward pass; the numbers are in the Models table and under Get started.
+Two models. TinyJev 0.6B (596M parameters, 1.2 GB) runs in-process on MLX on Apple Silicon and on PyTorch everywhere else. TinyJev 4B v2 runs inside [Ollama](https://ollama.com/parable/tinyjev) 0.35.1 or newer, reads up to 16k tokens per request, and beats Tev1, the 4B decision model Ollama launched with, on long contracts. Everything runs offline; the numbers are in the Models table.
 
 TinyJev is MIT licensed.
 
 ## Watch it decide
+
+<div align="center">
+  <img alt="TinyJev 4B v2 driving one lap of Jev Grand Prix through a local Ollama; each decision picks the racing line and the pedals" src="https://raw.githubusercontent.com/ankit-aglawe/tinyjev/main/assets/demo_racer.gif" width="600">
+</div>
+
+TinyJev 4B v2 drives a lap of [Jev Grand Prix](https://github.com/enoyola/jev-grand-prix) through a local Ollama.
+Each decision is one `/v1/systemone` request with three questions: the racing line, the pedals, and whether the
+car is about to leave the track. Code does the steering. An M1 Mac mini needs about 5 s per decision, so the race
+clock ran at 5% and the clip plays back at race speed. Its first lap from a standing start: 59.0 s, no off-tracks; the game's README reports 59.2 s for
+TypeSafe's hosted Jev on its first lap. How to run it: [`examples/racer`](examples/racer).
 
 <div align="center">
   <img alt="TinyJev and GPT-6 Sol answering the same six never-seen questions from a shared start; TinyJev finishes each in under 130 ms, GPT-6 Sol writes JSON for about two seconds" src="https://raw.githubusercontent.com/ankit-aglawe/tinyjev/main/assets/demo_race.gif" width="600">
@@ -122,6 +133,18 @@ python demos/doom_corridor.py --gif tinyjev_doom.gif
 
 ## Get started
 
+TinyJev 4B v2 runs in Ollama 0.35.1 or newer:
+
+```bash
+ollama pull parable/tinyjev    # 4.5 GB
+curl -s localhost:11434/v1/systemone -d '{"model": "parable/tinyjev",
+  "state": "I was charged twice. Please fix this ASAP.",
+  "questions": {"billing": {"type": "noul", "instructions": "Is this about billing?"}}}'
+```
+
+From Python, `tinyjev.load("TinyJev-4B")` sends the same request to your local Ollama and returns the result
+shape shown below. TinyJev 0.6B runs in-process:
+
 ```bash
 pip install 'tinyjev[mlx]'     # Apple Silicon
 pip install 'tinyjev[torch]'   # everything else
@@ -185,21 +208,27 @@ A question is `{"type": "choice" | "noul" | "score", "instructions": ..., "crite
 
 ## Models
 
-Two models so far, same head, same training data, scored on the same 500 never-seen cases from 25
-domains ([`benchmarks/opendecision`](benchmarks/opendecision), every case and probability logged).
-Latency is a base M1 (16 GB) via MLX, one forward pass per case.
+Scored on the same 500 never-seen cases from 25 domains ([`benchmarks/opendecision`](benchmarks/opendecision),
+every case and probability logged). Latency is a base M1 (16 GB), one forward pass per case: MLX in-process for
+the 0.6B and v1, Ollama 0.35.1 at Q8_0 for v2.
 
 | Model | Params | OD-500 | Gate 0.85 | ms / case | Weights |
 |---|---:|---:|---|---:|---|
 | <img src="https://raw.githubusercontent.com/ankit-aglawe/tinyjev/main/assets/logos/tinyjev.png" width="18"> **TinyJev&nbsp;0.6B** | 596M, 1.2 GB | 440 (88.0%) | 59% @ 98.0% | 85 | 🤗 [AnkitAI/TinyJev-0.6B](https://huggingface.co/AnkitAI/TinyJev-0.6B) |
-| <img src="https://raw.githubusercontent.com/ankit-aglawe/tinyjev/main/assets/logos/tinyjev.png" width="18"> **TinyJev&nbsp;4B** | 4.0B, 8.0 GB | 474 (94.8%) | 87% @ 99.1% | 628 | 🤗 [AnkitAI/TinyJev-4B](https://huggingface.co/AnkitAI/TinyJev-4B) |
+| <img src="https://raw.githubusercontent.com/ankit-aglawe/tinyjev/main/assets/logos/tinyjev.png" width="18"> **TinyJev&nbsp;4B&nbsp;v2** | 4.2B, 4.5 GB | 490 (98.0%) | 89% @ 99.6% | 2,030 | 🦙 [parable/tinyjev](https://ollama.com/parable/tinyjev) · 🤗 [AnkitAI/TinyJev-4B](https://huggingface.co/AnkitAI/TinyJev-4B) |
+| <img src="https://raw.githubusercontent.com/ankit-aglawe/tinyjev/main/assets/logos/tinyjev.png" width="18"> TinyJev&nbsp;4B&nbsp;v1 | 4.0B, 8.0 GB | 474 (94.8%) | 87% @ 99.1% | 628 | 🤗 [revision v1](https://huggingface.co/AnkitAI/TinyJev-4B/tree/v1) |
 
 OD-500 is correct answers out of 500. Gate 0.85 is the share of decisions answered on its own at
 confidence ≥ 0.85, and how often those were right. Calibration (ECE 0.071 vs 0.022), coverage at 2%
-error (63% vs 92%) and transfer-v4 dev (0.625 vs 0.762) are on the benchmark page. Load either with
-`tinyjev.load("TinyJev-0.6B")` or `tinyjev.load("TinyJev-4B")`.
+error (63% vs 92%) and transfer-v4 dev (0.625 vs 0.762) are on the benchmark page. Load with
+`tinyjev.load("TinyJev-0.6B")`, `tinyjev.load("TinyJev-4B")` (v2, through Ollama) or `tinyjev.load("TinyJev-4B-v1")`.
 
-Both rows are fp16. Loading with `quantize=8` keeps the same weights in half the memory and changes
+v2 is a different model: Qwen3.5-4B trained on the exact prompt Ollama sends, with Together AI's open Tev1 data
+plus 1,269 questions about real contracts. Through Ollama it scores 177 of JevBench's 231 public items (Tev1:
+176) and 145 of 180 questions about 60 contracts it never saw (Tev1: 131 with a 16k window, 73 as shipped with
+2k). It is slower than v1 on a Mac: about 2 s a case against 0.6 s.
+
+The 0.6B and v1 rows are fp16. Loading with `quantize=8` keeps the same weights in half the memory and changes
 almost nothing: the 0.6B scores 440 at 90 ms, the 4B 473 at 845 ms, one answer in 500 different from
 fp16. The gate is the number that matters in production; the rest of the queue goes to a person or a
 bigger model. On the same 500: Kev-0.8B 463, Claude Opus 5.5 496, the same Qwen3-0.6B weights read
@@ -278,8 +307,11 @@ Choose the threshold on your own data. The right cutoff depends on what a wrong 
 
 ## Current status
 
-Both models are published on Hugging Face ([the TinyJev collection](https://huggingface.co/collections/AnkitAI/tinyjev-6ab68b5702fbd9988dac9f80)),
-both on ModelScope as well, the package on PyPI. A 149M encoder variant scored 0.532 on
+TinyJev 4B v2 is on Ollama as [`parable/tinyjev`](https://ollama.com/parable/tinyjev) and on Hugging Face
+(merged weights and GGUFs), and tinyjev 0.2.0 loads it. How it was trained, step by step: [`training/v2`](training/v2).
+Tev1 still wins JevBench's long-policy items, 8 to 6 of 19, and both get 1 of 15 temporal items; that is the next
+experiment. The 0.6B and v1 are unchanged: on Hugging Face ([the TinyJev collection](https://huggingface.co/collections/AnkitAI/tinyjev-6ab68b5702fbd9988dac9f80)),
+on ModelScope, and on PyPI. A 149M encoder variant scored 0.532 on
 transfer-v4 dev, under the 0.55 gate, so there is no smaller model yet.
 
 Known weakness, measured: the 0.6B answers yes to almost any statement-form yes/no check (it was
@@ -296,3 +328,7 @@ If TinyJev is useful to you, consider supporting independent work:
 ## Credits
 
 Built on [Qwen3-0.6B-Base](https://huggingface.co/Qwen/Qwen3-0.6B-Base) and [Qwen3-4B-Base](https://huggingface.co/Qwen/Qwen3-4B-Base) (Apache-2.0). The training data, evaluation suites and the pointer-head design come from [Kev](https://github.com/jaredpalmer/kev) by Jared Palmer (Apache-2.0). The typed-decision interface follows [TypeSafe's Jev](https://docs.typesafe.ai/introduction).
+TinyJev 4B v2 is built on [Qwen3.5-4B](https://huggingface.co/Qwen/Qwen3.5-4B) (Apache-2.0) with the recipe and
+training data of [Tev1](https://github.com/togethercomputer/tev1) by Together AI (MIT) and
+[ContractNLI](https://stanfordnlp.github.io/contract-nli/) (Koreeda and Manning, 2021, CC BY 4.0). The racing demo
+is [Jev Grand Prix](https://github.com/enoyola/jev-grand-prix) by enoyola (MIT).

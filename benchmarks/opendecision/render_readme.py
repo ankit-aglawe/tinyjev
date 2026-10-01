@@ -25,6 +25,10 @@ ORDER_NOTE = {
     "lostargon-tiny-jev": "the other 'Tiny-Jev' on Hugging Face (name collision), its own custom head",
     "qwen3-0.6b-base-logit-readout": "the untrained backbone, options lettered, next-token letter logits",
     "nanojev": "a games-state model on the same backbone; included as the third head, not as a text baseline",
+    "ollama-tinyjev-4b-v2": "TinyJev 4B v2 inside Ollama 0.35.1 (/v1/systemone, Q8_0, 16k window)",
+    "ollama-tev1": "Together AI's Tev1 4B as shipped in Ollama (Q8_0, 2k window)",
+    "ollama-tev1-16k": "Tev1 4B with its Ollama window raised to 16k",
+    "ollama-qwen35-4b-zeroshot": "untuned Qwen3.5-4B through the same Ollama decision path",
 }
 
 

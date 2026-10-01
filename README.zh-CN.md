@@ -7,6 +7,7 @@
 <p>
   <a href="https://pypi.org/project/tinyjev/"><img alt="PyPI" src="https://img.shields.io/pypi/v/tinyjev?label=pypi&color=E46412"></a>
   <a href="https://pypi.org/project/tinyjev/"><img alt="Python" src="https://img.shields.io/badge/python-3.9%2B-E46412"></a>
+  <a href="https://ollama.com/parable/tinyjev"><img alt="Ollama" src="https://img.shields.io/badge/ollama-parable%2Ftinyjev-E46412"></a>
   <a href="https://huggingface.co/collections/AnkitAI/tinyjev-6ab68b5702fbd9988dac9f80"><img alt="Weights" src="https://img.shields.io/badge/weights-TinyJev--0.6B_%C2%B7_TinyJev--4B-E46412?logo=huggingface&logoColor=FFD21E"></a>
   <a href="https://github.com/ankit-aglawe/tinyjev/blob/main/LICENSE"><img alt="License" src="https://img.shields.io/badge/license-MIT-E46412"></a>
 </p>
@@ -41,11 +42,17 @@ TinyJev 提供：
 - 经过校准的置信度，所以阈值有意义，你可以据此决定哪些事情自动处理。
 - Python API、本地 HTTP 服务，以及与 System One 兼容的接口。
 
-两个尺寸：TinyJev 0.6B（596M 参数，1.2 GB）和 TinyJev 4B（8 GB，8 位量化后 4.5 GB）。两者都在 Apple Silicon 上用 MLX 运行，在其他平台上用 PyTorch 运行，完全离线。下面的每个例子都是一次前向传播；数字见「模型」表格和「快速开始」。
+两个模型。TinyJev 0.6B（596M 参数，1.2 GB）在 Apple Silicon 上用 MLX、在其他平台上用 PyTorch 进程内运行。TinyJev 4B v2 运行在 [Ollama](https://ollama.com/parable/tinyjev) 0.35.1 或更新版本中，每个请求最多读 16k token，在长合同上胜过 Ollama 首发的 4B 判断模型 Tev1。全部离线运行；数字见「模型」表格。
 
 TinyJev 采用 MIT 许可证。
 
 ## 看它做判断
+
+<div align="center">
+  <img alt="TinyJev 4B v2 通过本地 Ollama 跑完一圈 Jev Grand Prix；每次判断选择赛车线和踏板" src="https://raw.githubusercontent.com/ankit-aglawe/tinyjev/main/assets/demo_racer.gif" width="600">
+</div>
+
+TinyJev 4B v2 通过本地 Ollama 跑完一圈 [Jev Grand Prix](https://github.com/enoyola/jev-grand-prix)。每次判断是一个带三个问题的 `/v1/systemone` 请求：走哪条赛车线、踩哪个踏板、车是否快要冲出赛道。转向由代码完成。M1 Mac mini 每次判断约需 5 秒，所以比赛时钟以 5% 的速度运行，视频按比赛速度回放。它的第一圈（静止起步）用时 59.0 秒，没有冲出赛道；游戏的 README 记录 TypeSafe 托管的 Jev 第一圈为 59.2 秒。运行方法见 [`examples/racer`](examples/racer)。
 
 <div align="center">
   <img alt="TinyJev 和 GPT-6 Sol 从同一起点回答同样六个从未见过的问题；TinyJev 每题在 130 ms 内完成，GPT-6 Sol 写 JSON 大约要两秒" src="https://raw.githubusercontent.com/ankit-aglawe/tinyjev/main/assets/demo_race.gif" width="600">
@@ -107,6 +114,17 @@ python demos/doom_corridor.py --gif tinyjev_doom.gif
 </details>
 
 ## 快速开始
+
+TinyJev 4B v2 运行在 Ollama 0.35.1 或更新版本中：
+
+```bash
+ollama pull parable/tinyjev    # 4.5 GB
+curl -s localhost:11434/v1/systemone -d '{"model": "parable/tinyjev",
+  "state": "I was charged twice. Please fix this ASAP.",
+  "questions": {"billing": {"type": "noul", "instructions": "Is this about billing?"}}}'
+```
+
+在 Python 中，`tinyjev.load("TinyJev-4B")` 会把同样的请求发给本地 Ollama，并返回下面所示的结果格式。TinyJev 0.6B 在进程内运行：
 
 ```bash
 pip install 'tinyjev[mlx]'     # Apple Silicon
@@ -171,16 +189,19 @@ curl -s localhost:8077/v1/systemone -H 'content-type: application/json' -d '{
 
 ## 模型
 
-目前两个模型，相同的头、相同的训练数据，在同样 500 个从未见过的案例（25 个领域）上评分（[`benchmarks/opendecision`](benchmarks/opendecision)，每个案例和每个概率都有记录）。延迟为基础款 M1（16 GB）上通过 MLX，每例一次前向传播。
+在同样 500 个从未见过的案例（25 个领域）上评分（[`benchmarks/opendecision`](benchmarks/opendecision)，每个案例和每个概率都有记录）。延迟为基础款 M1（16 GB），每例一次前向传播：0.6B 和 v1 通过 MLX 进程内运行，v2 通过 Ollama 0.35.1、Q8_0。
 
 | 模型 | 参数量 | OD-500 | 门槛 0.85 | ms / 例 | 权重 |
 |---|---:|---:|---|---:|---|
 | <img src="https://raw.githubusercontent.com/ankit-aglawe/tinyjev/main/assets/logos/tinyjev.png" width="18"> **TinyJev&nbsp;0.6B** | 596M，1.2 GB | 440（88.0%） | 59% @ 98.0% | 85 | 🤗 [AnkitAI/TinyJev-0.6B](https://huggingface.co/AnkitAI/TinyJev-0.6B) |
-| <img src="https://raw.githubusercontent.com/ankit-aglawe/tinyjev/main/assets/logos/tinyjev.png" width="18"> **TinyJev&nbsp;4B** | 4.0B，8.0 GB | 474（94.8%） | 87% @ 99.1% | 628 | 🤗 [AnkitAI/TinyJev-4B](https://huggingface.co/AnkitAI/TinyJev-4B) |
+| <img src="https://raw.githubusercontent.com/ankit-aglawe/tinyjev/main/assets/logos/tinyjev.png" width="18"> **TinyJev&nbsp;4B&nbsp;v2** | 4.2B，4.5 GB | 490（98.0%） | 89% @ 99.6% | 2,030 | 🦙 [parable/tinyjev](https://ollama.com/parable/tinyjev) · 🤗 [AnkitAI/TinyJev-4B](https://huggingface.co/AnkitAI/TinyJev-4B) |
+| <img src="https://raw.githubusercontent.com/ankit-aglawe/tinyjev/main/assets/logos/tinyjev.png" width="18"> TinyJev&nbsp;4B&nbsp;v1 | 4.0B，8.0 GB | 474（94.8%） | 87% @ 99.1% | 628 | 🤗 [revision v1](https://huggingface.co/AnkitAI/TinyJev-4B/tree/v1) |
 
-OD-500 是 500 例中答对的数量。门槛 0.85 是模型在置信度 ≥ 0.85 时自行作答的比例，以及这些答案的正确率。校准（ECE 0.071 对 0.022）、2% 错误预算下的覆盖率（63% 对 92%）和 transfer-v4 开发集（0.625 对 0.762）见基准页面。用 `tinyjev.load("TinyJev-0.6B")` 或 `tinyjev.load("TinyJev-4B")` 加载。
+OD-500 是 500 例中答对的数量。门槛 0.85 是模型在置信度 ≥ 0.85 时自行作答的比例，以及这些答案的正确率。校准（ECE 0.071 对 0.022）、2% 错误预算下的覆盖率（63% 对 92%）和 transfer-v4 开发集（0.625 对 0.762）见基准页面。用 `tinyjev.load("TinyJev-0.6B")`、`tinyjev.load("TinyJev-4B")`（v2，经由 Ollama）或 `tinyjev.load("TinyJev-4B-v1")` 加载。
 
-两行都是 fp16。用 `quantize=8` 加载时权重不变、内存减半，结果几乎没有变化：0.6B 得 440、90 ms，4B 得 473、845 ms，500 例中只有一个答案与 fp16 不同。门槛才是生产中真正重要的数字；队列里剩下的部分交给人或更大的模型。同样的 500 例：Kev-0.8B 463，Claude Opus 5.5 496，同样的 Qwen3-0.6B 权重不带头、只读字母 logits 354。
+v2 是另一个模型：Qwen3.5-4B，用 Ollama 实际发送的提示词训练，数据是 Together AI 公开的 Tev1 数据加上 1,269 个关于真实合同的问题。通过 Ollama，它在 JevBench 的 231 个公开题目中答对 177 个（Tev1：176），在 60 份从未见过的合同的 180 个问题中答对 145 个（Tev1：16k 窗口 131 个，按原样发布的 2k 窗口 73 个）。在 Mac 上它比 v1 慢：每例约 2 秒，v1 约 0.6 秒。
+
+0.6B 和 v1 两行都是 fp16。用 `quantize=8` 加载时权重不变、内存减半，结果几乎没有变化：0.6B 得 440、90 ms，4B 得 473、845 ms，500 例中只有一个答案与 fp16 不同。门槛才是生产中真正重要的数字；队列里剩下的部分交给人或更大的模型。同样的 500 例：Kev-0.8B 463，Claude Opus 5.5 496，同样的 Qwen3-0.6B 权重不带头、只读字母 logits 354。
 
 ## 能做什么
 
@@ -255,7 +276,7 @@ else:
 
 ## 当前状态
 
-两个模型都已发布在 Hugging Face（[TinyJev 合集](https://huggingface.co/collections/AnkitAI/tinyjev-6ab68b5702fbd9988dac9f80)），两者也都在 ModelScope 上，软件包在 PyPI。一个 149M 的编码器变体在 transfer-v4 开发集上得 0.532，低于 0.55 的门槛，所以目前还没有更小的模型。
+TinyJev 4B v2 已在 Ollama 上发布为 [`parable/tinyjev`](https://ollama.com/parable/tinyjev)，也在 Hugging Face 上（合并后的权重和 GGUF），tinyjev 0.2.0 可以加载它。逐步训练过程见 [`training/v2`](training/v2)。在 JevBench 的长政策题目上 Tev1 仍然领先，19 题中 8 比 6；两者在 15 道时间推理题中都只答对 1 道，这是下一个实验。0.6B 和 v1 不变：在 Hugging Face（[TinyJev 合集](https://huggingface.co/collections/AnkitAI/tinyjev-6ab68b5702fbd9988dac9f80)）、ModelScope 和 PyPI 上。一个 149M 的编码器变体在 transfer-v4 开发集上得 0.532，低于 0.55 的门槛，所以目前还没有更小的模型。
 
 已测得的已知弱点：对几乎所有陈述形式的是/否检查，0.6B 都回答「是」（它是在问句而不是陈述句上训练的）。4B 把这个差距缩小了一半。用陈述形式的训练数据修复是下一个实验；评测工具在 [`benchmarks/noul_checks`](benchmarks/noul_checks)。每个新数字都会落在 benchmarks 文件夹里，每个案例都有记录。
 
@@ -268,3 +289,4 @@ else:
 ## 致谢
 
 基于 [Qwen3-0.6B-Base](https://huggingface.co/Qwen/Qwen3-0.6B-Base) 和 [Qwen3-4B-Base](https://huggingface.co/Qwen/Qwen3-4B-Base)（Apache-2.0）构建。训练数据、评测套件和指针头设计来自 Jared Palmer 的 [Kev](https://github.com/jaredpalmer/kev)（Apache-2.0）。类型化判断的接口遵循 [TypeSafe 的 Jev](https://docs.typesafe.ai/introduction)。
+TinyJev 4B v2 基于 [Qwen3.5-4B](https://huggingface.co/Qwen/Qwen3.5-4B)（Apache-2.0）构建，使用 Together AI 的 [Tev1](https://github.com/togethercomputer/tev1)（MIT）的训练方法和训练数据，以及 [ContractNLI](https://stanfordnlp.github.io/contract-nli/)（Koreeda 与 Manning，2021，CC BY 4.0）。赛车演示是 enoyola 的 [Jev Grand Prix](https://github.com/enoyola/jev-grand-prix)（MIT）。

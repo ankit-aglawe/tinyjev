@@ -7,6 +7,7 @@
 <p>
   <a href="https://pypi.org/project/tinyjev/"><img alt="PyPI" src="https://img.shields.io/pypi/v/tinyjev?label=pypi&color=E46412"></a>
   <a href="https://pypi.org/project/tinyjev/"><img alt="Python" src="https://img.shields.io/badge/python-3.9%2B-E46412"></a>
+  <a href="https://ollama.com/parable/tinyjev"><img alt="Ollama" src="https://img.shields.io/badge/ollama-parable%2Ftinyjev-E46412"></a>
   <a href="https://huggingface.co/collections/AnkitAI/tinyjev-6ab68b5702fbd9988dac9f80"><img alt="Weights" src="https://img.shields.io/badge/weights-TinyJev--0.6B_%C2%B7_TinyJev--4B-E46412?logo=huggingface&logoColor=FFD21E"></a>
   <a href="https://github.com/ankit-aglawe/tinyjev/blob/main/LICENSE"><img alt="License" src="https://img.shields.io/badge/license-MIT-E46412"></a>
 </p>
@@ -41,11 +42,17 @@ TinyJev가 제공하는 것:
 - 보정된 신뢰도. 임계값에 의미가 있어서 무엇을 자동화할지 결정할 수 있습니다.
 - Python API, 로컬 HTTP 서버, System One 호환 엔드포인트.
 
-두 가지 크기: TinyJev 0.6B(596M 파라미터, 1.2 GB)와 TinyJev 4B(8 GB, 8비트 양자화 시 4.5 GB). 둘 다 Apple Silicon에서는 MLX로, 그 외에서는 PyTorch로, 완전히 오프라인으로 실행됩니다. 아래의 모든 예제는 한 번의 포워드 패스입니다. 수치는 「모델」 표와 「시작하기」에 있습니다.
+두 모델. TinyJev 0.6B(596M 파라미터, 1.2 GB)는 Apple Silicon에서는 MLX로, 그 외에서는 PyTorch로 프로세스 안에서 실행됩니다. TinyJev 4B v2는 [Ollama](https://ollama.com/parable/tinyjev) 0.35.1 이상 안에서 실행되고, 요청당 최대 16k 토큰을 읽으며, 긴 계약서에서는 Ollama가 출시 때 내놓은 4B 판단 모델 Tev1을 앞섭니다. 모두 오프라인으로 실행됩니다. 수치는 「모델」 표에 있습니다.
 
 TinyJev는 MIT 라이선스입니다.
 
 ## 판단하는 모습 보기
+
+<div align="center">
+  <img alt="TinyJev 4B v2가 로컬 Ollama를 통해 Jev Grand Prix를 한 바퀴 달린다. 판단할 때마다 레이싱 라인과 페달을 고른다" src="https://raw.githubusercontent.com/ankit-aglawe/tinyjev/main/assets/demo_racer.gif" width="600">
+</div>
+
+TinyJev 4B v2가 로컬 Ollama를 통해 [Jev Grand Prix](https://github.com/enoyola/jev-grand-prix)를 한 바퀴 달립니다. 각 판단은 세 가지 질문이 담긴 `/v1/systemone` 요청 하나입니다: 레이싱 라인, 페달, 그리고 차가 트랙을 벗어나려 하는지. 조향은 코드가 합니다. M1 Mac mini는 판단 한 번에 약 5초가 걸려서, 레이스 시계를 5% 속도로 돌리고 영상은 레이스 속도로 재생했습니다. 정지 상태에서 출발한 첫 바퀴는 59.0초, 트랙 이탈 없음. 게임의 README에는 TypeSafe가 호스팅하는 Jev의 첫 바퀴가 59.2초로 나와 있습니다. 실행 방법은 [`examples/racer`](examples/racer)에 있습니다.
 
 <div align="center">
   <img alt="TinyJev와 GPT-6 Sol이 같은 출발점에서 한 번도 본 적 없는 같은 여섯 질문에 답한다. TinyJev는 각 질문을 130 ms 안에 끝내고, GPT-6 Sol은 약 2초 동안 JSON을 쓴다" src="https://raw.githubusercontent.com/ankit-aglawe/tinyjev/main/assets/demo_race.gif" width="600">
@@ -107,6 +114,17 @@ python demos/doom_corridor.py --gif tinyjev_doom.gif
 </details>
 
 ## 시작하기
+
+TinyJev 4B v2는 Ollama 0.35.1 이상에서 실행됩니다:
+
+```bash
+ollama pull parable/tinyjev    # 4.5 GB
+curl -s localhost:11434/v1/systemone -d '{"model": "parable/tinyjev",
+  "state": "I was charged twice. Please fix this ASAP.",
+  "questions": {"billing": {"type": "noul", "instructions": "Is this about billing?"}}}'
+```
+
+Python에서는 `tinyjev.load("TinyJev-4B")`가 같은 요청을 로컬 Ollama로 보내고 아래와 같은 형식의 결과를 돌려줍니다. TinyJev 0.6B는 프로세스 안에서 실행됩니다:
 
 ```bash
 pip install 'tinyjev[mlx]'     # Apple Silicon
@@ -171,16 +189,19 @@ curl -s localhost:8077/v1/systemone -H 'content-type: application/json' -d '{
 
 ## 모델
 
-지금까지 두 모델. 같은 헤드, 같은 학습 데이터로, 한 번도 본 적 없는 같은 500건(25개 도메인)에서 채점했습니다([`benchmarks/opendecision`](benchmarks/opendecision), 모든 사례와 확률 기록). 지연 시간은 기본형 M1(16 GB)에서 MLX로, 건당 한 번의 포워드 패스입니다.
+한 번도 본 적 없는 같은 500건(25개 도메인)에서 채점했습니다([`benchmarks/opendecision`](benchmarks/opendecision), 모든 사례와 확률 기록). 지연 시간은 기본형 M1(16 GB)에서 건당 한 번의 포워드 패스입니다: 0.6B와 v1은 MLX로 프로세스 안에서, v2는 Ollama 0.35.1의 Q8_0으로.
 
 | 모델 | 파라미터 | OD-500 | 게이트 0.85 | ms / 건 | 가중치 |
 |---|---:|---:|---|---:|---|
 | <img src="https://raw.githubusercontent.com/ankit-aglawe/tinyjev/main/assets/logos/tinyjev.png" width="18"> **TinyJev&nbsp;0.6B** | 596M, 1.2 GB | 440(88.0%) | 59% @ 98.0% | 85 | 🤗 [AnkitAI/TinyJev-0.6B](https://huggingface.co/AnkitAI/TinyJev-0.6B) |
-| <img src="https://raw.githubusercontent.com/ankit-aglawe/tinyjev/main/assets/logos/tinyjev.png" width="18"> **TinyJev&nbsp;4B** | 4.0B, 8.0 GB | 474(94.8%) | 87% @ 99.1% | 628 | 🤗 [AnkitAI/TinyJev-4B](https://huggingface.co/AnkitAI/TinyJev-4B) |
+| <img src="https://raw.githubusercontent.com/ankit-aglawe/tinyjev/main/assets/logos/tinyjev.png" width="18"> **TinyJev&nbsp;4B&nbsp;v2** | 4.2B, 4.5 GB | 490(98.0%) | 89% @ 99.6% | 2,030 | 🦙 [parable/tinyjev](https://ollama.com/parable/tinyjev) · 🤗 [AnkitAI/TinyJev-4B](https://huggingface.co/AnkitAI/TinyJev-4B) |
+| <img src="https://raw.githubusercontent.com/ankit-aglawe/tinyjev/main/assets/logos/tinyjev.png" width="18"> TinyJev&nbsp;4B&nbsp;v1 | 4.0B, 8.0 GB | 474(94.8%) | 87% @ 99.1% | 628 | 🤗 [revision v1](https://huggingface.co/AnkitAI/TinyJev-4B/tree/v1) |
 
-OD-500은 500건 중 정답 수입니다. 게이트 0.85는 신뢰도 ≥ 0.85로 스스로 답한 판단의 비율과, 그 답의 정답률입니다. 보정(ECE 0.071 대 0.022), 오류 2% 예산에서의 커버리지(63% 대 92%), transfer-v4 dev(0.625 대 0.762)는 벤치마크 페이지에 있습니다. 로드는 `tinyjev.load("TinyJev-0.6B")` 또는 `tinyjev.load("TinyJev-4B")`로 합니다.
+OD-500은 500건 중 정답 수입니다. 게이트 0.85는 신뢰도 ≥ 0.85로 스스로 답한 판단의 비율과, 그 답의 정답률입니다. 보정(ECE 0.071 대 0.022), 오류 2% 예산에서의 커버리지(63% 대 92%), transfer-v4 dev(0.625 대 0.762)는 벤치마크 페이지에 있습니다. 로드는 `tinyjev.load("TinyJev-0.6B")`, `tinyjev.load("TinyJev-4B")`(v2, Ollama를 통해) 또는 `tinyjev.load("TinyJev-4B-v1")`로 합니다.
 
-두 행 모두 fp16입니다. `quantize=8`로 로드하면 같은 가중치를 절반의 메모리로 유지하며 결과는 거의 바뀌지 않습니다: 0.6B는 440에 90 ms, 4B는 473에 845 ms, fp16과 다른 답은 500건 중 하나입니다. 실제 운영에서 중요한 수치는 게이트이고, 큐의 나머지는 사람이나 더 큰 모델에게 갑니다. 같은 500건에서: Kev-0.8B 463, Claude Opus 5.5 496, 같은 Qwen3-0.6B 가중치를 헤드 없이 문자 로짓으로 읽으면 354.
+v2는 다른 모델입니다: Qwen3.5-4B를 Ollama가 실제로 보내는 프롬프트 그대로 학습시켰고, 데이터는 Together AI가 공개한 Tev1 데이터에 실제 계약서에 관한 질문 1,269개를 더한 것입니다. Ollama를 통해 JevBench 공개 문항 231개 중 177개(Tev1: 176), 한 번도 본 적 없는 계약서 60건에 대한 질문 180개 중 145개(Tev1: 16k 창에서 131개, 출시 그대로의 2k 창에서 73개)를 맞힙니다. Mac에서는 v1보다 느립니다: 건당 약 2초, v1은 0.6초.
+
+0.6B와 v1 행은 fp16입니다. `quantize=8`로 로드하면 같은 가중치를 절반의 메모리로 유지하며 결과는 거의 바뀌지 않습니다: 0.6B는 440에 90 ms, 4B는 473에 845 ms, fp16과 다른 답은 500건 중 하나입니다. 실제 운영에서 중요한 수치는 게이트이고, 큐의 나머지는 사람이나 더 큰 모델에게 갑니다. 같은 500건에서: Kev-0.8B 463, Claude Opus 5.5 496, 같은 Qwen3-0.6B 가중치를 헤드 없이 문자 로짓으로 읽으면 354.
 
 ## 무엇을 할 수 있나
 
@@ -255,7 +276,7 @@ else:
 
 ## 현재 상태
 
-두 모델 모두 Hugging Face에 공개되어 있습니다([TinyJev 컬렉션](https://huggingface.co/collections/AnkitAI/tinyjev-6ab68b5702fbd9988dac9f80)). 둘 다 ModelScope에도 있고, 패키지는 PyPI에 있습니다. 149M 인코더 변형은 transfer-v4 dev에서 0.532로 게이트 0.55에 못 미쳐, 더 작은 모델은 아직 없습니다.
+TinyJev 4B v2는 Ollama에 [`parable/tinyjev`](https://ollama.com/parable/tinyjev)로, Hugging Face에 병합된 가중치와 GGUF로 공개되어 있고, tinyjev 0.2.0으로 로드할 수 있습니다. 학습 과정은 단계별로 [`training/v2`](training/v2)에 있습니다. JevBench의 긴 정책 문항에서는 Tev1이 19개 중 8 대 6으로 여전히 앞서고, 시간 추론 15문항은 둘 다 1개만 맞힙니다. 이것이 다음 실험입니다. 0.6B와 v1은 그대로 Hugging Face([TinyJev 컬렉션](https://huggingface.co/collections/AnkitAI/tinyjev-6ab68b5702fbd9988dac9f80)), ModelScope, PyPI에 있습니다. 149M 인코더 변형은 transfer-v4 dev에서 0.532로 게이트 0.55에 못 미쳐, 더 작은 모델은 아직 없습니다.
 
 측정된 알려진 약점: 0.6B는 진술문 형태의 예/아니오 검사 거의 전부에 「예」라고 답합니다(질문문으로 학습했고 진술문으로는 학습하지 않았기 때문). 4B는 그 격차를 절반으로 줄입니다. 진술문 형태의 학습 데이터로 고치는 것이 다음 실험이며, 평가 도구는 [`benchmarks/noul_checks`](benchmarks/noul_checks)에 있습니다. 새로운 수치는 모두 benchmarks 폴더에 들어가고, 모든 사례가 기록됩니다.
 
@@ -268,3 +289,4 @@ TinyJev가 유용하다면, 독립 연구를 후원해 주세요:
 ## 크레딧
 
 [Qwen3-0.6B-Base](https://huggingface.co/Qwen/Qwen3-0.6B-Base)와 [Qwen3-4B-Base](https://huggingface.co/Qwen/Qwen3-4B-Base)(Apache-2.0) 위에 만들었습니다. 학습 데이터, 평가 스위트, 포인터 헤드 설계는 Jared Palmer의 [Kev](https://github.com/jaredpalmer/kev)(Apache-2.0)에서 왔습니다. 타입 판단 인터페이스는 [TypeSafe의 Jev](https://docs.typesafe.ai/introduction)를 따릅니다.
+TinyJev 4B v2는 [Qwen3.5-4B](https://huggingface.co/Qwen/Qwen3.5-4B)(Apache-2.0) 위에 Together AI의 [Tev1](https://github.com/togethercomputer/tev1)(MIT) 학습 방법과 학습 데이터, 그리고 [ContractNLI](https://stanfordnlp.github.io/contract-nli/)(Koreeda와 Manning, 2021, CC BY 4.0)로 만들었습니다. 레이싱 데모는 enoyola의 [Jev Grand Prix](https://github.com/enoyola/jev-grand-prix)(MIT)입니다.

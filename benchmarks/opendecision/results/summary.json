@@ -467,6 +467,238 @@
    "checkpoint": "/Users/ankit/.cache/tinyjev/v2/tinyjev-nanojev"
   }
  },
+ "ollama-qwen35-4b-zeroshot": {
+  "n": 500,
+  "correct": 479,
+  "accuracy": 0.958,
+  "ci95": [
+   0.94,
+   0.976
+  ],
+  "dev": "360/375",
+  "holdout": "119/125",
+  "ece": 0.038,
+  "brier": 0.0755,
+  "mean_ms": 1752.7,
+  "gate_0.85": {
+   "n": 408,
+   "coverage": 0.816,
+   "accuracy": 0.9902
+  },
+  "coverage_at_err": {
+   "2%": 0.92,
+   "5%": 1.0,
+   "10%": 1.0
+  },
+  "per_domain": {
+   "appliance_issue": "18/20",
+   "citation_relation": "17/20",
+   "contract_clause": "20/20",
+   "database_intent": "20/20",
+   "date_semantics": "20/20",
+   "document_type": "20/20",
+   "email_intent": "19/20",
+   "entity_matching": "14/20",
+   "function_routing": "20/20",
+   "job_family": "20/20",
+   "logistics_exception": "20/20",
+   "manufacturing_defect": "19/20",
+   "meeting_intent": "20/20",
+   "ml_task": "19/20",
+   "policy_decision": "16/20",
+   "product_taxonomy": "20/20",
+   "research_method": "20/20",
+   "return_reason": "20/20",
+   "science_phenomenon": "19/20",
+   "security_event": "19/20",
+   "semantic_extraction": "20/20",
+   "software_bug": "20/20",
+   "support_routing": "20/20",
+   "transaction_type": "19/20",
+   "word_sense": "20/20"
+  },
+  "meta": {
+   "runtime": "systemone-http",
+   "url": "http://127.0.0.1:11435/v1/systemone",
+   "note": "via Ollama /v1/systemone",
+   "model": "ollama-qwen35-4b-zeroshot",
+   "suite_sha256": "cd7372e594fce7a5464c3eb3edc73db45c309c8a67e7eef7daf78ec97288edeb"
+  }
+ },
+ "ollama-tev1-16k": {
+  "n": 500,
+  "correct": 487,
+  "accuracy": 0.974,
+  "ci95": [
+   0.96,
+   0.988
+  ],
+  "dev": "363/375",
+  "holdout": "124/125",
+  "ece": 0.0311,
+  "brier": 0.0457,
+  "mean_ms": 1722.4,
+  "gate_0.85": {
+   "n": 441,
+   "coverage": 0.882,
+   "accuracy": 0.9955
+  },
+  "coverage_at_err": {
+   "2%": 0.976,
+   "5%": 1.0,
+   "10%": 1.0
+  },
+  "per_domain": {
+   "appliance_issue": "18/20",
+   "citation_relation": "19/20",
+   "contract_clause": "20/20",
+   "database_intent": "20/20",
+   "date_semantics": "20/20",
+   "document_type": "20/20",
+   "email_intent": "16/20",
+   "entity_matching": "18/20",
+   "function_routing": "20/20",
+   "job_family": "20/20",
+   "logistics_exception": "20/20",
+   "manufacturing_defect": "20/20",
+   "meeting_intent": "20/20",
+   "ml_task": "20/20",
+   "policy_decision": "18/20",
+   "product_taxonomy": "20/20",
+   "research_method": "20/20",
+   "return_reason": "20/20",
+   "science_phenomenon": "20/20",
+   "security_event": "20/20",
+   "semantic_extraction": "20/20",
+   "software_bug": "19/20",
+   "support_routing": "20/20",
+   "transaction_type": "19/20",
+   "word_sense": "20/20"
+  },
+  "meta": {
+   "runtime": "systemone-http",
+   "url": "http://127.0.0.1:11435/v1/systemone",
+   "note": "via Ollama /v1/systemone",
+   "model": "ollama-tev1-16k",
+   "suite_sha256": "cd7372e594fce7a5464c3eb3edc73db45c309c8a67e7eef7daf78ec97288edeb"
+  }
+ },
+ "ollama-tev1": {
+  "n": 500,
+  "correct": 487,
+  "accuracy": 0.974,
+  "ci95": [
+   0.96,
+   0.988
+  ],
+  "dev": "363/375",
+  "holdout": "124/125",
+  "ece": 0.0311,
+  "brier": 0.0457,
+  "mean_ms": 1833.6,
+  "gate_0.85": {
+   "n": 441,
+   "coverage": 0.882,
+   "accuracy": 0.9955
+  },
+  "coverage_at_err": {
+   "2%": 0.976,
+   "5%": 1.0,
+   "10%": 1.0
+  },
+  "per_domain": {
+   "appliance_issue": "18/20",
+   "citation_relation": "19/20",
+   "contract_clause": "20/20",
+   "database_intent": "20/20",
+   "date_semantics": "20/20",
+   "document_type": "20/20",
+   "email_intent": "16/20",
+   "entity_matching": "18/20",
+   "function_routing": "20/20",
+   "job_family": "20/20",
+   "logistics_exception": "20/20",
+   "manufacturing_defect": "20/20",
+   "meeting_intent": "20/20",
+   "ml_task": "20/20",
+   "policy_decision": "18/20",
+   "product_taxonomy": "20/20",
+   "research_method": "20/20",
+   "return_reason": "20/20",
+   "science_phenomenon": "20/20",
+   "security_event": "20/20",
+   "semantic_extraction": "20/20",
+   "software_bug": "19/20",
+   "support_routing": "20/20",
+   "transaction_type": "19/20",
+   "word_sense": "20/20"
+  },
+  "meta": {
+   "runtime": "systemone-http",
+   "url": "http://127.0.0.1:11435/v1/systemone",
+   "note": "via Ollama /v1/systemone",
+   "model": "ollama-tev1",
+   "suite_sha256": "cd7372e594fce7a5464c3eb3edc73db45c309c8a67e7eef7daf78ec97288edeb"
+  }
+ },
+ "ollama-tinyjev-4b-v2": {
+  "n": 500,
+  "correct": 490,
+  "accuracy": 0.98,
+  "ci95": [
+   0.968,
+   0.992
+  ],
+  "dev": "366/375",
+  "holdout": "124/125",
+  "ece": 0.0349,
+  "brier": 0.0412,
+  "mean_ms": 2029.6,
+  "gate_0.85": {
+   "n": 443,
+   "coverage": 0.886,
+   "accuracy": 0.9955
+  },
+  "coverage_at_err": {
+   "2%": 0.996,
+   "5%": 1.0,
+   "10%": 1.0
+  },
+  "per_domain": {
+   "appliance_issue": "18/20",
+   "citation_relation": "20/20",
+   "contract_clause": "20/20",
+   "database_intent": "20/20",
+   "date_semantics": "19/20",
+   "document_type": "20/20",
+   "email_intent": "17/20",
+   "entity_matching": "18/20",
+   "function_routing": "20/20",
+   "job_family": "20/20",
+   "logistics_exception": "20/20",
+   "manufacturing_defect": "20/20",
+   "meeting_intent": "20/20",
+   "ml_task": "20/20",
+   "policy_decision": "18/20",
+   "product_taxonomy": "20/20",
+   "research_method": "20/20",
+   "return_reason": "20/20",
+   "science_phenomenon": "20/20",
+   "security_event": "20/20",
+   "semantic_extraction": "20/20",
+   "software_bug": "20/20",
+   "support_routing": "20/20",
+   "transaction_type": "20/20",
+   "word_sense": "20/20"
+  },
+  "meta": {
+   "runtime": "systemone-http",
+   "url": "http://127.0.0.1:11435/v1/systemone",
+   "note": "via Ollama /v1/systemone",
+   "model": "ollama-tinyjev-4b-v2",
+   "suite_sha256": "cd7372e594fce7a5464c3eb3edc73db45c309c8a67e7eef7daf78ec97288edeb"
+  }
+ },
  "opendecision-engine": {
   "n": 500,
   "correct": 428,
@@ -530,7 +762,7 @@
   "accuracy": 0.708,
   "ci95": [
    0.668,
-   0.748
+   0.75
   ],
   "dev": "260/375",
   "holdout": "94/125",
@@ -587,7 +819,7 @@
   "correct": 440,
   "accuracy": 0.88,
   "ci95": [
-   0.852,
+   0.85,
    0.908
   ],
   "dev": "330/375",
@@ -648,7 +880,7 @@
   "accuracy": 0.88,
   "ci95": [
    0.85,
-   0.906
+   0.908
   ],
   "dev": "330/375",
   "holdout": "110/125",
@@ -707,8 +939,8 @@
   "correct": 473,
   "accuracy": 0.946,
   "ci95": [
-   0.926,
-   0.964
+   0.924,
+   0.966
   ],
   "dev": "352/375",
   "holdout": "121/125",
@@ -827,7 +1059,7 @@
   "correct": 414,
   "accuracy": 0.828,
   "ci95": [
-   0.796,
+   0.794,
    0.86
   ],
   "dev": "310/375",

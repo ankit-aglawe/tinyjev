@@ -1,0 +1,69 @@
+diff --git a/server.py b/server.py
+index a49d6d6..d5dd69c 100644
+--- a/server.py
++++ b/server.py
+@@ -30,11 +30,14 @@ import time
+ from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
+ from pathlib import Path
+ 
+-from typesafe_sdk import Choice, Noul, TypeSafeClient, TypeSafeError
++if os.environ.get("OLLAMA_MODEL"):  # a local Ollama decision model instead of TypeSafe's API (ollama_shim.py)
++    from ollama_shim import Choice, Noul, TypeSafeClient, TypeSafeError
++else:
++    from typesafe_sdk import Choice, Noul, TypeSafeClient, TypeSafeError
+ 
+ ROOT = Path(__file__).parent
+ PORT = int(os.environ.get("PORT", "8765"))
+-PRICE_PER_MTOK = 0.042  # jev-1.13 input price in USD; output tokens are free
++PRICE_PER_MTOK = 0.0 if os.environ.get("OLLAMA_MODEL") else 0.042  # jev-1.13 input price in USD; local is free
+ BRAKE_DECEL = 26.0  # m/s², a little under the game's hard braking, so braking advice has margin
+ 
+ 
+@@ -265,7 +268,7 @@ def load_key() -> None:
+             key, sep, value = line.partition("=")
+             if sep and not line.lstrip().startswith("#"):
+                 os.environ.setdefault(key.strip(), value.strip().strip("'\""))
+-    if not os.environ.get("TYPESAFE_API_KEY", "").strip():
++    if not os.environ.get("TYPESAFE_API_KEY", "").strip() and not os.environ.get("OLLAMA_MODEL"):
+         sys.exit("TYPESAFE_API_KEY is not set. Put TYPESAFE_API_KEY=... in a .env file next to server.py.")
+ 
+ 
+diff --git a/web/game.js b/web/game.js
+index d360c8e..1f4f15f 100644
+--- a/web/game.js
++++ b/web/game.js
+@@ -389,7 +389,7 @@ async function jevLoop() {
+   game.loopRunning = true;
+   try {
+     while (game.state === "racing" && !jev.finished) {
+-      if (document.hidden) { // nobody's watching: stop asking (and paying)
++      if (document.hidden && !params.has("film")) { // nobody's watching: stop asking (and paying)
+         setState("paused");
+         break;
+       }
+@@ -811,8 +811,24 @@ renderEngineer();
+ // vertical phone video), ?laps=3 sets the race length, ?auto=1 starts it by itself.
+ const params = new URLSearchParams(location.search);
+ if (params.has("laps")) $("laps").value = params.get("laps");
+-if (params.has("speed")) $("speed").value = params.get("speed");
++if (params.has("speed")) { // ?speed=0.1 runs the race clock slower than real time, for a model slower than the API
++  const sel = $("speed"), v = params.get("speed");
++  if (![...sel.options].some(o => o.value === v)) sel.add(new Option(`${Math.round(v * 100)}%`, v));
++  sel.value = v;
++}
+ if (params.has("film")) document.body.classList.add("film");
++if (params.has("caption")) { // one honest line burned into recordings: model, hardware, clock
++  const c = document.createElement("div");
++  c.textContent = params.get("caption");
++  c.style.cssText = "position:fixed;left:16px;bottom:16px;max-width:640px;padding:10px 14px;border-radius:8px;"
++    + "background:rgba(10,14,20,.82);color:#e8eef5;font:600 19px/1.45 ui-monospace,Menlo,monospace;z-index:9;white-space:pre-line";
++  document.body.appendChild(c);
++}
++if (params.has("driver")) { // name the car and panels after the model driving it (local model recordings)
++  const n = params.get("driver");
++  jev.name = n.toUpperCase();
++  document.querySelectorAll("h2").forEach(h => { h.innerHTML = h.innerHTML.replace(/Jev/g, n); });
++}
+ if (params.has("auto")) setTimeout(startRace, 1200);
+ 
+ requestAnimationFrame(frame);
